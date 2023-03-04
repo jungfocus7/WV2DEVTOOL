@@ -1,12 +1,33 @@
-import { hfnum, hfdtime } from "./js/hflib.js";
+const _droot = document.getElementById('droot');
+const _dlmenu = document.getElementById('dlmenu');
+
+
+const tag = `
+<button class="c_bt"><span>01) TimeStamp Tool</span></button>
+<button class="c_bt"><span>02) Base64 Tool</span></button>
+<button class="c_bt"><span>03) </span></button>
+<button class="c_bt"><span>04) </span></button>
+<button class="c_bt"><span>05) </span></button>
+`.trim();
+_dlmenu.innerHTML = tag;
 
 
 
-const tx1 = hfnum.RandRange(10, 20);
 
-const tx2 = hfdtime.TimeStamp(new Date());
 
-console.log('데이터 마이닝', tx1, tx2);
+
+
+
+
+// import { hfnum, hfdtime } from "./js/hflib.js";
+
+
+
+// const tx1 = hfnum.RandRange(10, 20);
+
+// const tx2 = hfdtime.TimeStamp(new Date());
+
+// console.log('데이터 마이닝', tx1, tx2);
 
 
 

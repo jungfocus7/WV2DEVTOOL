@@ -60,13 +60,11 @@ const fn_work = async (ip) => {
         });
 
         for await (const ls of rl) {
-            if (ls === '') continue;
             const ts = ls.trim();
-            if (fn_checkComments(ts) || fn_checkRegion(ts)) {
-                // console.log('pass', ts);
-            }
+            if (ts === '') continue;
+            if (fn_checkComments(ts) || fn_checkRegion(ts)) { }
             else {
-                _rlst.push(ls.trim());
+                _rlst.push(ts);
             }
         }
     }
@@ -76,6 +74,10 @@ const fn_work = async (ip) => {
 };
 
 
+/**
+ * 작업 진입점
+ * @param {array<string>} ta
+ */
 const fn_entry = async (ta) => {
     const ipa = ta;
     for (const ip of ipa) {
@@ -85,7 +87,7 @@ const fn_entry = async (ta) => {
     if (_rlst.length > 0) {
         const rstr = fn_afterClearComments(_rlst.join('\n'));
         // console.log(rstr);
-        const op = path.resolve(__dirname, `../js/hflib.js`);
+        const op = path.resolve(__dirname, '../js/hflib.js');
         fs.writeFileSync(op, rstr, {encoding: 'utf8'});
     }
 }
