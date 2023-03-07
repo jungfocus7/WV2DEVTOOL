@@ -1,4 +1,5 @@
 ﻿Imports System
+Imports System.Configuration
 Imports System.Drawing
 Imports System.IO
 Imports System.Windows.Forms
@@ -53,10 +54,18 @@ Public NotInheritable Class MainForm
         AddHandler _wb2.CoreWebView2InitializationCompleted, AddressOf prCoreWebView2InitializationCompleted
 
 
-        Dim htmlPath As String = Environment.GetCommandLineArgs()(0)
-        htmlPath = Path.Combine(Path.GetDirectoryName(htmlPath), "HtmlRoot")
+        'Dim htmlPath As String = Environment.GetCommandLineArgs()(0)
+        'htmlPath = Path.Combine(Path.GetDirectoryName(htmlPath), "HtmlRoot")
 
-        Dim htmlRootFile As String = Path.Combine(htmlPath, "Root.html")
+        'Dim htmlRootFile As String = Path.Combine(htmlPath, "Root.html")
+        'If File.Exists(htmlRootFile) Then
+        '    _wb2.Source = New Uri(htmlRootFile)
+        'End If
+
+
+        Dim epp = ConfigurationManager.AppSettings("EntryPoint")
+        Dim htmlPath As String = Path.GetDirectoryName(Environment.GetCommandLineArgs()(0))
+        Dim htmlRootFile As String = htmlPath & epp
         If File.Exists(htmlRootFile) Then
             _wb2.Source = New Uri(htmlRootFile)
         End If
