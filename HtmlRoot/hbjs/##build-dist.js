@@ -11,15 +11,17 @@ class JsMinifier2 {
      * @param {string} ip
      * @param {string} op
      */
-    constructor(frs, fws) {
+    constructor(frs, fws, bd = false) {
         const gd = this.#gd;
         gd.frs = frs;
         gd.fws = fws;
+        gd.bd = bd;
     }
 
     /** 글로벌 데이터 오브젝트 */
     #gd = Object.seal({
         frs: null, fws: null,
+        bd: null,
         rl: null,
         bcm: false,
         bf: true
@@ -63,10 +65,12 @@ class JsMinifier2 {
     fn_clearCommentsMultiLineBegin = (ls) => {
         if ((typeof ls !== 'string') || (ls === '')) return '';
         const gd = this.#gd;
-        // const rx0 = /^\/*\*\*.*$/;
-        // if (rx0.test(ls) === true) {
-        //     return ls;
-        // }
+        if (gd.bd === true) {
+            const rx0 = /^\/*\*\*.*$/;
+            if (rx0.test(ls) === true) {
+                return ls;
+            }
+        }
         const rex = /\/\*.*?$/;
         const tm = ls.match(rex);
         if (Array.isArray(tm) && (tm.length > 0)) {
@@ -170,7 +174,7 @@ class JsMinifier2 {
             // fs.accessSync(ofp);
 
             const frs = fs.createReadStream(ifp);
-            const jsm = new JsMinifier2(frs, fws);
+            const jsm = new JsMinifier2(frs, fws, true);
             await jsm.fn_work();
 
             try { frs.close(); } catch (e) { throw e; }
