@@ -1,15 +1,22 @@
+import * as ff from "./js/hflib.js";
+console.log(ff);
+ff.hfnum.RandRange();
+
 const _droot = document.getElementById('droot');
 const _dlmenu = document.getElementById('dlmenu');
 
 
-const tag = `
-<button class="c_bt"><span>01) TimeStamp Tool</span></button>
-<button class="c_bt"><span>02) Base64 Tool</span></button>
-<button class="c_bt"><span>03) </span></button>
-<button class="c_bt"><span>04) </span></button>
-<button class="c_bt"><span>05) </span></button>
-`.trim();
-_dlmenu.innerHTML = tag;
+(() => {
+    const tag = `
+    <button class="c_bt"><span>01) TimeStamp Tool</span></button>
+    <button class="c_bt"><span>02) Base64 Tool</span></button>
+    <button class="c_bt"><span>03) </span></button>
+    <button class="c_bt"><span>04) </span></button>
+    <button class="c_bt"><span>05) </span></button>
+    `.trim();
+    _dlmenu.innerHTML = tag;
+})();
+
 
 
 
