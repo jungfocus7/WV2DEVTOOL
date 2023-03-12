@@ -1,10 +1,13 @@
-import * as ff from "./js/hflib.js";
-console.log(ff);
-ff.hfnum.RandRange();
+// import * as ff from "./js/hflib.js";
+// console.log(ff);
+// ff.hfnum.RandRange();
 
+
+const _wnd = window;
+const _doc = document;
 const _droot = document.getElementById('droot');
 const _dlmenu = document.getElementById('dlmenu');
-
+const _drcont = document.getElementById('drcont');
 
 (() => {
     const tag = `
@@ -13,8 +16,37 @@ const _dlmenu = document.getElementById('dlmenu');
     <button class="c_bt"><span>03) </span></button>
     <button class="c_bt"><span>04) </span></button>
     <button class="c_bt"><span>05) </span></button>
-    `.trim();
+`.trim();
     _dlmenu.innerHTML = tag;
+
+
+    const tar = _drcont.querySelector('.c_tar');
+    tar.textContent = '아무고토';
+    // console.log(tar);
+    tar.addEventListener('keydown', (e) => {
+        // console.log('tar keydown', e);
+        // console.log(e);
+        if (e.ctrlKey === true) {
+            if (e.key === 'Enter') {
+                console.log('정규식 계산하기');
+                // console.log(tar);
+                // console.log(tar.textContent);
+                console.log(tar.value);
+                // console.log(tar.wrap);
+            }
+        }
+    });
+
+
+    // _wnd.addEventListener('keydown', (e) => {
+    //     console.log('window keydown', e);
+    //     // console.log(e);
+    // });
+
+    // _doc.addEventListener('keydown', (e) => {
+    //     console.log('document keydown', e);
+    //     // console.log(e);
+    // });
 })();
 
 
