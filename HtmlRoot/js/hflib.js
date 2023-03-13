@@ -224,19 +224,19 @@ return tx;
 };
 const fn_me = (tx, td) => {
 const l1 = tx.length;
-if (tx[0] == 'y')
+if (tx[0] === 'y')
 return fn_r(td.getFullYear().toString(), l1);
-else if (tx[0] == 'M')
+else if (tx[0] === 'M')
 return fn_r((td.getMonth() + 1).toString(), l1);
-else if (tx[0] == 'd')
+else if (tx[0] === 'd')
 return fn_r(td.getDate().toString(), l1);
-else if (tx[0] == 'H')
+else if (tx[0] === 'H')
 return fn_r(td.getHours().toString(), l1);
-else if (tx[0] == 'm')
+else if (tx[0] === 'm')
 return fn_r(td.getMinutes().toString(), l1);
-else if (tx[0] == 's')
+else if (tx[0] === 's')
 return fn_r(td.getSeconds().toString(), l1);
-else if (tx[0] == 'f')
+else if (tx[0] === 'f')
 return fn_r(td.getMilliseconds().toString(), l1);
 return tx;
 };
@@ -249,6 +249,7 @@ if (tc === '\0')
 buf1[i] = mrs[i].charCodeAt(0);
 }
 const res = String.fromCharCode.apply(null, buf1);
+return res;
 }
 });
 export class hfCountTask {
