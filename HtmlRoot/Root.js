@@ -16,26 +16,46 @@ const _drcont = document.getElementById('drcont');
     <button class="c_bt"><span>03) </span></button>
     <button class="c_bt"><span>04) </span></button>
     <button class="c_bt"><span>05) </span></button>
-`.trim();
+    `.trim();
     _dlmenu.innerHTML = tag;
 
 
-    const tar = _drcont.querySelector('.c_tar');
-    tar.textContent = '아무고토';
-    // console.log(tar);
-    tar.addEventListener('keydown', (e) => {
-        // console.log('tar keydown', e);
-        // console.log(e);
-        if (e.ctrlKey === true) {
-            if (e.key === 'Enter') {
-                console.log('정규식 계산하기');
-                // console.log(tar);
-                // console.log(tar.textContent);
-                console.log(tar.value);
-                // console.log(tar.wrap);
-            }
-        }
-    });
+    const fn_resize = (e) => {
+        console.log('>>>');
+        // console.log(Object.keys(e));
+        const st1 = getComputedStyle(_droot);
+        const ts = `width: ${st1.width}, height: ${st1.height}`;
+        console.log(ts);
+    };
+    _wnd.addEventListener('resize', fn_resize);
+    fn_resize(null);
+
+
+    // const tar = _drcont.querySelector('.c_tar');
+    // tar.textContent = '아무고토';
+    // // console.log(tar);
+    // tar.addEventListener('keydown', (e) => {
+    //     // console.log('tar keydown', e);
+    //     // console.log(e);
+    //     if (e.ctrlKey === true) {
+    //         if (e.key === 'Enter') {
+    //             console.log('정규식 계산하기');
+    //             // console.log(tar);
+    //             // console.log(tar.textContent);
+    //             console.log(tar.value);
+    //             // console.log(tar.wrap);
+    //         }
+    //     }
+    // });
+
+
+    // _doc.addEventListener('resize', (e) => {
+    //     // console.log('>>>>>>>>> ' + e);
+    //     let x1 = JSON.stringify(e);
+    //     console.log(x1);
+    // });
+    // alert(_doc);
+
 
 
     // _wnd.addEventListener('keydown', (e) => {

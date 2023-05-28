@@ -31,7 +31,7 @@ Public NotInheritable Class MainForm
         MyBase.OnLoad(ea)
 
         Text = [GetType]().Namespace
-        MinimumSize = Size
+        'MinimumSize = Size
         AllowDrop = False
 
 
@@ -114,7 +114,7 @@ Public NotInheritable Class MainForm
 
             If ThRuntime.IsDebugMode Then
                 m_cwb2.OpenDevToolsWindow()
-                m_cwb2.OpenTaskManagerWindow()
+                'm_cwb2.OpenTaskManagerWindow()
             End If
 
             AddHandler m_wb2.WebMessageReceived, AddressOf prWebMessageReceived
