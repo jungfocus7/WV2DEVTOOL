@@ -26,9 +26,9 @@ Public NotInheritable Class MainForm
     ''' <summary>
     ''' Load 이벤트
     ''' </summary>
-    ''' <param name="tea"></param>
-    Protected Overrides Sub OnLoad(tea As EventArgs)
-        MyBase.OnLoad(tea)
+    ''' <param name="ea"></param>
+    Protected Overrides Sub OnLoad(ea As EventArgs)
+        MyBase.OnLoad(ea)
 
         Text = [GetType]().Namespace
         MinimumSize = Size
@@ -44,14 +44,14 @@ Public NotInheritable Class MainForm
         Location = tlp
 
 
-        _cdp = Environment.GetCommandLineArgs()(0)
-        _cdp = Path.GetDirectoryName(_cdp)
+        m_cdp = Environment.GetCommandLineArgs()(0)
+        m_cdp = Path.GetDirectoryName(m_cdp)
 
 
-        _wb2 = WebView21
-        _wb2.AllowExternalDrop = False
+        m_wb2 = WebView21
+        m_wb2.AllowExternalDrop = False
         prWebView2EnsureCoreWebView2Async()
-        AddHandler _wb2.CoreWebView2InitializationCompleted, AddressOf prCoreWebView2InitializationCompleted
+        AddHandler m_wb2.CoreWebView2InitializationCompleted, AddressOf prCoreWebView2InitializationCompleted
 
 
         'Dim htmlPath As String = Environment.GetCommandLineArgs()(0)
@@ -67,7 +67,7 @@ Public NotInheritable Class MainForm
         Dim htmlPath As String = Path.GetDirectoryName(Environment.GetCommandLineArgs()(0))
         Dim htmlRootFile As String = htmlPath & epp
         If File.Exists(htmlRootFile) Then
-            _wb2.Source = New Uri(htmlRootFile)
+            m_wb2.Source = New Uri(htmlRootFile)
         End If
     End Sub
 
@@ -75,17 +75,17 @@ Public NotInheritable Class MainForm
     ''' <summary>
     ''' CurrentDirectoryPath
     ''' </summary>
-    Private _cdp As String
+    Private m_cdp As String
 
     ''' <summary>
     ''' 
     ''' </summary>
-    Private _wb2 As WebView2
+    Private m_wb2 As WebView2
 
     ''' <summary>
     ''' 
     ''' </summary>
-    Private _cwb2 As CoreWebView2
+    Private m_cwb2 As CoreWebView2
 
 
 
@@ -96,7 +96,7 @@ Public NotInheritable Class MainForm
     Private Async Sub prWebView2EnsureCoreWebView2Async()
         Dim cweo As New CoreWebView2EnvironmentOptions("--disable-web-security")
         Dim env As CoreWebView2Environment = Await CoreWebView2Environment.CreateAsync(Nothing, Nothing, cweo)
-        Await _wb2.EnsureCoreWebView2Async(env)
+        Await m_wb2.EnsureCoreWebView2Async(env)
     End Sub
 
 
@@ -105,19 +105,19 @@ Public NotInheritable Class MainForm
     ''' Completed 이벤트
     ''' </summary>
     ''' <param name="tsd"></param>
-    ''' <param name="tea"></param>
-    Private Sub prCoreWebView2InitializationCompleted(tsd As Object, tea As CoreWebView2InitializationCompletedEventArgs)
-        If tea.IsSuccess Then
-            _cwb2 = _wb2.CoreWebView2
+    ''' <param name="ea"></param>
+    Private Sub prCoreWebView2InitializationCompleted(tsd As Object, ea As CoreWebView2InitializationCompletedEventArgs)
+        If ea.IsSuccess Then
+            m_cwb2 = m_wb2.CoreWebView2
             '_cwb2.Settings.IsPinchZoomEnabled = False
-            AddHandler _cwb2.ContextMenuRequested, AddressOf prContextMenuRequested
+            AddHandler m_cwb2.ContextMenuRequested, AddressOf prContextMenuRequested
 
             If ThRuntime.IsDebugMode Then
-                _cwb2.OpenDevToolsWindow()
-                _cwb2.OpenTaskManagerWindow()
+                m_cwb2.OpenDevToolsWindow()
+                m_cwb2.OpenTaskManagerWindow()
             End If
 
-            AddHandler _wb2.WebMessageReceived, AddressOf prWebMessageReceived
+            AddHandler m_wb2.WebMessageReceived, AddressOf prWebMessageReceived
         End If
     End Sub
 
@@ -127,9 +127,9 @@ Public NotInheritable Class MainForm
     ''' 
     ''' </summary>
     ''' <param name="tsd"></param>
-    ''' <param name="tea"></param>
-    Private Sub prContextMenuRequested(tsd As Object, tea As CoreWebView2ContextMenuRequestedEventArgs)
-        tea.Handled = True
+    ''' <param name="ea"></param>
+    Private Sub prContextMenuRequested(tsd As Object, ea As CoreWebView2ContextMenuRequestedEventArgs)
+        ea.Handled = True
     End Sub
 
 
@@ -138,9 +138,9 @@ Public NotInheritable Class MainForm
     ''' 
     ''' </summary>
     ''' <param name="tsd"></param>
-    ''' <param name="tea"></param>
-    Private Sub prWebMessageReceived(tsd As Object, tea As CoreWebView2WebMessageReceivedEventArgs)
-        Dim tmsg As String = tea.TryGetWebMessageAsString()
+    ''' <param name="ea"></param>
+    Private Sub prWebMessageReceived(tsd As Object, ea As CoreWebView2WebMessageReceivedEventArgs)
+        Dim tmsg As String = ea.TryGetWebMessageAsString()
         'MsgBox(tmsg)
 
         Dim tmda() As String = tmsg.Split(";"c)
@@ -161,13 +161,13 @@ Public NotInheritable Class MainForm
     ''' </summary>
     ''' <param name="tfnm"></param>
     Private Sub prLoadSubContent(tfnm As String)
-        Dim tfp As String = Path.Combine(_cdp & "\HtmlRoot", tfnm)
+        Dim tfp As String = Path.Combine(m_cdp & "\HtmlRoot", tfnm)
         If File.Exists(tfp) Then
             Dim tta As String = File.ReadAllText(tfp)
             'MsgBox(tta)
             Dim tcfs As String = $"__fn_loadSub(`" & tta & "`);"
             'MsgBox(tcfs)
-            _cwb2.ExecuteScriptAsync(tcfs)
+            m_cwb2.ExecuteScriptAsync(tcfs)
             '_cwb2.ExecuteScriptAsync("alert('xxxxxxxx');")
 
         End If
@@ -179,15 +179,15 @@ Public NotInheritable Class MainForm
 
 
 
-    'Protected Overrides Sub OnDragEnter(tea As DragEventArgs)
-    '    MyBase.OnDragEnter(tea)
-    '    tea.Effect = DragDropEffects.Link
+    'Protected Overrides Sub OnDragEnter(ea As DragEventArgs)
+    '    MyBase.OnDragEnter(ea)
+    '    ea.Effect = DragDropEffects.Link
     'End Sub
 
 
 
-    'Protected Overrides Sub OnDragDrop(tea As DragEventArgs)
-    '    MyBase.OnDragDrop(tea)
+    'Protected Overrides Sub OnDragDrop(ea As DragEventArgs)
+    '    MyBase.OnDragDrop(ea)
     'End Sub
 
 End Class
