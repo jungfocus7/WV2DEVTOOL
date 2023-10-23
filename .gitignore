@@ -1,0 +1,292 @@
+
+\#\#DEBUG/Microsoft.Web.WebView2.Core.dll
+\#\#DEBUG/Microsoft.Web.WebView2.Core.xml
+\#\#DEBUG/Microsoft.Web.WebView2.WinForms.dll
+\#\#DEBUG/Microsoft.Web.WebView2.WinForms.xml
+\#\#DEBUG/Microsoft.Web.WebView2.Wpf.dll
+\#\#DEBUG/Microsoft.Web.WebView2.Wpf.xml
+\#\#DEBUG/runtimes/win-arm64/native/WebView2Loader.dll
+\#\#DEBUG/runtimes/win-x64/native/WebView2Loader.dll
+\#\#DEBUG/runtimes/win-x86/native/WebView2Loader.dll
+\#\#DEBUG/WV2DEVTOOL__vb.exe
+\#\#DEBUG/WV2DEVTOOL__vb.exe.config
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/BrowserMetrics/BrowserMetrics-65362571-3044.pma
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Crashpad/metadata
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Crashpad/settings.dat
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Crashpad/throttle_store.dat
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/AssistanceHome/AssistanceHomeSQLite
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/AssistanceHome/AssistanceHomeSQLite-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/AutofillStrikeDatabase/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/AutofillStrikeDatabase/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/BudgetDatabase/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/BudgetDatabase/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Cache/Cache_Data/data_0
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Cache/Cache_Data/data_1
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Cache/Cache_Data/data_2
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Cache/Cache_Data/data_3
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Cache/Cache_Data/f_000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Cache/Cache_Data/index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Code Cache/js/index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Code Cache/js/index-dir/the-real-index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Code Cache/wasm/index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Code Cache/wasm/index-dir/the-real-index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/commerce_subscription_db/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/commerce_subscription_db/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/databases/Databases.db
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/databases/Databases.db-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/DawnCache/data_0
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/DawnCache/data_1
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/DawnCache/data_2
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/DawnCache/data_3
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/DawnCache/index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/DIPS
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/DIPS-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/discounts_db/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/discounts_db/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Download Service/EntryDB/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Download Service/EntryDB/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/EdgeEDrop/EdgeEDropSQLite.db
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/EdgeEDrop/EdgeEDropSQLite.db-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/EdgeHubAppUsage/EdgeHubAppUsageSQLite.db
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/EdgeHubAppUsage/EdgeHubAppUsageSQLite.db-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Rules/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Rules/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Rules/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Rules/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Rules/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Scripts/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Scripts/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Scripts/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Scripts/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension Scripts/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension State/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension State/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension State/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension State/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extension State/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/ExtensionActivityComp
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/ExtensionActivityComp-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/ExtensionActivityEdge
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/ExtensionActivityEdge-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extensions/kfbdpdaobnofkbopebjglnaadopfikhh/113.0.1765.0_0/_metadata/computed_hashes.json
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extensions/kfbdpdaobnofkbopebjglnaadopfikhh/113.0.1765.0_0/_metadata/verified_contents.json
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extensions/kfbdpdaobnofkbopebjglnaadopfikhh/113.0.1765.0_0/filelist.txt
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extensions/kfbdpdaobnofkbopebjglnaadopfikhh/113.0.1765.0_0/manifest.json
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extensions/kfbdpdaobnofkbopebjglnaadopfikhh/113.0.1765.0_0/third_party/babylon/babylon.js
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extensions/kfbdpdaobnofkbopebjglnaadopfikhh/113.0.1765.0_0/third_party/babylon/LICENSE.md
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extensions/kfbdpdaobnofkbopebjglnaadopfikhh/113.0.1765.0_0/third_party/typescript/LICENSE.txt
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Extensions/kfbdpdaobnofkbopebjglnaadopfikhh/113.0.1765.0_0/third_party/typescript/typescript.js
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Favicons
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Favicons-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Feature Engagement Tracker/AvailabilityDB/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Feature Engagement Tracker/AvailabilityDB/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Feature Engagement Tracker/EventDB/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Feature Engagement Tracker/EventDB/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/GPUCache/data_0
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/GPUCache/data_1
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/GPUCache/data_2
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/GPUCache/data_3
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/GPUCache/index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/heavy_ad_intervention_opt_out.db
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/heavy_ad_intervention_opt_out.db-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/History
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/History-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/IndexedDB/devtools_devtools_0.indexeddb.leveldb/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/IndexedDB/devtools_devtools_0.indexeddb.leveldb/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/IndexedDB/devtools_devtools_0.indexeddb.leveldb/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/IndexedDB/devtools_devtools_0.indexeddb.leveldb/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/IndexedDB/devtools_devtools_0.indexeddb.leveldb/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Local Storage/leveldb/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Local Storage/leveldb/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Local Storage/leveldb/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Local Storage/leveldb/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Local Storage/leveldb/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Login Data
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Login Data-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network Action Predictor
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network Action Predictor-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/Network Persistent State
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/NetworkDataMigrated
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/Reporting and NEL
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/Reporting and NEL-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/SCT Auditing Pending Reports
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/Sdch Dictionaries
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/TransportSecurity
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/Trust Tokens
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Network/Trust Tokens-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/optimization_guide_hint_cache_store/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/optimization_guide_hint_cache_store/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/optimization_guide_model_metadata_store/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/optimization_guide_model_metadata_store/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/PersistentOriginTrials/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/PersistentOriginTrials/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Preferences
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/PreferredApps
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/README
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Secure Preferences
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Session Storage/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Session Storage/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Session Storage/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Session Storage/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Session Storage/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/metadata/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/metadata/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/metadata/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/metadata/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/shared_proto_db/metadata/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Shortcuts
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Shortcuts-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Site Characteristics Database/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Site Characteristics Database/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Site Characteristics Database/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Site Characteristics Database/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Site Characteristics Database/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Sync Data/LevelDB/000003.log
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Sync Data/LevelDB/CURRENT
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Sync Data/LevelDB/LOCK
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Sync Data/LevelDB/LOG
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Sync Data/LevelDB/MANIFEST-000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Top Sites
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Top Sites-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Visited Links
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Web Data
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/Web Data-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/WebAssistDatabase
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/WebAssistDatabase-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/WebStorage/QuotaManager
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Default/WebStorage/QuotaManager-journal
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GraphiteDawnCache/data_0
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GraphiteDawnCache/data_1
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GraphiteDawnCache/data_2
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GraphiteDawnCache/data_3
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GraphiteDawnCache/index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/data_0
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/data_1
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/data_2
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/data_3
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/f_000001
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/f_000002
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/f_000003
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/f_000004
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/f_000005
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/GrShaderCache/index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Last Version
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Local State
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/ShaderCache/data_0
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/ShaderCache/data_1
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/ShaderCache/data_2
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/ShaderCache/data_3
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/ShaderCache/index
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/SmartScreen/RemoteData/customSynchronousLookupUris
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/SmartScreen/RemoteData/customSynchronousLookupUris_0
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/SmartScreen/RemoteData/edgeSettings
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/SmartScreen/RemoteData/edgeSettings_2.0-0
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/SmartScreen/RemoteData/synchronousLookupUris
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/SmartScreen/RemoteData/synchronousLookupUris_636976985063396749.rel.v2
+\#\#DEBUG/WV2DEVTOOL__vb.exe.WebView2/EBWebView/Variations
+\#\#DEBUG/WV2DEVTOOL__vb.pdb
+\#\#DEBUG/WV2DEVTOOL__vb.xml
+.vs/WV2DEVTOOL/v15/.suo
+.vs/WV2DEVTOOL/v15/Server/sqlite3/db.lock
+.vs/WV2DEVTOOL/v15/Server/sqlite3/storage.ide
+packages/Microsoft.Web.WebView2.1.0.2088.41/.signature.p7s
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/Common.targets
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/Microsoft.Web.WebView2.targets
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/arm64/WebView2Loader.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/arm64/WebView2Loader.dll.lib
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/arm64/WebView2LoaderStatic.lib
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/include-winrt/WebView2Interop.h
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/include-winrt/WebView2Interop.idl
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/include-winrt/WebView2Interop.tlb
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/include/WebView2.h
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/include/WebView2EnvironmentOptions.h
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/Microsoft.Web.WebView2.targets
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/x64/WebView2Loader.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/x64/WebView2Loader.dll.lib
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/x64/WebView2LoaderStatic.lib
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/x86/WebView2Loader.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/x86/WebView2Loader.dll.lib
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/native/x86/WebView2LoaderStatic.lib
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/WebView2Rules.Project.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/build/wv2winrt.targets
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/Microsoft.Web.WebView2.Core.winmd
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/net45/Microsoft.Web.WebView2.Core.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/net45/Microsoft.Web.WebView2.Core.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/net45/Microsoft.Web.WebView2.WinForms.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/net45/Microsoft.Web.WebView2.WinForms.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/net45/Microsoft.Web.WebView2.Wpf.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/net45/Microsoft.Web.WebView2.Wpf.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/netcoreapp3.0/Microsoft.Web.WebView2.Core.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/netcoreapp3.0/Microsoft.Web.WebView2.WinForms.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/lib/netcoreapp3.0/Microsoft.Web.WebView2.Wpf.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/LICENSE.txt
+packages/Microsoft.Web.WebView2.1.0.2088.41/Microsoft.Web.WebView2.1.0.2088.41.nupkg
+packages/Microsoft.Web.WebView2.1.0.2088.41/NOTICE.txt
+packages/Microsoft.Web.WebView2.1.0.2088.41/runtimes/win-arm64/native/WebView2Loader.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/runtimes/win-arm64/native_uap/Microsoft.Web.WebView2.Core.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/runtimes/win-x64/native/WebView2Loader.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/runtimes/win-x64/native_uap/Microsoft.Web.WebView2.Core.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/runtimes/win-x86/native/WebView2Loader.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/runtimes/win-x86/native_uap/Microsoft.Web.WebView2.Core.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/VisualStudioToolsManifest.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/Antlr3.Runtime.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/Antlr4.StringTemplate.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/codegen_util.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/concrt140_app.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/cs/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/de/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/es/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/fr/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/it/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/ja/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/ko/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/msvcp140_1_app.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/msvcp140_2_app.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/msvcp140_app.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/pl/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/pt-BR/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/ru/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/System.Buffers.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/System.CommandLine.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/System.CommandLine.DragonFruit.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/System.CommandLine.Rendering.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/System.Memory.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/System.Numerics.Vectors.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/System.Runtime.CompilerServices.Unsafe.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/tr/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/type_hierarchy.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/vcamp140_app.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/vccorlib140_app.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/vcomp140_app.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/vcruntime140_app.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/winrt_winmd.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/winrt_winmd.winmd
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/wv2winrt.exe
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/wv2winrt.exe.config
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/wv2winrt.xml
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/zh-Hans/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/tools/wv2winrt/zh-Hant/System.CommandLine.resources.dll
+packages/Microsoft.Web.WebView2.1.0.2088.41/WebView2.idl
+packages/Microsoft.Web.WebView2.1.0.2088.41/WebView2.tlb
+WV2DEVTOOL__vb/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+WV2DEVTOOL__vb/obj/Debug/TempPE/My Project.Resources.Designer.vb.dll
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.exe
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.MainForm.resources
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.pdb
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.Resources.resources
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.vbproj.CopyComplete
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.vbproj.CoreCompileInputs.cache
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.vbproj.FileListAbsolute.txt
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.vbproj.GenerateResource.cache
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.vbprojAssemblyReference.cache
+WV2DEVTOOL__vb/obj/Debug/WV2DEVTOOL__vb.xml
