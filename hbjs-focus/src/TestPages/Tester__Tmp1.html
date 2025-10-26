@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS-TESTER</title>
+<style type="text/css">
+    div.c_dd {
+        background-color: red;
+        display: inline-block;
+        width: auto; height: auto;
+        border-radius: 3px;
+        cursor: pointer;
+        user-select: none;
+        font-size: 13px;
+        padding: 4px;
+    }
+    div.c_de {
+        background-color: transparent;
+        width: 100%; height: 100%;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+    }
+
+    div.c_de > span.c_sd {
+        background-color: azure;
+        border-radius: 3px;
+        display: inline-block;
+        width: auto; height: auto;
+        padding: 2px 5px 2px 5px;
+        pointer-events: none;
+    }
+
+    div.c_dd:active > div.c_de > span.c_sd {
+        transform: translate(1px, 1px);
+    }
+</style>
+</head>
+<body>
+    <div class="c_dd">
+        <div class="c_de">
+            <span class="c_sd">개발자 확인 사항</span>
+        </div>
+        <!-- <script>
+            const te = document.querySelector('div.c_dd');
+            const ta = document.styleSheets[0];
+            // console.log(ta, ta.cssRules, ta.rules);
+            // console.log(ta.cssRules === ta.rules);
+            // console.log(ta.rules);
+            console.log(ta.rules[0]);
+        </script> -->
+    </div>
+</body>
+</html>

@@ -4,6 +4,11 @@ export class hfWeich extends EventTarget {
     static ET_UPDATE = 'update';
     static ET_END = 'end';
 
+    /**
+     * 부드러운 움직임 객체
+     * @param {number} now
+     * @param {number} speed
+     */
     constructor(now, speed = 0.3) {
         super();
         this.#running = false;
@@ -14,82 +19,69 @@ export class hfWeich extends EventTarget {
     }
 
     #running = false;
-    get Running() {
+    get running() {
         return this.#running;
     }
 
     #end = 0.0;
-    get End() {
+    get end() {
         return this.#end;
     }
 
     #now = 0.0;
-    get Now() {
+    get now() {
         return this.#now;
     }
 
     #speed = 0.0;
-    get Speed() {
+    get speed() {
         return this.#speed;
     }
 
 
     #fid = -1;
-    #ClearFrame = () => {
+    #clearFrame = () => {
         if (this.#fid === -1) return;
         cancelAnimationFrame(this.#fid);
         this.#fid = -1;
-    };
-    #LoopFrame = (t) => {
+    }
+    #loopFrame = (t) => {
         if (this.#running === false) return;
         const dst = this.#end - this.#now;
         if (Math.abs(dst) < 1) {
             this.#now = this.#end;
             this.dispatchEvent(new Event(hfWeich.ET_END));
-            this.Stop();
+            this.stop();
         }
         else {
             this.#now = this.#now + (dst * this.#speed);
             this.dispatchEvent(new Event(hfWeich.ET_UPDATE));
         }
-        this.#fid = requestAnimationFrame(this.#LoopFrame);
-    };
+        this.#fid = requestAnimationFrame(this.#loopFrame);
+    }
 
 
-    /**
-     * 멈추기
-     */
-    Stop() {
+    stop() {
         if (this.#running === true) {
-            this.#ClearFrame();
+            this.#clearFrame();
             this.#running = false;
         }
     }
 
-    /**
-     * 시작점에서 시작
-     * @param {number} end
-     * @param {number} now
-     * @param {number} speed
-     */
-    FromTo(end, now, speed = NaN) {
+    fromTo(end, now, speed = NaN) {
         if (this.#running === true)
-            this.Stop();
+            this.stop();
         this.#end = end;
         this.#now = now;
         if (isNaN(speed) === false)
             this.#speed = speed;
         this.#running = true;
-        this.#fid = requestAnimationFrame(this.#LoopFrame);
+        this.#fid = requestAnimationFrame(this.#loopFrame);
     }
 
-    /**
-     * 현시점에서 시작
-     * @param {number} end
-     * @param {number} speed
-     */
-    To(end, speed = NaN) {
-        this.FromTo(end, this.#now, speed);
+    to(end, speed = NaN) {
+        this.fromTo(end, this.#now, speed);
     }
+
 }
 //#endregion

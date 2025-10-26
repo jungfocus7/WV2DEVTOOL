@@ -12,13 +12,13 @@ html, body {
 
 
 /*#region >>> 컨테이너 구조*/
-div#_droot {
+div#droot {
     background-color: transparent;
     width: 100%; height: 100%;
     overflow: auto;
 }
 
-div#_dcontainer {
+div#dcontainer {
     background-color: transparent;
     width: 100%; height: 100%;
     font-size: 0px;
@@ -26,7 +26,7 @@ div#_dcontainer {
     overflow: auto;
 }
 
-div#_dfooter {
+div#dfooter {
     background-color: transparent;
     position: absolute;
     width: auto; height: auto;

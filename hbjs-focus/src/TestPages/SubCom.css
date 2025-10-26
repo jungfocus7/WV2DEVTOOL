@@ -1,0 +1,91 @@
+html, body {
+    background-color: cadetblue;
+    margin: 2px; padding: 0px;
+    font-family: 'Malgun Gothic', 'Consolas', 'monaco', 'monospace';
+    font-size: 12px;
+    overflow: hidden;
+}
+
+div#_droot {
+    margin: 0px; padding: 0px;
+    box-sizing: border-box;
+    width: auto; height: calc(100vh - 40px);
+    display: block; background-color: cadetblue;
+    overflow: auto;
+}
+
+div#_droot > span.c_nm {
+    display: block; background-color: transparent;
+    margin: 0px; padding: 0px;
+    font-weight: bold; font-size: 17px;
+}
+
+div#_droot > svg.c_svg {
+    display: block; background-color: darkgreen;
+    width: 500px; height: 400px;
+    margin: 0px; padding: 0px;
+    border: 0px solid black;
+    cursor: pointer;
+}
+
+div#_droot > textarea.c_tam {
+    width: calc(100% - 10px); height: calc(100% - 30px - 10px);
+    margin: 0px; padding: 5px;
+    border: 0px solid black;
+    resize: none;
+}
+
+div#_droot > textarea.c_tam2 {
+    width: calc(100% - 10px); height: calc(100% - 430px - 10px);
+    margin: 0px; padding: 5px;
+    border: 0px solid black;
+    resize: none;
+}
+
+div#_dfooter {
+    background-color: transparent;
+    position: absolute;
+    width: auto; height: auto;
+    overflow: auto;
+    font-size: 0px;
+    white-space: nowrap;
+    right: 5px; bottom: 5px;
+}
+
+/* div#_dfooter > input.c_bt {
+    background-color: blue;
+    color: whitesmoke;
+    box-sizing: border-box;
+    border: 1px solid black;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 5px;
+} */
+
+
+
+/*{########## 하단 버튼 스타일*/
+    button.c_bt {
+        background-color: darkblue;
+        color: whitesmoke;
+        box-sizing: border-box;
+        border: 1px dashed transparent;
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 5px;
+        transition: border-color 0.3s ease-out;
+    }
+    button.c_bt:hover {
+        transition-duration: 0s;
+        border-color: thistle;
+    }
+    button.c_bt > span {
+        display: inline-block;
+        width: auto; height: auto;
+        padding: 0px 1px 0px 1px;
+        pointer-events: none;
+    }
+    button.c_bt:active > span {
+        transform: translate(1px, 1px);
+    }
+/*}##########*/

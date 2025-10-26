@@ -1,7 +1,7 @@
 //#region `hfNumberRanger: `
 const hfNumberRanger = Object.freeze(class {
     /**
-     * Number를 min, max, len 기준점으로 안전한 범위관리
+     * Number를 min, len, max 기준점으로 안전한 범위관리
      * @param {number} min
      * @param {number} len
      */
