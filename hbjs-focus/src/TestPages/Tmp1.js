@@ -14,4 +14,4 @@ const fn_titleCase = (str) => {
 };
 
 
-fn_titleCase()
+fn_titleCase();
