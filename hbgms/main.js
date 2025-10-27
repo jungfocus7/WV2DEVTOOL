@@ -72,14 +72,14 @@ const _gdo = Object.seal({
     // rct1.style.setProperty('t')
     // console.log(getComputedStyle(rct1));
     // console.log(''+rct1);
-    console.log(getComputedStyle(rct1));
+    // console.log(getComputedStyle(rct1));
 
-    _gdo.twx = new hfTween(0, 36, hfEaseCircular.easeOut,
+    _gdo.twx = new hfTween(0, 36, hfEaseCircular.easeInOut,
         (_, cv) => {
             rct1.setAttribute('x', cv);
         });
 
-    _gdo.twy = new hfTween(0, 36, hfEaseCircular.easeOut,
+    _gdo.twy = new hfTween(0, 36, hfEaseCircular.easeInOut,
         (_, cv) => {
             rct1.setAttribute('y', cv);
         });

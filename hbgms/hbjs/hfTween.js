@@ -132,7 +132,9 @@ const hfEaseExponential = Object.seal({
 
 //#region `hfTween: `
 const hfTween = Object.freeze(class {
+    /** EventType Update */
     static ET_UPDATE = 'update';
+    /** EventType End */
     static ET_END = 'end';
 
     /**
@@ -156,50 +158,71 @@ const hfTween = Object.freeze(class {
         gd.cbf = cbf;
     }
 
-    #gd = {
+    #gd = Object.seal({
         running: false,
         begin: 0.0,
         end: 0.0,
         current: 0.0,
         time: 0,
         duration: 0,
+        /** 이징함수 */
         ease: null,
+        /** 콜백함수 */
         cbf: null,
+        /** FrameId */
         fid: -1,
-    };
+    });
 
+    /**
+     * Tween중인가 여부
+     */
     get running() {
         return this.#gd.running;
     }
 
+    /**
+     * 시작 값
+     */
     get begin() {
         return this.#gd.begin;
     }
 
+    /**
+     * 끝 값
+     */
     get end() {
         return this.#gd.end;
     }
 
+    /**
+     * 현재 값
+     */
     get current() {
         return this.#gd.current;
     }
 
+    /**
+     * 진행시간
+     */
     get time() {
         return this.#gd.time;
     }
 
+    /**
+     * 도달시간
+     */
     get duration() {
         return this.#gd.duration;
     }
 
-    #clearFrame = () => {
+    #fn_clearFrame = () => {
         const gd = this.#gd
         if (gd.fid === -1) return;
         cancelAnimationFrame(gd.fid);
-        gd.id = -1;
+        gd.fid = -1;
     }
 
-    #loopFrame = (t) => {
+    #fn_loopFrame = (t) => {
         const gd = this.#gd
         if (gd.running === false) return;
         if (gd.time < gd.duration) {
@@ -211,13 +234,13 @@ const hfTween = Object.freeze(class {
                 this.stop();
             }
         }
-        gd.fid = requestAnimationFrame(this.#loopFrame);
+        gd.fid = requestAnimationFrame(this.#fn_loopFrame);
     }
 
     stop() {
         const gd = this.#gd;
         if (gd.running === true) {
-            this.#clearFrame();
+            this.#fn_clearFrame();
             gd.running = false;
         }
     }
@@ -235,7 +258,7 @@ const hfTween = Object.freeze(class {
         gd.end = change - begin;
         gd.current = begin;
         gd.running = true;
-        gd.fid = requestAnimationFrame(this.#loopFrame);
+        gd.fid = requestAnimationFrame(this.#fn_loopFrame);
     }
 
     /**
