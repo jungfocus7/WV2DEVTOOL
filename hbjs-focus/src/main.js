@@ -62,10 +62,10 @@ _gdo.cea = _gdo.dcontainer.children;
     }
     _gdo.dfooter.innerHTML = tes;
 
-    _gdo.twr = new hfTween(0, 36, hfEaseBounce.easeOut);
-    _gdo.twr.addEventListener(hfTween.ET_UPDATE, (te) => {
-        _gdo.dcontainer.scrollTo(_gdo.twr.current, 0);
-    });
+    _gdo.twr = new hfTween(0, 36, hfEaseBounce.easeOut,
+        (_, cv) => {
+            _gdo.dcontainer.scrollTo(cv, 0);
+        });
     _gdo.btns = _gdo.dfooter.querySelectorAll('button.c_bt');
 
 

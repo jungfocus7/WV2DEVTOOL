@@ -131,121 +131,142 @@ const hfEaseExponential = Object.seal({
 
 
 //#region `hfTween: `
-const hfTween = Object.freeze(class extends EventTarget {
+const hfTween = Object.freeze(class {
+    /** EventType Update */
     static ET_UPDATE = 'update';
+    /** EventType End */
     static ET_END = 'end';
 
     /**
      * 트윈 클래스 생성자
-     * @param {number} current
-     * @param {number} duration
-     * @param {Function} ease
+     * @param {number} current 현재값
+     * @param {number} duration 진행시간(초)
+     * @param {Function} ease 이징함수
+     * @param {function(string, number): void} cbf 콜백함수
      */
-    constructor(current = 0, duration = 36, ease = null) {
-        super();
-        this.#running = false;
-        this.#begin = current;
-        this.#end = current;
-        this.#current = current;
-        this.#time = 0;
-        this.#duration = duration;
-        const fx = ease ?? hfEaseBack.easeInOut;
-        this.#ease = fx.bind(hfEaseBack);
+    constructor(current = 0, duration = 36, ease = null, cbf = null) {
         Object.seal(this);
-        // console.log(
-        //     this.#running,
-        //     this.#begin, this.#end, this.#current,
-        //     this.#time, this.#duration,
-        //     this.#ease);
+        const gd = this.#gd;
+        gd.running = false;
+        gd.begin = current;
+        gd.end = current;
+        gd.current = current;
+        gd.time = 0;
+        gd.duration = duration;
+        const fx = ease ?? hfEaseCircular.easeInOut;
+        gd.ease = fx.bind(hfEaseBack);
+        gd.cbf = cbf;
     }
 
-    #running = false;
+    #gd = Object.seal({
+        running: false,
+        begin: 0.0,
+        end: 0.0,
+        current: 0.0,
+        time: 0,
+        duration: 0,
+        /** 이징함수 */
+        ease: null,
+        /** 콜백함수 */
+        cbf: null,
+        /** FrameId */
+        fid: -1,
+    });
+
+    /**
+     * Tween중인가 여부
+     */
     get running() {
-        return this.#running;
+        return this.#gd.running;
     }
 
-    #begin = 0.0;
+    /**
+     * 시작 값
+     */
     get begin() {
-        return this.#begin;
+        return this.#gd.begin;
     }
 
-    #end = 0.0;
+    /**
+     * 끝 값
+     */
     get end() {
-        return this.#end;
+        return this.#gd.end;
     }
 
-    #current = 0.0;
+    /**
+     * 현재 값
+     */
     get current() {
-        return this.#current;
+        return this.#gd.current;
     }
 
-    #time = 0;
+    /**
+     * 진행시간
+     */
     get time() {
-        return this.#time;
+        return this.#gd.time;
     }
 
-    #duration = 0;
+    /**
+     * 도달시간
+     */
     get duration() {
-        return this.#duration;
+        return this.#gd.duration;
     }
 
-    #ease = 0;
-    get ease() {
-        return this.#ease;
+    #fn_clearFrame = () => {
+        const gd = this.#gd
+        if (gd.fid === -1) return;
+        cancelAnimationFrame(gd.fid);
+        gd.fid = -1;
     }
 
-
-    #fid = -1;
-    #clearFrame = () => {
-        if (this.#fid === -1) return;
-        cancelAnimationFrame(this.#fid);
-        this.#fid = -1;
-    }
-    #loopFrame = (t) => {
-        if (this.#running === false) return;
-        if (this.#time < this.#duration) {
-            ++this.#time;
-            this.#current = this.#ease(this.#time, this.#begin, this.#end, this.#duration);
-            // console.log(this.#time, this.#current);
-            this.dispatchEvent(new Event(hfTween.ET_UPDATE));
-            if (this.#time >= this.#duration) {
-                this.dispatchEvent(new Event(hfTween.ET_END));
+    #fn_loopFrame = (t) => {
+        const gd = this.#gd
+        if (gd.running === false) return;
+        if (gd.time < gd.duration) {
+            ++gd.time;
+            gd.current = gd.ease(gd.time, gd.begin, gd.end, gd.duration);
+            gd.cbf(hfTween.ET_UPDATE, gd.current);
+            if (gd.time >= gd.duration) {
+                gd.cbf(hfTween.ET_END, gd.current);
                 this.stop();
             }
         }
-        this.#fid = requestAnimationFrame(this.#loopFrame);
+        gd.fid = requestAnimationFrame(this.#fn_loopFrame);
     }
 
-
     stop() {
-        if (this.#running === true) {
-            this.#clearFrame();
-            this.#running = false;
+        const gd = this.#gd;
+        if (gd.running === true) {
+            this.#fn_clearFrame();
+            gd.running = false;
         }
     }
 
     /**
-     *
      * @param {number} begin
      * @param {number} change
      */
     fromTo(begin, change) {
-        if (this.#running === true)
+        const gd = this.#gd;
+        if (gd.running === true)
             this.stop();
-        this.#time = 0;
-        this.#begin = begin;
-        this.#end = change - begin;
-        this.#current = begin;
-        this.#running = true;
-        this.#fid = requestAnimationFrame(this.#loopFrame);
+        gd.time = 0;
+        gd.begin = begin;
+        gd.end = change - begin;
+        gd.current = begin;
+        gd.running = true;
+        gd.fid = requestAnimationFrame(this.#fn_loopFrame);
     }
 
     /**
-     *
      * @param {number} change
      */
     to(change) {
-        this.fromTo(this.#current, change);
+        const gd = this.#gd;
+        this.fromTo(gd.current, change);
     }
 
 });
@@ -256,6 +277,6 @@ export {
     hfEaseCircular,
     hfEaseElastic,
     hfEaseExponential,
-    hfTween
+    hfTween,
 };
 //#endregion
