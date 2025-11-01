@@ -10,26 +10,26 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   build: {
     // 빌드 출력 위치
-    outDir: 'dist', 
-    
+    outDir: 'dist',
+
     // 라이브러리 모드 활성화 (번들링 전용)
     lib: {
       // 💡 번들링을 시작할 진입점 파일 지정
-      entry: 'src/index.js', 
-      
+      entry: 'src/index.js',
+
       // 최종 번들 파일의 이름 지정
-      name: 'MyCustomLibrary', 
-      
+      name: 'MyCustomLibrary',
+
       // 출력 파일 형식 지정 (UMD와 ESM 모두 권장)
       formats: ['es', 'umd'],
-      
+
       // 출력 파일 이름 패턴 정의
       fileName: (format) => `my-library.${format}.js`,
     },
-    
+
     // Minify 설정
     // 기본적으로 'esbuild'를 사용하여 매우 빠르게 Minify됩니다.
-    minify: 'esbuild', 
+    minify: 'esbuild',
   }
 });
 
@@ -54,3 +54,199 @@ export default defineConfig({
 4) ===============================================
 pnpm run dev
 pnpm run build
+
+
+pnpm create @eslint/config@latest
+eslint.config.js 설정
+vscode eslint extension 설치
+
+// eslint.config.js
+import js from "@eslint/js";
+import globals from "globals";
+import { defineConfig } from "eslint/config";
+
+export default defineConfig([
+    // {
+    //     files: ["**/*.{js,mjs,cjs}"],
+    //     plugins: { js },
+    //     extends: ["js/recommended"],
+    //     languageOptions: { globals: globals.browser },
+    // },
+]);
+
+
+
+
+
+
+9) ===============================================
+[## VSCODE 단축키 정보]
+
+00) CTRL + K, S
+  바로 가기 키 목록
+01) CTRL + SHIFT + SPACE
+  함수에 인자(파라미터)정보 표시
+
+
+
+
+
+
+=====================================================================
+// SVGMatrix는 DOMMatrix의 별칭이다.
+
+
+
+
+
+
+const COLOR_NAMES_TO_COMPLEMENTARY_HEX = {
+    "aliceblue": { bgcr: "aliceblue", txcr: "#0f0700" },
+    "antiquewhite": { bgcr: "antiquewhite", txcr: "#051428" },
+    "aqua": { bgcr: "aqua", txcr: "#ff0000" },
+    "aquamarine": { bgcr: "aquamarine", txcr: "#80002b" },
+    "azure": { bgcr: "azure", txcr: "#0f0000" },
+    "beige": { bgcr: "beige", txcr: "#0a0a23" },
+    "bisque": { bgcr: "bisque", txcr: "#001b3b" },
+    "black": { bgcr: "black", txcr: "#ffffff" },
+    "blanchedalmond": { bgcr: "blanchedalmond", txcr: "#001432" },
+    "blue": { bgcr: "blue", txcr: "#ffff00" },
+    "blueviolet": { bgcr: "blueviolet", txcr: "#75d41d" },
+    "brown": { bgcr: "brown", txcr: "#5ad5d5" },
+    "burlywood": { bgcr: "burlywood", txcr: "#214778" },
+    "cadetblue": { bgcr: "cadetblue", txcr: "#a0615f" },
+    "chartreuse": { bgcr: "chartreuse", txcr: "#8000ff" },
+    "chocolate": { bgcr: "chocolate", txcr: "#2d96e1" },
+    "coral": { bgcr: "coral", txcr: "#0080af" },
+    "cornflowerblue": { bgcr: "cornflowerblue", txcr: "#9b6a12" },
+    "cornsilk": { bgcr: "cornsilk", txcr: "#000723" },
+    "crimson": { bgcr: "crimson", txcr: "#23ebd3" },
+    "cyan": { bgcr: "cyan", txcr: "#ff0000" },
+    "darkblue": { bgcr: "darkblue", txcr: "#ffff74" },
+    "darkcyan": { bgcr: "darkcyan", txcr: "#ff7474" },
+    "darkgoldenrod": { bgcr: "darkgoldenrod", txcr: "#4779f4" },
+    "darkgray": { bgcr: "darkgray", txcr: "#565656" },
+    "darkgreen": { bgcr: "darkgreen", txcr: "#ff9bff" },
+    "darkgrey": { bgcr: "darkgrey", txcr: "#565656" },
+    "darkkhaki": { bgcr: "darkkhaki", txcr: "#444894" },
+    "darkmagenta": { bgcr: "darkmagenta", txcr: "#74ff74" },
+    "darkolivegreen": { bgcr: "darkolivegreen", txcr: "#aa94d0" },
+    "darkorange": { bgcr: "darkorange", txcr: "#0073ff" },
+    "darkorchid": { bgcr: "darkorchid", txcr: "#66cd33" },
+    "darkred": { bgcr: "darkred", txcr: "#74ffff" },
+    "darksalmon": { bgcr: "darksalmon", txcr: "#166985" },
+    "darkseagreen": { bgcr: "darkseagreen", txcr: "#704370" },
+    "darkslateblue": { bgcr: "darkslateblue", txcr: "#b7c274" },
+    "darkslategray": { bgcr: "darkslategray", txcr: "#d0b0b0" },
+    "darkslategrey": { bgcr: "darkslategrey", txcr: "#d0b0b0" },
+    "darkturquoise": { bgcr: "darkturquoise", txcr: "#ff322e" },
+    "darkviolet": { bgcr: "darkviolet", txcr: "#6bfff2" },
+    "deeppink": { bgcr: "deeppink", txcr: "#00eb6c" },
+    "deepskyblue": { bgcr: "deepskyblue", txcr: "#ff4000" },
+    "dimgray": { bgcr: "dimgray", txcr: "#969696" },
+    "dimgrey": { bgcr: "dimgrey", txcr: "#969696" },
+    "dodgerblue": { bgcr: "dodgerblue", txcr: "#e16f00" },
+    "firebrick": { bgcr: "firebrick", txcr: "#4d3ddc" },
+    "floralwhite": { bgcr: "floralwhite", txcr: "#00050f" },
+    "forestgreen": { bgcr: "forestgreen", txcr: "#dd74dd" },
+    "fuchsia": { bgcr: "fuchsia", txcr: "#00ff00" },
+    "gainsboro": { bgcr: "gainsboro", txcr: "#232323" },
+    "ghostwhite": { bgcr: "ghostwhite", txcr: "#070700" },
+    "gold": { bgcr: "gold", txcr: "#0028ff" },
+    "goldenrod": { bgcr: "goldenrod", txcr: "#215a3f" },
+    "gray": { bgcr: "gray", txcr: "#7f7f7f" },
+    "green": { bgcr: "green", txcr: "#ff7f7f" },
+    "greenyellow": { bgcr: "greenyellow", txcr: "#5200d0" },
+    "grey": { bgcr: "grey", txcr: "#7f7f7f" },
+    "honeydew": { bgcr: "honeydew", txcr: "#0f000f" },
+    "hotpink": { bgcr: "hotpink", txcr: "#00964b" },
+    "indianred": { bgcr: "indianred", txcr: "#32a3a3" },
+    "indigo": { bgcr: "indigo", txcr: "#b4ff7d" },
+    "ivory": { bgcr: "ivory", txcr: "#00000f" },
+    "khaki": { bgcr: "khaki", txcr: "#0f1973" },
+    "lavender": { bgcr: "lavender", txcr: "#191905" },
+    "lavenderblush": { bgcr: "lavenderblush", txcr: "#000f0a" },
+    "lawngreen": { bgcr: "lawngreen", txcr: "#8303ff" },
+    "lemonchiffon": { bgcr: "lemonchiffon", txcr: "#000332" },
+    "lightblue": { bgcr: "lightblue", txcr: "#522719" },
+    "lightcoral": { bgcr: "lightcoral", txcr: "#0f7f7f" },
+    "lightcyan": { bgcr: "lightcyan", txcr: "#1f0000" },
+    "lightgoldenrodyellow": { bgcr: "lightgoldenrodyellow", txcr: "#05052d" },
+    "lightgray": { bgcr: "lightgray", txcr: "#2c2c2c" },
+    "lightgreen": { bgcr: "lightgreen", txcr: "#6f116f" },
+    "lightgrey": { bgcr: "lightgrey", txcr: "#2c2c2c" },
+    "lightpink": { bgcr: "lightpink", txcr: "#00493e" },
+    "lightsalmon": { bgcr: "lightsalmon", txcr: "#005f85" },
+    "lightseagreen": { bgcr: "lightseagreen", txcr: "#df4d55" },
+    "lightskyblue": { bgcr: "lightskyblue", txcr: "#783105" },
+    "lightslategray": { bgcr: "lightslategray", txcr: "#887766" },
+    "lightslategrey": { bgcr: "lightslategrey", txcr: "#887766" },
+    "lightsteelblue": { bgcr: "lightsteelblue", txcr: "#4f3b21" },
+    "lightyellow": { bgcr: "lightyellow", txcr: "#00001f" },
+    "lime": { bgcr: "lime", txcr: "#ff00ff" },
+    "limegreen": { bgcr: "limegreen", txcr: "#cd32cd" },
+    "linen": { bgcr: "linen", txcr: "#050f19" },
+    "magenta": { bgcr: "magenta", txcr: "#00ff00" },
+    "maroon": { bgcr: "maroon", txcr: "#7fff7f" },
+    "mediumaquamarine": { bgcr: "mediumaquamarine", txcr: "#993255" },
+    "mediumblue": { bgcr: "mediumblue", txcr: "#ffff32" },
+    "mediumorchid": { bgcr: "mediumorchid", txcr: "#45a22c" },
+    "mediumpurple": { bgcr: "mediumpurple", txcr: "#6c8f24" },
+    "mediumseagreen": { bgcr: "mediumseagreen", txcr: "#c34c8e" },
+    "mediumslateblue": { bgcr: "mediumslateblue", txcr: "#849711" },
+    "mediumspringgreen": { bgcr: "mediumspringgreen", txcr: "#ff0565" },
+    "mediumturquoise": { bgcr: "mediumturquoise", txcr: "#b72e33" },
+    "mediumvioletred": { bgcr: "mediumvioletred", txcr: "#38eadd" },
+    "midnightblue": { bgcr: "midnightblue", txcr: "#e6e68f" },
+    "mintcream": { bgcr: "mintcream", txcr: "#0a0005" },
+    "mistyrose": { bgcr: "mistyrose", txcr: "#001b1e" },
+    "moccasin": { bgcr: "moccasin", txcr: "#001b4a" },
+    "navajowhite": { bgcr: "navajowhite", txcr: "#002152" },
+    "navy": { bgcr: "navy", txcr: "#ffff7f" },
+    "oldlace": { bgcr: "oldlace", txcr: "#020a19" },
+    "olive": { bgcr: "olive", txcr: "#7f7f00" },
+    "olivedrab": { bgcr: "olivedrab", txcr: "#9471dc" },
+    "orange": { bgcr: "orange", txcr: "#005a00" },
+    "orangered": { bgcr: "orangered", txcr: "#00ba38" },
+    "orchid": { bgcr: "orchid", txcr: "#258f29" },
+    "palegoldenrod": { bgcr: "palegoldenrod", txcr: "#111755" },
+    "palegreen": { bgcr: "palegreen", txcr: "#670467" },
+    "paleturquoise": { bgcr: "paleturquoise", txcr: "#501111" },
+    "palevioletred": { bgcr: "palevioletred", txcr: "#248f6c" },
+    "papayawhip": { bgcr: "papayawhip", txcr: "#00102a" },
+    "peachpuff": { bgcr: "peachpuff", txcr: "#002146" },
+    "peru": { bgcr: "peru", txcr: "#327a3c" },
+    "pink": { bgcr: "pink", txcr: "#003f34" },
+    "plum": { bgcr: "plum", txcr: "#225f22" },
+    "powderblue": { bgcr: "powderblue", txcr: "#4f1f19" },
+    "purple": { bgcr: "purple", txcr: "#7fff7f" },
+    "rebeccapurple": { bgcr: "rebeccapurple", txcr: "#99cc66" },
+    "red": { bgcr: "red", txcr: "#00ffff" },
+    "rosybrown": { bgcr: "rosybrown", txcr: "#437070" },
+    "royalblue": { bgcr: "royalblue", txcr: "#be961e" },
+    "saddlebrown": { bgcr: "saddlebrown", txcr: "#74baec" },
+    "salmon": { bgcr: "salmon", txcr: "#057f8d" },
+    "sandybrown": { bgcr: "sandybrown", txcr: "#0b5b9f" },
+    "seagreen": { bgcr: "seagreen", txcr: "#d174a8" },
+    "seashell": { bgcr: "seashell", txcr: "#000a11" },
+    "sienna": { bgcr: "sienna", txcr: "#5fada1" },
+    "silver": { bgcr: "silver", txcr: "#3f3f3f" },
+    "skyblue": { bgcr: "skyblue", txcr: "#783114" },
+    "slateblue": { bgcr: "slateblue", txcr: "#95a332" },
+    "slategray": { bgcr: "slategray", txcr: "#8f7f6f" },
+    "slategrey": { bgcr: "slategrey", txcr: "#8f7f6f" },
+    "snow": { bgcr: "snow", txcr: "#000505" },
+    "springgreen": { bgcr: "springgreen", txcr: "#ff0080" },
+    "steelblue": { bgcr: "steelblue", txcr: "#b97d4b" },
+    "tan": { bgcr: "tan", txcr: "#2d4b73" },
+    "teal": { bgcr: "teal", txcr: "#ff7f7f" },
+    "thistle": { bgcr: "thistle", txcr: "#274027" },
+    "tomato": { bgcr: "tomato", txcr: "#009cb8" },
+    "turquoise": { bgcr: "turquoise", txcr: "#bf1f2f" },
+    "violet": { bgcr: "violet", txcr: "#117d11" },
+    "wheat": { bgcr: "wheat", txcr: "#0a214c" },
+    "white": { bgcr: "white", txcr: "#000000" },
+    "whitesmoke": { bgcr: "whitesmoke", txcr: "#0a0a0a" },
+    "yellow": { bgcr: "yellow", txcr: "#0000ff" },
+    "yellowgreen": { bgcr: "yellowgreen", txcr: "#6332cd" }
+};

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+  <!-- <svg style="background-color: rgb(14, 44, 145); width: 200px; height: 200px;"> -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"
+    style="background-color: rebeccapurple;">
+    <defs>
+      <rect id="gt1" width="50" height="50" x="75" y="75" fill="#ffffff"/>
+      <mask id="mask1">
+        <!-- <rect x="0" y="0" width="30" height="30" fill="white"/> -->
+        <!-- <rect width="50" height="50" x="75" y="75" fill="orange"/> -->
+        <use href="#gt1"/>
+      </mask>
+    </defs>
+
+    <!-- <rect width="50" height="50" x="75" y="75" fill="orange"/> -->
+     <!-- <use href="#gt1"/> -->
+    <text x="100" y="100" font-family="Arial" font-size="96" fill="blue"
+      text-anchor="middle" mask="url(#mask1)"
+      dominant-baseline="central">확인</text>
+    <!-- <rect x="25" y="25" width="50" height="50" fill="green"/> -->
+    <!-- <g transform="translate(40, 40)">
+            <rect width="70" height="70" fill="#4CAF50" rx="0"/>
+            <text x="35" y="35" font-family="Arial" font-size="16"
+                fill="white" text-anchor="middle"
+                dominant-baseline="central">확인</text>
+        </g> -->
+    <!-- <rect width="70" height="70" fill="#4CAF50" rx="0"
+            style="pointer-events: none;"/> -->
+
+    <!-- <text x="35" y="35" font-family="Arial" font-size="16"
+                fill="white" text-anchor="middle" co
+                dominant-baseline="central">확인</text> -->
+  </svg>
+</body>
+
+</html>
