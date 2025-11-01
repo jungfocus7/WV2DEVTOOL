@@ -1,0 +1,49 @@
+/*#region >>> html, body*/
+html, body {
+    background-color: black;
+    width: 100vw; height: 100vh;
+    margin: 0px; padding: 0px;
+    font-family: 'Malgun Gothic', 'Consolas', 'monaco', 'monospace';
+    font-size: 12px;
+    overflow: hidden;
+}
+/*#endregion*/
+
+
+
+/*#region >>> 컨테이너 구조*/
+div#rootCont {
+    background-color: transparent;
+    width: 100%; height: 100%;
+    overflow: auto;
+}
+
+div#gameCont {
+    background-color: transparent;
+    width: 100%; height: 100%;
+    font-size: 0px;
+    white-space: nowrap;
+    overflow: auto;
+}
+
+div#footerCont {
+    background-color: transparent;
+    position: absolute;
+    width: auto; height: auto;
+    overflow: auto;
+    font-size: 0px;
+    white-space: nowrap;
+    right: 10px; bottom: 30px;
+}
+/*#endregion*/
+
+
+
+
+div#gameCont>#svgrt {
+    position: relative;
+    background-color: whitesmoke;
+    width: 500px; height: 500px;
+    left: 10px; top: 10px;
+    cursor: pointer;
+}
