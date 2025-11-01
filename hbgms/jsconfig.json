@@ -2,5 +2,15 @@
     "compilerOptions": {
         "target": "esnext",
         "module": "esnext",
-    }
+        // "checkJs": true,
+        // "moduleResolution": "nodenext",
+        // "typeRoots": ["./types"],
+        // "types": []
+    },
+    "include": [
+        "./js/globals.d.ts",
+        "./js/hfCellItem.js",
+        "./main.js",
+    ],
+    // "exclude": [],
 }

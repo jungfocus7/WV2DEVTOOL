@@ -1,4 +1,3 @@
-import './main_style.css';
 import { hfEaseBounce, hfTween } from "./hbjs/hfTween.js";
 
 
