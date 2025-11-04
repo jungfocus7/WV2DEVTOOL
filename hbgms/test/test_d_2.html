@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+
+
+    <script type="text/javascript">
+        const fn_collectParentHierarchy = (obj, pn = 0) => {
+            const rarr = [];
+
+            let tco = obj;
+            while (tco !== null) {
+                if (pn === 0)
+                    rarr.push(tco);
+                else if (pn === 1)
+                    rarr.push(tco.toString());
+
+                // tco = Reflect.getPrototypeOf(tco); // 원시타입(Primitive Type) 불가
+                tco = Object.getPrototypeOf(tco);
+            }
+
+            // console.log(rarr);
+            return rarr;
+        };
+
+        const fn_enumerateAllProperties = (obj, cbf) => {
+            let tco = obj;
+            while (tco !== null) {
+                for (const tk of Reflect.ownKeys(tco)) {
+                    const to = obj[tk];
+                    cbf(tk, to);
+                }
+
+                tco = Reflect.getPrototypeOf(tco);
+            }
+        };
+
+        const fn_pptest = () => {
+            const obj = Reflect;
+
+            fn_enumerateAllProperties(obj, (tk, to) => {
+                if (typeof tk === 'string') {
+                    console.log(`key: ${tk}, obj: ${to}`);
+                }
+            });
+
+            // Reflect.getOwnPropertyDescriptor(Reflect, '__defineGetter__');
+            // console.log('>>> ' + Reflect.getOwnPropertyDescriptor(Reflect, 'isExtensible'));
+            console.log(Reflect.getOwnPropertyDescriptor(Reflect, 'isExtensible'));
+            Object.freeze(Reflect);
+            console.log(Reflect.getOwnPropertyDescriptor(Reflect, 'isExtensible'));
+            Object.defineProperty(Reflect, 'isExtensible', { writable: true, enumerable: false, configurable: true });
+
+            // Reflect.deleteProperty()
+        };
+        fn_pptest();
+
+    </script>
+
+
+</body>
+
+</html>

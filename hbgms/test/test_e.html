@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body style="background-color: black;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"
+    style="background-color: rebeccapurple; cursor: pointer;" id="svgrt_1">
+    <defs>
+      <!-- <symbol id="src_1" viewBox="0,0,100,100">
+        <rect width="100" height="100" x="0" y="0" fill="yellow"/>
+        <text x="50" y="50" font-family="Arial" font-size="16"
+          fill="blue" text-anchor="middle" font-weight="bolder"
+          dominant-baseline="central">박종명</text>
+      </symbol> -->
+      <clipPath id="clp_1">
+        <rect width="50" height="50" x="0" y="0"/>
+      </clipPath>
+      <g id="src_1">
+        <rect width="50" height="50" x="0" y="0" fill="yellow"/>
+        <text x="25" y="25" font-family="Arial" font-size="11"
+          fill="blue" text-anchor="middle" font-weight="bolder"
+          dominant-baseline="central" clip-path="url(#clp_1)">박종명</text>
+      </g>
+    </defs>
+
+    <!-- <use href="#src_1" width="100" height="200" x="0" y="0" id="use_1" transform="scale(1.0,1.0)"></use> -->
+     <!-- <use href="#src_1" id="use_1"></use> -->
+  </svg>
+
+  <script>
+    const fn_setSize = (mat, tw, th) => {
+      // console.log(mat);
+
+      // if (tw < th) tw = th;
+      // else if (th < tw) th = tw;
+
+      // const ff0 = mat.scale(tw / 100, th / 100);
+      // console.log(ff0);
+      // mat.a = ff0.a;
+      // mat.d = ff0.d;
+      mat.a = (tw / 50);
+      mat.d = (th / 50);
+      // mat.e = 20;
+      // mat.f = 20;
+      // console.log(mat);
+    };
+
+    const fn_getSize = (mat) => {
+      return {
+        width: 100 * mat.a,
+        height: 100 * mat.d/*,
+        toString() {
+         return `width: ${this.width}, height: ${this.height}`;
+        }*/
+      };
+      // let tw = 100 * mat.a;
+      // let th = 100 * mat.b;
+      // return `width: ${tw}, height: ${th}`;
+    };
+
+
+
+    const _svgrt = document.getElementById('svgrt_1');
+    _svgrt.insertAdjacentHTML('beforeend', `
+<use href="#src_1" x="0" y="0" id="use_1" transform="scale(1.0 1.0)"></use>`.trim());
+    // const _use = document.getElementById('use_1');
+    const _use = _svgrt.lastElementChild;
+    const _drc = _svgrt.getBoundingClientRect();
+
+    window.addEventListener('mousemove', (me) => {
+      let tx = me.clientX - _drc.left;
+      let ty = me.clientY - _drc.top;
+      // if (tx < 0) tx = 0;
+      // if (ty < 0) ty = 0;
+      // console.log(tx, ty);
+
+      let tw = tx;
+      let th = ty;
+      // console.log(tw, th);
+
+      console.log(_use.getCTM());
+
+
+      // _use.width.baseVal.value = tw;
+      // _use.height.baseVal.value = th;
+      // console.log(_use.transform);
+      const _x1 = _use.transform.baseVal.getItem(0);
+      // console.log(_x1);
+      // _x1.matrix.a = (tw / 100);
+      // _x1.matrix.d = (th / 100);
+      // console.log(_x1.matrix);
+      // console.log(_x1);
+      fn_setSize(_x1.matrix, tw, th);
+      // fn_setSize(_x1.matrix, 200, 200);
+      // const xx0 = new SVGMatrix('');
+      // _x1.matrix = xx0;
+      // const yy0 = Object.getOwnPropertyDescriptors(Reflect.getPrototypeOf(_x1));
+      // console.log(yy0, _x1.matrix);
+
+      // console.log(fn_getSize(_x1.matrix));
+
+
+
+      // _use.style.width = '6500px';
+      // _use.width = 6500;
+      // _use.width.baseVal.value = 100;
+      // _use.height.baseVal.value = 100;
+      // console.log(_use.width);
+
+      // console.log(me, _use);
+    });
+  </script>
+
+  <!-- <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"
+    style="background-color: aqua;" viewbox="0,0,300,300">
+    <defs>
+      <symbol id="cross" viewBox="0 0 100 100">
+        <rect x="10" y="40" width="80" height="20" fill="red"/>
+        <rect x="40" y="10" width="20" height="80" fill="red"/>
+      </symbol>
+    </defs>
+    <use
+      href="#cross"
+      x="20" y="20"
+      width="50" height="50"
+      fill="green"
+    />
+    <use
+      href="#cross"
+      x="120" y="10"
+      width="100" height="100"
+      fill="blue"
+    />
+  </svg> -->
+
+  <script>
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        // "checkJs": true,
+        // "moduleResolution": "nodenext",
+        // "typeRoots": ["./types"],
+        // "types": []
+    },
+    "include": [
+        "./tapps/tapp_a.js",
+        "./main.js",
+    ],
+    // "exclude": [],
+}
