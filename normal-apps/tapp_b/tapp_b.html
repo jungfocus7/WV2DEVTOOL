@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테트리스 게임</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .game-area {
+            display: flex;
+            gap: 20px;
+        }
+
+        #tetris-board {
+            border: 2px solid #333;
+            background-color: #fff;
+        }
+
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        .preview-container h3 {
+            margin: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        .preview-box {
+            width: 120px;
+            height: 120px;
+            border: 1px solid #999;
+            margin: 5px 0;
+            background-color: #f8f8f8;
+        }
+
+        .game-info {
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        .game-info p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>테트리스 게임</h1>
+    <div class="game-container">
+        <div class="game-area">
+            <div class="preview-container">
+                <h3>다음 블록</h3>
+                <svg id="preview-1" class="preview-box"></svg>
+                <svg id="preview-2" class="preview-box"></svg>
+                <svg id="preview-3" class="preview-box"></svg>
+            </div>
+            <svg id="tetris-board"></svg>
+        </div>
+        <div class="game-info">
+            <p id="score">점수: 0</p>
+            <p id="level">레벨: 1</p>
+            <p id="lines">제거한 줄: 0</p>
+            <p>조작 방법:</p>
+            <p>← → : 이동</p>
+            <p>↑ : 회전</p>
+            <p>↓ : 소프트 드롭</p>
+            <p>스페이스바 : 하드 드롭</p>
+        </div>
+    </div>
+    <script src="tapp_b.js"></script>
+</body>
+</html>

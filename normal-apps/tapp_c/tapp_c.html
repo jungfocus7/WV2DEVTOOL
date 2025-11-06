@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가상화 DataGrid</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .data-grid-container {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ccc;
+            position: relative;
+            overflow: hidden;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .data-grid-header {
+            background: #f0f0f0;
+            border-bottom: 2px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            display: flex;
+            font-weight: bold;
+        }
+
+        .data-grid-content {
+            position: relative;
+            overflow-y: auto;
+            height: calc(100% - 40px);
+        }
+
+        .data-grid-viewport {
+            position: relative;
+        }
+
+        .grid-cell {
+            padding: 8px 12px;
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            flex: 1;
+            min-width: 150px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .grid-row {
+            display: flex;
+            height: 40px;
+            box-sizing: border-box;
+            transition: background-color 0.2s;
+        }
+
+        .grid-row:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .grid-row:hover {
+            background-color: #f0f0f0;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .controls button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .controls button:hover {
+            background-color: #45a049;
+        }
+
+        #stats {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .scroll-bar {
+            position: absolute;
+            right: 0;
+            top: 40px;
+            width: 10px;
+            height: calc(100% - 40px);
+            background: #f0f0f0;
+            cursor: pointer;
+            display: none;
+        }
+
+        .scroll-thumb {
+            position: absolute;
+            width: 100%;
+            background: #ccc;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .scroll-thumb:hover {
+            background: #999;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body style="user-select: none;">
+    <h1>가상화 DataGrid 샘플</h1>
+    <div class="controls">
+        <button id="addRows">10,000행 추가</button>
+        <button id="clearGrid">그리드 초기화</button>
+        <span id="stats"></span>
+    </div>
+
+    <div class="data-grid-container">
+        <div class="data-grid-header" id="gridHeader">
+            <div class="grid-cell">ID</div>
+            <div class="grid-cell">이름</div>
+            <div class="grid-cell">이메일</div>
+            <div class="grid-cell">도시</div>
+            <div class="grid-cell">점수</div>
+        </div>
+        <div class="data-grid-content" id="gridContent">
+            <div class="data-grid-viewport" id="gridViewport"></div>
+        </div>
+        <div class="scroll-bar">
+            <div class="scroll-thumb"></div>
+        </div>
+        <div class="loading-indicator">데이터 로딩 중...</div>
+    </div>
+
+    <script src="tapp_c.js"></script>
+</body>
+</html>
