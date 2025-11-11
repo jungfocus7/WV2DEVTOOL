@@ -1,4 +1,4 @@
-//#region `hfTween: 트윈 클래스`
+//#region `hfWeich: (LastUpdated: 251111)`
 //https://github.com/jungfocus7/jhb0b_as3_libs/blob/master/hbx/src/hbx/balence/CSmoothControl.as
 class hfWeich extends EventTarget {
     static ET_UPDATE = 'update';

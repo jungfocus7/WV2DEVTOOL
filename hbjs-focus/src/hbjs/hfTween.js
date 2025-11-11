@@ -311,7 +311,7 @@ const hfEaseExponential = Object.freeze(class {
 //#endregion
 
 
-//#region `hfTween: 트윈 클래스`
+//#region `hfTween: (LastUpdated: 251111)`
 const hfTween = Object.freeze(class {
     /** EventType Update */
     static ET_UPDATE = 'update';
@@ -319,7 +319,6 @@ const hfTween = Object.freeze(class {
     static ET_END = 'end';
 
     /**
-     * 생성자 (LastUpdated: 251111)
      * @param {number} current 현재값
      * @param {number} duration 진행시간(초)
      * @param {EasingFunction} easing 이징객체
