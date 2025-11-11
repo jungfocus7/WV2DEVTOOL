@@ -24,8 +24,8 @@ const twcend = (te) => {
     tx = twx.end;
     ty = twy.end;
     fn_print(`END: (X=${ tx }, Y=${ ty });`);
-    cc.setAttribute('cx', tx);
-    cc.setAttribute('cy', ty);
+    // cc.setAttribute('cx', tx);
+    // cc.setAttribute('cy', ty);
 };
 twx.addEventListener(hfWeich.ET_UPDATE, twcUpdate);
 twy.addEventListener(hfWeich.ET_UPDATE, twcUpdate);

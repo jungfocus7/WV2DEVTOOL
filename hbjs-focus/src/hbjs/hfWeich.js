@@ -1,6 +1,6 @@
 //#region `hfTween: 트윈 클래스`
 //https://github.com/jungfocus7/jhb0b_as3_libs/blob/master/hbx/src/hbx/balence/CSmoothControl.as
-export class hfWeich extends EventTarget {
+class hfWeich extends EventTarget {
     static ET_UPDATE = 'update';
     static ET_END = 'end';
 
@@ -15,6 +15,7 @@ export class hfWeich extends EventTarget {
         this.#end = now;
         this.#now = now;
         this.#speed = speed;
+        this.#fnfrc = this.#loopFrame.bind(this);
         Object.seal(this);
     }
 
@@ -38,26 +39,31 @@ export class hfWeich extends EventTarget {
         return this.#speed;
     }
 
+    /** @type {FrameRequestCallback} */
+    #fnfrc = null;
+
 
     #fid = -1;
-    #clearFrame = () => {
+    #clearFrame() {
         if (this.#fid === -1) return;
         cancelAnimationFrame(this.#fid);
         this.#fid = -1;
     }
-    #loopFrame = (t) => {
+
+    /** @type {FrameRequestCallback} */
+    #loopFrame(_) {
         if (this.#running === false) return;
         const dst = this.#end - this.#now;
         if (Math.abs(dst) < 1) {
             this.#now = this.#end;
+            this.dispatchEvent(new Event(hfWeich.ET_UPDATE));
             this.dispatchEvent(new Event(hfWeich.ET_END));
             this.stop();
-        }
-        else {
+        } else {
             this.#now = this.#now + (dst * this.#speed);
             this.dispatchEvent(new Event(hfWeich.ET_UPDATE));
         }
-        this.#fid = requestAnimationFrame(this.#loopFrame);
+        this.#fid = requestAnimationFrame(this.#fnfrc);
     }
 
 
@@ -73,10 +79,10 @@ export class hfWeich extends EventTarget {
             this.stop();
         this.#end = end;
         this.#now = now;
-        if (isNaN(speed) === false)
+        if (Number.isNaN(speed) === false)
             this.#speed = speed;
         this.#running = true;
-        this.#fid = requestAnimationFrame(this.#loopFrame);
+        this.#fid = requestAnimationFrame(this.#fnfrc);
     }
 
     to(end, speed = NaN) {
@@ -84,4 +90,10 @@ export class hfWeich extends EventTarget {
     }
 
 }
+Object.freeze(hfWeich);
 //#endregion
+
+
+export {
+    hfWeich
+}
