@@ -319,7 +319,7 @@ const hfTween = Object.freeze(class {
     static ET_END = 'end';
 
     /**
-     * 생성자 (LastUpdated: 251111)
+     * 생성자
      * @param {number} current 현재값
      * @param {number} duration 진행시간(초)
      * @param {EasingFunction} easing 이징객체

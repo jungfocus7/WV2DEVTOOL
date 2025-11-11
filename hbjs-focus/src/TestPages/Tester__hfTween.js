@@ -1,5 +1,13 @@
 import { fn_print, btns } from "./SubCom.js";
-import { hfEaseCircular, hfTween } from "../hbjs/hfTween.js";
+import {
+    hfEasingKind,
+    hfEaseBack,
+    hfEaseBounce,
+    hfEaseCircular,
+    hfEaseElastic,
+    hfEaseExponential,
+    hfTween,
+} from "../hbjs/hfTween.js";
 
 
 
@@ -25,7 +33,7 @@ const fn_cbf = (et, cv) => {
         fn_print(`${et}: (X=${_cx}, Y=${_cy});`);
     }
 };
-const _twa = new hfTween(_cy, 36, hfEaseCircular.easeInOut, fn_cbf);
+const _twa = new hfTween(_cy, 36, new hfEaseElastic(hfEasingKind.easeOut), fn_cbf);
 
 _svgcont.addEventListener('click', (te) => {
     fn_print(`begin: (X=${_cx}, Y=${_cy});`);

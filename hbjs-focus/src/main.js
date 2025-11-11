@@ -1,4 +1,4 @@
-import { hfEaseBounce, hfTween } from "./hbjs/hfTween.js";
+import { hfEasingKind, hfEaseBounce, hfTween } from "./hbjs/hfTween.js";
 
 
 /**
@@ -61,7 +61,7 @@ _gdo.cea = _gdo.dcontainer.children;
     }
     _gdo.dfooter.innerHTML = tes;
 
-    _gdo.twr = new hfTween(0, 36, hfEaseBounce.easeOut,
+    _gdo.twr = new hfTween(0, 36, new hfEaseBounce(hfEasingKind.easeOut),
         (_, cv) => {
             _gdo.dcontainer.scrollTo(cv, 0);
         });
