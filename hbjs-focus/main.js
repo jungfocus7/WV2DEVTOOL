@@ -52,7 +52,9 @@ _gdo.cea = _gdo.dcontainer.children;
     let i = 0, tes = '';
     for (const te of _gdo.cea) {
         let tnm = te.getAttribute('src');
-        const bi = 16;
+        console.log(tnm);
+
+        const bi = 12;
         const ei = tnm.lastIndexOf('.html');
         tnm = tnm.substring(bi, ei);
         const tag = `<button class="c_bt" data-i="${i}"><span>${ tnm }</span></button>`;
@@ -84,6 +86,8 @@ _gdo.cea = _gdo.dcontainer.children;
     }
 
 })();
+
+
 
 
 // const _cea = _dcontainer.children;
