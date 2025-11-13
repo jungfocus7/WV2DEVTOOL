@@ -1,3 +1,27 @@
+import { hfEaseCircular, hfEasingKind, hfTween } from "./js/hfall.min.js";
+
+// console.log('>>> ' + hfTween);
+
+/** @type {HTMLDivElement} */
+const _x0 = document.querySelector('div.c_downPanel');
+// console.log(_x0);
+
+const _x1 = new hfTween(0, 30, new hfEaseCircular(hfEasingKind.easeInOut),
+    (_, cv) => {
+        let tx = -100 * cv;
+        let ty = -100 * cv;
+        _x0.style.transform = `translate(${tx}px,${ty}px)`;
+        console.log(cv);
+
+    });
+_x1.to(1);
+
+
+
+
+
+
+
 // import {
 //     hfEasingKind,
 //     hfEaseBack,
@@ -165,5 +189,3 @@
 //     });
 
 // })();
-
-
