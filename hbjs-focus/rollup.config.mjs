@@ -1,5 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
-// import commonjs from '@rollup/plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
 // import esbuild from 'rollup-plugin-esbuild';
 
@@ -12,13 +12,13 @@ export default {
 		// a)
 		{
 			file: 'dist/hfall.js',
-			format: 'esm',
+			format: 'es',
 			sourcemap: true,
 		},
 		// b)
 		{
 			file: 'dist/hfall.min.js',
-			format: 'esm',
+			format: 'es',
 			sourcemap: true,
 			plugins: [
 				terser({
@@ -27,11 +27,10 @@ export default {
 					},
 					mangle: false,
 				}),
-				/*esbuild({
-					// 👈 isProduction이 true일 때만 esbuild가 코드를 압축(Minify)합니다.
-					minify: true,
-					target: 'esnext',
-				}),*/
+				// esbuild({
+				// 	minify: true,
+				// 	target: 'esnext',
+				// }),
 			],
 		},
 	],
@@ -40,13 +39,12 @@ export default {
 	// 2)
 	plugins: [
 		resolve(),
-		//commonjs(),
-		/*
-		terser({
-			compress: {
-				drop_console: true,
-			}
-		}),*/
+		commonjs(),
+		// terser({
+		// 	compress: {
+		// 		drop_console: true,
+		// 	}
+		// }),
 	],
 
 };

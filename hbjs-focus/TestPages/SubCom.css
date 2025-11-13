@@ -4,6 +4,7 @@ html, body {
     font-family: 'Malgun Gothic', 'Consolas', 'monaco', 'monospace';
     font-size: 12px;
     overflow: hidden;
+    user-select: none;
 }
 
 div#_droot {

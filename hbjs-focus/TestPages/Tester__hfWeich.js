@@ -9,28 +9,28 @@ let tx = parseInt(cc.getAttribute('cx'), 10);
 let ty = parseInt(cc.getAttribute('cy'), 10);
 // console.log(tx, ty);
 
-const twx = new hfWeich(tx);
-const twy = new hfWeich(ty);
-const twcUpdate = (te) => {
-    // console.log(te);
-    tx = twx.now;
-    ty = twy.now;
-    fn_print(`UPDATE: (X=${ tx }, Y=${ ty });`);
-    cc.setAttribute('cx', tx);
-    cc.setAttribute('cy', ty);
+let tc = 0;
+const fn_cbf = (et, _) => {
+    if (et === hfWeich.ET_UPDATE) {
+        tx = twx.now;
+        ty = twy.now;
+        fn_print(`UPDATE: (X=${ tx }, Y=${ ty });`);
+        if (tc == 0) {
+            tc = 1;
+        } else {
+            cc.setAttribute('cx', tx);
+            cc.setAttribute('cy', ty);
+            // console.log(`UPDATE: (X=${ tx }, Y=${ ty });`);
+            tc = 0;
+        }
+    } else if (et === hfWeich.ET_END) {
+        tx = twx.end;
+        ty = twy.end;
+        fn_print(`END: (X=${ tx }, Y=${ ty });`);
+    }
 };
-const twcend = (te) => {
-    // console.log(te);
-    tx = twx.end;
-    ty = twy.end;
-    fn_print(`END: (X=${ tx }, Y=${ ty });`);
-    // cc.setAttribute('cx', tx);
-    // cc.setAttribute('cy', ty);
-};
-twx.addEventListener(hfWeich.ET_UPDATE, twcUpdate);
-twy.addEventListener(hfWeich.ET_UPDATE, twcUpdate);
-twx.addEventListener(hfWeich.ET_END, twcend);
-twy.addEventListener(hfWeich.ET_END, twcend);
+const twx = new hfWeich(tx, 0.05, fn_cbf);
+const twy = new hfWeich(ty, 0.05, fn_cbf);
 
 svgcont.addEventListener('click', (te) => {
     const mx = te.offsetX;
@@ -42,6 +42,6 @@ svgcont.addEventListener('click', (te) => {
 
 
 btns[1].addEventListener('click', (te) => {
-    twx.Stop();
-    twy.Stop();
+    twx.stop();
+    twy.stop();
 });

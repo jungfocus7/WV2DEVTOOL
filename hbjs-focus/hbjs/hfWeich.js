@@ -1,92 +1,98 @@
-//#region `hfWeich: (LastUpdated: 251111)`
+//#region `Signature definition`
+/**
+ * @callback CallbackFunction
+ * @param {string} et - EventType
+ * @param {number} cv - CurrentValue
+ * @returns {void}
+ */
+//#endregion
+
+
+//#region `hfWeich: (LastUpdated: 251114)`
 //https://github.com/jungfocus7/jhb0b_as3_libs/blob/master/hbx/src/hbx/balence/CSmoothControl.as
-class hfWeich extends EventTarget {
+class hfWeich {
     static ET_UPDATE = 'update';
     static ET_END = 'end';
 
     /**
-     * 부드러운 움직임 객체
      * @param {number} now
      * @param {number} speed
+     * @param {CallbackFunction} cbf
      */
-    constructor(now, speed = 0.3) {
-        super();
-        this.#running = false;
-        this.#end = now;
-        this.#now = now;
-        this.#speed = speed;
-        this.#fnfrc = this.#loopFrame.bind(this);
+    constructor(now, speed=0.3, cbf=null) {
+        const md = this.#md;
+        md.end = now;
+        md.now = now;
+        md.speed = speed;
+        md.fnfrc = this.#loopFrame.bind(this);
+        md.cbf = cbf;
         Object.seal(this);
     }
+    #md = Object.seal({
+        end: 0.0,
+        now: 0.0,
+        speed: 0.0,
+        fid: -1,
+        /** @type {FrameRequestCallback} */ fnfrc: null,
+        /** @type {CallbackFunction} */ cbf: null,
+    });
 
-    #running = false;
     get running() {
-        return this.#running;
+        return this.#md.fid !== -1;
     }
 
-    #end = 0.0;
     get end() {
-        return this.#end;
+        return this.#md.end;
     }
 
-    #now = 0.0;
     get now() {
-        return this.#now;
+        return this.#md.now;
     }
 
-    #speed = 0.0;
     get speed() {
-        return this.#speed;
+        return this.#md.speed;
     }
 
-    /** @type {FrameRequestCallback} */
-    #fnfrc = null;
-
-
-    #fid = -1;
     #clearFrame() {
-        if (this.#fid === -1) return;
-        cancelAnimationFrame(this.#fid);
-        this.#fid = -1;
+        const md = this.#md;
+        if (md.fid === -1) return;
+        cancelAnimationFrame(md.fid);
+        md.fid = -1;
     }
 
     /** @type {FrameRequestCallback} */
     #loopFrame(_) {
-        if (this.#running === false) return;
-        const dst = this.#end - this.#now;
+        const md = this.#md;
+        md.fid = requestAnimationFrame(md.fnfrc);
+        const dst = md.end - md.now;
         if (Math.abs(dst) < 1) {
-            this.#now = this.#end;
-            this.dispatchEvent(new Event(hfWeich.ET_UPDATE));
-            this.dispatchEvent(new Event(hfWeich.ET_END));
-            this.stop();
+            md.now = md.end;
+            md.cbf(hfWeich.ET_UPDATE, md.now);
+            md.cbf(hfWeich.ET_END, md.now);
+            this.#clearFrame();
         } else {
-            this.#now = this.#now + (dst * this.#speed);
-            this.dispatchEvent(new Event(hfWeich.ET_UPDATE));
+            md.now = md.now + (dst * md.speed);
+            md.cbf(hfWeich.ET_UPDATE, md.now);
         }
-        this.#fid = requestAnimationFrame(this.#fnfrc);
+
     }
 
 
     stop() {
-        if (this.#running === true) {
-            this.#clearFrame();
-            this.#running = false;
-        }
+        this.#clearFrame();
     }
 
-    fromTo(end, now, speed = NaN) {
-        if (this.#running === true)
-            this.stop();
-        this.#end = end;
-        this.#now = now;
-        if (Number.isNaN(speed) === false)
-            this.#speed = speed;
-        this.#running = true;
-        this.#fid = requestAnimationFrame(this.#fnfrc);
+    fromTo(end, now, speed=NaN) {
+        const md = this.#md;
+        this.stop();
+        md.end = end;
+        md.now = now;
+        if (Number.isFinite(speed)) md.speed = speed;
+        md.fid = requestAnimationFrame(md.fnfrc);
     }
 
-    to(end, speed = NaN) {
-        this.fromTo(end, this.#now, speed);
+    to(end, speed=NaN) {
+        this.fromTo(end, this.#md.now, speed);
     }
 
 }
