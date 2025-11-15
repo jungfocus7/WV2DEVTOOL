@@ -25,11 +25,11 @@ tam.addEventListener('keydown', (te) => {
 });
 
 
-btns[1].addEventListener('click', (te) => {
-});
+// btns[1].addEventListener('click', (te) => {
+// });
 
-btns[2].addEventListener('click', (te) => {
-});
+// btns[2].addEventListener('click', (te) => {
+// });
 
-btns[3].addEventListener('click', (te) => {
-});
+// btns[3].addEventListener('click', (te) => {
+// });

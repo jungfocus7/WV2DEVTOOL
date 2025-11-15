@@ -29,8 +29,8 @@ const fn_cbf = (et, _) => {
         fn_print(`END: (X=${ tx }, Y=${ ty });`);
     }
 };
-const twx = new hfWeich(tx, 0.05, fn_cbf);
-const twy = new hfWeich(ty, 0.05, fn_cbf);
+const twx = new hfWeich(tx, 0.2, 1.0, fn_cbf);
+const twy = new hfWeich(ty, 0.2, 1.0, fn_cbf);
 
 svgcont.addEventListener('click', (te) => {
     const mx = te.offsetX;

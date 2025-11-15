@@ -16,14 +16,16 @@ class hfWeich {
 
     /**
      * @param {number} now
-     * @param {number} speed
+     * @param {number} speed - 0.3
+     * @param {number} dst - 1.0
      * @param {CallbackFunction} cbf
      */
-    constructor(now, speed=0.3, cbf=null) {
+    constructor(now, speed=0.3, dst=1.0, cbf=null) {
         const md = this.#md;
         md.end = now;
         md.now = now;
         md.speed = speed;
+        md.dst = dst;
         md.fnfrc = this.#loopFrame.bind(this);
         md.cbf = cbf;
         Object.seal(this);
@@ -32,6 +34,7 @@ class hfWeich {
         end: 0.0,
         now: 0.0,
         speed: 0.0,
+        dst: 1.0,
         fid: -1,
         /** @type {FrameRequestCallback} */ fnfrc: null,
         /** @type {CallbackFunction} */ cbf: null,
@@ -65,7 +68,7 @@ class hfWeich {
         const md = this.#md;
         md.fid = requestAnimationFrame(md.fnfrc);
         const dst = md.end - md.now;
-        if (Math.abs(dst) < 1) {
+        if (Math.abs(dst) < md.dst) {
             md.now = md.end;
             md.cbf(hfWeich.ET_UPDATE, md.now);
             md.cbf(hfWeich.ET_END, md.now);
@@ -82,17 +85,23 @@ class hfWeich {
         this.#clearFrame();
     }
 
-    fromTo(end, now, speed=NaN) {
+    /**
+     * @param {number} end
+     * @param {number} now
+     */
+    fromTo(end, now) {
         const md = this.#md;
         this.stop();
         md.end = end;
         md.now = now;
-        if (Number.isFinite(speed)) md.speed = speed;
         md.fid = requestAnimationFrame(md.fnfrc);
     }
 
-    to(end, speed=NaN) {
-        this.fromTo(end, this.#md.now, speed);
+    /**
+     * @param {number} end
+     */
+    to(end) {
+        this.fromTo(end, this.#md.now);
     }
 
 }

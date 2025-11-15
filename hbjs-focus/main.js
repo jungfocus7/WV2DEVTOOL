@@ -52,7 +52,7 @@ _gdo.cea = _gdo.dcontainer.children;
     let i = 0, tes = '';
     for (const te of _gdo.cea) {
         let tnm = te.getAttribute('src');
-        console.log(tnm);
+        // console.log(tnm);
 
         const bi = 12;
         const ei = tnm.lastIndexOf('.html');
