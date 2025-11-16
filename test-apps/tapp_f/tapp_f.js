@@ -1,4 +1,4 @@
-import { hfWeich } from "./js/hfall.js";
+import { hfarr, hfFrameRepeater, hfWeich } from "./js/hfall.js";
 
 
 //#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 1)
@@ -8,9 +8,9 @@ class BlockItem {
      * @param {number} rh
      * @param {number} rx
      * @param {number} ry
-     * @param {string} txt
+     * @param {string} tt
      */
-    constructor(rw, rh, rx, ry, txt) {
+    constructor(rw, rh, rx, ry, tt) {
         const md = this.#md;
         md.rw = rw;
         md.rh = rh;
@@ -22,7 +22,7 @@ class BlockItem {
     d="M0,0 L40,0 L40,40 L0,40 Z"/>
   <text text-anchor="middle" dominant-baseline="central"
     fill="whitesmoke" x="20" y="20" font-family="Arial"
-    font-size="17">${txt}</text>
+    font-size="17">${tt}</text>
 </g>
         `.trim();
     }
@@ -49,7 +49,7 @@ class BlockItem {
         const md = this.#md;
         md.tgs = '';
         md.ge = null;
-        md.wc?.stop();
+        md.wc.stop();
         md.wc = null;
     }
 
@@ -70,25 +70,80 @@ class BlockItem {
         const md = this.#md;
         if (md.ge === null) {
             md.ge = ge;
-            md.wc = new hfWeich(
-                0.0, 0.1, 0.1, this.#fn_wccbf.bind(this));
-
+            md.wc = new hfWeich(0.0, 0.1, 0.1, this.#fn_wccbf.bind(this));
             let st = md.ge.style;
             st.display = 'none';
             st.opacity = '0.0';
-
-            // st.display = 'inline';
-            // md.wc.to(1.0);
         }
     }
 
-    // applyFrom() {
-    //     const md = this.#md;
-    //     let sx = md.rw / md.dfw;
-    //     let sy = md.rct.height / md.dfh;
-    //     let val = `translate(${md.rct.left}, ${md.rct.top}), scale(${sx}, ${sy})`;
-    //     md.tge.setAttribute('transform', val);
-    // }
+    applyFrom() {
+        const md = this.#md;
+        let sx = md.rw / md.dw;
+        let sy = md.rh / md.dh;
+        let val = `translate(${md.rx}, ${md.ry}), scale(${sx}, ${sy})`;
+        md.ge.setAttribute('transform', val);
+    }
+
+    get_rw() {
+        const md = this.#md;
+        return md.rw;
+    }
+
+    /**
+     * @param {number} tv
+     * @param {boolean} ba
+     */
+    set_rw(tv, ba=false) {
+        const md = this.#md;
+        md.rw = tv;
+        if (ba) this.applyFrom();
+    }
+
+    get_rh() {
+        const md = this.#md;
+        return md.rh;
+    }
+
+    /**
+     * @param {number} tv
+     * @param {boolean} ba
+     */
+    set_rh(tv, ba=false) {
+        const md = this.#md;
+        md.rh = tv;
+        if (ba) this.applyFrom();
+    }
+
+    get_rx() {
+        const md = this.#md;
+        return md.rx;
+    }
+
+    /**
+     * @param {number} tv
+     * @param {boolean} ba
+     */
+    set_rx(tv, ba=false) {
+        const md = this.#md;
+        md.rx = tv;
+        if (ba) this.applyFrom();
+    }
+
+    get_ry() {
+        const md = this.#md;
+        return md.ry;
+    }
+
+    /**
+     * @param {number} tv
+     * @param {boolean} ba
+     */
+    set_ry(tv, ba=false) {
+        const md = this.#md;
+        md.ry = tv;
+        if (ba) this.applyFrom();
+    }
 
     show() {
         const md = this.#md;
@@ -99,47 +154,6 @@ class BlockItem {
 
 };
 Object.freeze(BlockItem);
-
-const BlockHelper = Object.freeze({
-    /**
-     * @param {SVGGElement} cont
-     * @param {BlockItem[]} blia
-     */
-    appendAll(cont, blia) {
-        let sb = [];
-        for (let bli of blia) {
-            sb.push(bli.tgs);
-        }
-        cont.insertAdjacentHTML('beforeend', sb.join('\n'));
-
-        /** @type {SVGGElement} */
-        let ce = null;
-        let i = 0;
-        for (ce of cont.children) {
-            let bli = blia[i];
-            bli.initAfter(ce);
-            // let st = bli.ge.style;
-            // // console.log(bli.ge, getComputedStyle(bli.ge).display);
-
-            // st.display = 'none';
-            // st.opacity = '0.0';
-            // console.log(Object.getOwnPropertyDescriptor(bli.ge.style, 'opacity'));
-            // console.log(ce, i);
-            i++;
-        }
-        // console.log(blia);
-
-        // const gest = blia.at(-1).ge.style;
-        // gest.display = 'inline';
-        // const wch = new hfWeich(0.0, 0.05, 0.1, (et, cv) => {
-        //     if (et === hfWeich.ET_UPDATE) {
-        //         gest.opacity = (cv / 100).toString();
-        //         // console.log(cv / 200);
-        //     }
-        // });
-        // wch.to(100.0);
-    }
-});
 //#endregion
 
 
@@ -167,8 +181,6 @@ const _inputCount = _downPanel.querySelector('input.c_inputCount');
 /** @type {HTMLInputElement} */
 const _btnStart = _downPanel.querySelector('input.c_btnStart');
 // console.log(_btnStart);
-
-// _downPanel.style.pointerEvents = 'none';
 //#endregion
 
 
@@ -176,51 +188,122 @@ const _btnStart = _downPanel.querySelector('input.c_btnStart');
 const _blia = [];
 
 
-(() => {
-    _inputCount.addEventListener('keydown', (ke) => {
-        const fks = ['ArrowUp', 'ArrowDown'];
-        if (fks.indexOf(ke.code) === -1) {
-            ke.preventDefault();
-        }
-    });
-    _inputCount.addEventListener('mousewheel', (_) => {});
+_inputCount.addEventListener('keydown', (ke) => {
+    const fks = ['ArrowUp', 'ArrowDown'];
+    if (fks.indexOf(ke.code) === -1) {
+        ke.preventDefault();
+    }
+});
+_inputCount.addEventListener('mousewheel', (_) => {});
 
 
-    const fn_clearItems = () => {
-        _geCont.innerHTML = '';
-        for (const bli of _blia) {
-            bli.clear();
-        }
-        _blia.length = 0;
-    };
+const fn_frpt_cbf = (et, _, rc) => {
+    if (et === hfFrameRepeater.ET_UPDATE) {
+        // console.log(et, _, rc);
+        let i = rc - 1;
+        _blia[i].show();
+    } else if (et === hfFrameRepeater.ET_END) {
+        _etoid = setTimeout(() => {
+            // console.log('완료');
+            _moxy.fromTo(1.0, 0.0);
+        }, 300);
+    }
+};
+let _etoid = -1;
+/** @type {hfFrameRepeater} */
+let _frpt = null;
 
-    const fn_makeItems = () => {
-        fn_clearItems();
+const fn_moxy_cbf = (et, cv) => {
+    if (et === hfWeich.ET_UPDATE) {
+        let cnt = Math.sqrt(_blia.length);
+        let px = (280 / 2) - ((40 * cnt) / 2);
+        let py = (248 / 2) - ((40 * cnt) / 2);
+        let tx = px * cv;
+        let ty = py * cv;
+        // let px = 80;
+        // let py = 64;
+        // let tx = px * _moxy.now;
+        // let ty = py * _moxy.now;
+        _geCont.style.transform = `translate(${tx}px,${ty}px)`;
+        // console.log(cv, tx, ty);
+        // console.log(cv, _geCont.style.transform);
+    }
+};
+let _moxy = new hfWeich(0.0, 0.2, 0.005, fn_moxy_cbf);
 
-        _blia.push(...[
-            new BlockItem(40.0, 40.0, 0.0, 0.0, '01'),
-            new BlockItem(40.0, 40.0, 0.0, 0.0, '02'),
-            new BlockItem(40.0, 40.0, 0.0, 0.0, '03'),
-        ]);
-        BlockHelper.appendAll(_geCont, _blia);
+const fn_clearMinorDetails = () => {
+    if (_frpt !== null) {
+        _frpt.dispose();
+        _frpt = null;
+        clearTimeout(_etoid);
+        _etoid = -1;
+    }
 
-        let i = 0;
-        let sid = setInterval(() => {
-            _blia.at(i++)?.show();
-            // try {
+    if (_moxy !== null) {
+        _moxy.stop();
+        // _moxy = null;
+    }
+};
 
-            // } catch (_) {
-            //     console.log(_);
-            //     clearInterval(sid);
-            // }
-        }, 1000);
-    };
+const fn_clearItems = () => {
+    fn_clearMinorDetails();
 
-    _btnStart.addEventListener('click', (me) => {
-        fn_makeItems();
-    });
+    _geCont.style.transform = '';
+    _geCont.innerHTML = '';
+    for (const bli of _blia) {
+        bli.clear();
+    }
+    _blia.length = 0;
+};
 
+/**
+ * @param {SVGGElement} cont
+ * @param {BlockItem[]} blia
+ */
+const fn_appendAllItems = (cont, blia) => {
+    let sb = [];
+    for (let bli of blia) {
+        sb.push(bli.tgs);
+    }
+    cont.insertAdjacentHTML('beforeend', sb.join('\n'));
 
+    /** @type {SVGGElement} */
+    let ce = null, i = 0;
+    for (ce of cont.children) {
+        let bli = blia[i];
+        bli.initAfter(ce);
+        i++;
+    }
+};
 
+const fn_makeItems = () => {
+    fn_clearItems();
 
-})();
+    let lc = Number.parseInt(_inputCount.value);
+    let la = Math.pow(lc, 2);
+    for (let i = 0; i < la; i++) {
+        let tt = (i + 1).toString().padStart(2, '0');
+        let bli = new BlockItem(40.0, 40.0, 0.0, 0.0, tt);
+        _blia.push(bli);
+    }
+    hfarr.shuffle(_blia);
+    fn_appendAllItems(_geCont, _blia);
+
+    let j = 0;
+    for (let bli of _blia) {
+        let tx = 40 * (j % lc);
+        let ty = 40 * Math.floor(j / lc);
+        bli.set_rx(tx);
+        bli.set_ry(ty);
+        bli.applyFrom();
+        j++;
+    }
+
+    _frpt = new hfFrameRepeater(5, la, fn_frpt_cbf);
+    _frpt.start();
+};
+
+_btnStart.addEventListener('click', (_) => {
+    fn_makeItems();
+});
+
