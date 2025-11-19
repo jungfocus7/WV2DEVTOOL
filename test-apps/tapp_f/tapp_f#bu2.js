@@ -197,6 +197,14 @@ _inputCount.addEventListener('keydown', (ke) => {
 _inputCount.addEventListener('mousewheel', (_) => {});
 
 
+// const fn_update_gdsxy = () => {
+//     let cnt = Math.sqrt(_blia.length);
+//     let px = (280 / 2) - ((40 * cnt) / 2);
+//     let py = (248 / 2) - ((40 * cnt) / 2);
+//     _gdsx = px - _gmx;
+//     _gdsy = py - _gmy;
+//     console.log(_gdsx, _gdsy);
+// };
 const fn_gmoBegin = () => {
     _geCont.style.pointerEvents = 'none';
     _gmo.bx = _gmo.cx;
