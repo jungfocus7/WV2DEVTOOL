@@ -1,4 +1,4 @@
-import { tam, fn_print, btns } from "./SubCom.js";
+import { fn_print, btns } from "./SubCom.js";
 import { hfFrameRepeater } from "../hbjs/hfFrameRepeater.js";
 
 

@@ -8,7 +8,7 @@ const fn_clh1 = (te) => {
     fn_print('{{----------  hfnum');
 
     const fn_isNumber = (td) => {
-        fn_print(`hfnum.isNumber(${ td }): ${ hfnum.isNumber(td) }`);
+        fn_print(`hfnum.isNumber(${td}): ${hfnum.isNumber(td)}`);
     };
     fn_isNumber(3.7);
     fn_isNumber(6.0);
@@ -18,7 +18,7 @@ const fn_clh1 = (te) => {
 
 
     const fn_notNumber = (td) => {
-        fn_print(`hfnum.notNumber(${ td }): ${ hfnum.notNumber(td) }`);
+        fn_print(`hfnum.notNumber(${td}): ${hfnum.notNumber(td)}`);
     };
     fn_notNumber(3.7);
     fn_notNumber(6.0);
@@ -29,7 +29,7 @@ const fn_clh1 = (te) => {
 
     const fn_isFloat = (td) => {
         if (typeof td !== 'number') return;
-        fn_print(`hfnum.isFloat(${ td }): ${ hfnum.isFloat(td) }`);
+        fn_print(`hfnum.isFloat(${td}): ${hfnum.isFloat(td)}`);
     };
     fn_isFloat(3.7);
     fn_isFloat(6.0);
@@ -40,7 +40,7 @@ const fn_clh1 = (te) => {
 
     const fn_isMinus = (td) => {
         if (typeof td !== 'number') return;
-        fn_print(`hfnum.isMinus(${ td }): ${ hfnum.isMinus(td) }`);
+        fn_print(`hfnum.isMinus(${td}): ${hfnum.isMinus(td)}`);
     };
     fn_isMinus(-3.45);
     fn_isMinus(943);
@@ -51,7 +51,7 @@ const fn_clh1 = (te) => {
 
     const fn_random = (td) => {
         if (typeof td !== 'number') return;
-        fn_print(`hfnum.random(${ td }): ${ hfnum.random(td) }`);
+        fn_print(`hfnum.random(${td}): ${hfnum.random(td)}`);
     };
     fn_random(13);
     fn_random(234);
@@ -63,7 +63,7 @@ const fn_clh1 = (te) => {
     const fn_randRange = (min, max) => {
         if (typeof min !== 'number') return;
         if (typeof max !== 'number') return;
-        fn_print(`hfnum.randRange(${ min }, ${ max }): ${ hfnum.randRange(min, max) }`);
+        fn_print(`hfnum.randRange(${min}, ${max}): ${hfnum.randRange(min, max)}`);
     };
     fn_randRange(1, 5);
     fn_randRange(17, 35);
@@ -74,7 +74,7 @@ const fn_clh1 = (te) => {
 
     const fn_isOdd = (td) => {
         if (typeof td !== 'number') return;
-        fn_print(`hfnum.isOdd(${ td }): ${ hfnum.isOdd(td) }`);
+        fn_print(`hfnum.isOdd(${td}): ${hfnum.isOdd(td)}`);
     };
     fn_isOdd(1, 5);
     fn_isOdd(17, 35);
@@ -85,7 +85,7 @@ const fn_clh1 = (te) => {
 
     const fn_isEven = (td) => {
         if (typeof td !== 'number') return;
-        fn_print(`hfnum.isEven(${ td }): ${ hfnum.isEven(td) }`);
+        fn_print(`hfnum.isEven(${td}): ${hfnum.isEven(td)}`);
     };
     fn_isEven(5);
     fn_isEven(17);
@@ -105,7 +105,7 @@ const fn_clh2 = (te) => {
     fn_print('{{----------  hfstr');
 
     const fn_isStr = (ts) => {
-        fn_print(`hfstr.isStr(${ ts }): ${ hfstr.isStr(ts) }`);
+        fn_print(`hfstr.isStr(${ts}): ${hfstr.isStr(ts)}`);
     };
     fn_isStr(true);
     fn_isStr('6.0');
@@ -115,7 +115,7 @@ const fn_clh2 = (te) => {
 
 
     const fn_getLastNum = (ts) => {
-        fn_print(`hfstr.getLastNum(${ ts }): ${ hfstr.getLastNum(ts) }`);
+        fn_print(`hfstr.getLastNum(${ts}): ${hfstr.getLastNum(ts)}`);
     };
     fn_getLastNum('name_1');
     fn_getLastNum('pook_061');
@@ -125,21 +125,21 @@ const fn_clh2 = (te) => {
 
 
     const fn_str2Ab = (ts) => {
-        fn_print(`hfstr.str2Ab(${ ts }): ${ hfstr.str2Ab(ts) }`);
+        fn_print(`hfstr.str2Ab(${ts}): ${hfstr.str2Ab(ts)}`);
     };
-    fn_str2Ab('정희범');
     fn_str2Ab('박종명');
     fn_str2Ab('임헌진');
+    fn_str2Ab('이중호');
     fn_str2Ab('치치와몽이');
     fn_print('\n');
 
 
     const fn_ab2Str = (ts) => {
-        fn_print(`hfstr.ab2Str(${ ts }): ${ hfstr.ab2Str(ts) }`);
+        fn_print(`hfstr.ab2Str(${ts}): ${hfstr.ab2Str(ts)}`);
     };
-    fn_ab2Str(hfstr.str2Ab('정희범'));
     fn_ab2Str(hfstr.str2Ab('박종명'));
     fn_ab2Str(hfstr.str2Ab('임헌진'));
+    fn_ab2Str(hfstr.str2Ab('이중호'));
     fn_ab2Str(hfstr.str2Ab('치치와몽이'));
     fn_print('}}');
     fn_print('\n');
@@ -155,7 +155,7 @@ const fn_clh3 = (te) => {
     fn_print('{{----------  hfarr');
 
     const fn_isArr = (ta) => {
-        fn_print(`hfarr.notEmpty(${ ta }): ${ hfarr.notEmpty(ta) }`);
+        fn_print(`hfarr.notEmpty(${ta}): ${hfarr.notEmpty(ta)}`);
     };
     fn_isArr([0, 1, 2, 3]);
     fn_isArr(Array.from('abcdefg'));
@@ -165,7 +165,7 @@ const fn_clh3 = (te) => {
 
 
     const fn_contains = (ta, e) => {
-        fn_print(`hfarr.contains(${ ta }, ${ e }): ${ hfarr.contains(ta, e) }`);
+        fn_print(`hfarr.contains(${ta}, ${e}): ${hfarr.contains(ta, e)}`);
     };
     fn_contains([0, 1, 2, 3], 3);
     fn_contains(Array.from('abcdefg'), 'g');
@@ -174,9 +174,9 @@ const fn_clh3 = (te) => {
 
 
     const fn_shuffle = (ta) => {
-        const pv = `hfarr.shuffle(${ ta })`;
+        const pv = `hfarr.shuffle(${ta})`;
         hfarr.shuffle(ta);
-        fn_print(`${ pv }: ${ ta }`);
+        fn_print(`${pv}: ${ta}`);
     };
     fn_shuffle([0, 1, 2, 3]);
     fn_shuffle(Array.from('abcdefg'));
@@ -185,7 +185,7 @@ const fn_clh3 = (te) => {
 
 
     const fn_copy = (ta) => {
-        fn_print(`hfarr.copy(${ ta }): ${ hfarr.copy(ta) }`);
+        fn_print(`hfarr.copy(${ta}): ${hfarr.copy(ta)}`);
     };
     fn_copy([0, 1, 2, 3]);
     fn_copy(Array.from('abcdefg'));
@@ -205,7 +205,7 @@ const fn_clh4 = (te) => {
 
     const fn_timeStamp = (td) => {
         for (let i = 0; i < 3; i++) {
-            fn_print(`hfdtime.timeStamp(${ hfdtime.timeStamp(td) });`);
+            fn_print(`hfdtime.timeStamp(${hfdtime.timeStamp(td)});`);
         }
     };
     fn_timeStamp(new Date());
@@ -213,7 +213,7 @@ const fn_clh4 = (te) => {
 
 
     const fn_format = (fs1, td) => {
-        fn_print(`hfdtime.format(${ hfdtime.format(fs1, td) });`);
+        fn_print(`hfdtime.format(${hfdtime.format(fs1, td)});`);
     };
     fn_format('\\y\\y\\M\\M [yyyy/MM/dd HH:mm:ss.fff] \\H\\d\\f\\m\\s (HHMM)', new Date());
     fn_format('\\y\\y\\y\\yyyyy/MM/dd hh:mm:ss.fff', new Date());

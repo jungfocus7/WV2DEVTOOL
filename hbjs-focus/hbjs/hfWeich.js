@@ -15,7 +15,7 @@ class hfWeich {
     static ET_END = 'end';
 
     /**
-     * @param {number} now
+     * @param {number} now - 0.0
      * @param {number} speed - 0.3
      * @param {number} dst - 1.0
      * @param {CallbackFunction} cbf
