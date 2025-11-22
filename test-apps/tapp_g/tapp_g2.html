@@ -7,6 +7,7 @@
 <style>
   body.c_body {
     background-color: darkolivegreen;
+    overflow: hidden;
   }
 
   div.c_scene {
@@ -18,10 +19,12 @@
     /* transform-style: preserve-3d;
     perspective: 300px;
     transform: translateZ(184.455px) rotateY(-599deg); */
+    pointer-events: none;
+    user-select: none;
   }
 
   div.c_imgc {
-    position: static; display: block;
+    position: absolute; display: block;
     width: 100%; height: 100%;
     background-color: brown;
     transform-style: preserve-3d;
@@ -36,6 +39,7 @@
     background-position: center;
     image-rendering: pixelated;
     backface-visibility: hidden;
+    overflow: hidden;
   }
   div.c_img2 {
     position: absolute;
@@ -47,6 +51,7 @@
     image-rendering: pixelated;
     backface-visibility: hidden;
     transform: rotateY(180deg);
+    overflow: hidden;
   }
 </style>
 </head>
@@ -54,8 +59,12 @@
 <body class="c_body">
   <div class="c_scene">
     <div class="c_imgc">
-      <div class="c_img1"></div>
-      <div class="c_img2"></div>
+      <div class="c_img1">
+        <input type="text">
+      </div>
+      <div class="c_img2">
+        <textarea cols="30" rows="20"></textarea>
+      </div>
     </div>
   </div>
 
