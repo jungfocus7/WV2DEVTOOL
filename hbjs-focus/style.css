@@ -13,13 +13,13 @@ html, body {
 
 
 /*#region >>> 컨테이너 구조*/
-div#droot {
+div.c_root {
     background-color: transparent;
     width: 100%; height: 100%;
     overflow: auto;
 }
 
-div#dcontainer {
+div.c_container {
     background-color: transparent;
     width: 100%; height: 100%;
     font-size: 0px;
@@ -27,7 +27,7 @@ div#dcontainer {
     overflow: auto;
 }
 
-div#dfooter {
+div.c_footer {
     background-color: transparent;
     position: absolute;
     width: auto; height: auto;
@@ -42,7 +42,7 @@ div#dfooter {
 
 /*#region >>> 페이지 iframe*/
 iframe.c_ifr {
-    width: 700px; height: calc(100vh - 60px);
+    width: 500px; height: calc(100vh - 60px);
     background-color: transparent;
     box-sizing: border-box;
     border: 10px solid rebeccapurple;
@@ -66,13 +66,14 @@ button.c_bt:hover {
     transition-duration: 0s;
     border-color: whitesmoke;
 }
-button.c_bt > span {
+button.c_bt>span {
     display: inline-block;
     width: auto; height: auto;
     padding: 2px 3px 2px 3px;
     pointer-events: none;
+    font-size: 11px;
 }
-button.c_bt:active > span {
+button.c_bt:active>span {
     transform: translate(1px, 1px);
 }
 /*#endregion*/

@@ -127,9 +127,9 @@ const fn_clh2 = (te) => {
     const fn_str2Ab = (ts) => {
         fn_print(`hfstr.str2Ab(${ ts }): ${ hfstr.str2Ab(ts) }`);
     };
-    fn_str2Ab('정희범');
     fn_str2Ab('박종명');
     fn_str2Ab('임헌진');
+    fn_str2Ab('이중호');
     fn_str2Ab('치치와몽이');
     fn_print('\n');
 
@@ -137,9 +137,9 @@ const fn_clh2 = (te) => {
     const fn_ab2Str = (ts) => {
         fn_print(`hfstr.ab2Str(${ ts }): ${ hfstr.ab2Str(ts) }`);
     };
-    fn_ab2Str(hfstr.str2Ab('정희범'));
     fn_ab2Str(hfstr.str2Ab('박종명'));
     fn_ab2Str(hfstr.str2Ab('임헌진'));
+    fn_ab2Str(hfstr.str2Ab('이중호'));
     fn_ab2Str(hfstr.str2Ab('치치와몽이'));
     fn_print('}}');
     fn_print('\n');

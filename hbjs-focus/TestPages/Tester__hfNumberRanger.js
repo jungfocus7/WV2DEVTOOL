@@ -1,4 +1,4 @@
-import { tam, fn_print, btns } from "./SubCom.js";
+import { fn_print, btns } from "./SubCom.js";
 import { hfNumberRanger } from "../hbjs/hfNumberRanger.js";
 
 
@@ -7,7 +7,7 @@ import { hfNumberRanger } from "../hbjs/hfNumberRanger.js";
 const _nbrg = new hfNumberRanger(31, 985);
 fn_print(`${_nbrg.toString()}`);
 
-tam.addEventListener('keydown', (te) => {
+window.addEventListener('keydown', (te) => {
     const key = te.key;
 
     let br = false;

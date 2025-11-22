@@ -1,0 +1,28 @@
+body.c_body {
+  background-color: rgba(0, 0, 0, 0.904);
+  margin: 0px; padding: 0px;
+  font-family: 'Malgun Gothic', 'Consolas', 'monaco', 'monospace';
+  font-size: 12px; color: whitesmoke;
+  overflow: hidden;
+  user-select: none;
+}
+
+div.c_rootCont {
+  position: relative; display: block;
+  background-color: rgb(11, 11, 51);
+  width: 300px; height: 300px;
+  margin: 0px; padding: 0px;
+  left: 5px; top: 5px;
+  box-sizing: content-box;
+  border-radius: 0px;
+  border: solid rgb(82, 79, 70) 5px;
+  overflow-x: hidden; overflow-y: hidden;
+}
+
+svg.c_svg {
+    position: relative;
+    background-color: transparent;
+    width: 300px; height: 300px;
+    left: 0px; top: 0px;
+    cursor: pointer;
+}

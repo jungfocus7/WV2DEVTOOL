@@ -7,43 +7,77 @@ html, body {
     user-select: none;
 }
 
-div#_droot {
+div.c_root {
     margin: 0px; padding: 0px;
     box-sizing: border-box;
     width: auto; height: calc(100vh - 40px);
     display: block; background-color: cadetblue;
-    overflow: auto;
+    overflow: hidden;
 }
 
-div#_droot > span.c_nm {
+div.c_root>span.c_tname {
     display: block; background-color: transparent;
     margin: 0px; padding: 0px;
     font-weight: bold; font-size: 17px;
 }
 
-div#_droot > svg.c_svg {
+div.c_root>svg.c_svg {
     display: block; background-color: darkgreen;
-    width: 500px; height: 400px;
+    width: 300px; height: 200px;
     margin: 0px; padding: 0px;
-    border: 0px solid black;
+    border: 3px solid black;
     cursor: pointer;
+    shape-rendering: optimizeSpeed;
 }
 
-div#_droot > textarea.c_tam {
+/* div.c_root>textarea.c_tam {
     width: calc(100% - 10px); height: calc(100% - 30px - 10px);
     margin: 0px; padding: 5px;
-    border: 0px solid black;
-    resize: none;
+    border: 3px solid black;
+    background-color: whitesmoke;
+    resize: none; outline: none;
+    font-weight: normal; font-size: 11px;
+} */
+
+/* div.c_root>textarea.c_tam0 {
+    box-sizing: border-box;
+    margin: 3px 0px 0px 0px; padding: 5px;
+    border: 3px solid black;
+    background-color: whitesmoke;
+    resize: none; outline: none;
+    font-weight: normal; font-size: 11px;
 }
 
-div#_droot > textarea.c_tam2 {
-    width: calc(100% - 10px); height: calc(100% - 430px - 10px);
-    margin: 0px; padding: 5px;
-    border: 0px solid black;
-    resize: none;
+div.c_root>textarea.c_tam1 {
+    width: calc(100% - 10px); height: calc(100% - 30px);
 }
 
-div#_dfooter {
+div.c_root>textarea.c_tam2 {
+    width: calc(100% - 20px); height: calc(100% - 240px);
+} */
+
+div.c_root>textarea.c_tam {
+    width: calc(100% - 10px); height: calc(100% - 30px);
+    box-sizing: border-box;
+    margin: 3px 0px 0px 0px; padding: 5px;
+    border: 3px solid black;
+    background-color: whitesmoke;
+    resize: none; outline: none;
+    font-weight: normal; font-size: 11px;
+}
+
+div.c_root>textarea.c_tam2 {
+    width: calc(100% - 20px); height: calc(100% - 236px);
+    box-sizing: border-box;
+    margin: 3px 0px 0px 0px; padding: 5px;
+    border: 3px solid black;
+    background-color: whitesmoke;
+    resize: none; outline: none;
+    font-weight: normal; font-size: 11px;
+}
+
+
+div.c_footer {
     background-color: transparent;
     position: absolute;
     width: auto; height: auto;
@@ -53,7 +87,51 @@ div#_dfooter {
     right: 5px; bottom: 5px;
 }
 
-/* div#_dfooter > input.c_bt {
+div.c_footer>span.c_tip {
+    font-weight: bolder;
+    font-size: 11px;
+}
+
+/*{########## 하단 버튼 스타일*/
+div.c_footer>button.c_bt {
+    background-color: darkblue;
+    color: whitesmoke;
+    box-sizing: border-box;
+    border: 1px dashed transparent;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 5px;
+    transition: border-color 0.3s ease-out;
+}
+
+div.c_footer>button.c_bt:hover {
+    transition-duration: 0s;
+    border-color: thistle;
+}
+
+div.c_footer>button.c_bt>span {
+    display: inline-block;
+    width: auto; height: auto;
+    padding: 0px 1px 0px 1px;
+    pointer-events: none;
+}
+
+div.c_footer>button.c_bt:active>span {
+    transform: translate(1px, 1px);
+}
+/*}##########*/
+
+
+
+
+
+
+
+
+
+
+
+/* div#_dfooter>input.c_bt {
     background-color: blue;
     color: whitesmoke;
     box-sizing: border-box;
@@ -62,31 +140,3 @@ div#_dfooter {
     cursor: pointer;
     margin-left: 5px;
 } */
-
-
-
-/*{########## 하단 버튼 스타일*/
-    button.c_bt {
-        background-color: darkblue;
-        color: whitesmoke;
-        box-sizing: border-box;
-        border: 1px dashed transparent;
-        display: inline-block;
-        cursor: pointer;
-        margin-left: 5px;
-        transition: border-color 0.3s ease-out;
-    }
-    button.c_bt:hover {
-        transition-duration: 0s;
-        border-color: thistle;
-    }
-    button.c_bt > span {
-        display: inline-block;
-        width: auto; height: auto;
-        padding: 0px 1px 0px 1px;
-        pointer-events: none;
-    }
-    button.c_bt:active > span {
-        transform: translate(1px, 1px);
-    }
-/*}##########*/

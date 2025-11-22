@@ -9,7 +9,7 @@ const _gdo = Object.seal({
      * DIV Root
      * @type {HTMLDivElement}
      */
-    droot: document.getElementById('droot'),
+    droot: document.querySelector('div.c_root'),
 
     /**
      * DIV Contents Container
@@ -38,30 +38,29 @@ const _gdo = Object.seal({
     btns: null,
 
 });
-_gdo.dcontainer = _gdo.droot.querySelector('#dcontainer');
-_gdo.dfooter = _gdo.droot.querySelector('#dfooter');
-_gdo.cea = _gdo.dcontainer.children;
-
 
 (() => {
+    _gdo.dcontainer = _gdo.droot.querySelector('div.c_container');
+    _gdo.dfooter = _gdo.droot.querySelector('div.c_footer');
+    _gdo.cea = _gdo.dcontainer.children;
+
     if ((_gdo.cea === null) || (_gdo.cea.length === 0)) {
         console.log('## Empty Elements');
         return;
     }
 
-    let i = 0, tes = '';
-    for (const te of _gdo.cea) {
-        let tnm = te.getAttribute('src');
+    let i = 0, tes = [];
+    for (let ce of _gdo.cea) {
+        let tnm = ce.getAttribute('src');
         // console.log(tnm);
-
-        const bi = 12;
-        const ei = tnm.lastIndexOf('.html');
+        let bi = 12;
+        let ei = tnm.lastIndexOf('.html');
         tnm = tnm.substring(bi, ei);
-        const tag = `<button class="c_bt" data-i="${i}"><span>${ tnm }</span></button>`;
-        tes += tag;
+        let tag = `<button class="c_bt" data-i="${i}"><span>${tnm}</span></button>`;
+        tes.push(tag);
         i++;
     }
-    _gdo.dfooter.innerHTML = tes;
+    _gdo.dfooter.innerHTML = tes.join('');
 
     _gdo.twr = new hfTween(0, 36, new hfEaseBounce(hfEasingKind.easeOut),
         (_, cv) => {
@@ -70,22 +69,50 @@ _gdo.cea = _gdo.dcontainer.children;
     _gdo.btns = _gdo.dfooter.querySelectorAll('button.c_bt');
 
 
-    const fn_clh = (te) => {
-        const btn = te.currentTarget;
-        const i = +btn.dataset.i;
-        const ce = _gdo.cea[i];
+    const fn_get_pgi = () => {
+        let kvsa = document.cookie.split(';');
+        let rv = '';
+        for (let kvs of kvsa) {
+            //kvs.sp
+            // 'pgi=333345'.match(/pgi=(\d+)/)?.at(1);
+            rv = kvs.match(/pgi=(\d+)/)?.at(1);
+        }
+        return +rv;
+    };
 
-        const begin = _gdo.dcontainer.scrollLeft;
+    const fn_set_pgi = (i) => {
+        document.cookie = `pgi=${i}`;
+    };
+
+    const fn_goFrom = (i) => {
+        if (typeof i !== 'number') return;
+        if ((i < 0) || (i >= _gdo.length)) return;
+
+        let ce = _gdo.cea[i];
+        let begin = _gdo.dcontainer.scrollLeft;
         let change = ce.offsetLeft;
-        const max = _gdo.dcontainer.scrollWidth - _gdo.dcontainer.clientWidth;
+        let max = _gdo.dcontainer.scrollWidth - _gdo.dcontainer.clientWidth;
         if (change > max) change = max;
         _gdo.twr.fromTo(begin, change);
     };
-    for (const btn of _gdo.btns) {
+
+    const fn_clh = (me) => {
+        let btn = me.currentTarget;
+        let i = +btn.dataset.i;
+        fn_set_pgi(i);
+        fn_goFrom(i);
+    };
+    for (let btn of _gdo.btns) {
         btn.addEventListener('click', fn_clh);
     }
 
+    fn_goFrom(fn_get_pgi());
+
 })();
+
+
+
+
 
 
 

@@ -30,7 +30,7 @@ const hfEasingKind = Object.freeze({
 });
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const hfEaseBack = Object.freeze(class {
+class hfEaseBack {
     /**
      * @param {string} ek
      * @param {number} s
@@ -76,10 +76,11 @@ const hfEaseBack = Object.freeze(class {
 		else
 		    return e / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
 	};
-});
+}
+Object.freeze(hfEaseBack);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const hfEaseBounce = Object.freeze(class {
+class hfEaseBounce {
     /**
      * @param {string} ek
      */
@@ -123,10 +124,11 @@ const hfEaseBounce = Object.freeze(class {
         else
             return this.#fn_easeOut(t * 2 - d, 0, e, d) * 0.5 + e * 0.5 + b;
 	};
-});
+}
+Object.freeze(hfEaseBounce);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const hfEaseCircular = Object.freeze(class {
+class hfEaseCircular {
     /**
      * @param {string} ek
      */
@@ -163,10 +165,11 @@ const hfEaseCircular = Object.freeze(class {
         else
 		    return e / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
 	};
-});
+}
+Object.freeze(hfEaseCircular);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const hfEaseElastic = Object.freeze(class {
+class hfEaseElastic {
     /**
      * @param {string} ek
      * @param {number} a
@@ -264,10 +267,11 @@ const hfEaseElastic = Object.freeze(class {
                 Math.sin((t * d - s) * (2 * Math.PI) / p ) * 0.5 + e + b;
         }
 	};
-});
+}
+Object.freeze(hfEaseElastic);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const hfEaseExponential = Object.freeze(class {
+class hfEaseExponential {
     /**
      * @param {string} ek
      */
@@ -307,12 +311,13 @@ const hfEaseExponential = Object.freeze(class {
         else
 		    return e / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
 	};
-});
+}
+Object.freeze(hfEaseExponential);
 //#endregion
 
 
-//#region `hfTween: (LastUpdated: 251111)`
-const hfTween = Object.freeze(class {
+//#region `hfTween: (LastUpdated: 251122)`
+class hfTween {
     /** EventType Update */
     static ET_UPDATE = 'update';
     /** EventType End */
@@ -459,7 +464,8 @@ const hfTween = Object.freeze(class {
         this.fromTo(md.current, end);
     }
 
-});
+};
+Object.freeze(hfTween);
 //#endregion
 
 
