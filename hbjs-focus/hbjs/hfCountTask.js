@@ -1,5 +1,5 @@
 //#region `hfCountTask: `
-const hfCountTask = Object.freeze(class {
+class hfCountTask {
     /**
      * 카운트 연산하기
      * @param {number} countStart
@@ -77,7 +77,8 @@ const hfCountTask = Object.freeze(class {
         this.#count = this.#countEnd;
     }
 
-});
+}
+Object.freeze(hfCountTask);
 
 export {
     hfCountTask

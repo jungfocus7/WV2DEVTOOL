@@ -331,7 +331,6 @@ class hfTween {
      */
     constructor(current = 0, duration = 36, easing = null, cbf = null) {
         const md = this.#md;
-
         md.running = false;
         md.begin = current;
         md.end = current;
@@ -341,7 +340,6 @@ class hfTween {
         md.easing = easing ?? new hfEaseCircular(hfEasingKind.easeInOut);
         md.cbf = cbf;
         md.fnfrc = this.#fn_loopFrame.bind(this);
-
         Object.seal(this);
     }
     #md = Object.seal({

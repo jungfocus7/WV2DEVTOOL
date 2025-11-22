@@ -1,5 +1,5 @@
 //#region `hfNumberRanger: `
-const hfNumberRanger = Object.freeze(class {
+class hfNumberRanger {
     /**
      * Number를 min, len, max 기준점으로 안전한 범위관리
      * @param {number} min
@@ -82,7 +82,8 @@ min: ${this.#min}, len: ${this.#len}, max: ${this.#max}, now: ${this.#now}
         return fv / lv;
     }
 
-});
+}
+Object.freeze(hfNumberRanger);
 
 export {
     hfNumberRanger
