@@ -133,10 +133,11 @@ const _gdo = Object.seal({
     }
 
     let pi = fn_getPageIndex();
-    if (Number.isFinite(pi) && ((pi >= 0) && (pi < _gdo.pgea.length))) {
-        fn_goFrom(pi);
-        fn_going_hwk(_gdo.btns.at(pi));
+    if ((Number.isFinite(pi) === false) || ((pi < 0) || (pi >= _gdo.pgea.length))) {
+        pi = 0;
     }
+    fn_goFrom(pi);
+    fn_going_hwk(_gdo.btns.at(pi));
 
 })();
 

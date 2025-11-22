@@ -78,7 +78,8 @@ export const hfnum = Object.freeze({
      */
     isEven: (tv) => {
         return (tv % 2) === 0;
-    }
+    },
+
 });
 //#endregion
 
@@ -105,9 +106,9 @@ export const hfstr = Object.freeze({
      * @param {string} token
      * @returns number
      */
-    getLastNum: (str, token = '_') => {
+    getLastNum: (str, token='_') => {
         const ti = str.lastIndexOf(token) + 1;
-        return ~~str.substring(ti);
+        return +str.substring(ti);
     },
 
 
@@ -133,7 +134,8 @@ export const hfstr = Object.freeze({
      */
     ab2Str: (ab) => {
         return String.fromCharCode.apply(null, ab);
-    }
+    },
+
 });
 //#endregion
 
@@ -143,7 +145,7 @@ export const hfstr = Object.freeze({
 export const hfarr = Object.freeze({
     /**
      * 배열객체 유효성 확인
-     * @param {array} arr
+     * @param {any[]} arr
      * @returns boolean
      */
     notEmpty: (arr) => {
@@ -153,8 +155,8 @@ export const hfarr = Object.freeze({
 
     /**
      * 배열에 요소 확인
-     * @param {array} arr
-     * @param {temp object} te
+     * @param {any[]} arr
+     * @param {any} te
      * @returns boolean
      */
     contains: (arr, te) => {
@@ -174,7 +176,7 @@ export const hfarr = Object.freeze({
 
     /**
      * 배열 섞기
-     * @param {array} arr
+     * @param {any[]} arr
      * @returns void
      */
     shuffle: (arr) => {
@@ -192,13 +194,13 @@ export const hfarr = Object.freeze({
 
     /**
      * 배열 복사
-     * @param {array} arr
-     * @returns array
+     * @param {any[]} arr
+     * @returns
      */
     copy: (arr) => {
         if (hfarr.notEmpty(arr) === false) return null;
         return arr.slice();
-    }
+    },
 
 });
 //#endregion
@@ -307,7 +309,7 @@ export const hfdtime = Object.freeze({
 
         const res = String.fromCharCode.apply(null, buf1);
         return res;
-    }
+    },
 
 });
 //#endregion

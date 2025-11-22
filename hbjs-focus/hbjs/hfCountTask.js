@@ -2,36 +2,36 @@
 class hfCountTask {
     /**
      * 카운트 연산하기
-     * @param {number} countStart
-     * @param {number} countEnd
-     * @param {number} plusValue
+     * @param {number} begin
+     * @param {number} end
+     * @param {number} add
      */
-    constructor(countStart = 1, countEnd = 10, plusValue = 1) {
-        this.#countStart = countStart;
-        this.#countEnd = countEnd;
-        this.#plusValue = plusValue;
-        this.#count = countStart;
+    constructor(begin=1, end=10, add=1) {
+        const md = this.#md;
+        md.begin = begin;
+        md.end = end;
+        md.add = Math.abs(add);
+        md.now = begin;
         Object.seal(this);
     }
+    #md = Object.seal({
+        begin: 0, end: 0, add: 0, now: 0
+    });
 
-    #countStart = 0;
-    get countStart() {
-        return this.#countStart;
+    get begin() {
+        return this.#md.begin;
     }
 
-    #countEnd = 0;
-    get countEnd() {
-        return this.#countEnd;
+    get end() {
+        return this.#md.end;
     }
 
-    #plusValue = 0;
-    get plusValue() {
-        return this.#plusValue;
+    get add() {
+        return this.#md.add;
     }
 
-    #count = 0;
-    get count() {
-        return this.#count;
+    get now() {
+        return this.#md.now;
     }
 
 
@@ -40,11 +40,12 @@ class hfCountTask {
      * @returns boolean
      */
     prev() {
-        const tc = this.#count - this.#plusValue;
-        if (tc < this.#countStart)
+        const md = this.#md;
+        const tc = md.now - md.add;
+        if (tc < md.begin)
             return false;
         else {
-            this.#count = tc;
+            md.now = tc;
             return true;
         }
     }
@@ -54,11 +55,12 @@ class hfCountTask {
      * @returns boolean
      */
     next() {
-        const tc = this.#count + this.#plusValue;
-        if (tc > this.#countEnd)
+        const md = this.#md;
+        const tc = md.now + md.add;
+        if (tc > md.end)
             return false;
         else {
-            this.#count = tc;
+            md.now = tc;
             return true;
         }
     }
@@ -66,15 +68,16 @@ class hfCountTask {
     /**
      * 리셋 하기
      */
-    reset() {
-        this.#count = this.#countStart;
-    }
-
     /**
-     * 마지막으로 리셋하기
+     * 리셋 하기
+     * @param {boolean} bEnd end로 reset 여부
      */
-    resetEnd() {
-        this.#count = this.#countEnd;
+    reset(bEnd=false) {
+        const md = this.#md;
+        if (bEnd)
+            md.now = md.end;
+        else
+            md.now = md.begin;
     }
 
 }
