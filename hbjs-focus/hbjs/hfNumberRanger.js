@@ -5,7 +5,7 @@ class hfNumberRanger {
      * @param {number} min
      * @param {number} len
      */
-    constructor(min = 0, len = 10) {
+    constructor(min=0, len=10) {
         this.#min = min;
         this.#len = (len < 1) ? 1 : len;
         this.#max = (this.#min - 1) + this.#len;
@@ -33,7 +33,7 @@ class hfNumberRanger {
      * @param {number} vn
      * @returns
      */
-    check(vn = 0) {
+    check(vn=0) {
 		let rv = vn;
 		if (rv < this.#min) {
 			rv = this.#min;
@@ -48,23 +48,23 @@ class hfNumberRanger {
         return this.#now;
     }
 
-    set now(vn = 0) {
+    set now(vn=0) {
         this.#now = this.check(vn);
     }
 
-    add(vn = 0) {
+    add(vn=0) {
         const rv = this.check(this.#now + vn);
         this.#now = rv;
         return rv;
     }
 
-    mul(vn = 0) {
+    mul(vn=0) {
         const rv = this.check(this.#now * vn);
         this.#now = rv;
         return rv;
     }
 
-    div(vn = 0) {
+    div(vn=0) {
         const rv = this.check(this.#now / vn);
         this.#now = rv;
         return rv;

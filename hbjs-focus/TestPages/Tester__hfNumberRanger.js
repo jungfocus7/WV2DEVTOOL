@@ -4,23 +4,26 @@ import { hfNumberRanger } from "../hbjs/hfNumberRanger.js";
 
 
 
-const _nbrg = new hfNumberRanger(31, 985);
+const _nbrg = new hfNumberRanger(13, 10);
 fn_print(`${_nbrg.toString()}`);
 
 window.addEventListener('keydown', (te) => {
     const key = te.key;
 
     let br = false;
-    if (key === 'ArrowUp') {
-        _nbrg.add(-32 / 9.2);
+    if (key === 'ArrowLeft') {
+        _nbrg.add(-1);
         br = true;
-    } else if (key === 'ArrowDown') {
-        _nbrg.add(32 / 9.2);
+    } else if (key === 'ArrowRight') {
+        _nbrg.add(1);
         br = true;
+    } else if (key === 'Delete') {
+        fn_print();
+        return;
     }
 
     if (br) {
-        fn_print(`${_nbrg.toString()}`);
+        fn_print(`${_nbrg.toString()}`, false);
     }
 });
 

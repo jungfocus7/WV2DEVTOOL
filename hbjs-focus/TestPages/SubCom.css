@@ -24,7 +24,7 @@ div.c_root>span.c_tname {
 div.c_root>svg.c_svg {
     display: block; background-color: darkgreen;
     width: 300px; height: 200px;
-    margin: 0px; padding: 0px;
+    margin: 3px 0px 0px 0px; padding: 0px;
     border: 3px solid black;
     cursor: pointer;
     shape-rendering: optimizeSpeed;
@@ -41,7 +41,7 @@ div.c_root>textarea.c_tam {
 }
 
 div.c_root>textarea.c_tam2 {
-    width: calc(100% - 20px); height: calc(100% - 236px);
+    width: calc(100% - 20px); height: calc(100% - 239px);
     box-sizing: border-box;
     margin: 3px 0px 0px 0px; padding: 5px;
     border: 3px solid black;
@@ -94,4 +94,3 @@ div.c_footer>button.c_bt:active>span {
     transform: translate(1px, 1px);
 }
 /*}##########*/
-

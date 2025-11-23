@@ -10,7 +10,7 @@ class hfCountTask {
         const md = this.#md;
         md.begin = begin;
         md.end = end;
-        md.add = Math.abs(add);
+        md.add = Math.abs(Math.round(add));
         md.now = begin;
         Object.seal(this);
     }

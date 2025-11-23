@@ -140,5 +140,3 @@ const _gdo = Object.seal({
     fn_going_hwk(_gdo.btns.at(pi));
 
 })();
-
-
