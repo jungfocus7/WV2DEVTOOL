@@ -65,11 +65,11 @@ const fn_pge_kd = (ke) => {
  * Menu 생성
  */
 const fn_createMenu = () => {
-    const pd = _page02;
+    const pd = _page03;
 
     if (pd.mbtn === null) {
         pd.leftMenuCont.insertAdjacentHTML('beforeend', `
-<button type="button" class="c_bt"><span>02) hfCountTask</span></button>
+<button type="button" class="c_bt"><span>03) hfFrameRepeater</span></button>
         `.trim());
         pd.mbtn = pd.leftMenuCont.lastElementChild;
 
@@ -81,12 +81,12 @@ const fn_createMenu = () => {
  * Page 생성
  */
 const fn_createPageData = () => {
-    const pd = _page02;
+    const pd = _page03;
 
     if (pd.pge === null) {
         pd.pageCont.insertAdjacentHTML('beforeend', `
 <div class="c_page" data-index="0" tabindex="02">
-  <span class="c_tname">hfCountTask</span>
+  <span class="c_tname">hfFrameRepeater</span>
   <textarea class="c_tam" placeholder="empty" name="empty" spellcheck="false" readonly></textarea>
   <div class="c_btc">
       <button type="button" class="c_bt"><span>00)clear</span></button>
@@ -120,7 +120,7 @@ const fn_stop = () => {
  * @returns
  */
 const fn_print = (msg=null, ba=true) => {
-    const pd = _page02;
+    const pd = _page03;
 
     if (msg === null) {
         pd.txa.value = '';
@@ -138,7 +138,7 @@ const fn_print = (msg=null, ba=true) => {
  * @param {GlobalDataObject} gdo
  */
 const fn_initOnce = (gdo) => {
-    const pd = _page02;
+    const pd = _page03;
 
     if (pd.gdo === null) {
         pd.gdo = gdo;
@@ -156,7 +156,7 @@ const fn_initOnce = (gdo) => {
 
 
 /** @type {PageData} */
-const _page02 = {
+const _page03 = {
     gdo: null,
 
     rootCont: null,
@@ -177,7 +177,7 @@ const _page02 = {
 
     ftbtns: null,
 };
-Object.seal(_page02);
+Object.seal(_page03);
 
-export { _page02 }
+export { _page03 }
 //#endregion }}

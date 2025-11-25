@@ -3,3 +3,7 @@ https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.esm-browser.js
 
 Developer: Reload Window
 Workspaces: Manage Workspace Trust
+
+
+https://github.com/jungfocus7/hf_final
+이거 참조해서 완성해라 [251126]

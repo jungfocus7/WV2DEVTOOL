@@ -1,6 +1,11 @@
+import { dcs } from "../hbjs/hfCommon.js";
+import { hfEasingKind, hfEaseBounce, hfTween } from "../hbjs/hfTween.js";
 import "./_defs.js";
 import { _page01 } from "./pages/page01.js";
 import { _page02 } from "./pages/page02.js";
+import { _page03 } from "./pages/page03.js";
+import { _page04 } from "./pages/page04.js";
+
 
 
 /** @type {GlobalDataObject} */
@@ -8,8 +13,14 @@ const _gdo = Object.seal({
     rootCont: document.querySelector('div.c_rootCont'),
     leftMenuCont: null,
     pageCont: null,
+
     pageDataArr: [],
 });
+
+const fn_twr_cbf = (_, cv) => {
+    dcs.log(cv);
+};
+const _twr = new hfTween(0, 36, new hfEaseBounce(hfEasingKind.easeOut), fn_twr_cbf);
 
 (() => {
     const gd = _gdo;
@@ -23,10 +34,20 @@ const _gdo = Object.seal({
     // hfCountTask
     _page02.fn_initOnce(gd);
 
+    // hfFrameRepeater
+    _page03.fn_initOnce(gd);
+
+    // hfNumberRanger
+    _page04.fn_initOnce(gd);
+
 
     gd.leftMenuCont.insertAdjacentHTML('beforeend', `
 <span class="c_mobt"></span>
     `.trim());
+
+    window.addEventListener('click', () => {
+        _twr.fromTo(0, 1);
+    });
 })();
 
 

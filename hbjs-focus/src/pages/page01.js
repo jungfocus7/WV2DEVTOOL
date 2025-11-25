@@ -228,7 +228,7 @@ const fn_createMenu = () => {
         `.trim());
         pd.mbtn = pd.leftMenuCont.lastElementChild;
 
-        dcs.log('# 메뉴 생성완료');
+        // dcs.log('# 메뉴 생성완료');
     }
 };
 
@@ -253,9 +253,10 @@ const fn_createPageData = () => {
 </div>
         `.trim());
         pd.pge = pd.pageCont.lastElementChild;
-        pd.txa = pd.pge.querySelector('textarea.c_tam');
-        pd.ftbtns = Array.from(pd.pge.querySelectorAll('div.c_btc>button.c_bt'));
 
+        pd.txa = pd.pge.querySelector('textarea.c_tam');
+
+        pd.ftbtns = Array.from(pd.pge.querySelectorAll('div.c_btc>button.c_bt'));
         for (let btn of pd.ftbtns) {
             btn.addEventListener(hfEventTypes.CLICK, fn_ftbtns_cl);
         }
@@ -308,13 +309,6 @@ const fn_initOnce = (gdo) => {
 
         pd.gdo.pageDataArr.push(pd);
 
-        // pd.txa = pd.pge.querySelector('textarea.c_tam');
-
-        // pd.ftbtns = Array.from(pd.pge.querySelectorAll('div.c_btc>button.c_bt'));
-        // for (let btn of pd.ftbtns) {
-        //     btn.addEventListener(hfEventTypes.CLICK, fn_ftbtns_cl);
-        // }
-
 
         // configurable, enumerable,
         // writable, value,
@@ -335,20 +329,6 @@ const fn_initOnce = (gdo) => {
             configurable: false, enumerable: false, writable: false,
             value: hfdtime
         });
-        // Reflect.defineProperty(window, 'hfnum', {
-        //     configurable: true,
-        //     enumerable: true,
-        //     // writable: false,
-        //     // value: hfnum,
-        //     val: '씨발꺼 왜케 복잡해',
-        //     get() {
-        //         console.log('xxxxxxxx', this);
-        //         return this.val;
-        //     },
-        //     set(tv) {
-        //         this.val = tv;
-        //     }
-        // });
     }
 };
 
