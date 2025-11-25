@@ -1,0 +1,87 @@
+@charset "utf-8";
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
+div.c_page {
+  position: relative; display: flex;
+  flex-direction: column; align-items: stretch;
+  width: 400px; height: 300px;
+  margin: 0px 0px 10px 0px; padding: 0px 4px 2px 4px;
+  background-color: transparent;
+  box-sizing: border-box;
+  /* border: 2px solid darkslategrey; */
+  border-width: 5px 2px 2px 0px;
+  border-style: solid;
+  border-color: dimgray;
+  font-size: 0px; overflow: hidden;
+}
+
+div.c_page:focus-within {
+  /* border: 2px solid darkslategrey; */
+  border-color: aquamarine;
+}
+
+div.c_page>span.c_tname {
+  align-self: flex-start;
+  margin: 0px; padding: 0px;
+  background-color: transparent;
+  font-size: 13px; font-weight: bold;
+	color: dimgray; text-align: left;
+}
+
+div.c_page:focus-within>span.c_tname {
+  /* border: 2px solid darkslategrey; */
+  background-color: aquamarine;
+}
+
+div.c_page>textarea.c_tam {
+  flex-grow: 1;
+  margin: 4px 0px 4px 0px; padding: 3px;
+  background-color: whitesmoke;
+  box-sizing: border-box;
+  border: 1px solid dimgray;
+  border-style: dashed;
+  font-family: 'Consolas', 'Courier New', 'monospace';
+  font-size: 11px; color: black; line-height: 2;
+  white-space: nowrap; resize: none;
+}
+
+div.c_page>textarea.c_tam:focus {
+  outline: none;
+}
+/*#endregion*/
+
+
+div.c_page>div.c_btc {
+  width: auto; height: auto;
+  overflow: auto; font-size: 0px;
+  white-space: nowrap;
+  text-align: right;
+}
+
+div.c_btc>button.c_bt {
+  background-color: rgba(0, 0, 0, 0.75);
+  margin: 0px 0px 0px 3px;
+  box-sizing: border-box;
+  border: 1px dashed transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease-out;
+}
+
+div.c_btc>button.c_bt:hover {
+  transition-duration: 0s;
+  border-color: thistle;
+}
+
+div.c_btc>button.c_bt>span {
+  display: inline-block;
+  padding: 0px 1px 1px 1px;
+  pointer-events: none;
+  color: whitesmoke;
+  font-family: 'Consolas', 'Courier New', 'monospace';
+  font-size: 10px;
+}
+
+div.c_btc>button.c_bt:active>span {
+  transform: translate(1px, 1px);
+}

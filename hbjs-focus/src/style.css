@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
+html, body {
+	background-color: transparent;
+	width: 100vw; height: 100vh; margin: 0px; padding: 0px;
+  font-family: 'Consolas', 'Courier New', 'monospace';
+	font-size: 0px; color: black; white-space: nowrap;
+	overflow: hidden; -webkit-user-select: none; user-select: none;
+}
+/*#endregion*/
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 02)*/
+div.c_rootCont {
+	background: linear-gradient(darkgray, whitesmoke);
+	width: 100%; height: 100%;
+	overflow: auto;
+}
+
+div.c_leftMenuCont {
+  position: relative; display: inline-block;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 170px; height: 100vh;
+  box-sizing: border-box;
+  border-color: aquamarine;
+  border-width: 0px 5px 0px 0px;
+  border-style: solid;
+  overflow-x: hidden; overflow-y: auto;
+  padding: 10px 4px 4px 2px;
+}
+
+div.c_pageCont {
+  display: inline-block;
+  width: calc(100vw - 170px); height: 100%;
+  overflow: auto;
+  vertical-align: top;
+}
+/*#endregion*/
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 03)*/
+div.c_leftMenuCont>button.c_bt {
+  display: block;
+  width: 200px; height: 31px;
+  margin: 0px 0px 3px 0px;
+  padding: 0px 0px 1px 3px;
+  background-color: aquamarine;
+  box-sizing: border-box;
+  border: 3px dashed transparent;
+  border-radius: 3px; cursor: pointer;
+  font-size: 13px; font-weight: bold;
+	color: dimgray; text-align: left;
+  transition: border-color 0.3s ease-out;
+  filter: drop-shadow(0 0 0.25rem rgb(0, 0, 0));
+}
+
+div.c_leftMenuCont>button.c_bt:hover {
+  transition-duration: 0s;
+  border-color: dimgray;
+}
+
+div.c_leftMenuCont>button.c_bt>span {
+  display: inline-block;
+  width: auto; height: auto;
+  padding: 2px 3px 2px 3px;
+  pointer-events: none;
+}
+
+div.c_leftMenuCont>button.c_bt:active>span {
+  transform: translate(1px, 1px);
+}
+
+div.c_leftMenuCont>span.c_mobt {
+	position: absolute; display: inline-block;
+	width: 17px; height: 20px;
+	right: 0px; bottom: 5px;
+	border-radius: 5px 0px 0px 5px;
+	background-color: red; cursor: pointer;
+}
+/*#endregion*/

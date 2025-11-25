@@ -3,43 +3,47 @@ export const hfnum = Object.freeze({
     /**
      * 넘버가 맞는지 확인
      * @param {number} tv
-     * @returns
+     * @returns {boolean}
      */
     isNumber: (tv) => {
-        return Number.isFinite(tv);
+        return typeof tv === 'number';
     },
+
 
     /**
      * 넘버가 아닌지 확인
      * @param {number} tv
-     * @returns
+     * @returns {boolean}
      */
     notNumber: (tv) => {
-        return Number.isFinite(tv) === false;
+        return typeof tv !== 'number';
     },
+
 
     /**
      * 넘버가 실수인지 확인
      * @param {number} tv
-     * @returns
+     * @returns boolean
      */
     isFloat: (tv) => {
         return (tv % 1) !== 0;
     },
 
+
     /**
      * 넘버가 음수인지 확인
      * @param {number} tv
-     * @returns
+     * @returns boolean
      */
     isMinus: (tv) => {
         return tv < 0;
     },
 
+
     /**
      * 난수 만들기 0~n
      * @param {number} tv
-     * @returns
+     * @returns number
      */
     random: (tv) => {
         return Math.round(Math.random() * (tv - 1));
@@ -50,7 +54,7 @@ export const hfnum = Object.freeze({
      * 난수 만들기 min~max
      * @param {number} min
      * @param {number} max
-     * @returns
+     * @returns number
      */
     randRange: (min, max) => {
         return min + Math.round(Math.random() * (max - min));
@@ -60,7 +64,7 @@ export const hfnum = Object.freeze({
     /**
      * 넘버가 홀수인지 확인
      * @param {number} tv
-     * @returns
+     * @returns boolean
      */
     isOdd: (tv) => {
         return (tv % 2) > 0;
@@ -70,7 +74,7 @@ export const hfnum = Object.freeze({
     /**
      * 넘버가 짝수인지 확인
      * @param {number} tv
-     * @returns
+     * @returns boolean
      */
     isEven: (tv) => {
         return (tv % 2) === 0;
@@ -80,47 +84,38 @@ export const hfnum = Object.freeze({
 //#endregion
 
 
+
 //#region `hfstr: 문자열 관련 모듈`
 export const hfstr = Object.freeze({
     /**
-     * 문자열 사용불가 확인
+     * 문자열 유효성 확인
      * @param {string} str
-     * @returns
+     * @returns boolean
      */
-    isEmpty: (str) => {
-        if (typeof str === 'string')
-            return str.trim() === '';
-        else
-            return true;
-    },
-
-    /**
-     * 문자열 사용가능 확인
-     * @param {string} str
-     * @returns
-     */
-    notEmpty: (str) => {
+    isStr: (str) => {
         if (typeof str === 'string')
             return str.trim() !== '';
         else
             return false;
     },
 
+
     /**
      * 이름에서 마지막 번호 확인
      * @param {string} str
      * @param {string} token
-     * @returns
+     * @returns number
      */
     getLastNum: (str, token='_') => {
         const ti = str.lastIndexOf(token) + 1;
         return +str.substring(ti);
     },
 
+
     /**
      * 문자열 >> ArrayBuffer 변환
      * @param {string} str
-     * @returns
+     * @returns Uint16Array
      */
     str2Ab: (str) => {
         const l = str.length;
@@ -131,10 +126,11 @@ export const hfstr = Object.freeze({
         return tab;
     },
 
+
     /**
      * ArrayBuffer >> 문자열 변환
      * @param {Uint16Array} ab
-     * @returns
+     * @returns string
      */
     ab2Str: (ab) => {
         return String.fromCharCode.apply(null, ab);
@@ -144,35 +140,27 @@ export const hfstr = Object.freeze({
 //#endregion
 
 
+
 //#region `hfarr: 배열 관련 모듈`
 export const hfarr = Object.freeze({
-    isEmpty: (arr) => {
-        if (Array.isArray(arr))
-            return arr.length === 0;
-        else
-            return true;
-    },
-
     /**
      * 배열객체 유효성 확인
      * @param {any[]} arr
-     * @returns
+     * @returns boolean
      */
     notEmpty: (arr) => {
-        if (Array.isArray(arr))
-            return arr.length > 0;
-        else
-            return false;
+        return Array.isArray(arr) && (arr.length > 0);
     },
+
 
     /**
      * 배열에 요소 확인
      * @param {any[]} arr
      * @param {any} te
-     * @returns
+     * @returns boolean
      */
     contains: (arr, te) => {
-        if (hfarr.isEmpty(arr)) return false;
+        if (hfarr.notEmpty(arr) === false) return false;
 
         let tb = false;
         const l = arr.length
@@ -185,13 +173,14 @@ export const hfarr = Object.freeze({
         return tb;
     },
 
+
     /**
      * 배열 섞기
      * @param {any[]} arr
-     * @returns
+     * @returns void
      */
     shuffle: (arr) => {
-        if (hfarr.isEmpty(arr)) return null;
+        if (hfarr.notEmpty(arr) === false) return;
 
         const l = arr.length;
         for (let i = 0; i < l; i++) {
@@ -200,8 +189,8 @@ export const hfarr = Object.freeze({
             arr[i] = arr[ti];
             arr[ti] = te;
         }
-        return arr;
     },
+
 
     /**
      * 배열 복사
@@ -209,13 +198,13 @@ export const hfarr = Object.freeze({
      * @returns
      */
     copy: (arr) => {
-        if (hfarr.isEmpty(arr)) return null;
-
+        if (hfarr.notEmpty(arr) === false) return null;
         return arr.slice();
     },
 
 });
 //#endregion
+
 
 
 //#region `hfdtime: 날짜,시간 관련 유틸리티`
@@ -237,6 +226,7 @@ export const hfdtime = Object.freeze({
         // return `${df1}-${df2}-${df3} ${df4}:${df5}:${df6}.${df7}`;
         return `${df1}/${df2}/${df3} ${df4}:${df5}:${df6}.${df7}`;
     },
+
 
     /**
      * 시간 문자열 포맷으로 만들기
@@ -323,49 +313,3 @@ export const hfdtime = Object.freeze({
 
 });
 //#endregion
-
-
-export const hfEventTypes = Object.freeze({
-    // Base
-    BLUR: 'blur',
-    RESIZE: 'resize',
-    SCROLL: 'scroll',
-
-    // Mouse
-    MOUSE_MOVE: 'mousemove',
-    MOUSE_UP: 'mouseup',
-    MOUSE_DOWN: 'mousedown',
-    MOUSEWHEEL: 'mousewheel',
-    CLICK: 'click',
-
-    // Custom
-    UPDATE: 'update',
-    END: 'end',
-});
-
-
-export const dcs = Object.seal({
-    /**
-     * 로그 사용여부
-     */
-    isLog: true,
-
-    /**
-     * 로그 기본
-     * @param {...any} args
-     */
-    log: (...args) => {
-        if (dcs.isLog === true)
-            console.log.apply(null, args);
-    },
-
-    /**
-     * 로그 메세지
-     * @param {string} msg
-     */
-    msg: (msg) => {
-        if (dcs.isLog === true)
-            console.log(msg);
-    }
-
-});

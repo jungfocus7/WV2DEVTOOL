@@ -11,13 +11,13 @@ export default {
 	output: [
 		// a)
 		{
-			file: 'js/hfall.js',
+			file: 'dist/hfall.js',
 			format: 'es',
 			sourcemap: true,
 		},
 		// b)
 		{
-			file: 'js/hfall.min.js',
+			file: 'dist/hfall.min.js',
 			format: 'es',
 			sourcemap: true,
 			plugins: [
