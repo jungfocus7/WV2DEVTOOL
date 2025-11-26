@@ -14,6 +14,10 @@ const _pageCont = _rootCont.querySelector('div.c_pageCont');
 /** @type {HTMLButtonElement[]} */
 const _lmbtnArr = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'));
 
+// /** @type {HTMLDivElement[]} */
+// const _pgeArr = Array.from(_pageCont.querySelectorAll('div.c_page'));
+// let _pgeArr = null;
+
 /** @type {PageData[]} */
 const _pageDataArr = [];
 
@@ -27,61 +31,46 @@ const fn_twr_cbf = (_, cv) => {
 const _tween = new hfTween(0, 36, new hfEaseExponential(hfEasingKind.easeInOut), fn_twr_cbf);
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let _bCloseLeftCont = true;
+_pinbt.addEventListener(hfEventTypes.CLICK, (pe) => {
+    if (_bCloseLeftCont) {
+        let stl = _leftMenuCont.style;
+        stl.width = '37px';
+        _bCloseLeftCont = false;
+    } else {
+        let stl = _leftMenuCont.style;
+        stl.width = '';
+        _bCloseLeftCont = true;
+    }
+});
+
+
+//~~~~~~~~~~
 (() => {
-    const fn_getPageIndex = () => {
-        let kvsa = document.cookie.split(';');
-        let rv = '';
-        for (let kvs of kvsa) {
-            //'pgi=333345'.match(/pgi=(\d+)/)?.at(1);
-            rv = kvs.match(/pgi=(\d+)/)?.at(1);
-        }
-        return +rv;
-    };
-
-    const fn_setPageIndex = (pi) => {
-        document.cookie = `pgi=${pi}`;
-    };
-
-
-    let _bCloseLeftCont = true;
-    let fn_pinbt_cl = (_) => {
-        if (_bCloseLeftCont) {
-            let stl = _leftMenuCont.style;
-            stl.width = '37px';
-            _bCloseLeftCont = false;
-        } else {
-            let stl = _leftMenuCont.style;
-            stl.width = '';
-            _bCloseLeftCont = true;
-        }
-    };
-    _pinbt.addEventListener(hfEventTypes.CLICK, fn_pinbt_cl);
-
-
     /**
-     * @param {HTMLDivElement} pge
+     * @param {PointerEvent} pe
      */
-    const fn_ggwave = (pge) => {
+    const fn_hbt_cl = (pe) => {
+        // let btn = pe.currentTarget;
+        // // dcs.log(btn.tin, btn.tnm, btn.di);
+        // // dcs.log(Number.parseInt(btn.tin));
+        // let pge = _pgeArr.at(btn.di);
+        // // dcs.log(pge, pge.offsetTop);
+        // let end = pge.offsetTop;
+        // // dcs.log(typeof end, _pageCont.scrollTo);
+        // dcs.log(_pageCont);
+        // // _pageCont.scrollTo(0, 100);
+        // _pageCont.scrollTo(0, end);
+
+        let btn = pe.currentTarget;
+        let pge = _pageDataArr.at(btn.di).pge;
+        // _pageCont.scrollTo(0, pge.offsetTop);
+
         let begin = _pageCont.scrollTop;
         let end = pge.offsetTop;
         let max = _pageCont.scrollHeight - _pageCont.clientHeight;
         if (end > max) end = max;
         _tween.fromTo(begin, end);
-
-        pge.focus({preventScroll: false});
-    };
-
-    /**
-     * @param {PointerEvent} pe
-     */
-    const fn_hbt_cl = (pe) => {
-        let btn = pe.currentTarget;
-        let pi = btn.pi;
-        let pge = _pageDataArr.at(btn.pi).pge;
-
-        fn_setPageIndex(pi);
-        fn_ggwave(pge);
     };
 
     let hts = _pageCont.innerHTML;
@@ -95,9 +84,16 @@ const _tween = new hfTween(0, 36, new hfEaseExponential(hfEasingKind.easeInOut),
         let tin = txt.substring(0, 2);
         let tnm = txt.substring(4);
 
+        // Reflect.defineProperty(btn, 'tin', {
+        //     // configurable: false, enumerable: false, writable: false,
+        //     value: tin
+        // });
         Reflect.defineProperty(btn, 'tin', {value: tin});
         Reflect.defineProperty(btn, 'tnm', {value: tnm});
-        Reflect.defineProperty(btn, 'pi', {value: i++});
+        Reflect.defineProperty(btn, 'di', {value: i++});
+        // dcs.log(Reflect.getOwnPropertyDescriptor(btn, 'tin'));
+        // dcs.log(btn.tin);
+        // btn.tin = 99
 
         let rhs = hts;
         rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
@@ -128,26 +124,11 @@ const _tween = new hfTween(0, 36, new hfEaseExponential(hfEasingKind.easeInOut),
     i = 0;
     for (let pge of pgeArr) {
         let pd = _pageDataArr.at(i++);
-        // dcs.log(pd.mbtn.textContent);
+        dcs.log(pd.mbtn.textContent);
         pd.pge = pge;
     }
 
-    let pi = fn_getPageIndex();
-    if (Number.isFinite(pi) &&
-        ((pi >= 0) || (pi < _pageDataArr.length))) {
-        let pge = _pageDataArr.at(pi).pge;
-        fn_ggwave(pge);
-    }
-
 })();
-
-
-
-
-
-
-
-
 
 
 
@@ -183,6 +164,13 @@ const _tween = new hfTween(0, 36, new hfEaseExponential(hfEasingKind.easeInOut),
 // <span class="c_mobt"></span>
 //     `.trim());
 // })();
+
+
+
+
+
+
+
 
 
 
