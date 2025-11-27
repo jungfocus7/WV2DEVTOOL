@@ -9,15 +9,13 @@ div.c_page {
   margin: 0px 0px 10px 0px; padding: 0px 4px 2px 4px;
   background-color: transparent;
   box-sizing: border-box;
-  /* border: 2px solid darkslategrey; */
   border-width: 5px 5px 5px 0px;
   border-style: solid;
   border-color: dimgray;
-  font-size: 0px; overflow: hidden;
+  overflow: hidden;
 }
 
 div.c_page:focus-within {
-  /* border: 2px solid darkslategrey; */
   border-color: aquamarine;
   outline: none;
 }
@@ -31,7 +29,6 @@ div.c_page>span.c_tname {
 }
 
 div.c_page:focus-within>span.c_tname {
-  /* border: 2px solid darkslategrey; */
   background-color: aquamarine;
 }
 
@@ -42,7 +39,7 @@ div.c_page>textarea.c_tam {
   box-sizing: border-box;
   border: 1px solid dimgray;
   border-style: dashed;
-  font-family: 'Consolas', 'Courier New', 'monospace';
+  font-family: inherit;
   font-size: 11px; color: black; line-height: 2;
   white-space: nowrap; resize: none;
 }
@@ -79,7 +76,7 @@ div.c_btc>button.c_bt>span {
   padding: 0px 1px 1px 1px;
   pointer-events: none;
   color: whitesmoke;
-  font-family: 'Consolas', 'Courier New', 'monospace';
+  font-family: inherit;
   font-size: 10px;
 }
 

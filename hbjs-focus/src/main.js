@@ -18,170 +18,236 @@ const _lmbtnArr = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'));
 const _pageDataArr = [];
 
 /** @type {HTMLSpanElement} */
+const _pinRect = _leftMenuCont.querySelector('span.c_pinRect');
+
+/** @type {HTMLSpanElement} */
 const _pinbt = _leftMenuCont.querySelector('span.c_pinbt');
 
 
-const fn_twr_cbf = (_, cv) => {
-    _pageCont.scrollTo(0, cv);
-};
-const _tween = new hfTween(0, 36, new hfEaseExponential(hfEasingKind.easeInOut), fn_twr_cbf);
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(() => {
-    const fn_getPageIndex = () => {
-        let kvsa = document.cookie.split(';');
-        let rv = '';
-        for (let kvs of kvsa) {
-            //'pgi=333345'.match(/pgi=(\d+)/)?.at(1);
-            rv = kvs.match(/pgi=(\d+)/)?.at(1);
-            if (rv) break;
-        }
-        return +rv;
-    };
-
-    const fn_setPageIndex = (pi) => {
-        document.cookie = `pgi=${pi}`;
-    };
+const fn_twr1_cbf = (_, cv) => {
+    // _pageCont.scrollTo(0, cv);
+    _pinRect.style.top = `${cv}px`;
+};
+const _twr1 = new hfTween(0, 16, new hfEaseExponential(hfEasingKind.easeOut), fn_twr1_cbf);
 
 
-    let _bCloseLeftCont = true;
-    let fn_pinbt_cl = (_) => {
-        if (_bCloseLeftCont) {
-            let stl = _leftMenuCont.style;
-            stl.width = '37px';
-            _bCloseLeftCont = false;
-        } else {
-            let stl = _leftMenuCont.style;
-            stl.width = '';
-            _bCloseLeftCont = true;
-        }
-    };
-    _pinbt.addEventListener(hfEventTypes.CLICK, fn_pinbt_cl);
+/**
+ * @param {PointerEvent} pe
+ */
+const fn_hbt_cl = (pe) => {
+    /** @type {HTMLButtonElement} */
+    let btn = pe.currentTarget;
+    // let pi = btn.pi;
+    // dcs.log(pi);
+    // dcs.log(btn.offsetTop);
+    let ey = btn.offsetTop;
+    _pinRect.style.top = `${ey}px`;
 
+    // let by = _pinRect.offsetTop;
+    // let ey = btn.offsetTop;
+    // // _pinRect.style.top = `${ey}px`;
+    // _twr1.fromTo(by, ey);
+};
 
-    /**
-     * @param {HTMLDivElement} pge
-     */
-    const fn_ggwave = (pge) => {
-        let begin = _pageCont.scrollTop;
-        let end = pge.offsetTop;
-        let max = _pageCont.scrollHeight - _pageCont.clientHeight;
-        if (end > max) end = max;
-        _tween.fromTo(begin, end);
-
-        pge.focus({preventScroll: false});
-    };
-
-    /**
-     * @param {PointerEvent} pe
-     */
-    const fn_hbt_cl = (pe) => {
-        let btn = pe.currentTarget;
-        let pi = btn.pi;
-        let pge = _pageDataArr.at(btn.pi).pge;
-
-        fn_setPageIndex(pi);
-        fn_ggwave(pge);
-    };
-
-    let hts = _pageCont.innerHTML;
-    _pageCont.innerHTML = '';
-
-    /** @type {string[]} */
-    let tsb = [];
+const fn_initOnceApp = () => {
     let i = 0;
     for (let btn of _lmbtnArr) {
         let txt = btn.textContent;
         let tin = txt.substring(0, 2);
         let tnm = txt.substring(4);
-
         Reflect.defineProperty(btn, 'tin', {value: tin});
         Reflect.defineProperty(btn, 'tnm', {value: tnm});
-        Reflect.defineProperty(btn, 'pi', {value: i++});
-
-        let rhs = hts;
-        rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
-            let rv = `${t2}${tin}${t3}`;
-            return rv;
-        });
-        rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
-            let rv = `${t2}${tnm}${t3}`;
-            return rv;
-        });
-        tsb.push(rhs);
-
+        Reflect.defineProperty(btn, 'pi', {value: i});
         btn.addEventListener(hfEventTypes.CLICK, fn_hbt_cl);
-
-        _pageDataArr.push({
-           rootCont: _rootCont,
-           leftMenuCont: _leftMenuCont,
-           pageCont: _pageCont,
-           mbtn: btn,
-           pge: null,
-        });
+        if (i === 0) {
+            btn.click();
+        }
+        ++i;
     }
+};
 
-    _pageCont.innerHTML = tsb.join('');
-
-
-    let pgeArr = Array.from(_pageCont.querySelectorAll('div.c_page'));
-    i = 0;
-    for (let pge of pgeArr) {
-        let pd = _pageDataArr.at(i++);
-        // dcs.log(pd.mbtn.textContent);
-        pd.pge = pge;
-    }
-
-    let pi = fn_getPageIndex();
-    if (Number.isFinite(pi) &&
-        ((pi >= 0) || (pi < _pageDataArr.length))) {
-        let pge = _pageDataArr.at(pi).pge;
-        fn_ggwave(pge);
-    }
+fn_initOnceApp();
 
 
-    // let psv = 0;
-    // const fn_scroll = (_) => {
-    //     let csv = _pageCont.scrollTop;
-    //     let dst = Math.abs(csv - psv);
-    //     if (dst > 0) {
-    //         // dcs.log('>> ', dst);
-    //         // dcs.log('>> ', csv);
-    //         // let dy = 99999;
-    //         // for (let pd of _pageDataArr) {
-    //         //     let ty = Math.abs(pd.pge.offsetTop - csv);
-    //         //     if (ty < dy) {
-    //         //         dy = ty;
-    //         //     }
-    //         //     // dcs.log(ty, csv);
-    //         // }
-    //         // dcs.log(dy);
 
-    //         // for (let pd of _pageDataArr) {
-    //         //     let ty = Math.abs(pd.pge.offsetTop - csv);
-    //         //     if (ty < dy) {
-    //         //         dy = ty;
-    //         //     }
-    //         //     // dcs.log(ty, csv);
-    //         // }
-    //     }
-    //     psv = csv;
-    // };
-    // _pageCont.addEventListener('scroll', fn_scroll);
-    // dcs.log(1);
-    // _pageCont.addEventListener('scroll', (te) => {
-    //     let osy = _pageDataArr.at(0).pge.offsetTop;
-    //     dcs.log(osy, _pageCont.scrollTop);
-    //     // dcs.log(te);
-    //     // for (let pge of pgeArr) {
-    //     //     let pd = _pageDataArr.at(i++);
-    //     //     // dcs.log(pd.mbtn.textContent);
-    //     //     pd.pge = pge;
-    //     // }
-    // });
 
-})();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// (() => {
+//     const fn_getPageIndex = () => {
+//         let kvsa = document.cookie.split(';');
+//         let rv = '';
+//         for (let kvs of kvsa) {
+//             //'pgi=333345'.match(/pgi=(\d+)/)?.at(1);
+//             rv = kvs.match(/pgi=(\d+)/)?.at(1);
+//             if (rv) break;
+//         }
+//         return +rv;
+//     };
+
+//     const fn_setPageIndex = (pi) => {
+//         document.cookie = `pgi=${pi}`;
+//     };
+
+
+//     let _bCloseLeftCont = true;
+//     let fn_pinbt_cl = (_) => {
+//         if (_bCloseLeftCont) {
+//             let stl = _leftMenuCont.style;
+//             stl.width = '37px';
+//             _bCloseLeftCont = false;
+//         } else {
+//             let stl = _leftMenuCont.style;
+//             stl.width = '';
+//             _bCloseLeftCont = true;
+//         }
+//     };
+//     _pinbt.addEventListener(hfEventTypes.CLICK, fn_pinbt_cl);
+
+
+//     /**
+//      * @param {HTMLDivElement} pge
+//      */
+//     const fn_ggwave = (pge) => {
+//         let begin = _pageCont.scrollTop;
+//         let end = pge.offsetTop;
+//         let max = _pageCont.scrollHeight - _pageCont.clientHeight;
+//         if (end > max) end = max;
+//         _tween.fromTo(begin, end);
+
+//         pge.focus({preventScroll: false});
+//     };
+
+//     /**
+//      * @param {PointerEvent} pe
+//      */
+//     const fn_hbt_cl = (pe) => {
+//         let btn = pe.currentTarget;
+//         let pi = btn.pi;
+//         let pge = _pageDataArr.at(btn.pi).pge;
+
+//         fn_setPageIndex(pi);
+//         fn_ggwave(pge);
+//     };
+
+//     let hts = _pageCont.innerHTML;
+//     _pageCont.innerHTML = '';
+
+//     /** @type {string[]} */
+//     let tsb = [];
+//     let i = 0;
+//     for (let btn of _lmbtnArr) {
+//         let txt = btn.textContent;
+//         let tin = txt.substring(0, 2);
+//         let tnm = txt.substring(4);
+
+//         Reflect.defineProperty(btn, 'tin', {value: tin});
+//         Reflect.defineProperty(btn, 'tnm', {value: tnm});
+//         Reflect.defineProperty(btn, 'pi', {value: i++});
+
+//         let rhs = hts;
+//         rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
+//             let rv = `${t2}${tin}${t3}`;
+//             return rv;
+//         });
+//         rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
+//             let rv = `${t2}${tnm}${t3}`;
+//             return rv;
+//         });
+//         tsb.push(rhs);
+
+//         btn.addEventListener(hfEventTypes.CLICK, fn_hbt_cl);
+
+//         _pageDataArr.push({
+//            rootCont: _rootCont,
+//            leftMenuCont: _leftMenuCont,
+//            pageCont: _pageCont,
+//            mbtn: btn,
+//            pge: null,
+//         });
+//     }
+
+//     _pageCont.innerHTML = tsb.join('');
+
+
+//     let pgeArr = Array.from(_pageCont.querySelectorAll('div.c_page'));
+//     i = 0;
+//     for (let pge of pgeArr) {
+//         let pd = _pageDataArr.at(i++);
+//         // dcs.log(pd.mbtn.textContent);
+//         pd.pge = pge;
+//     }
+
+//     let pi = fn_getPageIndex();
+//     if (Number.isFinite(pi) &&
+//         ((pi >= 0) || (pi < _pageDataArr.length))) {
+//         let pge = _pageDataArr.at(pi).pge;
+//         fn_ggwave(pge);
+//     }
+
+
+//     // let psv = 0;
+//     // const fn_scroll = (_) => {
+//     //     let csv = _pageCont.scrollTop;
+//     //     let dst = Math.abs(csv - psv);
+//     //     if (dst > 0) {
+//     //         // dcs.log('>> ', dst);
+//     //         // dcs.log('>> ', csv);
+//     //         // let dy = 99999;
+//     //         // for (let pd of _pageDataArr) {
+//     //         //     let ty = Math.abs(pd.pge.offsetTop - csv);
+//     //         //     if (ty < dy) {
+//     //         //         dy = ty;
+//     //         //     }
+//     //         //     // dcs.log(ty, csv);
+//     //         // }
+//     //         // dcs.log(dy);
+
+//     //         // for (let pd of _pageDataArr) {
+//     //         //     let ty = Math.abs(pd.pge.offsetTop - csv);
+//     //         //     if (ty < dy) {
+//     //         //         dy = ty;
+//     //         //     }
+//     //         //     // dcs.log(ty, csv);
+//     //         // }
+//     //     }
+//     //     psv = csv;
+//     // };
+//     // _pageCont.addEventListener('scroll', fn_scroll);
+//     // dcs.log(1);
+//     // _pageCont.addEventListener('scroll', (te) => {
+//     //     let osy = _pageDataArr.at(0).pge.offsetTop;
+//     //     dcs.log(osy, _pageCont.scrollTop);
+//     //     // dcs.log(te);
+//     //     // for (let pge of pgeArr) {
+//     //     //     let pd = _pageDataArr.at(i++);
+//     //     //     // dcs.log(pd.mbtn.textContent);
+//     //     //     pd.pge = pge;
+//     //     // }
+//     // });
+
+// })();
 
 
 
