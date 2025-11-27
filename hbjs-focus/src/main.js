@@ -35,6 +35,7 @@ const _tween = new hfTween(0, 36, new hfEaseExponential(hfEasingKind.easeInOut),
         for (let kvs of kvsa) {
             //'pgi=333345'.match(/pgi=(\d+)/)?.at(1);
             rv = kvs.match(/pgi=(\d+)/)?.at(1);
+            if (rv) break;
         }
         return +rv;
     };
@@ -138,6 +139,47 @@ const _tween = new hfTween(0, 36, new hfEaseExponential(hfEasingKind.easeInOut),
         let pge = _pageDataArr.at(pi).pge;
         fn_ggwave(pge);
     }
+
+
+    // let psv = 0;
+    // const fn_scroll = (_) => {
+    //     let csv = _pageCont.scrollTop;
+    //     let dst = Math.abs(csv - psv);
+    //     if (dst > 0) {
+    //         // dcs.log('>> ', dst);
+    //         // dcs.log('>> ', csv);
+    //         // let dy = 99999;
+    //         // for (let pd of _pageDataArr) {
+    //         //     let ty = Math.abs(pd.pge.offsetTop - csv);
+    //         //     if (ty < dy) {
+    //         //         dy = ty;
+    //         //     }
+    //         //     // dcs.log(ty, csv);
+    //         // }
+    //         // dcs.log(dy);
+
+    //         // for (let pd of _pageDataArr) {
+    //         //     let ty = Math.abs(pd.pge.offsetTop - csv);
+    //         //     if (ty < dy) {
+    //         //         dy = ty;
+    //         //     }
+    //         //     // dcs.log(ty, csv);
+    //         // }
+    //     }
+    //     psv = csv;
+    // };
+    // _pageCont.addEventListener('scroll', fn_scroll);
+    // dcs.log(1);
+    // _pageCont.addEventListener('scroll', (te) => {
+    //     let osy = _pageDataArr.at(0).pge.offsetTop;
+    //     dcs.log(osy, _pageCont.scrollTop);
+    //     // dcs.log(te);
+    //     // for (let pge of pgeArr) {
+    //     //     let pd = _pageDataArr.at(i++);
+    //     //     // dcs.log(pd.mbtn.textContent);
+    //     //     pd.pge = pge;
+    //     // }
+    // });
 
 })();
 
