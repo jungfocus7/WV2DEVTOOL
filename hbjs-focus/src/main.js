@@ -26,12 +26,6 @@ const _pinFold = _leftMenuCont.querySelector('span.c_pinFold');
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const fn_twr1_cbf = (_, cv) => {
-    _pinRect.style.top = `${cv}px`;
-};
-const _twr1 = new hfTween(0, 16, new hfEaseExponential(hfEasingKind.easeOut), fn_twr1_cbf);
-
-
 const fn_comp_pageMngr = () => {
     let hts = _pageCont.innerHTML;
     _pageCont.innerHTML = '';
@@ -76,51 +70,40 @@ const fn_comp_pageMngr = () => {
 };
 
 const fn_comp_scrollMngr = () => {
-    // /**
-    //  * @param {number} cst
-    //  */
-    // const fn_fge = (cst) => {
-    //     let rv = -1;
-    //     for (let pd of _pageDataArr) {
-    //         let ost = pd.pge.offsetTop;
-    //         let ds = Math.abs(cst - ost);
-    //         if (ds <= 150) {
-    //             rv = ost;
-    //             pd.pge.focus({preventScroll: true});
-    //             break;
-    //         }
-    //     }
-
-    //     // dcs.log(rv);
-    // };
     const fn_fge = () => {
-        // _pageCont.scrollTop
-        // _pageCont.scrollHeight
-        // _pageCont.clientHeight
-        let rv = _pageCont.scrollTop / (_pageCont.scrollHeight - _pageCont.clientHeight);
-        dcs.log(rv);
+        let max = _pageCont.scrollHeight - _pageCont.clientHeight;
+        let ctr = _pageCont.scrollTop / max;
+        // dcs.log(ctr);
+
+        let li = _pageDataArr.length - 1;
+        let x1 = li * ctr;
+        // dcs.log(x1, Math.round(x1));
+        let i = Math.round(x1);
+        _pageDataArr.at(i).pge.focus({preventScroll: true});
     };
 
     let pst = _pageCont.scrollTop;
     const fn_scroll = () => {
-        // dcs.log(_pageCont.scrollTop
-        //     , _pageCont.scrollHeight
-        //     , _pageCont.clientHeight);
-        // let xxx = _pageCont.scrollHeight - _pageCont.clientHeight;
-        // dcs.log(xxx);
-        // return;
         let cst = _pageCont.scrollTop;
         let ds = Math.abs(cst - pst);
+        // dcs.log(pst, cst, ds);
         pst = cst;
-        // dcs.log(cst, ds);
         if (ds > 0) {
-            // dcs.log(cst, _pageDataArr.at(1).pge.offsetTop);
-            // fn_fge(cst);
-            // dcs.log(cst, csh, _pageCont.heigh);
             fn_fge();
         }
     };
     _pageCont.addEventListener('scroll', fn_scroll);
+
+    // _pageCont.addEventListener('focusin', () => {
+    //     // dcs.log('focus~~');
+    //     // fn_fge();
+    // });
+    _pageCont.addEventListener('mousedown', (me) => {
+        me.stopPropagation();
+        me.stopImmediatePropagation();
+        // dcs.log('focus~~', me);
+        fn_fge();
+    });
 };
 
 const fn_comp_fold = () => {
@@ -139,6 +122,27 @@ const fn_comp_fold = () => {
     _pinFold.addEventListener(hfEventTypes.CLICK, fn_clh);
 };
 
+
+const fn_twr1_cbf = (_, cv) => {
+    // _pinRect.style.top = `${cv}px`;
+    // dcs.log(cv);
+    _pageCont.scrollTo(0, cv);
+};
+const _twr1 = new hfTween(
+    0, 32, new hfEaseExponential(hfEasingKind.easeInOut), fn_twr1_cbf);
+
+/**
+ * @param {HTMLDivElement} pge
+ */
+const fn_ggwave = (pge) => {
+    let begin = _pageCont.scrollTop;
+    let end = pge.offsetTop;
+    let max = _pageCont.scrollHeight - _pageCont.clientHeight;
+    if (end > max) end = max;
+    // dcs.log(pge, begin, end);
+    _twr1.fromTo(begin, end);
+};
+
 /**
  * @param {PointerEvent} pe
  */
@@ -147,9 +151,12 @@ const fn_btn_cl = (pe) => {
     let btn = pe.currentTarget;
     let ey = btn.offsetTop;
     _pinRect.style.top = `${ey}px`;
+
     // dcs.log(btn.pi, _pageDataArr.at(btn.pi));
     // _pageDataArr.at(btn.pi)?.pge.focus({preventScroll: true});
     //pge.focus({preventScroll: false});
+    // fn_ggwave()
+    fn_ggwave(_pageDataArr.at(btn.pi).pge);
 };
 
 const fn_initOnce = () => {
@@ -162,15 +169,14 @@ const fn_initOnce = () => {
         Reflect.defineProperty(btn, 'tnm', {value: tnm});
         Reflect.defineProperty(btn, 'pi', {value: i});
         btn.addEventListener(hfEventTypes.CLICK, fn_btn_cl);
-        if (i === 0) {
-            btn.click();
-        }
         ++i;
     }
 
     fn_comp_pageMngr();
     fn_comp_scrollMngr();
     fn_comp_fold();
+
+    _pageDataArr.at(0).mbtn.click();
 };
 
 fn_initOnce();
