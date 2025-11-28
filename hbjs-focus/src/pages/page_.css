@@ -2,36 +2,17 @@
 
 
 /*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
-div.c_page {
-  position: relative; display: flex;
-  flex-direction: column; align-items: stretch;
-  width: 500px; height: 400px;
-  margin: 0px 0px 10px 0px; padding: 0px 4px 2px 4px;
+html, body {
   background-color: transparent;
-  box-sizing: border-box;
-  border-width: 5px 5px 5px 0px;
-  border-style: solid;
-  border-color: dimgray;
-  overflow: hidden;
+  width: 100vw; height: 100vh; margin: 0px; padding: 0px;
+  font-family: 'Consolas', 'Courier New', 'monospace';
+  font-size: 0px; color: black; white-space: nowrap;
+  overflow: hidden; user-select: none;
 }
+/*#endregion*/
 
-div.c_page:focus-within {
-  border-color: aquamarine;
-  outline: none;
-}
 
-div.c_page>span.c_tname {
-  align-self: flex-start;
-  margin: 0px; padding: 0px 10px 0px 10px;
-  background-color: transparent;
-  font-size: 13px; font-weight: bold;
-	color: dimgray; text-align: left;
-}
-
-div.c_page:focus-within>span.c_tname {
-  background-color: aquamarine;
-}
-
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
 div.c_page>textarea.c_tam {
   flex-grow: 1;
   margin: 4px 0px 4px 0px; padding: 3px;
@@ -83,3 +64,4 @@ div.c_btc>button.c_bt>span {
 div.c_btc>button.c_bt:active>span {
   transform: translate(1px, 1px);
 }
+

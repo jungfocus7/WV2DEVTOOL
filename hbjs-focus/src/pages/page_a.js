@@ -1,381 +1,232 @@
-import "../_defs.js";
-import {
-    dcs, hfEventTypes, hfnum, hfstr, hfarr, hfdtime
-} from "../../hbjs/hfCommon.js";
+import { fn_print, btns } from "./SubCom.js";
+import { hfnum, hfstr, hfarr, hfdtime } from "../hbjs/hfCommon.js";
 
 
-//#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)
-const _tester_hfnum = Object.freeze({
-    fn_isEven(tv) {
-        if (hfnum.notNumber(tv)) return;
-        return `hfnum.isEven(${tv}): ${hfnum.isEven(tv)}`;
-    },
 
-    fn_test() {
-        fn_print(null);
-        fn_print(`
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isNumber
-  hfnum.isNumber(3.7): ${hfnum.isNumber(3.7)}
-  hfnum.isNumber(6.0): ${hfnum.isNumber(6.0)}
-  hfnum.isNumber('94123'): ${hfnum.isNumber('94123')}
-  hfnum.isNumber((Math.PI / 2) + '::'): ${hfnum.isNumber((Math.PI / 2) + '::')}
-}}
+//#region {{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  hfnum
+const fn_clh1 = (te) => {
+    fn_print('{{----------  hfnum');
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.notNumber
-  hfnum.notNumber(3.7): ${hfnum.notNumber(3.7)}
-  hfnum.notNumber(6.0): ${hfnum.notNumber(6.0)}
-  hfnum.notNumber('94123'): ${hfnum.notNumber('94123')}
-  hfnum.notNumber((Math.PI / 2) + '::'): ${hfnum.notNumber((Math.PI / 2) + '::')}
-}}
+    const fn_isNumber = (td) => {
+        fn_print(`hfnum.isNumber(${td}): ${hfnum.isNumber(td)}`);
+    };
+    fn_isNumber(3.7);
+    fn_isNumber(6.0);
+    fn_isNumber('94123');
+    fn_isNumber((Math.PI / 2) + '::');
+    fn_print('\n');
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isFloat
-  hfnum.isFloat(3.7): ${hfnum.isFloat(3.7)}
-  hfnum.isFloat(6.0): ${hfnum.isFloat(6.0)}
-  hfnum.isFloat(909.3): ${hfnum.isFloat(909.3)}
-  hfnum.isFloat(Math.PI): ${hfnum.isFloat(Math.PI)}
-}}
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isMinus
-  hfnum.isMinus(-3.45): ${hfnum.isMinus(-3.45)}
-  hfnum.isMinus(943): ${hfnum.isMinus(943)}
-  hfnum.isMinus(-Math.PI): ${hfnum.isMinus(-Math.PI)}
-  hfnum.isMinus(400 - 329): ${hfnum.isMinus(400 - 329)}
-}}
+    const fn_notNumber = (td) => {
+        fn_print(`hfnum.notNumber(${td}): ${hfnum.notNumber(td)}`);
+    };
+    fn_notNumber(3.7);
+    fn_notNumber(6.0);
+    fn_notNumber('94123');
+    fn_notNumber((Math.PI / 2) + '::');
+    fn_print('\n');
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.random
-  hfnum.random(13): ${hfnum.random(13)}
-  hfnum.random(234): ${hfnum.random(234)}
-  hfnum.random(27): ${hfnum.random(27)}
-  hfnum.random(95): ${hfnum.random(95)}
-}}
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.randRange
-  hfnum.randRange(1, 5): ${hfnum.randRange(1, 5)}
-  hfnum.randRange(17, 35): ${hfnum.randRange(17, 35)}
-  hfnum.randRange(92, 182): ${hfnum.randRange(92, 182)}
-  hfnum.randRange(7, 13): ${hfnum.randRange(7, 13)}
-}}
+    const fn_isFloat = (td) => {
+        if (typeof td !== 'number') return;
+        fn_print(`hfnum.isFloat(${td}): ${hfnum.isFloat(td)}`);
+    };
+    fn_isFloat(3.7);
+    fn_isFloat(6.0);
+    fn_isFloat(909.3);
+    fn_isFloat(Math.PI);
+    fn_print('\n');
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isOdd
-  hfnum.isOdd(78): ${hfnum.isOdd(78)}
-  hfnum.isOdd(1): ${hfnum.isOdd(1)}
-  hfnum.isOdd(956): ${hfnum.isOdd(956)}
-  hfnum.isOdd(37): ${hfnum.isOdd(37)}
-}}
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isEven
-  hfnum.isEven(5): ${hfnum.isEven(5)}
-  hfnum.isEven(17): ${hfnum.isEven(17)}
-  hfnum.isEven(182): ${hfnum.isEven(182)}
-  hfnum.isEven(93): ${hfnum.isEven(93)}
-}}
-        `.trim());
-        fn_print('\n');
-    },
-});
+    const fn_isMinus = (td) => {
+        if (typeof td !== 'number') return;
+        fn_print(`hfnum.isMinus(${td}): ${hfnum.isMinus(td)}`);
+    };
+    fn_isMinus(-3.45);
+    fn_isMinus(943);
+    fn_isMinus(-Math.PI);
+    fn_isMinus(400 - 329);
+    fn_print('\n');
 
-const _tester_hfstr = Object.freeze({
-    fn_test() {
-        fn_print(null);
-        fn_print(`
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfstr.isEmpty
-  hfstr.isEmpty(true): ${hfstr.isEmpty(true)}
-  hfstr.isEmpty('6.0'): ${hfstr.isEmpty('6.0')}
-  hfstr.isEmpty('pook61'): ${hfstr.isEmpty('pook61')}
-  hfstr.isEmpty(Math.PI): ${hfstr.isEmpty(Math.PI)}
-}}
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfstr.notEmpty
-  hfstr.notEmpty(true): ${hfstr.notEmpty(true)}
-  hfstr.notEmpty('6.0'): ${hfstr.notEmpty('6.0')}
-  hfstr.notEmpty('pook61'): ${hfstr.notEmpty('pook61')}
-  hfstr.notEmpty(Math.PI): ${hfstr.notEmpty(Math.PI)}
-}}
+    const fn_random = (td) => {
+        if (typeof td !== 'number') return;
+        fn_print(`hfnum.random(${td}): ${hfnum.random(td)}`);
+    };
+    fn_random(13);
+    fn_random(234);
+    fn_random(27);
+    fn_random(95);
+    fn_print('\n');
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfstr.getLastNum
-  hfstr.getLastNum('name_1'): ${hfstr.getLastNum('name_1')}
-  hfstr.getLastNum('pook_061'): ${hfstr.getLastNum('pook_061')}
-  hfstr.getLastNum('inoff_792'): ${hfstr.getLastNum('inoff_792')}
-  hfstr.getLastNum('name_9734'): ${hfstr.getLastNum('name_9734')}
-}}
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfstr.str2Ab
-  hfstr.str2Ab('박종명'): ${hfstr.str2Ab('박종명')}
-  hfstr.str2Ab('임헌진'): ${hfstr.str2Ab('임헌진')}
-  hfstr.str2Ab('이중호'): ${hfstr.str2Ab('이중호')}
-  hfstr.str2Ab('치치와몽이'): ${hfstr.str2Ab('치치와몽이')}
-}}
+    const fn_randRange = (min, max) => {
+        if (typeof min !== 'number') return;
+        if (typeof max !== 'number') return;
+        fn_print(`hfnum.randRange(${min}, ${max}): ${hfnum.randRange(min, max)}`);
+    };
+    fn_randRange(1, 5);
+    fn_randRange(17, 35);
+    fn_randRange(92, 182);
+    fn_randRange(7, 13);
+    fn_print('\n');
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfstr.ab2Str
-  hfstr.ab2Str(hfstr.str2Ab('박종명')): ${hfstr.ab2Str(hfstr.str2Ab('박종명'))}
-  hfstr.ab2Str(hfstr.str2Ab('임헌진')): ${hfstr.ab2Str(hfstr.str2Ab('임헌진'))}
-  hfstr.ab2Str(hfstr.str2Ab('이중호')): ${hfstr.ab2Str(hfstr.str2Ab('이중호'))}
-  hfstr.ab2Str(hfstr.str2Ab('치치와몽이')): ${hfstr.ab2Str(hfstr.str2Ab('치치와몽이'))}
-}}
-        `.trim());
-        fn_print('\n');
-    },
-});
 
-const _tester_hfarr = Object.freeze({
-    fn_test() {
-        fn_print(null);
-        fn_print(`
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfarr.isEmpty
-  hfarr.isEmpty([0, 1, 2, 3]): ${hfarr.isEmpty([0, 1, 2, 3])}
-  hfarr.isEmpty(Array.from('abcdefg')): ${hfarr.isEmpty(Array.from('abcdefg'))}
-  hfarr.isEmpty('jhb'): ${hfarr.isEmpty('jhb')}
-  hfarr.isEmpty(337): ${hfarr.isEmpty(337)}
-}}
+    const fn_isOdd = (td) => {
+        if (typeof td !== 'number') return;
+        fn_print(`hfnum.isOdd(${td}): ${hfnum.isOdd(td)}`);
+    };
+    fn_isOdd(1, 5);
+    fn_isOdd(17, 35);
+    fn_isOdd(92, 182);
+    fn_isOdd(7, 13);
+    fn_print('\n');
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfarr.notEmpty
-  hfarr.notEmpty([0, 1, 2, 3]): ${hfarr.notEmpty([0, 1, 2, 3])}
-  hfarr.notEmpty(Array.from('abcdefg')): ${hfarr.notEmpty(Array.from('abcdefg'))}
-  hfarr.notEmpty('jhb'): ${hfarr.notEmpty('jhb')}
-  hfarr.notEmpty(337): ${hfarr.notEmpty(337)}
-}}
 
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfarr.contains
-  hfarr.contains([0, 1, 2, 3], 3): ${hfarr.contains([0, 1, 2, 3], 3)}
-  hfarr.contains(Array.from('abcdefg'), 'g'): ${hfarr.contains(Array.from('abcdefg'), 'g')}
-  hfarr.contains([9, 8, 7], 2): ${hfarr.contains([9, 8, 7], 2)}
-  hfarr.contains(Array.from('9876543210'), '3'): ${hfarr.contains(Array.from('9876543210'), '3')}
-}}
-
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfarr.shuffle
-  hfarr.shuffle([0, 1, 2, 3]): ${hfarr.shuffle([0, 1, 2, 3])}
-  hfarr.shuffle(Array.from('abcdefg')): ${hfarr.shuffle(Array.from('abcdefg'))}
-  hfarr.shuffle(Array.from('pook61')): ${hfarr.shuffle(Array.from('pook61'))}
-  hfarr.shuffle(Array.from('inoff79')): ${hfarr.shuffle(Array.from('inoff79'))}
-}}
-
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfarr.copy
-  hfarr.copy([0, 1, 2, 3]): ${hfarr.copy([0, 1, 2, 3])}
-  hfarr.copy(Array.from('abcdefg')): ${hfarr.copy(Array.from('abcdefg'))}
-  hfarr.copy(Array.from('pook61')): ${hfarr.copy(Array.from('pook61'))}
-  hfarr.copy(Array.from('inoff79')): ${hfarr.copy(Array.from('inoff79'))}
-}}
-        `.trim());
-        fn_print('\n');
-    },
-});
-
-const _tester_hfdtime = Object.freeze({
-    fn_test() {
-        fn_print(null);
-        fn_print(`
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfarr.timeStamp
-  hfdtime.timeStamp(new Date()): ${hfdtime.timeStamp(new Date())}
-  hfdtime.timeStamp(new Date()): ${hfdtime.timeStamp(new Date())}
-  hfdtime.timeStamp(new Date()): ${hfdtime.timeStamp(new Date())}
-}}
-
-{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfarr.format
-  ${hfdtime.format('\\y\\y\\M\\M [yyyy/MM/dd HH:mm:ss.fff] \\H\\d\\f\\m\\s (HHMM)', new Date())}
-  ${hfdtime.format('~~\\y\\y\\y\\y\\y\\y~~ yyyy/MM/dd HH:mm:ss.fff', new Date())}
-  ${hfdtime.format('yyyyyy/MM/dd HH:mm:ss.fff', new Date())}
-  ${hfdtime.format('yyyy/MM/dd HH:mm:ss.fff', new Date())}
-  ${hfdtime.format('yy/MM/dd HH:mm:ss.fff', new Date())}
-}}
-        `.trim());
-        fn_print('\n');
-    },
-});
-
-/**
- * @param {PointerEvent} pe
- */
-const fn_ftbtns_cl = (pe) => {
-    /** @type {HTMLButtonElement} */
-    let btn = pe.currentTarget;
-    let nc = btn.textContent.substring(0, 2);
-    switch (nc) {
-        case '00': {
-            fn_print(null);
-            break;
-        }
-        case '01': {
-            _tester_hfnum.fn_test();
-            break;
-        }
-        case '02': {
-            _tester_hfstr.fn_test();
-            break;
-        }
-        case '03': {
-            _tester_hfarr.fn_test();
-            break;
-        }
-        case '04': {
-            _tester_hfdtime.fn_test();
-            break;
-        }
-    }
+    const fn_isEven = (td) => {
+        if (typeof td !== 'number') return;
+        fn_print(`hfnum.isEven(${td}): ${hfnum.isEven(td)}`);
+    };
+    fn_isEven(5);
+    fn_isEven(17);
+    fn_isEven(182);
+    fn_isEven(93);
+    fn_print('}}');
+    fn_print('\n');
+    fn_print('\n');
 };
+btns[1].addEventListener('click', fn_clh1);
+fn_clh1(null);
 //#endregion }}
 
 
-//#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 00)
-/**
- * Menu 생성
- */
-const fn_createMenu = () => {
-    const pd = _page01;
+//#region {{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  hfstr
+const fn_clh2 = (te) => {
+    fn_print('{{----------  hfstr');
 
-    if (pd.mbtn === null) {
-        pd.leftMenuCont.insertAdjacentHTML('beforeend', `
-<button type="button" class="c_bt"><span>01) hfCommon</span></button>
-        `.trim());
-        pd.mbtn = pd.leftMenuCont.lastElementChild;
+    const fn_isStr = (ts) => {
+        fn_print(`hfstr.isStr(${ts}): ${hfstr.isStr(ts)}`);
+    };
+    fn_isStr(true);
+    fn_isStr('6.0');
+    fn_isStr('jhb');
+    fn_isStr(Math.PI);
+    fn_print('\n');
 
-        dcs.log('# 메뉴 생성완료');
-    }
+
+    const fn_getLastNum = (ts) => {
+        fn_print(`hfstr.getLastNum(${ts}): ${hfstr.getLastNum(ts)}`);
+    };
+    fn_getLastNum('name_1');
+    fn_getLastNum('pook_061');
+    fn_getLastNum('inoff_792');
+    fn_getLastNum('name_9734');
+    fn_print('\n');
+
+
+    const fn_str2Ab = (ts) => {
+        fn_print(`hfstr.str2Ab(${ts}): ${hfstr.str2Ab(ts)}`);
+    };
+    fn_str2Ab('박종명');
+    fn_str2Ab('임헌진');
+    fn_str2Ab('이중호');
+    fn_str2Ab('치치와몽이');
+    fn_print('\n');
+
+
+    const fn_ab2Str = (ts) => {
+        fn_print(`hfstr.ab2Str(${ts}): ${hfstr.ab2Str(ts)}`);
+    };
+    fn_ab2Str(hfstr.str2Ab('박종명'));
+    fn_ab2Str(hfstr.str2Ab('임헌진'));
+    fn_ab2Str(hfstr.str2Ab('이중호'));
+    fn_ab2Str(hfstr.str2Ab('치치와몽이'));
+    fn_print('}}');
+    fn_print('\n');
+    fn_print('\n');
 };
+btns[2].addEventListener('click', fn_clh2);
+fn_clh2(null);
+//#endregion }}
 
-/**
- * Page 생성
- */
-const fn_createPageData = () => {
-    const pd = _page01;
 
-    if (pd.pge === null) {
-        pd.pageCont.insertAdjacentHTML('beforeend', `
-<div class="c_page" data-index="0" tabindex="01">
-  <span class="c_tname">hfCommon</span>
-  <textarea class="c_tam" placeholder="empty" name="empty" spellcheck="false" readonly></textarea>
-  <div class="c_btc">
-      <button type="button" class="c_bt"><span>00)clear</span></button>
-      <button type="button" class="c_bt"><span>01)hfnum</span></button>
-      <button type="button" class="c_bt"><span>02)hfstr</span></button>
-      <button type="button" class="c_bt"><span>03)hfarr</span></button>
-      <button type="button" class="c_bt"><span>04)hfdtime</span></button>
-  </div>
-</div>
-        `.trim());
-        pd.pge = pd.pageCont.lastElementChild;
-        pd.txa = pd.pge.querySelector('textarea.c_tam');
-        pd.ftbtns = Array.from(pd.pge.querySelectorAll('div.c_btc>button.c_bt'));
+//#region {{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  hfarr
+const fn_clh3 = (te) => {
+    fn_print('{{----------  hfarr');
 
-        for (let btn of pd.ftbtns) {
-            btn.addEventListener(hfEventTypes.CLICK, fn_ftbtns_cl);
+    const fn_isArr = (ta) => {
+        fn_print(`hfarr.notEmpty(${ta}): ${hfarr.notEmpty(ta)}`);
+    };
+    fn_isArr([0, 1, 2, 3]);
+    fn_isArr(Array.from('abcdefg'));
+    fn_isArr('jhb');
+    fn_isArr(337);
+    fn_print('\n');
+
+
+    const fn_contains = (ta, e) => {
+        fn_print(`hfarr.contains(${ta}, ${e}): ${hfarr.contains(ta, e)}`);
+    };
+    fn_contains([0, 1, 2, 3], 3);
+    fn_contains(Array.from('abcdefg'), 'g');
+    fn_contains([9, 8, 7], 2);
+    fn_print('\n');
+
+
+    const fn_shuffle = (ta) => {
+        const pv = `hfarr.shuffle(${ta})`;
+        hfarr.shuffle(ta);
+        fn_print(`${pv}: ${ta}`);
+    };
+    fn_shuffle([0, 1, 2, 3]);
+    fn_shuffle(Array.from('abcdefg'));
+    fn_shuffle(Array.from('pook61'));
+    fn_print('\n');
+
+
+    const fn_copy = (ta) => {
+        fn_print(`hfarr.copy(${ta}): ${hfarr.copy(ta)}`);
+    };
+    fn_copy([0, 1, 2, 3]);
+    fn_copy(Array.from('abcdefg'));
+    fn_copy(Array.from('pook61'));
+    fn_print('}}');
+    fn_print('\n');
+    fn_print('\n');
+};
+btns[3].addEventListener('click', fn_clh3);
+fn_clh3(null);
+//#endregion }}
+
+
+//#region {{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  hfdtime
+const fn_clh4 = (te) => {
+    fn_print('{{----------  format');
+
+    const fn_timeStamp = (td) => {
+        for (let i = 0; i < 3; i++) {
+            fn_print(`hfdtime.timeStamp(${hfdtime.timeStamp(td)});`);
         }
+    };
+    fn_timeStamp(new Date());
+    fn_print('\n');
 
-        // dcs.log('# 페이지 생성완료');
-    }
+
+    const fn_format = (fs1, td) => {
+        fn_print(`hfdtime.format(${hfdtime.format(fs1, td)});`);
+    };
+    fn_format('\\y\\y\\M\\M [yyyy/MM/dd HH:mm:ss.fff] \\H\\d\\f\\m\\s (HHMM)', new Date());
+    fn_format('\\y\\y\\y\\yyyyy/MM/dd hh:mm:ss.fff', new Date());
+    fn_format('yyyy/MM/dd hh:mm:ss.fff', new Date());
+    fn_format('yyy/MM/dd hh:mm:ss.fff', new Date());
+    fn_print(hfdtime.timeStamp(new Date()));
+    fn_print(hfdtime.timeStamp(new Date()));
+    fn_print(hfdtime.timeStamp(new Date()));
+    fn_print(hfdtime.timeStamp(new Date()));
+    fn_print('}}');
+    fn_print('\n');
+    fn_print('\n');
 };
-
-/**
- * 작업 중지
- */
-const fn_stop = () => {
-};
-
-/**
- * 기능 출력
- * @param {string} msg
- * @returns
- */
-const fn_print = (msg=null, ba=true) => {
-    const pd = _page01;
-
-    if (msg === null) {
-        pd.txa.value = '';
-        return;
-    } else {
-        let txt = pd.txa.value;
-        txt = (ba) ? `${txt}${msg}\n` : `${msg}\n`;
-        pd.txa.value = txt;
-        pd.txa.scrollTop = pd.txa.scrollHeight;
-    }
-};
-
-/**
- * 한번 초기화
- * @param {GlobalDataObject} gdo
- */
-const fn_initOnce = (gdo) => {
-    const pd = _page01;
-
-    if (pd.gdo === null) {
-        pd.gdo = gdo;
-
-        pd.rootCont = gdo.rootCont;
-        pd.leftMenuCont = gdo.leftMenuCont;
-        pd.pageCont = gdo.pageCont;
-
-        fn_createMenu();
-        fn_createPageData();
-
-        pd.gdo.pageDataArr.push(pd);
-
-        // pd.txa = pd.pge.querySelector('textarea.c_tam');
-
-        // pd.ftbtns = Array.from(pd.pge.querySelectorAll('div.c_btc>button.c_bt'));
-        // for (let btn of pd.ftbtns) {
-        //     btn.addEventListener(hfEventTypes.CLICK, fn_ftbtns_cl);
-        // }
-
-
-        // configurable, enumerable,
-        // writable, value,
-        // get, set
-        Reflect.defineProperty(window, 'hfnum', {
-            configurable: false, enumerable: false, writable: false,
-            value: hfnum
-        });
-        Reflect.defineProperty(window, 'hfstr', {
-            configurable: false, enumerable: false, writable: false,
-            value: hfstr
-        });
-        Reflect.defineProperty(window, 'hfarr', {
-            configurable: false, enumerable: false, writable: false,
-            value: hfarr
-        });
-        Reflect.defineProperty(window, 'hfdtime', {
-            configurable: false, enumerable: false, writable: false,
-            value: hfdtime
-        });
-        // Reflect.defineProperty(window, 'hfnum', {
-        //     configurable: true,
-        //     enumerable: true,
-        //     // writable: false,
-        //     // value: hfnum,
-        //     val: '씨발꺼 왜케 복잡해',
-        //     get() {
-        //         console.log('xxxxxxxx', this);
-        //         return this.val;
-        //     },
-        //     set(tv) {
-        //         this.val = tv;
-        //     }
-        // });
-    }
-};
-
-
-/** @type {PageData} */
-const _page01 = {
-    gdo: null,
-
-    rootCont: null,
-    leftMenuCont: null,
-    pageCont: null,
-
-    mbtn: null,
-    pge: null,
-
-    fn_initOnce,
-    fn_stop,
-
-    fn_scrollJump: null,
-    fn_pagesPositionOrder: null,
-
-    txa: null,
-    fn_print,
-
-    ftbtns: null,
-};
-Object.seal(_page01);
-
-export { _page01 }
+btns[4].addEventListener('click', fn_clh4);
+fn_clh4(null);
 //#endregion }}
