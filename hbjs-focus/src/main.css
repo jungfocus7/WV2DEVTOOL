@@ -42,13 +42,13 @@ div.c_pageCont {
 /*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 03)*/
 div.c_leftMenuCont>button.c_mbtn {
   display: block;
-  width: 200px; height: 31px;
+  width: 200px; height: 30px;
   margin: 0px 0px 3px 0px;
   padding: 0px 0px 1px 1px;
   background-color: aquamarine;
   box-sizing: border-box;
   border: 3px dashed transparent;
-  border-radius: 10px; cursor: pointer;
+  border-radius: 5px; cursor: pointer;
 	color: dimgray; text-align: left;
   font-family: inherit;
   font-size: 13px; font-weight: bold;
@@ -63,7 +63,7 @@ div.c_leftMenuCont>button.c_mbtn:hover {
 div.c_leftMenuCont>button.c_mbtn>span {
   display: inline-block;
   width: auto; height: auto;
-  padding: 2px 3px 2px 3px;
+  padding: 0px 0px 0px 3px;
   pointer-events: none;
 }
 
@@ -76,7 +76,7 @@ div.c_leftMenuCont>button.c_mbtn:active>span {
 /*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 04)*/
 div.c_leftMenuCont>span.c_pinRect {
 	position: absolute; display: inline-block;
-	width: 4px; height: 31px;
+	width: 4px; height: 30px;
 	right: 0px; top: 0px;
 	box-sizing: border-box;
   border-color: transparent;
@@ -86,7 +86,7 @@ div.c_leftMenuCont>span.c_pinRect {
   pointer-events: none;
 }
 
-div.c_leftMenuCont>span.c_pinbt {
+div.c_leftMenuCont>span.c_pinFold {
 	position: absolute; display: inline-block;
 	width: 17px; height: 20px;
 	right: 0px; bottom: 5px;

@@ -21,54 +21,159 @@ const _pageDataArr = [];
 const _pinRect = _leftMenuCont.querySelector('span.c_pinRect');
 
 /** @type {HTMLSpanElement} */
-const _pinbt = _leftMenuCont.querySelector('span.c_pinbt');
+const _pinFold = _leftMenuCont.querySelector('span.c_pinFold');
 
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const fn_twr1_cbf = (_, cv) => {
-    // _pageCont.scrollTo(0, cv);
     _pinRect.style.top = `${cv}px`;
 };
 const _twr1 = new hfTween(0, 16, new hfEaseExponential(hfEasingKind.easeOut), fn_twr1_cbf);
 
 
+const fn_comp_pageMngr = () => {
+    let hts = _pageCont.innerHTML;
+    _pageCont.innerHTML = '';
+
+    /** @type {string[]} */
+    let tsb = [];
+    for (let btn of _lmbtnArr) {
+        let tin = btn.tin;
+        let tnm = btn.tnm;
+
+        let rhs = hts;
+        rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
+            return '';
+        });
+        rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
+            let rv = `${t2}${tin}${t3}`;
+            return rv;
+        });
+        rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
+            let rv = `${t2}${tnm}${t3}`;
+            return rv;
+        });
+        tsb.push(rhs);
+
+        _pageDataArr.push({
+           rootCont: _rootCont,
+           leftMenuCont: _leftMenuCont,
+           pageCont: _pageCont,
+           mbtn: btn,
+           pge: null,
+        });
+    }
+
+    _pageCont.innerHTML = tsb.join('');
+
+    let pgeArr = Array.from(_pageCont.querySelectorAll('div.c_page'));
+    let i = 0;
+    for (let pge of pgeArr) {
+        let pd = _pageDataArr.at(i++);
+        pd.pge = pge;
+    }
+};
+
+const fn_comp_scrollMngr = () => {
+    // /**
+    //  * @param {number} cst
+    //  */
+    // const fn_fge = (cst) => {
+    //     let rv = -1;
+    //     for (let pd of _pageDataArr) {
+    //         let ost = pd.pge.offsetTop;
+    //         let ds = Math.abs(cst - ost);
+    //         if (ds <= 150) {
+    //             rv = ost;
+    //             pd.pge.focus({preventScroll: true});
+    //             break;
+    //         }
+    //     }
+
+    //     // dcs.log(rv);
+    // };
+    const fn_fge = () => {
+        // _pageCont.scrollTop
+        // _pageCont.scrollHeight
+        // _pageCont.clientHeight
+        let rv = _pageCont.scrollTop / (_pageCont.scrollHeight - _pageCont.clientHeight);
+        dcs.log(rv);
+    };
+
+    let pst = _pageCont.scrollTop;
+    const fn_scroll = () => {
+        // dcs.log(_pageCont.scrollTop
+        //     , _pageCont.scrollHeight
+        //     , _pageCont.clientHeight);
+        // let xxx = _pageCont.scrollHeight - _pageCont.clientHeight;
+        // dcs.log(xxx);
+        // return;
+        let cst = _pageCont.scrollTop;
+        let ds = Math.abs(cst - pst);
+        pst = cst;
+        // dcs.log(cst, ds);
+        if (ds > 0) {
+            // dcs.log(cst, _pageDataArr.at(1).pge.offsetTop);
+            // fn_fge(cst);
+            // dcs.log(cst, csh, _pageCont.heigh);
+            fn_fge();
+        }
+    };
+    _pageCont.addEventListener('scroll', fn_scroll);
+};
+
+const fn_comp_fold = () => {
+    let bc = true;
+    let fn_clh = (_) => {
+        if (bc) {
+            let stl = _leftMenuCont.style;
+            stl.width = '32px';
+            bc = false;
+        } else {
+            let stl = _leftMenuCont.style;
+            stl.width = '';
+            bc = true;
+        }
+    };
+    _pinFold.addEventListener(hfEventTypes.CLICK, fn_clh);
+};
+
 /**
  * @param {PointerEvent} pe
  */
-const fn_hbt_cl = (pe) => {
+const fn_btn_cl = (pe) => {
     /** @type {HTMLButtonElement} */
     let btn = pe.currentTarget;
-    // let pi = btn.pi;
-    // dcs.log(pi);
-    // dcs.log(btn.offsetTop);
     let ey = btn.offsetTop;
     _pinRect.style.top = `${ey}px`;
-
-    // let by = _pinRect.offsetTop;
-    // let ey = btn.offsetTop;
-    // // _pinRect.style.top = `${ey}px`;
-    // _twr1.fromTo(by, ey);
+    // dcs.log(btn.pi, _pageDataArr.at(btn.pi));
+    // _pageDataArr.at(btn.pi)?.pge.focus({preventScroll: true});
+    //pge.focus({preventScroll: false});
 };
 
-const fn_initOnceApp = () => {
+const fn_initOnce = () => {
     let i = 0;
     for (let btn of _lmbtnArr) {
         let txt = btn.textContent;
         let tin = txt.substring(0, 2);
-        let tnm = txt.substring(4);
+        let tnm = txt.substring(3);
         Reflect.defineProperty(btn, 'tin', {value: tin});
         Reflect.defineProperty(btn, 'tnm', {value: tnm});
         Reflect.defineProperty(btn, 'pi', {value: i});
-        btn.addEventListener(hfEventTypes.CLICK, fn_hbt_cl);
+        btn.addEventListener(hfEventTypes.CLICK, fn_btn_cl);
         if (i === 0) {
             btn.click();
         }
         ++i;
     }
+
+    fn_comp_pageMngr();
+    fn_comp_scrollMngr();
+    fn_comp_fold();
 };
 
-fn_initOnceApp();
+fn_initOnce();
 
 
 
