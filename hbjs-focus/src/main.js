@@ -78,7 +78,12 @@ const fn_focusPage = () => {
     let i = Math.round(li * ctr);
     // dcs.log(li, i);
 
-    _pageDataArr.at(i).pge.focus({preventScroll: true});
+    let pd = _pageDataArr.at(i);
+    pd.pge.focus({preventScroll: true});
+
+    let ey = pd.mbtn.offsetTop;
+    _pinRect.style.top = `${ey}px`;
+    pd.pge.focus({preventScroll: true});
 };
 
 let _btwr = false;
@@ -100,8 +105,7 @@ const fn_initPageCont = () => {
         // dcs.log('mousedown', me);
         me.stopPropagation();
         // me.stopImmediatePropagation();
-        _twr1.stop();
-        _btwr = false;
+        fn_twr1_stop();
         if (me.target === me.currentTarget) {
             me.preventDefault();
             fn_focusPage();
@@ -111,9 +115,17 @@ const fn_initPageCont = () => {
     _pageCont.addEventListener('mousewheel', (me) => {
         // dcs.log('mousewheel', me);
         me.stopPropagation();
-        _twr1.stop();
-        _btwr = false;
+        // me.stopImmediatePropagation();
+        fn_twr1_stop();
     });
+
+    // window.addEventListener('mousedown', (_) => {
+    //    dcs.log('window.mousedown');
+    // });
+
+    // window.addEventListener('mousewheel', (_) => {
+    //    dcs.log('window.mousewheel');
+    // });
 
     // _pageCont.addEventListener('focusin', (e) => {
     //     dcs.log('focus~~', e);
@@ -130,9 +142,7 @@ const fn_initPageCont = () => {
     //     // _pageDataArr.at(1).pge.focus({preventScroll: true});
     //     fn_fge();
     // });
-    // window.addEventListener('mousedown', (_) => {
-    //    dcs.log('window');
-    // });
+
 };
 
 const fn_initPins = () => {
@@ -151,6 +161,10 @@ const fn_initPins = () => {
     _pinFold.addEventListener(hfEventTypes.CLICK, fn_clh);
 };
 
+const fn_twr1_stop = () => {
+    _twr1.stop();
+    _btwr = false;
+};
 const fn_twr1_cbf = (et, cv) => {
     // dcs.log(et, cv);
     if (et === hfTween.ET_UPDATE) {
