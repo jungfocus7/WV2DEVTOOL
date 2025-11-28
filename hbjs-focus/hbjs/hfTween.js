@@ -329,13 +329,11 @@ class hfTween {
      * @param {EasingFunction} easing 이징객체
      * @param {TweenCallbackFunction} cbf 콜백함수
      */
-    constructor(current = 0, duration = 36, easing = null, cbf = null) {
+    constructor(current=0, duration=36, easing=null, cbf=null) {
         const md = this.#md;
-        md.running = false;
         md.begin = current;
         md.end = current;
         md.current = current;
-        md.time = 0;
         md.duration = duration;
         md.easing = easing ?? new hfEaseCircular(hfEasingKind.easeInOut);
         md.cbf = cbf;
@@ -343,7 +341,6 @@ class hfTween {
         Object.seal(this);
     }
     #md = Object.seal({
-        running: false,
         begin: 0.0,
         end: 0.0,
         current: 0.0,
@@ -363,7 +360,7 @@ class hfTween {
      * Tween중인가 여부
      */
     get running() {
-        return this.#md.running;
+        return this.#md.fid !== -1;
     }
 
     /**
@@ -403,24 +400,21 @@ class hfTween {
 
     #fn_clearFrame() {
         const md = this.#md
-
-        if (md.fid === -1) return;
-        cancelAnimationFrame(md.fid);
-        md.fid = -1;
+        if (md.fid !== -1) {
+            cancelAnimationFrame(md.fid);
+            md.fid = -1;
+        }
     }
 
     /** @type {FrameRequestCallback} */
     #fn_loopFrame(_) {
         const md = this.#md
-
-        if (md.running === false) return;
         if (md.time < md.duration) {
-            ++md.time;
-            md.current = md.easing.fn(md.time, md.begin, md.end, md.duration);
+            md.current = md.easing.fn(++md.time, md.begin, md.end, md.duration);
             md.cbf(hfTween.ET_UPDATE, md.current);
             if (md.time >= md.duration) {
+                this.#fn_clearFrame();
                 md.cbf(hfTween.ET_END, md.current);
-                this.stop();
             } else {
                 md.fid = requestAnimationFrame(md.fnfrc);
             }
@@ -428,12 +422,7 @@ class hfTween {
     }
 
     stop() {
-        const md = this.#md;
-
-        if (md.running === true) {
-            this.#fn_clearFrame();
-            md.running = false;
-        }
+        this.#fn_clearFrame();
     }
 
     /**
@@ -442,14 +431,11 @@ class hfTween {
      */
     fromTo(begin, end) {
         const md = this.#md;
-
-        if (md.running === true) this.stop();
-        md.time = 0;
+        this.#fn_clearFrame();
         md.begin = begin;
         md.end = end - begin;
         md.current = begin;
-        md.running = true;
-
+        md.time = 0;
         md.fid = requestAnimationFrame(md.fnfrc);
     }
 
@@ -458,7 +444,6 @@ class hfTween {
      */
     to(end) {
         const md = this.#md;
-
         this.fromTo(md.current, end);
     }
 

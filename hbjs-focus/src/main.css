@@ -34,7 +34,7 @@ div.c_leftMenuCont {
 div.c_pageCont {
   display: inline-block;
   width: auto; height: 100%;
-  overflow: auto;
+  overflow: auto; scroll-behavior: auto;
 }
 /*#endregion*/
 
