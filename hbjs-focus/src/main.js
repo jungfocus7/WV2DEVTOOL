@@ -126,23 +126,6 @@ const fn_initPageCont = () => {
     // window.addEventListener('mousewheel', (_) => {
     //    dcs.log('window.mousewheel');
     // });
-
-    // _pageCont.addEventListener('focusin', (e) => {
-    //     dcs.log('focus~~', e);
-    //     // fn_fge();
-    // });
-    // _pageCont.addEventListener('mousedown', (me) => {
-    //     // me.stopPropagation();
-    //     // me.stopImmediatePropagation();
-    //     // dcs.log('focus~~', me);
-    //     // _pageCont.blur();
-    //     // fn_fge();
-    //     // dcs.log(document.activeElement)
-    //     me.preventDefault();
-    //     // _pageDataArr.at(1).pge.focus({preventScroll: true});
-    //     fn_fge();
-    // });
-
 };
 
 const fn_initPins = () => {
@@ -169,14 +152,9 @@ const fn_twr1_cbf = (et, cv) => {
     // dcs.log(et, cv);
     if (et === hfTween.ET_UPDATE) {
         _pageCont.scrollTo(0, cv);
-        // window.setTimeout(() => {
-        //     _pageCont.scrollTo(0, cv);
-        // }, 100);
-        // setTimeout(_pageCont.scrollTo.bind(), 100, 0, cv);
     } else if (et === hfTween.ET_END) {
         window.setTimeout(() => {
             _btwr = false;
-            // _pageCont.dispatchEvent(new Event('scroll'));
             fn_focusPage();
         }, 100);
     }
@@ -192,17 +170,6 @@ const fn_ggwave = (pge) => {
     let end = pge.offsetTop;
     let max = _pageCont.scrollHeight - _pageCont.clientHeight;
     if (end > max) end = max;
-
-    // dcs.log(pge, begin, end);
-    // _pageCont.style.pointerEvents = 'none';
-    // _pageCont.style.overflowY = 'hidden';
-    // _pageCont.onfocus = () => {
-    //     dcs.log(11);
-    // };
-    // _twr1.fromTo(begin, end);
-    // _pageCont.scrollTo(0, end);
-    // _pageCont.scrollIntoView({block: 'center'});
-    // pge.scrollIntoView({behavior: 'instant', block: 'center', inline: 'center'});
 
     _btwr = true;
     _twr1.fromTo(begin, end);
@@ -236,7 +203,6 @@ const fn_initOnce = () => {
     fn_initPages();
     fn_initPageCont();
     fn_initPins();
-
 
     let pd = _pageDataArr.at(0);
     let ey = pd.mbtn.offsetTop;
