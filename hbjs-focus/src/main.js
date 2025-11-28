@@ -112,14 +112,27 @@ const fn_comp_scrollMngr = () => {
     //     // _pageDataArr.at(1).pge.focus({preventScroll: true});
     //     fn_fge();
     // });
+    window.addEventListener('mousedown', (me) => {
+       dcs.log('window');
+    });
+
     _pageCont.addEventListener('mousedown', (me) => {
         // dcs.log('mousedown', me);
-        // dcs.log(me.target, me.currentTarget);
-        me.stopPropagation();
+        // me.stopPropagation();
+        me.stopImmediatePropagation();
+        _twr1.stop();
+        _btwr = false;
         if (me.target === me.currentTarget) {
             me.preventDefault();
             fn_fge();
         }
+    });
+
+    _pageCont.addEventListener('mousewheel', (me) => {
+        // dcs.log('mousewheel', me);
+        me.stopPropagation();
+        _twr1.stop();
+        _btwr = false;
     });
 };
 
@@ -154,7 +167,7 @@ const fn_twr1_cbf = (et, cv) => {
         }, 100);
     }
 };
-const _twr1 = new hfTween(0, 32
+const _twr1 = new hfTween(0, 128
     , new hfEaseExponential(hfEasingKind.easeInOut), fn_twr1_cbf);
 
 /**
