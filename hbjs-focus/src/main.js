@@ -27,7 +27,7 @@ const _pinFold = _leftMenuCont.querySelector('span.c_pinFold');
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const fn_comp_pageMngr = () => {
+const fn_initPages = () => {
     let hts = _pageCont.innerHTML;
     _pageCont.innerHTML = '';
 
@@ -70,21 +70,21 @@ const fn_comp_pageMngr = () => {
     }
 };
 
+const fn_focusPage = () => {
+    let max = _pageCont.scrollHeight - _pageCont.clientHeight;
+    let ctr = _pageCont.scrollTop / max;
+    // dcs.log(ctr);
+    let li = _pageDataArr.length - 1;
+    let i = Math.round(li * ctr);
+    // dcs.log(li, i);
+
+    _pageDataArr.at(i).pge.focus({preventScroll: true});
+};
+
 let _btwr = false;
-const fn_comp_scrollMngr = () => {
-    const fn_fge = () => {
-        let max = _pageCont.scrollHeight - _pageCont.clientHeight;
-        let ctr = _pageCont.scrollTop / max;
-        // dcs.log(ctr);
-        let li = _pageDataArr.length - 1;
-        let i = Math.round(li * ctr);
-        // dcs.log(li, i);
-
-        _pageDataArr.at(i).pge.focus({preventScroll: true});
-    };
-
+const fn_initPageCont = () => {
     let pst = _pageCont.scrollTop;
-    const fn_scroll = (_) => {
+    _pageCont.addEventListener('scroll', (_) => {
         if (_btwr) return;
 
         let cst = _pageCont.scrollTop;
@@ -92,10 +92,28 @@ const fn_comp_scrollMngr = () => {
         // dcs.log(pst, cst, ds);
         pst = cst;
         if (ds > 0) {
-            fn_fge();
+            fn_focusPage();
         }
-    };
-    _pageCont.addEventListener('scroll', fn_scroll);
+    });
+
+    _pageCont.addEventListener('mousedown', (me) => {
+        // dcs.log('mousedown', me);
+        me.stopPropagation();
+        // me.stopImmediatePropagation();
+        _twr1.stop();
+        _btwr = false;
+        if (me.target === me.currentTarget) {
+            me.preventDefault();
+            fn_focusPage();
+        }
+    });
+
+    _pageCont.addEventListener('mousewheel', (me) => {
+        // dcs.log('mousewheel', me);
+        me.stopPropagation();
+        _twr1.stop();
+        _btwr = false;
+    });
 
     // _pageCont.addEventListener('focusin', (e) => {
     //     dcs.log('focus~~', e);
@@ -112,31 +130,12 @@ const fn_comp_scrollMngr = () => {
     //     // _pageDataArr.at(1).pge.focus({preventScroll: true});
     //     fn_fge();
     // });
-    window.addEventListener('mousedown', (me) => {
-       dcs.log('window');
-    });
-
-    _pageCont.addEventListener('mousedown', (me) => {
-        // dcs.log('mousedown', me);
-        // me.stopPropagation();
-        me.stopImmediatePropagation();
-        _twr1.stop();
-        _btwr = false;
-        if (me.target === me.currentTarget) {
-            me.preventDefault();
-            fn_fge();
-        }
-    });
-
-    _pageCont.addEventListener('mousewheel', (me) => {
-        // dcs.log('mousewheel', me);
-        me.stopPropagation();
-        _twr1.stop();
-        _btwr = false;
-    });
+    // window.addEventListener('mousedown', (_) => {
+    //    dcs.log('window');
+    // });
 };
 
-const fn_comp_fold = () => {
+const fn_initPins = () => {
     let bc = true;
     let fn_clh = (_) => {
         if (bc) {
@@ -163,11 +162,12 @@ const fn_twr1_cbf = (et, cv) => {
     } else if (et === hfTween.ET_END) {
         window.setTimeout(() => {
             _btwr = false;
-            _pageCont.dispatchEvent(new Event('scroll'));
+            // _pageCont.dispatchEvent(new Event('scroll'));
+            fn_focusPage();
         }, 100);
     }
 };
-const _twr1 = new hfTween(0, 128
+const _twr1 = new hfTween(0, 32
     , new hfEaseExponential(hfEasingKind.easeInOut), fn_twr1_cbf);
 
 /**
@@ -219,9 +219,9 @@ const fn_initOnce = () => {
         ++i;
     }
 
-    fn_comp_pageMngr();
-    fn_comp_scrollMngr();
-    fn_comp_fold();
+    fn_initPages();
+    fn_initPageCont();
+    fn_initPins();
 
 
     let pd = _pageDataArr.at(0);

@@ -94,3 +94,37 @@ div.c_leftMenuCont>span.c_pinFold {
 	background-color: red; cursor: pointer;
 }
 /*#endregion*/
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 05)*/
+div.c_page {
+  position: relative; display: flex;
+  flex-direction: column; align-items: stretch;
+  width: 500px; height: 400px;
+  margin: 0px 0px 10px 0px; padding: 0px 4px 2px 4px;
+  background-color: transparent;
+  box-sizing: border-box;
+  border-width: 5px 5px 5px 0px;
+  border-style: solid;
+  border-color: dimgray;
+  overflow: hidden;
+}
+
+div.c_page:focus-within {
+  border-color: aquamarine;
+  outline: none;
+}
+
+div.c_page>span.c_tname {
+  align-self: flex-start;
+  margin: 0px; padding: 0px 10px 0px 10px;
+  background-color: transparent;
+  font-size: 13px; font-weight: bold;
+	color: dimgray; text-align: left;
+}
+
+div.c_page:focus-within>span.c_tname {
+  background-color: aquamarine;
+}
+/*#endregion*/
+
