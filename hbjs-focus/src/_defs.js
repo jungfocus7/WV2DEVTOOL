@@ -7,10 +7,9 @@
  *
  * @property {HTMLButtonElement} mbtn
  * @property {number} mi
+ * @property {string} pgtnm
+ * @property {string} pgurl
  * @property {HTMLDivElement} pge
- *
- * @property {HTMLTextAreaElement} txa
- * @property {HTMLButtonElement[]} ftbtns
  *
  * @property {() => void} fn_clear
  * @property {() => void} fn_stop
