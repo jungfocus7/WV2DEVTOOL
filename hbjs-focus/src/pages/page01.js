@@ -11,35 +11,53 @@ const fn_stop = () => {
 };
 
 const fn_init = () => {
-    // pd.rootCont = _rootCont;
-    // pd.leftMenuCont = _leftMenuCont;
-    // pd.pageCont = _pageCont;
 
-    // pd.mbtn = btn;
-    // pd.pge = _pageCont.lastElementChild;
-    // dcs.log('xxx');
+};
+
+export default {
+    fn_clear, fn_stop, fn_init
 };
 
 
-/** @type {PageData} */
-const _pageData = {
-    rootCont: null,
-    leftMenuCont: null,
-    pageCont: null,
 
-    mbtn: null,
-    pge: null,
+// const fn_clear = () => {
 
-    txa: null,
-    ftbtns: null,
+// };
 
-    fn_clear,
-    fn_stop,
-    fn_init,
-};
-Object.seal(_pageData);
+// const fn_stop = () => {
 
-export default _pageData;
+// };
+
+// const fn_init = () => {
+//     // pd.rootCont = _rootCont;
+//     // pd.leftMenuCont = _leftMenuCont;
+//     // pd.pageCont = _pageCont;
+
+//     // pd.mbtn = btn;
+//     // pd.pge = _pageCont.lastElementChild;
+//     // dcs.log('xxx');
+// };
+
+
+// /** @type {PageData} */
+// const _pageData = {
+//     rootCont: null,
+//     leftMenuCont: null,
+//     pageCont: null,
+
+//     mbtn: null,
+//     pge: null,
+
+//     txa: null,
+//     ftbtns: null,
+
+//     fn_clear,
+//     fn_stop,
+//     fn_init,
+// };
+// Object.seal(_pageData);
+
+// export default _pageData;
 
 
 

@@ -58,29 +58,28 @@ const _pinRect = _leftMenuCont.querySelector('span.c_pinRect');
 /** @type {HTMLSpanElement} */
 const _pinFold = _leftMenuCont.querySelector('span.c_pinFold');
 
-// /** @type {PageData[]} */
-// const _pageDataArr = (() => {
-//     let ra = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
-//         .map((te, ti) => {
-//             /** @type {PageData} */
-//             let pd = {
-//                 rootCont: _rootCont,
-//                 leftMenuCont: _leftMenuCont,
-//                 pageCont: _pageCont,
-//                 mbtn: te,
-//                 mi: ti,
-//                 pge: null,
-//                 txa: null,
-//                 ftbtns: null,
-//                 fn_clear: null,
-//                 fn_stop: null,
-//                 fn_init: null,
-//             };
-//             return Object.seal(pd);
-//         });
-//     return ra;
-// })();
-// dcs.log('>>>', _pageDataArr);
+/** @type {PageData[]} */
+const _pageDataArr = (() => {
+    let ra = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
+        .map((te, ti) => {
+            /** @type {PageData} */
+            let pd = {
+                rootCont: _rootCont,
+                leftMenuCont: _leftMenuCont,
+                pageCont: _pageCont,
+                mbtn: te,
+                mi: ti,
+                pge: null,
+                txa: null,
+                ftbtns: null,
+                fn_clear: null,
+                fn_stop: null,
+                fn_init: null,
+            };
+            return Object.seal(pd);
+        });
+    return ra;
+})();
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -252,7 +251,13 @@ const fn_btn_cl = (pe) => {
 
 const fn_importPages = async () => {
     let fp = './pages/', ep = '.js';
-    _pageDataArr.push((await import(`${fp}page01${ep}`)).default);
+    for (let pd of _pageDataArr) {
+        // dcs.log(1004);
+    }
+    /** @type {PageInterface} */
+    let pglg = (await import(`${fp}page01${ep}`)).default;
+    dcs.log(pglg);
+    // _pageDataArr.push((await import(`${fp}page01${ep}`)).default);
     // _pageDataArr.push((await import(`${fp}page02${ep}`)).default);
     // _pageDataArr.push((await import(`${fp}page03${ep}`)).default);
     // _pageDataArr.push((await import(`${fp}page04${ep}`)).default);
@@ -265,6 +270,7 @@ const fn_importPages = async () => {
 const fn_initOnce = async () => {
     await fn_importPages();
 
+    return;
     let i = 0;
     for (let btn of _lmbtnArr) {
         let txt = btn.textContent;
@@ -290,7 +296,7 @@ const fn_initOnce = async () => {
     dcs.log('[#App(Initialized)]');
 };
 
-// fn_initOnce();
+fn_initOnce();
 
 
 

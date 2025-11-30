@@ -17,3 +17,13 @@
  * @property {() => void} fn_init
  */
 
+
+/**
+ * @typedef {object} PageInterface
+ *
+ * @property {() => void} fn_clear
+ * @property {() => void} fn_stop
+ * @property {() => void} fn_init
+ */
+
+
