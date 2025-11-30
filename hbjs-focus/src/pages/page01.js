@@ -1,3 +1,33 @@
+/** @type {PageData} */
+const _pageData = {
+    rootCont: null,
+    leftMenuCont: null,
+    pageCont: null,
+
+    mbtn: null,
+    pge: null,
+
+    txa: null,
+    ftbtns: null,
+};
+Object.seal(_pageData);
+
+export default _pageData;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import { fn_print, btns } from "./SubCom.js";
 // import { hfnum, hfstr, hfarr, hfdtime } from "../hbjs/hfCommon.js";
 

@@ -1,5 +1,6 @@
 import { dcs, hfEventTypes } from "../hbjs/hfCommon.js";
 import { hfEasingKind, hfEaseExponential, hfTween } from "../hbjs/hfTween.js";
+// import _page01 from "./pages/page01.js";
 
 
 
@@ -32,42 +33,113 @@ const fn_initPages = () => {
     _pageCont.innerHTML = '';
 
     /** @type {string[]} */
-    let tsb = [];
-    for (let btn of _lmbtnArr) {
-        let tin = btn.tin;
-        let tnm = btn.tnm;
+    let l = _lmbtnArr.length;
+    for (let i = 0; i < l; i++) {
+        let pd = _pageDataArr.at(i);
+        if (pd) {
+            let btn = _lmbtnArr.at(i);
+            let tin = btn.tin;
+            let tnm = btn.tnm;
 
-        let rhs = hts;
-        rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
-            return '';
-        });
-        rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
-            let rv = `${t2}${tin}${t3}`;
-            return rv;
-        });
-        rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
-            let rv = `${t2}${tnm}${t3}`;
-            return rv;
-        });
-        tsb.push(rhs);
+            let rhs = hts;
+            rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
+                return '';
+            });
+            rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
+                let rv = `${t2}${tin}${t3}`;
+                return rv;
+            });
+            rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
+                let rv = `${t2}${tnm}${t3}`;
+                return rv;
+            });
 
-        _pageDataArr.push({
-           rootCont: _rootCont,
-           leftMenuCont: _leftMenuCont,
-           pageCont: _pageCont,
-           mbtn: btn,
-           pge: null,
-        });
+            _pageCont.insertAdjacentHTML('beforeend', rhs);
+
+
+            pd.rootCont = _rootCont;
+            pd.leftMenuCont = _leftMenuCont;
+            pd.pageCont = _pageCont;
+
+            pd.mbtn = btn;
+            pd.pge = _pageCont.lastElementChild;
+        }
     }
 
-    _pageCont.innerHTML = tsb.join('');
 
-    let pgeArr = Array.from(_pageCont.querySelectorAll('div.c_page'));
-    let i = 0;
-    for (let pge of pgeArr) {
-        let pd = _pageDataArr.at(i++);
-        pd.pge = pge;
-    }
+
+
+    // let i = 0;
+    // for (let btn of _lmbtnArr) {
+    //     // let tin = btn.tin;
+    //     // let tnm = btn.tnm;
+
+    //     // let rhs = hts;
+    //     // rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
+    //     //     return '';
+    //     // });
+    //     // rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
+    //     //     let rv = `${t2}${tin}${t3}`;
+    //     //     return rv;
+    //     // });
+    //     // rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
+    //     //     let rv = `${t2}${tnm}${t3}`;
+    //     //     return rv;
+    //     // });
+    //     // tsb.push(rhs);
+
+    //     // let pgnm = '_page01';
+    //     // dcs.log(pgnm);
+    //     // dcs.log(typeof eval, typeof window.eval);
+    //     // dcs.log(eval == window.eval);
+    //     // dcs.log(window.eval.apply(null, 'fn_initPages'));
+    //     // dcs.log(eval('fn_initPages') == fn_initPages);
+    //     // dcs.log(_page01);
+    //     // _page01.
+    //     // _pageDataArr.push({
+    //     //    rootCont: _rootCont,
+    //     //    leftMenuCont: _leftMenuCont,
+    //     //    pageCont: _pageCont,
+    //     //    mbtn: btn,
+    //     //    pge: null,
+    //     // });
+
+    //     let pd = _pageDataArr.at(i++);
+    //     if (pd) {
+    //         let tin = btn.tin;
+    //         let tnm = btn.tnm;
+
+    //         let rhs = hts;
+    //         rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
+    //             return '';
+    //         });
+    //         rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
+    //             let rv = `${t2}${tin}${t3}`;
+    //             return rv;
+    //         });
+    //         rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
+    //             let rv = `${t2}${tnm}${t3}`;
+    //             return rv;
+    //         });
+    //         tsb.push(rhs);
+
+    //         pd.rootCont = _rootCont;
+    //         pd.leftMenuCont = _leftMenuCont;
+    //         pd.pageCont = _pageCont;
+    //         pd.mbtn = btn;
+    //     }
+    // }
+
+    // _pageCont.innerHTML = tsb.join('');
+
+    // let pgeArr = Array.from(_pageCont.querySelectorAll('div.c_page'));
+    // i = 0;
+    // for (let pge of pgeArr) {
+    //     let pd = _pageDataArr.at(i++);
+    //     if (pd) {
+    //         pd.pge = pge;
+    //     }
+    // }
 };
 
 const fn_focusPage = () => {
@@ -172,8 +244,12 @@ const fn_ggwave = (pge) => {
     let max = _pageCont.scrollHeight - _pageCont.clientHeight;
     if (end > max) end = max;
 
-    _btwr = true;
-    _twr1.fromTo(begin, end);
+    if (begin === end) {
+        fn_focusPage();
+    } else {
+        _btwr = true;
+        _twr1.fromTo(begin, end);
+    }
 };
 
 /**
@@ -182,13 +258,31 @@ const fn_ggwave = (pge) => {
 const fn_btn_cl = (pe) => {
     /** @type {HTMLButtonElement} */
     let btn = pe.currentTarget;
-    let ey = btn.offsetTop;
-    _pinRect.style.top = `${ey}px`;
-
-    fn_ggwave(_pageDataArr.at(btn.pi).pge);
+    let pd = _pageDataArr.at(btn.pi);
+    if (pd) {
+        let ey = btn.offsetTop;
+        _pinRect.style.top = `${ey}px`;
+        fn_ggwave(pd.pge);
+    } else {
+        dcs.log(`[#App(Error)] No page ${btn.textContent}`);
+    }
 };
 
-const fn_initOnce = () => {
+const fn_importPages = async () => {
+    let fp = './pages/', ep = '.js';
+    _pageDataArr.push((await import(`${fp}page01${ep}`)).default);
+    // _pageDataArr.push((await import(`${fp}page02${ep}`)).default);
+    // _pageDataArr.push((await import(`${fp}page03${ep}`)).default);
+    // _pageDataArr.push((await import(`${fp}page04${ep}`)).default);
+    // _pageDataArr.push((await import(`${fp}page05${ep}`)).default);
+    // _pageDataArr.push((await import(`${fp}page06${ep}`)).default);
+    // _pageDataArr.push((await import(`${fp}page07${ep}`)).default);
+    // _pageDataArr.push((await import(`${fp}page08${ep}`)).default);
+};
+
+const fn_initOnce = async () => {
+    await fn_importPages();
+
     let i = 0;
     for (let btn of _lmbtnArr) {
         let txt = btn.textContent;
@@ -196,9 +290,8 @@ const fn_initOnce = () => {
         let tnm = txt.substring(3);
         Reflect.defineProperty(btn, 'tin', {value: tin});
         Reflect.defineProperty(btn, 'tnm', {value: tnm});
-        Reflect.defineProperty(btn, 'pi', {value: i});
+        Reflect.defineProperty(btn, 'pi', {value: i++});
         btn.addEventListener(hfEventTypes.CLICK, fn_btn_cl);
-        ++i;
     }
 
     fn_initPages();
@@ -206,9 +299,13 @@ const fn_initOnce = () => {
     fn_initPins();
 
     let pd = _pageDataArr.at(0);
-    let ey = pd.mbtn.offsetTop;
-    _pinRect.style.top = `${ey}px`;
-    pd.pge.focus({preventScroll: true});
+    if (pd) {
+        let ey = pd.mbtn.offsetTop;
+        _pinRect.style.top = `${ey}px`;
+        pd.pge.focus({preventScroll: true});
+    }
+
+    dcs.log('[#App(Initialized)]');
 };
 
 fn_initOnce();
