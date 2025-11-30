@@ -1,8 +1,5 @@
 /** @type {HTMLTextAreaElement} */
-const _tam = document.querySelector('div.c_pec>textarea.c_tam');
-// _tam.addEventListener('keydown', (ke) => {
-//     ke.preventDefault();
-// });
+let _tam = null;
 
 /**
  * @param {string | null} msg
@@ -19,5 +16,13 @@ export const fn_print = (msg=null, ba=true) => {
     let txv = (ba) ? _tam.value + msg + '\n' : msg;
     _tam.value = txv;
     _tam.scrollTop = _tam.scrollHeight;
+};
+
+/**
+ * @param {HTMLDivElement} pge
+ */
+export const fn_set = (pge) => {
+    _tam = pge.querySelector('div.c_pec>textarea.c_tam');
+    fn_print(null);
 };
 
