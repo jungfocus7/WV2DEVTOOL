@@ -13,7 +13,7 @@
  *
  * @property {() => void} fn_clear
  * @property {() => void} fn_stop
- * @property {() => void} fn_init
+ * @property {(pd: IPageData) => void} fn_init
  */
 
 
@@ -22,7 +22,7 @@
  *
  * @property {() => void} fn_clear
  * @property {() => void} fn_stop
- * @property {() => void} fn_init
+ * @property {(pd: IPageData) => void} fn_init
  */
 
 

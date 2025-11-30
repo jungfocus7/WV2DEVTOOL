@@ -1,7 +1,110 @@
 import { dcs } from "../../hbjs/hfCommon.js";
-import { fn_mm } from "./page_com.js";
+import { fn_print } from "./page_com.js";
+import { hfnum, hfstr, hfarr, hfdtime } from "../../hbjs/hfCommon.js";
 
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const fn_keydown = (ke) => {
+    ke.preventDefault();
+    // ke.stopPropagation();
+    dcs.log(ke);
+};
+
+
+
+//#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)
+const _tester_hfnum = Object.freeze({
+    fn_isEven(tv) {
+        if (hfnum.notNumber(tv)) return;
+        return `hfnum.isEven(${tv}): ${hfnum.isEven(tv)}`;
+    },
+
+    fn_test() {
+        fn_print(null);
+        fn_print(`
+{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isNumber
+  hfnum.isNumber(3.7): ${hfnum.isNumber(3.7)}
+  hfnum.isNumber(6.0): ${hfnum.isNumber(6.0)}
+  hfnum.isNumber('94123'): ${hfnum.isNumber('94123')}
+  hfnum.isNumber((Math.PI / 2) + '::'): ${hfnum.isNumber((Math.PI / 2) + '::')}
+}}
+
+{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.notNumber
+  hfnum.notNumber(3.7): ${hfnum.notNumber(3.7)}
+  hfnum.notNumber(6.0): ${hfnum.notNumber(6.0)}
+  hfnum.notNumber('94123'): ${hfnum.notNumber('94123')}
+  hfnum.notNumber((Math.PI / 2) + '::'): ${hfnum.notNumber((Math.PI / 2) + '::')}
+}}
+
+{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isFloat
+  hfnum.isFloat(3.7): ${hfnum.isFloat(3.7)}
+  hfnum.isFloat(6.0): ${hfnum.isFloat(6.0)}
+  hfnum.isFloat(909.3): ${hfnum.isFloat(909.3)}
+  hfnum.isFloat(Math.PI): ${hfnum.isFloat(Math.PI)}
+}}
+
+{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isMinus
+  hfnum.isMinus(-3.45): ${hfnum.isMinus(-3.45)}
+  hfnum.isMinus(943): ${hfnum.isMinus(943)}
+  hfnum.isMinus(-Math.PI): ${hfnum.isMinus(-Math.PI)}
+  hfnum.isMinus(400 - 329): ${hfnum.isMinus(400 - 329)}
+}}
+
+{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.random
+  hfnum.random(13): ${hfnum.random(13)}
+  hfnum.random(234): ${hfnum.random(234)}
+  hfnum.random(27): ${hfnum.random(27)}
+  hfnum.random(95): ${hfnum.random(95)}
+}}
+
+{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.randRange
+  hfnum.randRange(1, 5): ${hfnum.randRange(1, 5)}
+  hfnum.randRange(17, 35): ${hfnum.randRange(17, 35)}
+  hfnum.randRange(92, 182): ${hfnum.randRange(92, 182)}
+  hfnum.randRange(7, 13): ${hfnum.randRange(7, 13)}
+}}
+
+{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isOdd
+  hfnum.isOdd(78): ${hfnum.isOdd(78)}
+  hfnum.isOdd(1): ${hfnum.isOdd(1)}
+  hfnum.isOdd(956): ${hfnum.isOdd(956)}
+  hfnum.isOdd(37): ${hfnum.isOdd(37)}
+}}
+
+{{~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ hfnum.isEven
+  hfnum.isEven(5): ${hfnum.isEven(5)}
+  hfnum.isEven(17): ${hfnum.isEven(17)}
+  hfnum.isEven(182): ${hfnum.isEven(182)}
+  hfnum.isEven(93): ${hfnum.isEven(93)}
+}}
+        `.trim());
+        fn_print('\n');
+    },
+});
+//#endregion
+
+
+/**
+ *
+ * @param {PointerEvent} pe
+ */
+const fn_btn_clh = (pe) => {
+    // dcs.log(pe);
+    // dcs.log(pe.currentTarget);
+    /** @type {HTMLDivElement} */
+    let te = pe.currentTarget;
+    let nm = te.textContent.trim();
+    dcs.log(nm);
+
+    switch (nm) {
+        case 'hfnum': {
+            break;
+        }
+    }
+};
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const fn_clear = () => {
     dcs.log('fn_clear');
 };
@@ -10,9 +113,42 @@ const fn_stop = () => {
     dcs.log('fn_stop');
 };
 
-const fn_init = () => {
+const fn_init = (pd) => {
+    _pageData = pd;
+    // dcs.log(_pageData.pge, _pageData.mbtn);
+    _pageData.pge.addEventListener('keydown', fn_keydown);
+
+    _footerCont = _pageData.pge.querySelector('div.c_pec>div.c_footer');
+    // dcs.log(_footerCont);
+
+    let le = _footerCont.lastElementChild;
+    if (le) {
+        le.insertAdjacentHTML('beforebegin', `
+<div class="c_btn"><span>hfnum</span></div>
+<div class="c_btn"><span>hfstr</span></div>
+<div class="c_btn"><span>hfarr</span></div>
+<div class="c_btn"><span>hfdtime</span></div>
+        `.trim());
+        _btnArr = Array.from(_footerCont.children);
+        // dcs.log(_btnArr);
+
+        for (let te of _btnArr) {
+            te.addEventListener('click', fn_btn_clh);
+        }
+    }
+
     dcs.log('fn_init');
 };
+
+/** @type {IPageData} */
+let _pageData = null;
+
+/** @type {HTMLDivElement} */
+let _footerCont = null;
+
+/** @type {HTMLDivElement[]} */
+let _btnArr = null;
+
 
 export default {
     fn_clear, fn_stop, fn_init
@@ -20,6 +156,9 @@ export default {
 
 
 
+
+
+// //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // const fn_clear = () => {
 
 // };

@@ -191,7 +191,7 @@ const fn_initPages = () => {
 
         pd.mbtn.addEventListener(hfEventTypes.CLICK, fn_mbtn_cl);
         pd.pge = _pageCont.lastElementChild;
-        pd.fn_init?.();
+        pd.fn_init?.(pd);
 
         Reflect.defineProperty(pd.mbtn, 'pd', {value: pd});
     }
@@ -214,15 +214,19 @@ const fn_initPins = () => {
 };
 
 const fn_initOnce = async () => {
-    dcs.log(_pageDataArr);
-
-    // dcs.log('~~~~~ 1');
-    await fn_importPages();
-    // dcs.log('~~~~~ 3');
     // dcs.log(_pageDataArr);
+
+    await fn_importPages();
     fn_initPages();
     fn_initPageCont();
     fn_initPins();
+
+    let pd = _pageDataArr.at(0);
+    if (pd) {
+        let ey = pd.mbtn.offsetTop;
+        _pinRect.style.top = `${ey}px`;
+        pd.pge.focus({preventScroll: true});
+    }
 
     dcs.log('[#App(Initialized)]');
 };
@@ -232,74 +236,13 @@ fn_initOnce();
 
 
 
+
+
+
+
+
+
 // //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// const fn_initPins = () => {
-//     let bc = true;
-//     let fn_clh = (_) => {
-//         if (bc) {
-//             let stl = _leftMenuCont.style;
-//             stl.width = '32px';
-//             bc = false;
-//         } else {
-//             let stl = _leftMenuCont.style;
-//             stl.width = '';
-//             bc = true;
-//         }
-//     };
-//     _pinFold.addEventListener(hfEventTypes.CLICK, fn_clh);
-// };
-
-// const fn_twr1_stop = () => {
-//     _twr1.stop();
-//     _btwr = false;
-// };
-// const fn_twr1_cbf = (et, cv) => {
-//     // dcs.log(et, cv);
-//     if (et === hfTween.ET_UPDATE) {
-//         _pageCont.scrollTo(0, cv);
-//     } else if (et === hfTween.ET_END) {
-//         window.setTimeout(() => {
-//             _btwr = false;
-//             fn_focusPage();
-//         }, 100);
-//     }
-// };
-// const _twr1 = new hfTween(0, 32
-//     , new hfEaseExponential(hfEasingKind.easeInOut), fn_twr1_cbf);
-
-// /**
-//  * @param {HTMLDivElement} pge
-//  */
-// const fn_ggwave = (pge) => {
-//     let begin = _pageCont.scrollTop;
-//     let end = pge.offsetTop;
-//     let max = _pageCont.scrollHeight - _pageCont.clientHeight;
-//     if (end > max) end = max;
-
-//     if (begin === end) {
-//         fn_focusPage();
-//     } else {
-//         _btwr = true;
-//         _twr1.fromTo(begin, end);
-//     }
-// };
-
-// /**
-//  * @param {PointerEvent} pe
-//  */
-// const fn_btn_cl = (pe) => {
-//     /** @type {HTMLButtonElement} */
-//     let btn = pe.currentTarget;
-//     let pd = _pageDataArr.at(btn.pi);
-//     if (pd) {
-//         let ey = btn.offsetTop;
-//         _pinRect.style.top = `${ey}px`;
-//         fn_ggwave(pd.pge);
-//     } else {
-//         dcs.log(`[#App(Error)] No page ${btn.textContent}`);
-//     }
-// };
-
 // const fn_initOnce = async () => {
 //     return;
 //     let i = 0;
