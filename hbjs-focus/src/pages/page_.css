@@ -10,7 +10,7 @@ div.c_page {
   background-color: transparent;
   box-sizing: border-box;
   /* border: 2px solid darkslategrey; */
-  border-width: 5px 2px 2px 0px;
+  border-width: 5px 5px 5px 0px;
   border-style: solid;
   border-color: dimgray;
   font-size: 0px; overflow: hidden;
@@ -19,11 +19,12 @@ div.c_page {
 div.c_page:focus-within {
   /* border: 2px solid darkslategrey; */
   border-color: aquamarine;
+  outline: none;
 }
 
 div.c_page>span.c_tname {
   align-self: flex-start;
-  margin: 0px; padding: 0px;
+  margin: 0px; padding: 0px 10px 0px 10px;
   background-color: transparent;
   font-size: 13px; font-weight: bold;
 	color: dimgray; text-align: left;
