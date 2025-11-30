@@ -1,3 +1,26 @@
+import { dcs } from "../../hbjs/hfCommon.js";
+import { fn_mm } from "./page_com.js";
+
+
+const fn_clear = () => {
+
+};
+
+const fn_stop = () => {
+
+};
+
+const fn_init = () => {
+    // pd.rootCont = _rootCont;
+    // pd.leftMenuCont = _leftMenuCont;
+    // pd.pageCont = _pageCont;
+
+    // pd.mbtn = btn;
+    // pd.pge = _pageCont.lastElementChild;
+    // dcs.log('xxx');
+};
+
+
 /** @type {PageData} */
 const _pageData = {
     rootCont: null,
@@ -9,6 +32,10 @@ const _pageData = {
 
     txa: null,
     ftbtns: null,
+
+    fn_clear,
+    fn_stop,
+    fn_init,
 };
 Object.seal(_pageData);
 

@@ -13,11 +13,44 @@ const _leftMenuCont = _rootCont.querySelector('div.c_leftMenuCont');
 /** @type {HTMLDivElement} */
 const _pageCont = _rootCont.querySelector('div.c_pageCont');
 
-/** @type {HTMLButtonElement[]} */
-const _lmbtnArr = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'));
+// /** @type {HTMLButtonElement[]} */
+// const _lmbtnArr = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'));
+// (() => {
+//     // Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
+//     //     .forEach((te, ti, ta) => {
+//     //         dcs.log(te, ti)
+//     //     });
+//     // let x0 = _leftMenuCont.querySelectorAll('button.c_mbtn');
+//     // dcs.log(x0.entries().length);
+//     let ra = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
+//         .map((te, ti) => {
+//             // dcs.log(te.toString(), ti);
+//             /** @type {PageData} */
+//             let pd = {
+//                 rootCont: _rootCont,
+//                 leftMenuCont: _leftMenuCont,
+//                 pageCont: _pageCont,
+//                 mbtn: te,
+//                 mi: ti,
+//                 pge: null,
+//                 txa: null,
+//                 ftbtns: null,
+//                 fn_clear: null,
+//                 fn_stop: null,
+//                 fn_init: null,
+//             };
+//             // dcs.log(1, Object.seal(pd) === Object.seal(pd));
+//             // dcs.log(2, Object.seal(pd) === pd);
+//             // dcs.log(3, Object.is(pd, pd));
+//             // dcs.log(4, Object.is(pd, Object.seal(pd)));
+//             return Object.seal(pd);
+//         });
+//     dcs.log(ra);
+//     return ra;
+// })();
 
-/** @type {PageData[]} */
-const _pageDataArr = [];
+// /** @type {PageData[]} */
+// const _pageDataArr = [];
 
 /** @type {HTMLSpanElement} */
 const _pinRect = _leftMenuCont.querySelector('span.c_pinRect');
@@ -25,6 +58,29 @@ const _pinRect = _leftMenuCont.querySelector('span.c_pinRect');
 /** @type {HTMLSpanElement} */
 const _pinFold = _leftMenuCont.querySelector('span.c_pinFold');
 
+// /** @type {PageData[]} */
+// const _pageDataArr = (() => {
+//     let ra = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
+//         .map((te, ti) => {
+//             /** @type {PageData} */
+//             let pd = {
+//                 rootCont: _rootCont,
+//                 leftMenuCont: _leftMenuCont,
+//                 pageCont: _pageCont,
+//                 mbtn: te,
+//                 mi: ti,
+//                 pge: null,
+//                 txa: null,
+//                 ftbtns: null,
+//                 fn_clear: null,
+//                 fn_stop: null,
+//                 fn_init: null,
+//             };
+//             return Object.seal(pd);
+//         });
+//     return ra;
+// })();
+// dcs.log('>>>', _pageDataArr);
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -32,7 +88,6 @@ const fn_initPages = () => {
     let hts = _pageCont.innerHTML;
     _pageCont.innerHTML = '';
 
-    /** @type {string[]} */
     let l = _lmbtnArr.length;
     for (let i = 0; i < l; i++) {
         let pd = _pageDataArr.at(i);
@@ -53,9 +108,7 @@ const fn_initPages = () => {
                 let rv = `${t2}${tnm}${t3}`;
                 return rv;
             });
-
             _pageCont.insertAdjacentHTML('beforeend', rhs);
-
 
             pd.rootCont = _rootCont;
             pd.leftMenuCont = _leftMenuCont;
@@ -63,83 +116,10 @@ const fn_initPages = () => {
 
             pd.mbtn = btn;
             pd.pge = _pageCont.lastElementChild;
+
+            pd.fn_init();
         }
     }
-
-
-
-
-    // let i = 0;
-    // for (let btn of _lmbtnArr) {
-    //     // let tin = btn.tin;
-    //     // let tnm = btn.tnm;
-
-    //     // let rhs = hts;
-    //     // rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
-    //     //     return '';
-    //     // });
-    //     // rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
-    //     //     let rv = `${t2}${tin}${t3}`;
-    //     //     return rv;
-    //     // });
-    //     // rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
-    //     //     let rv = `${t2}${tnm}${t3}`;
-    //     //     return rv;
-    //     // });
-    //     // tsb.push(rhs);
-
-    //     // let pgnm = '_page01';
-    //     // dcs.log(pgnm);
-    //     // dcs.log(typeof eval, typeof window.eval);
-    //     // dcs.log(eval == window.eval);
-    //     // dcs.log(window.eval.apply(null, 'fn_initPages'));
-    //     // dcs.log(eval('fn_initPages') == fn_initPages);
-    //     // dcs.log(_page01);
-    //     // _page01.
-    //     // _pageDataArr.push({
-    //     //    rootCont: _rootCont,
-    //     //    leftMenuCont: _leftMenuCont,
-    //     //    pageCont: _pageCont,
-    //     //    mbtn: btn,
-    //     //    pge: null,
-    //     // });
-
-    //     let pd = _pageDataArr.at(i++);
-    //     if (pd) {
-    //         let tin = btn.tin;
-    //         let tnm = btn.tnm;
-
-    //         let rhs = hts;
-    //         rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
-    //             return '';
-    //         });
-    //         rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
-    //             let rv = `${t2}${tin}${t3}`;
-    //             return rv;
-    //         });
-    //         rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
-    //             let rv = `${t2}${tnm}${t3}`;
-    //             return rv;
-    //         });
-    //         tsb.push(rhs);
-
-    //         pd.rootCont = _rootCont;
-    //         pd.leftMenuCont = _leftMenuCont;
-    //         pd.pageCont = _pageCont;
-    //         pd.mbtn = btn;
-    //     }
-    // }
-
-    // _pageCont.innerHTML = tsb.join('');
-
-    // let pgeArr = Array.from(_pageCont.querySelectorAll('div.c_page'));
-    // i = 0;
-    // for (let pge of pgeArr) {
-    //     let pd = _pageDataArr.at(i++);
-    //     if (pd) {
-    //         pd.pge = pge;
-    //     }
-    // }
 };
 
 const fn_focusPage = () => {
@@ -177,6 +157,7 @@ const fn_initPageCont = () => {
         // dcs.log('mousedown', me);
         me.stopPropagation();
         // me.stopImmediatePropagation();
+
         fn_twr1_stop();
         if (me.target === me.currentTarget) {
             me.preventDefault();
@@ -188,6 +169,7 @@ const fn_initPageCont = () => {
         // dcs.log('mousewheel', me);
         me.stopPropagation();
         // me.stopImmediatePropagation();
+
         fn_twr1_stop();
     });
 
@@ -308,7 +290,7 @@ const fn_initOnce = async () => {
     dcs.log('[#App(Initialized)]');
 };
 
-fn_initOnce();
+// fn_initOnce();
 
 
 
@@ -317,3 +299,4 @@ fn_initOnce();
 //     console.log('받았다');
 
 // });
+
