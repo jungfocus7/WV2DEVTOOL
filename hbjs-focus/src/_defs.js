@@ -1,5 +1,5 @@
 /**
- * @typedef {object} PageData
+ * @typedef {object} IPageData
  *
  * @property {HTMLDivElement} rootCont
  * @property {HTMLDivElement} leftMenuCont
@@ -19,7 +19,7 @@
 
 
 /**
- * @typedef {object} PageInterface
+ * @typedef {object} IPageWork
  *
  * @property {() => void} fn_clear
  * @property {() => void} fn_stop

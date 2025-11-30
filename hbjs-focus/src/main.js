@@ -1,7 +1,5 @@
 import { dcs, hfEventTypes } from "../hbjs/hfCommon.js";
 import { hfEasingKind, hfEaseExponential, hfTween } from "../hbjs/hfTween.js";
-// import _page01 from "./pages/page01.js";
-
 
 
 /** @type {HTMLDivElement} */
@@ -13,56 +11,27 @@ const _leftMenuCont = _rootCont.querySelector('div.c_leftMenuCont');
 /** @type {HTMLDivElement} */
 const _pageCont = _rootCont.querySelector('div.c_pageCont');
 
-// /** @type {HTMLButtonElement[]} */
-// const _lmbtnArr = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'));
-// (() => {
-//     // Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
-//     //     .forEach((te, ti, ta) => {
-//     //         dcs.log(te, ti)
-//     //     });
-//     // let x0 = _leftMenuCont.querySelectorAll('button.c_mbtn');
-//     // dcs.log(x0.entries().length);
-//     let ra = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
-//         .map((te, ti) => {
-//             // dcs.log(te.toString(), ti);
-//             /** @type {PageData} */
-//             let pd = {
-//                 rootCont: _rootCont,
-//                 leftMenuCont: _leftMenuCont,
-//                 pageCont: _pageCont,
-//                 mbtn: te,
-//                 mi: ti,
-//                 pge: null,
-//                 txa: null,
-//                 ftbtns: null,
-//                 fn_clear: null,
-//                 fn_stop: null,
-//                 fn_init: null,
-//             };
-//             // dcs.log(1, Object.seal(pd) === Object.seal(pd));
-//             // dcs.log(2, Object.seal(pd) === pd);
-//             // dcs.log(3, Object.is(pd, pd));
-//             // dcs.log(4, Object.is(pd, Object.seal(pd)));
-//             return Object.seal(pd);
-//         });
-//     dcs.log(ra);
-//     return ra;
-// })();
-
-// /** @type {PageData[]} */
-// const _pageDataArr = [];
-
 /** @type {HTMLSpanElement} */
 const _pinRect = _leftMenuCont.querySelector('span.c_pinRect');
 
 /** @type {HTMLSpanElement} */
 const _pinFold = _leftMenuCont.querySelector('span.c_pinFold');
 
-/** @type {PageData[]} */
+
+/** @type {IPageData[]} */
 const _pageDataArr = (() => {
+    let fp = './pages/', ep = '.js';
     let ra = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
-        .map((te, ti) => {
-            /** @type {PageData} */
+        .map(async (te, ti) => {
+            /** @type {IPageWork} */
+            let rmd;
+
+            let pnm = te.dataset['pnm'].trim();
+            if (pnm !== '') {
+                rmd = (await import(`${fp}${pnm}${ep}`)).default;
+            }
+
+            /** @type {IPageData} */
             let pd = {
                 rootCont: _rootCont,
                 leftMenuCont: _leftMenuCont,
@@ -72,11 +41,50 @@ const _pageDataArr = (() => {
                 pge: null,
                 txa: null,
                 ftbtns: null,
-                fn_clear: null,
-                fn_stop: null,
-                fn_init: null,
+                fn_clear: rmd?.fn_clear ?? null,
+                fn_stop: rmd?.fn_clear ?? null,
+                fn_init: rmd?.fn_clear ?? null,
             };
+            dcs.log(pd);
             return Object.seal(pd);
+
+            // dcs.log(te.dataset['pnm']);
+            // /** @type {HTMLButtonElement} */
+            // let he = te;
+            // dcs.log(he.dataset['pnm']);
+            // dcs.log(he.dataset.__proto__);
+
+            // let x0 = (await import(`${fp}page01${ep}`)).default;
+            // dcs.log(x0, x0.fn_clear, x0.fn_stop, x0.fn_init);
+            // let pnm =
+            // let nst = (ti + 1).toString().padStart(2, '0');
+            // let pnm = `page${nst}`;
+            // // dcs.log(pnm);
+            // try {
+            //     await import(`${fp}${pnm}${ep}`);
+            //     // (await import(`${fp}pnm${ep}`)).default;
+
+            //     dcs.log(1003);
+            // } catch (err) {
+            //     dcs.log(err);
+            // }
+            // dcs.log(1004);
+
+            // /** @type {PageData} */
+            // let pd = {
+            //     rootCont: _rootCont,
+            //     leftMenuCont: _leftMenuCont,
+            //     pageCont: _pageCont,
+            //     mbtn: te,
+            //     mi: ti,
+            //     pge: null,
+            //     txa: null,
+            //     ftbtns: null,
+            //     fn_clear: null,
+            //     fn_stop: null,
+            //     fn_init: null,
+            // };
+            // return Object.seal(pd);
         });
     return ra;
 })();
@@ -249,26 +257,26 @@ const fn_btn_cl = (pe) => {
     }
 };
 
-const fn_importPages = async () => {
-    let fp = './pages/', ep = '.js';
-    for (let pd of _pageDataArr) {
-        // dcs.log(1004);
-    }
-    /** @type {PageInterface} */
-    let pglg = (await import(`${fp}page01${ep}`)).default;
-    dcs.log(pglg);
-    // _pageDataArr.push((await import(`${fp}page01${ep}`)).default);
-    // _pageDataArr.push((await import(`${fp}page02${ep}`)).default);
-    // _pageDataArr.push((await import(`${fp}page03${ep}`)).default);
-    // _pageDataArr.push((await import(`${fp}page04${ep}`)).default);
-    // _pageDataArr.push((await import(`${fp}page05${ep}`)).default);
-    // _pageDataArr.push((await import(`${fp}page06${ep}`)).default);
-    // _pageDataArr.push((await import(`${fp}page07${ep}`)).default);
-    // _pageDataArr.push((await import(`${fp}page08${ep}`)).default);
-};
+// const fn_importPages = async () => {
+//     // let fp = './pages/', ep = '.js';
+//     // for (let pd of _pageDataArr) {
+//     //     // dcs.log(1004);
+//     // }
+//     // /** @type {PageInterface} */
+//     // let pglg = (await import(`${fp}page01${ep}`)).default;
+//     // dcs.log(pglg);
+//     // _pageDataArr.push((await import(`${fp}page01${ep}`)).default);
+//     // _pageDataArr.push((await import(`${fp}page02${ep}`)).default);
+//     // _pageDataArr.push((await import(`${fp}page03${ep}`)).default);
+//     // _pageDataArr.push((await import(`${fp}page04${ep}`)).default);
+//     // _pageDataArr.push((await import(`${fp}page05${ep}`)).default);
+//     // _pageDataArr.push((await import(`${fp}page06${ep}`)).default);
+//     // _pageDataArr.push((await import(`${fp}page07${ep}`)).default);
+//     // _pageDataArr.push((await import(`${fp}page08${ep}`)).default);
+// };
 
 const fn_initOnce = async () => {
-    await fn_importPages();
+    // await fn_importPages();
 
     return;
     let i = 0;
@@ -296,7 +304,7 @@ const fn_initOnce = async () => {
     dcs.log('[#App(Initialized)]');
 };
 
-fn_initOnce();
+// fn_initOnce();
 
 
 
