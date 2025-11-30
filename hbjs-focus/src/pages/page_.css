@@ -2,66 +2,82 @@
 
 
 /*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
-html, body {
+div.c_page>div.c_pec {
+  position: relative;
+  width: 100%; height: 100%;
   background-color: transparent;
-  width: 100vw; height: 100vh; margin: 0px; padding: 0px;
-  font-family: 'Consolas', 'Courier New', 'monospace';
-  font-size: 0px; color: black; white-space: nowrap;
-  overflow: hidden; user-select: none;
 }
-/*#endregion*/
 
-
-/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
-div.c_page>textarea.c_tam {
-  flex-grow: 1;
-  margin: 4px 0px 4px 0px; padding: 3px;
+div.c_pec>textarea.c_tam {
+  width: calc(100% - 10px); height: calc(100% - 30px);
+  margin: 0px 0px 0px 0px; padding: 5px 5px 5px 5px;
   background-color: whitesmoke;
-  box-sizing: border-box;
-  border: 1px solid dimgray;
-  border-style: dashed;
-  font-family: inherit;
-  font-size: 11px; color: black; line-height: 2;
-  white-space: nowrap; resize: none;
+  box-sizing: border-box; border: 1px solid black;
+  resize: none; outline: none;
+  font-family: inherit; font-weight: normal; font-size: 11px;
 }
 
-div.c_page>textarea.c_tam:focus {
-  outline: none;
+div.c_pec>div.c_footer {
+  position: absolute;
+  width: auto; height: auto;
+  padding: 0px 0px 0px 0px;
+  right: 0px; bottom: 0px;
+  background-color: transparent;
+  text-align: end; overflow: hidden;
+
+  /* font-family: inherit; font-size: 0px; */
+  /* align-content: center; */
+  /* position: absolute; */
+  /* width: auto; height: auto; */
+  /* overflow: auto; */
+  /* font-size: 0px; */
+  /* white-space: nowrap; */
+  /* right: 0px; bottom: 0px; */
 }
 /*#endregion*/
 
 
-div.c_page>div.c_btc {
-  width: auto; height: auto;
-  overflow: auto; font-size: 0px;
-  white-space: nowrap;
-  text-align: right;
-}
-
-div.c_btc>button.c_bt {
-  background-color: rgba(0, 0, 0, 0.75);
-  margin: 0px 0px 0px 3px;
-  box-sizing: border-box;
-  border: 1px dashed transparent;
-  cursor: pointer;
-  transition: border-color 0.3s ease-out;
-}
-
-div.c_btc>button.c_bt:hover {
-  transition-duration: 0s;
-  border-color: thistle;
-}
-
-div.c_btc>button.c_bt>span {
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 02)*/
+div.c_footer>div.c_btn {
   display: inline-block;
-  padding: 0px 1px 1px 1px;
-  pointer-events: none;
-  color: whitesmoke;
-  font-family: inherit;
-  font-size: 10px;
+  background-color: darkblue;
+  margin: 0px 0px 0px 4px;
+  padding: 2px 4px 2px 4px;
+  border-width: 0px;
+  font-family: inherit; font-size: 11px;
+  color: whitesmoke; cursor: pointer;
 }
 
-div.c_btc>button.c_bt:active>span {
+div.c_footer>div.c_btn>span {
+  display: inline-block;
+}
+
+div.c_footer>div.c_btn:active>span {
+  transform: translate(1.0px, 1.0px);
+}
+/*#endregion*/
+
+
+
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 02~~~~~~~~)*/
+div.c_footer>button.c_bt____ {
+  /* appearance: none; */
+  /* bottom: ; */
+  background-color: darkblue;
+  margin: 0px 0px 0px 5px;
+  padding: 1px 1px 1px 1px;
+  border-width: 0px;
+  font-family: inherit; font-size: 11px;
+  color: whitesmoke; cursor: pointer;
+}
+
+div.c_footer>button.c_bt>span____ {
+  display: block;
+}
+
+div.c_footer>button.c_bt:active>span____ {
   transform: translate(1px, 1px);
 }
-
+/*#endregion*/

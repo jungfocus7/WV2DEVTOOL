@@ -101,23 +101,24 @@ const fn_initPageCont = () => {
         }
     });
 
-    // _pageCont.addEventListener('mousedown', (me) => {
-    //     // dcs.log('mousedown', me);
-    //     me.stopPropagation();
-    //     // me.stopImmediatePropagation();
-    //     fn_twr1_stop();
-    //     if (me.target === me.currentTarget) {
-    //         me.preventDefault();
-    //         fn_focusPage();
-    //     }
-    // });
+    _pageCont.addEventListener('mousedown', (me) => {
+        // dcs.log('mousedown', me);
+        me.stopPropagation();
+        // me.stopImmediatePropagation();
+        fn_twr1_stop();
+        if (me.target === me.currentTarget) {
+            me.preventDefault();
+            fn_focusPage();
+        }
+    });
 
-    // _pageCont.addEventListener('mousewheel', (me) => {
-    //     // dcs.log('mousewheel', me);
-    //     me.stopPropagation();
-    //     // me.stopImmediatePropagation();
-    //     fn_twr1_stop();
-    // });
+    _pageCont.addEventListener('mousewheel', (me) => {
+        // dcs.log('mousewheel', me);
+        me.stopPropagation();
+        // me.stopImmediatePropagation();
+        fn_twr1_stop();
+    });
+
 
     // window.addEventListener('mousedown', (_) => {
     //    dcs.log('window.mousedown');
