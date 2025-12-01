@@ -7,6 +7,7 @@ import { hfnum, hfstr, hfarr, hfdtime } from "../../hbjs/hfCommon.js";
  * @param {KeyboardEvent} ke
  */
 const fn_keydown = (ke) => {
+    dcs.log('fn_keydown');
     ke.preventDefault();
 };
 
@@ -274,7 +275,7 @@ const fn_init = (pd) => {
 <div class="c_btn"><span>hfdtime</span></div>
         `.trim());
         _btnArr = Array.from(_footerCont.children);
-        dcs.log(_btnArr);
+        // dcs.log(_btnArr);
 
         for (let te of _btnArr) {
             te.addEventListener('click', fn_btn_clh);

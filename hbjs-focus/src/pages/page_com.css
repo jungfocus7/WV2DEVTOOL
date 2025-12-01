@@ -55,6 +55,14 @@ div.c_pec>div.c_footer>div.c_btn>span {
 div.c_pec>div.c_footer>div.c_btn:active>span {
   transform: translate(1.0px, 1.0px);
 }
+
+div.c_pec>div.c_footer>span.c_tip {
+  display: inline-block;
+  padding: 1px 10px 1px 1px;
+  color: dimgray;
+  font-weight: bolder;
+  font-size: 11px;
+}
 /*#endregion*/
 
 

@@ -151,12 +151,15 @@ const fn_importPages = async () => {
             // pd.fn_stop = rmd.fn_stop;
             // pd.fn_init = rmd.fn_init;
             try {
+                // dcs.log('>>>>', pd.pgurl);
                 /** @type {IPageWork} */
                 let rmd = (await import(pd.pgurl)).default;
                 pd.fn_clear = rmd.fn_clear;
                 pd.fn_stop = rmd.fn_stop;
                 pd.fn_init = rmd.fn_init;
-            } catch { }
+            } catch (err) {
+                dcs.log(err);
+            }
         }
         // dcs.log('~~~~~ 2 >>> ', i++);
     }
@@ -266,6 +269,7 @@ const fn_initPages = () => {
         pd.pge = _pageCont.lastElementChild;
         // pd.fn_init?.(pd);
         try {
+            dcs.log(pd.fn_init);
             pd.fn_init?.(pd);
         } catch (err) {
             dcs.log(err);
@@ -312,4 +316,11 @@ const fn_initOnce = async () => {
 
 fn_initOnce();
 
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// _rootCont.addEventListener('mousewheel', (e) => {
+//     e.preventDefault();
+//     // console.log(1004);
+// });
 

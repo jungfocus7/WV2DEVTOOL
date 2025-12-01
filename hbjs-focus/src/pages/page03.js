@@ -1,5 +1,5 @@
 import { dcs } from "../../hbjs/hfCommon.js";
-import { hfCountTask } from "../../hbjs/hfCountTask.js";
+import { hfNumberRanger } from "../../hbjs/hfNumberRanger.js";
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,31 +28,32 @@ const fn_print = (msg=null, ba=true) => {
 
 const fn_beforePrint = (t1) => {
     let msg = `
-_cnt.${t1}();
-_cnt.begin: ${_cnt.begin},
-_cnt.end: ${_cnt.end},
-_cnt.add: ${_cnt.add},
-_cnt.now: ${_cnt.now},
+_nbrg.add(${t1});
+_nbrg.min: ${_nbrg.min},
+_nbrg.len: ${_nbrg.len},
+_nbrg.max: ${_nbrg.max},
+_nbrg.now: ${_nbrg.now},
     `.trim();
     fn_print(msg, false);
 };
 
-const _cnt = new hfCountTask(17, 321, -21.2134);
+const _nbrg = new hfNumberRanger(13, 10);
+
 
 /**
  * @param {KeyboardEvent} ke
  */
 const fn_keydown = (ke) => {
-    // dcs.log('fn_keydown');
+    dcs.log('fn_keydown');
     ke.preventDefault();
 
     const kcd = ke.code;
     if (kcd === 'ArrowLeft') {
-        _cnt.prev();
-        fn_beforePrint('prev');
+        _nbrg.add(-1);
+        fn_beforePrint('-1');
     } else if (kcd === 'ArrowRight') {
-        _cnt.next();
-        fn_beforePrint('next');
+        _nbrg.add(1);
+        fn_beforePrint('1');
     } else if (kcd === 'Delete') {
         fn_print();
         return;
