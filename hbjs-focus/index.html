@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HBJS-FOCUS (251125-1)</title>
+  <title>HBJS-FOCUS (251125-2)</title>
   <link href="./src/main.css" rel="stylesheet">
   <link href="./src/pages/page_com.css" rel="stylesheet">
 </head>
@@ -12,28 +12,28 @@
 <body>
   <div class="c_rootCont">
     <div class="c_leftMenuCont" tabindex="-1">
-      <button type="button" class="c_mbtn" data-pnm="page01">
+      <button type="button" class="c_mbtn" data-dts="page01,tp1">
         <span>01)hfCommon</span>
       </button>
-      <button type="button" class="c_mbtn" data-pnm="page02">
+      <button type="button" class="c_mbtn" data-dts="page02,tp1">
         <span>02)hfCountTask</span>
       </button>
-      <button type="button" class="c_mbtn" data-pnm="">
+      <button type="button" class="c_mbtn" data-dts="">
         <span>03)hfNumberRanger</span>
       </button>
-      <button type="button" class="c_mbtn" data-pnm="">
+      <button type="button" class="c_mbtn" data-dts="">
         <span>04)hfTween</span>
       </button>
-      <button type="button" class="c_mbtn" data-pnm="">
+      <button type="button" class="c_mbtn" data-dts="">
         <span>05)hfWeich</span>
       </button>
-      <button type="button" class="c_mbtn" data-pnm="">
+      <button type="button" class="c_mbtn" data-dts="">
         <span>06)hfFrameRepeater</span>
       </button>
-      <button type="button" class="c_mbtn" data-pnm="">
+      <button type="button" class="c_mbtn" data-dts="">
         <span>07)hfScrollLogic</span>
       </button>
-      <button type="button" class="c_mbtn" data-pnm="">
+      <button type="button" class="c_mbtn" data-dts="">
         <span>91)Tmp1</span>
       </button>
       <span class="c_pinRect"></span>
@@ -41,7 +41,18 @@
     </div>
 
     <div class="c_pageCont">
-      <div class="c_page" tabindex="01">
+      <div class="c_page" tabindex="0" data-tp="tp1">
+        <span class="c_tname">hfCommon</span>
+        <div class="c_pec">
+          <textarea class="c_tam" name="empty" spellcheck="false"
+            placeholder="empty" readonly></textarea>
+          <div class="c_footer">
+            <div class="c_btn"><span>Clear</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="c_page" tabindex="0" data-tp="tp2">
         <span class="c_tname">hfCommon</span>
         <div class="c_pec">
           <textarea class="c_tam" name="empty" spellcheck="false" placeholder="empty" readonly>
@@ -50,7 +61,7 @@
             <div class="c_btn"><span>Clear</span></div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 

@@ -8,6 +8,7 @@
  * @property {HTMLButtonElement} mbtn
  * @property {number} mi
  * @property {string} pgtnm
+ * @property {string} pgtp
  * @property {string} pgurl
  * @property {HTMLDivElement} pge
  *

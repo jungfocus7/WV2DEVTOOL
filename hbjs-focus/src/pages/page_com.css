@@ -8,7 +8,7 @@ div.c_page>div.c_pec {
   background-color: transparent;
 }
 
-div.c_pec>textarea.c_tam {
+div.c_page>div.c_pec>textarea.c_tam {
   width: calc(100% - 10px); height: calc(100% - 30px);
   margin: 0px 0px 0px 0px; padding: 5px 5px 5px 5px;
   background-color: whitesmoke;
@@ -17,7 +17,7 @@ div.c_pec>textarea.c_tam {
   font-family: inherit; font-weight: normal; font-size: 11px;
 }
 
-div.c_pec>div.c_footer {
+div.c_page>div.c_pec>div.c_footer {
   position: absolute;
   width: auto; height: auto;
   padding: 0px 0px 0px 0px;
@@ -38,7 +38,7 @@ div.c_pec>div.c_footer {
 
 
 /*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 02)*/
-div.c_footer>div.c_btn {
+div.c_page>div.c_footer>div.c_btn {
   display: inline-block;
   background-color: darkblue;
   margin: 0px 0px 0px 4px;
@@ -48,14 +48,19 @@ div.c_footer>div.c_btn {
   color: whitesmoke; cursor: pointer;
 }
 
-div.c_footer>div.c_btn>span {
+div.c_page>div.c_footer>div.c_btn>span {
   display: inline-block;
 }
 
-div.c_footer>div.c_btn:active>span {
+div.c_page>div.c_footer>div.c_btn:active>span {
   transform: translate(1.0px, 1.0px);
 }
 /*#endregion*/
+
+
+
+
+
 
 
 

@@ -4,12 +4,15 @@ import { hfnum, hfstr, hfarr, hfdtime } from "../../hbjs/hfCommon.js";
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @param {KeyboardEvent} ke
+ */
 const fn_keydown = (ke) => {
     ke.preventDefault();
 };
 
 
-//#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const _tester_hfnum = Object.freeze({
     fn_test() {
         fn_print(null);
@@ -184,7 +187,6 @@ const _tester_hfdtime = Object.freeze({
 //#endregion
 
 /**
- *
  * @param {PointerEvent} pe
  */
 const fn_btn_clh = (pe) => {

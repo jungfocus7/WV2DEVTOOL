@@ -2,6 +2,7 @@ import { dcs, hfEventTypes } from "../hbjs/hfCommon.js";
 import { hfEasingKind, hfEaseExponential, hfTween } from "../hbjs/hfTween.js";
 
 
+
 /** @type {HTMLDivElement} */
 const _rootCont = document.querySelector('div.c_rootCont');
 
@@ -25,8 +26,15 @@ const _pageDataArr = (() => {
             let txt = te.textContent.trim();
             let pgtnm = txt.substring(3);
 
-            let pnm = te.dataset['pnm'].trim();
-            let pgurl = (pnm !== '') ? `./pages/${pnm}.js` : null;
+            /** @type {string} */
+            let dts = te.dataset['dts']?.trim();
+            let jar = dts?.split(',');
+            // dcs.log(dts, jar);
+            let pnm = jar.at(0);
+            let ptp = jar.at(1);
+            // dcs.log(pnm, ptp);
+            let purl = (pnm) ? `./pages/${pnm}.js` : null;
+            // dcs.log(purl);
 
             /** @type {IPageData} */
             let pd = {
@@ -37,21 +45,50 @@ const _pageDataArr = (() => {
                 mbtn: te,
                 mi: ti,
                 pgtnm,
-                pgurl,
+                pgtp: ptp ?? null,
+                pgurl: purl,
                 pge: null,
 
                 fn_clear: null,
                 fn_stop: null,
                 fn_init: null,
             };
+            // dcs.log(pd);
             return Object.seal(pd);
         });
     return ra;
 })();
 
+/** @type {HTMLDivElement[]} */
+const _pgdmpArr = (() => {
+    let ra = Array.from(_pageCont.querySelectorAll('div.c_pageCont>div.c_page'));
+    // for (let te of ra) {
+    //     if ('tp' in te.dataset) {
+    //         dcs.log('>>>>>', te.dataset);
+    //     }
+    // }
+    return ra;
+})();
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const fn_focusPage = () => {
+    let max = _pageCont.scrollHeight - _pageCont.clientHeight;
+    let ctr = _pageCont.scrollTop / max;
+    // dcs.log(ctr);
+    let li = _pageDataArr.length - 1;
+    // let i = Math.round(li * ctr);
+    let i = Math.floor(li * ctr);
+    // dcs.log(li, i);
+
+    let pd = _pageDataArr.at(i);
+    pd.pge.focus({preventScroll: true});
+
+    let ey = pd.mbtn.offsetTop;
+    _pinRect.style.top = `${ey}px`;
+    pd.pge.focus({preventScroll: true});
+};
+
 let _btwr = false;
 const fn_initPageCont = () => {
     let pst = _pageCont.scrollTop;
@@ -103,22 +140,6 @@ const fn_importPages = async () => {
     // dcs.log('~~~~~ 2');
 };
 
-const fn_focusPage = () => {
-    let max = _pageCont.scrollHeight - _pageCont.clientHeight;
-    let ctr = _pageCont.scrollTop / max;
-    // dcs.log(ctr);
-    let li = _pageDataArr.length - 1;
-    let i = Math.round(li * ctr);
-    // dcs.log(li, i);
-
-    let pd = _pageDataArr.at(i);
-    pd.pge.focus({preventScroll: true});
-
-    let ey = pd.mbtn.offsetTop;
-    _pinRect.style.top = `${ey}px`;
-    pd.pge.focus({preventScroll: true});
-};
-
 /**
  * @param {HTMLDivElement} pge
  */
@@ -154,6 +175,28 @@ const fn_twr1_cbf = (et, cv) => {
 const _twr1 = new hfTween(0, 32
     , new hfEaseExponential(hfEasingKind.easeInOut), fn_twr1_cbf);
 
+
+/**
+ * @param {string} ttp
+ */
+const fn_getMatchingPageType = (ttp) => {
+    let rhs = null;
+    for (let te of _pgdmpArr) {
+        let dsm = te.dataset;
+        // dcs.log('dsm: ', dsm);
+        if ('tp' in dsm) {
+            let dtp = dsm.tp;
+            // dcs.log('tp: ', dtp);
+            if (dtp === ttp) {
+                rhs = te.outerHTML;
+                dcs.log(rhs);
+                break;
+            }
+        }
+    }
+    return rhs;
+};
+
 /**
  * @param {PointerEvent} pe
  */
@@ -162,8 +205,6 @@ const fn_mbtn_cl = (pe) => {
     let btn = pe.currentTarget;
     let pd = btn.pd;
     if (pd) {
-        let ey = btn.offsetTop;
-        _pinRect.style.top = `${ey}px`;
         fn_ggwave(pd.pge);
     } else {
         dcs.log(`[#App(Error)] No page ${btn.textContent}`);
@@ -171,10 +212,14 @@ const fn_mbtn_cl = (pe) => {
 };
 
 const fn_initPages = () => {
+    fn_getMatchingPageType('tp1');
+
     let hts = _pageCont.innerHTML;
     _pageCont.innerHTML = '';
 
     for (let pd of _pageDataArr) {
+        fn_getMatchingPageType(pd.pgtp);
+
         let rhs = hts;
         rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
             return '';
@@ -218,6 +263,7 @@ const fn_initOnce = async () => {
 
     await fn_importPages();
     fn_initPages();
+    return;
     fn_initPageCont();
     fn_initPins();
 
@@ -234,49 +280,4 @@ const fn_initOnce = async () => {
 
 fn_initOnce();
 
-
-
-
-
-
-
-
-
-// //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// const fn_initOnce = async () => {
-//     return;
-//     let i = 0;
-//     for (let btn of _lmbtnArr) {
-//         let txt = btn.textContent;
-//         let tin = txt.substring(0, 2);
-//         let tnm = txt.substring(3);
-//         Reflect.defineProperty(btn, 'tin', {value: tin});
-//         Reflect.defineProperty(btn, 'tnm', {value: tnm});
-//         Reflect.defineProperty(btn, 'pi', {value: i++});
-//         btn.addEventListener(hfEventTypes.CLICK, fn_btn_cl);
-//     }
-
-//     fn_initPages();
-//     fn_initPageCont();
-//     fn_initPins();
-
-//     let pd = _pageDataArr.at(0);
-//     if (pd) {
-//         let ey = pd.mbtn.offsetTop;
-//         _pinRect.style.top = `${ey}px`;
-//         pd.pge.focus({preventScroll: true});
-//     }
-
-//     dcs.log('[#App(Initialized)]');
-// };
-
-// fn_initOnce();
-
-
-
-// window.addEventListener('message', (te) => {
-//     console.log(te);
-//     console.log('받았다');
-
-// });
 
