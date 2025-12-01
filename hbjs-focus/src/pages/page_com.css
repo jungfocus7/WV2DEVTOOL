@@ -38,7 +38,7 @@ div.c_page>div.c_pec>div.c_footer {
 
 
 /*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 02)*/
-div.c_page>div.c_footer>div.c_btn {
+div.c_pec>div.c_footer>div.c_btn {
   display: inline-block;
   background-color: darkblue;
   margin: 0px 0px 0px 4px;
@@ -48,11 +48,11 @@ div.c_page>div.c_footer>div.c_btn {
   color: whitesmoke; cursor: pointer;
 }
 
-div.c_page>div.c_footer>div.c_btn>span {
+div.c_pec>div.c_footer>div.c_btn>span {
   display: inline-block;
 }
 
-div.c_page>div.c_footer>div.c_btn:active>span {
+div.c_pec>div.c_footer>div.c_btn:active>span {
   transform: translate(1.0px, 1.0px);
 }
 /*#endregion*/

@@ -63,12 +63,30 @@ const _pageDataArr = (() => {
 const _pgdmpArr = (() => {
     let ra = Array.from(_pageCont.querySelectorAll('div.c_pageCont>div.c_page'));
     // for (let te of ra) {
-    //     if ('tp' in te.dataset) {
-    //         dcs.log('>>>>>', te.dataset);
+    //     let dsm = te.dataset;
+    //     if ('tp' in dsm) {
+    //         dcs.log('>>>>>', dsm.tp);
     //     }
     // }
     return ra;
 })();
+
+/** @type {Map<string, string>} */
+const _pgdmpMap = (() => {
+    /** @type {HTMLElement[]} */
+    let tea = Array.from(_pageCont.querySelectorAll('div.c_pageCont>div.c_page'));
+    /** @type {Map<string, string>} */
+    let map = new Map();
+    for (let te of tea) {
+        let dsm = te.dataset;
+        if ('tp' in dsm) {
+            // dcs.log('>>>>>', dsm.tp);
+            map.set(dsm.tp, te.outerHTML);
+        }
+    }
+    return map;
+})();
+// dcs.log(_pgdmpMap.size);
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,11 +100,9 @@ const fn_focusPage = () => {
     // dcs.log(li, i);
 
     let pd = _pageDataArr.at(i);
-    pd.pge.focus({preventScroll: true});
-
     let ey = pd.mbtn.offsetTop;
     _pinRect.style.top = `${ey}px`;
-    pd.pge.focus({preventScroll: true});
+    pd.pge?.focus({preventScroll: true});
 };
 
 let _btwr = false;
@@ -129,11 +145,18 @@ const fn_importPages = async () => {
     // let i = 0;
     for (let pd of _pageDataArr) {
         if (pd.pgurl !== null) {
-            /** @type {IPageWork} */
-            let rmd = (await import(pd.pgurl)).default;
-            pd.fn_clear = rmd.fn_clear;
-            pd.fn_stop = rmd.fn_stop;
-            pd.fn_init = rmd.fn_init;
+            // /** @type {IPageWork} */
+            // let rmd = (await import(pd.pgurl)).default;
+            // pd.fn_clear = rmd.fn_clear;
+            // pd.fn_stop = rmd.fn_stop;
+            // pd.fn_init = rmd.fn_init;
+            try {
+                /** @type {IPageWork} */
+                let rmd = (await import(pd.pgurl)).default;
+                pd.fn_clear = rmd.fn_clear;
+                pd.fn_stop = rmd.fn_stop;
+                pd.fn_init = rmd.fn_init;
+            } catch { }
         }
         // dcs.log('~~~~~ 2 >>> ', i++);
     }
@@ -180,21 +203,27 @@ const _twr1 = new hfTween(0, 32
  * @param {string} ttp
  */
 const fn_getMatchingPageType = (ttp) => {
-    let rhs = null;
-    for (let te of _pgdmpArr) {
-        let dsm = te.dataset;
-        // dcs.log('dsm: ', dsm);
-        if ('tp' in dsm) {
-            let dtp = dsm.tp;
-            // dcs.log('tp: ', dtp);
-            if (dtp === ttp) {
-                rhs = te.outerHTML;
-                dcs.log(rhs);
-                break;
-            }
-        }
+    // let rhs = null;
+    // for (let te of _pgdmpArr) {
+    //     let dsm = te.dataset;
+    //     // dcs.log('dsm: ', dsm);
+    //     if ('tp' in dsm) {
+    //         let dtp = dsm.tp;
+    //         // dcs.log('tp: ', dtp);
+    //         if (dtp === ttp) {
+    //             rhs = te.outerHTML;
+    //             // dcs.log(rhs);
+    //             break;
+    //         }
+    //     }
+    // }
+    // return rhs;
+
+    if (_pgdmpMap.has(ttp)) {
+        return _pgdmpMap.get(ttp);
+    } else {
+        return '<span style="font-size: 22px;">없어요</span>';
     }
-    return rhs;
 };
 
 /**
@@ -212,15 +241,14 @@ const fn_mbtn_cl = (pe) => {
 };
 
 const fn_initPages = () => {
-    fn_getMatchingPageType('tp1');
-
-    let hts = _pageCont.innerHTML;
+    // let hts = _pageCont.innerHTML;
     _pageCont.innerHTML = '';
 
     for (let pd of _pageDataArr) {
-        fn_getMatchingPageType(pd.pgtp);
+        let rhs = fn_getMatchingPageType(pd.pgtp);
+        // dcs.log(rhs);
+        if (!rhs) continue;
 
-        let rhs = hts;
         rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
             return '';
         });
@@ -236,7 +264,12 @@ const fn_initPages = () => {
 
         pd.mbtn.addEventListener(hfEventTypes.CLICK, fn_mbtn_cl);
         pd.pge = _pageCont.lastElementChild;
-        pd.fn_init?.(pd);
+        // pd.fn_init?.(pd);
+        try {
+            pd.fn_init?.(pd);
+        } catch (err) {
+            dcs.log(err);
+        }
 
         Reflect.defineProperty(pd.mbtn, 'pd', {value: pd});
     }
@@ -263,7 +296,6 @@ const fn_initOnce = async () => {
 
     await fn_importPages();
     fn_initPages();
-    return;
     fn_initPageCont();
     fn_initPins();
 

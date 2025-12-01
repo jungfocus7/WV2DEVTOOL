@@ -1,5 +1,4 @@
 import { dcs } from "../../hbjs/hfCommon.js";
-import { fn_set, fn_print } from "./page_com.js";
 import { hfnum, hfstr, hfarr, hfdtime } from "../../hbjs/hfCommon.js";
 
 
@@ -190,6 +189,7 @@ const _tester_hfdtime = Object.freeze({
  * @param {PointerEvent} pe
  */
 const fn_btn_clh = (pe) => {
+    // dcs.log('fn_btn_clh');
     // dcs.log(pe);
     // dcs.log(pe.currentTarget);
     /** @type {HTMLDivElement} */
@@ -223,6 +223,29 @@ const fn_btn_clh = (pe) => {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/** @type {HTMLTextAreaElement} */
+let _tam = null;
+/**
+ * @param {string | null} msg
+ * @param {boolean} ba
+ * @returns
+ */
+const fn_print = (msg=null, ba=true) => {
+    if (_tam == null) {
+        _tam = _pageData.pge.querySelector('div.c_pec>textarea.c_tam');
+    }
+    if (msg == null) {
+        _tam.value = '';
+        return;
+    }
+    // console.log(_tam.textContent);
+    // console.log(_tam.innerHTML);
+    // console.log(_tam.value); //textarea는 value권장(아주)
+    let txv = (ba) ? _tam.value + msg + '\n' : msg;
+    _tam.value = txv;
+    _tam.scrollTop = _tam.scrollHeight;
+};
+
 const fn_clear = () => {
     dcs.log('fn_clear');
 };
@@ -233,12 +256,13 @@ const fn_stop = () => {
 
 const fn_init = (pd) => {
     _pageData = pd;
-    // dcs.log(_pageData.pge, _pageData.mbtn);
+    // dcs.log(_pageData.mbtn, _pageData.pge);
 
-    _pageData.pge.addEventListener('keydown', fn_keydown);
-    fn_set(_pageData.pge);
+    _thisCont = _pageData.pge;
+    _thisCont.addEventListener('keydown', fn_keydown);
+    // fn_set(_thisCont);
 
-    _footerCont = _pageData.pge.querySelector('div.c_pec>div.c_footer');
+    _footerCont = _thisCont.querySelector('div.c_pec>div.c_footer');
     // dcs.log(_footerCont);
 
     let le = _footerCont.lastElementChild;
@@ -250,7 +274,7 @@ const fn_init = (pd) => {
 <div class="c_btn"><span>hfdtime</span></div>
         `.trim());
         _btnArr = Array.from(_footerCont.children);
-        // dcs.log(_btnArr);
+        dcs.log(_btnArr);
 
         for (let te of _btnArr) {
             te.addEventListener('click', fn_btn_clh);
@@ -262,6 +286,9 @@ const fn_init = (pd) => {
 
 /** @type {IPageData} */
 let _pageData = null;
+
+/** @type {HTMLDivElement} */
+let _thisCont = null;
 
 /** @type {HTMLDivElement} */
 let _footerCont = null;

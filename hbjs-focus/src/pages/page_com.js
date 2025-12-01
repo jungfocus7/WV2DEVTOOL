@@ -3,6 +3,7 @@ let _tam = null;
 
 /**
  * @param {string | null} msg
+ * @param {boolean} ba
  * @returns
  */
 export const fn_print = (msg=null, ba=true) => {
