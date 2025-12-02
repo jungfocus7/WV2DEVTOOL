@@ -21,7 +21,7 @@ const _pinFold = _leftMenuCont.querySelector('span.c_pinFold');
 
 /** @type {IPageData[]} */
 const _pageDataArr = (() => {
-    let ra = Array.from(_leftMenuCont.querySelectorAll('button.c_mbtn'))
+    let ra = Array.from(_leftMenuCont.querySelectorAll('div.c_mbtn'))
         .map((te, ti) => {
             let txt = te.textContent.trim();
             let pgtnm = txt.substring(3);

@@ -3,7 +3,7 @@
 
 /*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
 div.c_page>div.c_pec {
-  position: relative;
+  position: relative; visibility: hidden;
   width: 100%; height: 100%;
   background-color: transparent;
 }
