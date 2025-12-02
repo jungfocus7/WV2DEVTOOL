@@ -3,17 +3,27 @@ import { hfCountTask } from "../../hbjs/hfCountTask.js";
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/** @type {HTMLTextAreaElement} */
-let _tam = null;
+const fn_beforePrint = (t1) => {
+    let msg = `
+_cnt.${t1}();
+_cnt.begin: ${_cnt.begin},
+_cnt.end: ${_cnt.end},
+_cnt.add: ${_cnt.add},
+_cnt.now: ${_cnt.now},
+    `.trim();
+    fn_print(msg, false);
+};
+
+let _cnt = new hfCountTask(17, 321, -21.2134);
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @param {string | null} msg
  * @param {boolean} ba
  * @returns
  */
 const fn_print = (msg=null, ba=true) => {
-    if (_tam == null) {
-        _tam = _pageData.pge.querySelector('div.c_pec>textarea.c_tam');
-    }
     if (msg == null) {
         _tam.value = '';
         return;
@@ -26,24 +36,12 @@ const fn_print = (msg=null, ba=true) => {
     _tam.scrollTop = _tam.scrollHeight;
 };
 
-const fn_beforePrint = (t1) => {
-    let msg = `
-_cnt.${t1}();
-_cnt.begin: ${_cnt.begin},
-_cnt.end: ${_cnt.end},
-_cnt.add: ${_cnt.add},
-_cnt.now: ${_cnt.now},
-    `.trim();
-    fn_print(msg, false);
-};
-
-const _cnt = new hfCountTask(17, 321, -21.2134);
-
 /**
  * @param {KeyboardEvent} ke
  */
 const fn_keydown = (ke) => {
     // dcs.log('fn_keydown');
+
     ke.preventDefault();
 
     const kcd = ke.code;
@@ -59,13 +57,11 @@ const fn_keydown = (ke) => {
     }
 };
 
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
  * @param {PointerEvent} pe
  */
 const fn_btn_clh = (pe) => {
-    dcs.log('fn_btn_clh');
+    // dcs.log('fn_btn_clh');
 };
 
 
@@ -79,40 +75,47 @@ const fn_stop = () => {
 };
 
 const fn_init = (pd) => {
+    // dcs.log('fn_init');
+
     _pageData = pd;
     // dcs.log(_pageData.mbtn, _pageData.pge);
 
-    _thisCont = _pageData.pge;
-    _thisCont.addEventListener('keydown', fn_keydown);
-    // fn_set(_thisCont);
+    _pageData.pge.addEventListener('keydown', fn_keydown);
+    _pec = _pageData.pge.querySelector('div.c_pec');
+    // dcs.log(_pec);
+    _pec.style.visibility = 'visible';
 
-    _footerCont = _thisCont.querySelector('div.c_pec>div.c_footer');
-    // dcs.log(_footerCont);
+    _tam = _pec.querySelector('textarea.c_tam');
+    // dcs.log(_tam);
 
-    let le = _footerCont.lastElementChild;
+    _footer = _pec.querySelector('div.c_footer');
+    // dcs.log(_footer);
+
+    let le = _footer.lastElementChild;
     if (le) {
         le.insertAdjacentHTML('beforebegin', `
 <span class="c_tip">ArrowLeft: prev, ArrowRight: next, Delete: clear</span>
         `.trim());
-        _btnArr = Array.from(_footerCont.children);
+        _btnArr = Array.from(_footer.children);
         // dcs.log(_btnArr);
 
         for (let te of _btnArr) {
             te.addEventListener('click', fn_btn_clh);
         }
     }
-
-    // dcs.log('fn_init');
 };
 
 /** @type {IPageData} */
 let _pageData = null;
 
 /** @type {HTMLDivElement} */
-let _thisCont = null;
+let _pec = null;
+
+/** @type {HTMLTextAreaElement} */
+let _tam = null;
 
 /** @type {HTMLDivElement} */
-let _footerCont = null;
+let _footer = null;
 
 /** @type {HTMLDivElement[]} */
 let _btnArr = null;

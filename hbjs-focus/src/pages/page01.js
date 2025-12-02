@@ -3,16 +3,6 @@ import { hfnum, hfstr, hfarr, hfdtime } from "../../hbjs/hfCommon.js";
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @param {KeyboardEvent} ke
- */
-const fn_keydown = (ke) => {
-    dcs.log('fn_keydown');
-    ke.preventDefault();
-};
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const _tester_hfnum = Object.freeze({
     fn_test() {
         fn_print(null);
@@ -184,15 +174,42 @@ const _tester_hfdtime = Object.freeze({
         fn_print('\n');
     },
 });
-//#endregion
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @param {string | null} msg
+ * @param {boolean} ba
+ * @returns
+ */
+const fn_print = (msg=null, ba=true) => {
+    if (msg == null) {
+        _tam.value = '';
+        return;
+    }
+    // console.log(_tam.textContent);
+    // console.log(_tam.innerHTML);
+    // console.log(_tam.value); //textarea는 value권장(아주)
+    let txv = (ba) ? _tam.value + msg + '\n' : msg;
+    _tam.value = txv;
+    _tam.scrollTop = _tam.scrollHeight;
+};
+
+/**
+ * @param {KeyboardEvent} ke
+ */
+const fn_keydown = (ke) => {
+    // dcs.log('fn_keydown');
+
+    ke.preventDefault();
+};
 
 /**
  * @param {PointerEvent} pe
  */
 const fn_btn_clh = (pe) => {
     // dcs.log('fn_btn_clh');
-    // dcs.log(pe);
-    // dcs.log(pe.currentTarget);
+
     /** @type {HTMLDivElement} */
     let te = pe.currentTarget;
     let nm = te.textContent.trim();
@@ -224,33 +241,17 @@ const fn_btn_clh = (pe) => {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/**
- * @param {string | null} msg
- * @param {boolean} ba
- * @returns
- */
-const fn_print = (msg=null, ba=true) => {
-    if (msg == null) {
-        _tam.value = '';
-        return;
-    }
-    // console.log(_tam.textContent);
-    // console.log(_tam.innerHTML);
-    // console.log(_tam.value); //textarea는 value권장(아주)
-    let txv = (ba) ? _tam.value + msg + '\n' : msg;
-    _tam.value = txv;
-    _tam.scrollTop = _tam.scrollHeight;
-};
-
 const fn_clear = () => {
-    dcs.log('fn_clear');
+    // dcs.log('fn_clear');
 };
 
 const fn_stop = () => {
-    dcs.log('fn_stop');
+    // dcs.log('fn_stop');
 };
 
 const fn_init = (pd) => {
+    // dcs.log('fn_init');
+
     _pageData = pd;
     // dcs.log(_pageData.mbtn, _pageData.pge);
 
@@ -280,8 +281,6 @@ const fn_init = (pd) => {
             te.addEventListener('click', fn_btn_clh);
         }
     }
-
-    // dcs.log('fn_init');
 };
 
 /** @type {IPageData} */
