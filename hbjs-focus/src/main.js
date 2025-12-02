@@ -59,18 +59,6 @@ const _pageDataArr = (() => {
     return ra;
 })();
 
-/** @type {HTMLDivElement[]} */
-const _pgdmpArr = (() => {
-    let ra = Array.from(_pageCont.querySelectorAll('div.c_pageCont>div.c_page'));
-    // for (let te of ra) {
-    //     let dsm = te.dataset;
-    //     if ('tp' in dsm) {
-    //         dcs.log('>>>>>', dsm.tp);
-    //     }
-    // }
-    return ra;
-})();
-
 /** @type {Map<string, string>} */
 const _pgdmpMap = (() => {
     /** @type {HTMLElement[]} */
@@ -158,7 +146,7 @@ const fn_importPages = async () => {
                 pd.fn_stop = rmd.fn_stop;
                 pd.fn_init = rmd.fn_init;
             } catch (err) {
-                dcs.log(err);
+                // dcs.log(err);
             }
         }
         // dcs.log('~~~~~ 2 >>> ', i++);
@@ -206,26 +194,10 @@ const _twr1 = new hfTween(0, 32
  * @param {string} ttp
  */
 const fn_getMatchingPageType = (ttp) => {
-    // let rhs = null;
-    // for (let te of _pgdmpArr) {
-    //     let dsm = te.dataset;
-    //     // dcs.log('dsm: ', dsm);
-    //     if ('tp' in dsm) {
-    //         let dtp = dsm.tp;
-    //         // dcs.log('tp: ', dtp);
-    //         if (dtp === ttp) {
-    //             rhs = te.outerHTML;
-    //             // dcs.log(rhs);
-    //             break;
-    //         }
-    //     }
-    // }
-    // return rhs;
-
     if (_pgdmpMap.has(ttp)) {
         return _pgdmpMap.get(ttp);
     } else {
-        return '<span style="font-size: 22px;">없어요</span>';
+        return '<span style="font-size: 22px;">NotType</span>';
     }
 };
 
@@ -269,7 +241,7 @@ const fn_initPages = () => {
         pd.pge = _pageCont.lastElementChild;
         // pd.fn_init?.(pd);
         try {
-            dcs.log(pd.fn_init);
+            // dcs.log(pd.fn_init);
             pd.fn_init?.(pd);
         } catch (err) {
             dcs.log(err);

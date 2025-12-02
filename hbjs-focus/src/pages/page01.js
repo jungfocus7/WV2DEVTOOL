@@ -224,17 +224,12 @@ const fn_btn_clh = (pe) => {
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/** @type {HTMLTextAreaElement} */
-let _tam = null;
 /**
  * @param {string | null} msg
  * @param {boolean} ba
  * @returns
  */
 const fn_print = (msg=null, ba=true) => {
-    if (_tam == null) {
-        _tam = _pageData.pge.querySelector('div.c_pec>textarea.c_tam');
-    }
     if (msg == null) {
         _tam.value = '';
         return;
@@ -259,14 +254,18 @@ const fn_init = (pd) => {
     _pageData = pd;
     // dcs.log(_pageData.mbtn, _pageData.pge);
 
-    _thisCont = _pageData.pge;
-    _thisCont.addEventListener('keydown', fn_keydown);
-    // fn_set(_thisCont);
+    _pageData.pge.addEventListener('keydown', fn_keydown);
+    _pec = _pageData.pge.querySelector('div.c_pec');
+    // dcs.log(_pec);
+    _pec.style.visibility = 'visible';
 
-    _footerCont = _thisCont.querySelector('div.c_pec>div.c_footer');
-    // dcs.log(_footerCont);
+    _tam = _pec.querySelector('textarea.c_tam');
+    // dcs.log(_tam);
 
-    let le = _footerCont.lastElementChild;
+    _footer = _pec.querySelector('div.c_footer');
+    // dcs.log(_footer);
+
+    let le = _footer.lastElementChild;
     if (le) {
         le.insertAdjacentHTML('beforebegin', `
 <div class="c_btn"><span>hfnum</span></div>
@@ -274,7 +273,7 @@ const fn_init = (pd) => {
 <div class="c_btn"><span>hfarr</span></div>
 <div class="c_btn"><span>hfdtime</span></div>
         `.trim());
-        _btnArr = Array.from(_footerCont.children);
+        _btnArr = Array.from(_footer.children);
         // dcs.log(_btnArr);
 
         for (let te of _btnArr) {
@@ -289,10 +288,13 @@ const fn_init = (pd) => {
 let _pageData = null;
 
 /** @type {HTMLDivElement} */
-let _thisCont = null;
+let _pec = null;
+
+/** @type {HTMLTextAreaElement} */
+let _tam = null;
 
 /** @type {HTMLDivElement} */
-let _footerCont = null;
+let _footer = null;
 
 /** @type {HTMLDivElement[]} */
 let _btnArr = null;
