@@ -103,6 +103,8 @@ const fn_init = (pd) => {
             te.addEventListener('click', fn_btn_clh);
         }
     }
+
+    fn_beforePrint('prev');
 };
 
 /** @type {IPageData} */

@@ -281,6 +281,8 @@ const fn_init = (pd) => {
             te.addEventListener('click', fn_btn_clh);
         }
     }
+
+    _tester_hfnum.fn_test();
 };
 
 /** @type {IPageData} */
