@@ -1,9 +1,5 @@
 import { dcs } from "../../hbjs/hfCommon.js";
-import { hfNumberRanger } from "../../hbjs/hfNumberRanger.js";
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+import { hfFrameRepeater } from "../../hbjs/hfFrameRepeater.js";
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,6 +24,13 @@ const fn_print = (msg=null, ba=true) => {
     _tam.scrollTop = _tam.scrollHeight;
 };
 
+const fn_cbf = (et, re, rc) => {
+    fn_print(`et:${et}, re:${re}, rc:${rc}`);
+};
+let _frpt = new hfFrameRepeater(5, 100, fn_cbf);
+// fn_print(`${_frpt.toString()}`);
+
+
 /**
  * @param {KeyboardEvent} ke
  */
@@ -35,6 +38,17 @@ const fn_keydown = (ke) => {
     // dcs.log('fn_keydown');
 
     ke.preventDefault();
+
+    let kcd = ke.code;
+    if (kcd === 'Backquote') {
+        _frpt.reset();
+    } else if (kcd === 'Digit1') {
+        _frpt.start();
+    } else if (kcd === 'Digit2') {
+        _frpt.stop();
+    } else if (kcd === 'Delete') {
+        fn_print(null);
+    }
 };
 
 /**
@@ -63,26 +77,24 @@ const fn_init = (pd) => {
     _pageData.pge.addEventListener('keydown', fn_keydown);
     _pec = _pageData.pge.querySelector('div.c_pec');
     // dcs.log(_pec);
-    // _pec.style.visibility = 'visible';
+    _pec.style.visibility = 'visible';
 
-//     _tam = _pec.querySelector('textarea.c_tam');
-//     // dcs.log(_tam);
+    _tam = _pec.querySelector('textarea.c_tam');
+    // dcs.log(_tam);
 
-//     _footer = _pec.querySelector('div.c_footer');
-//     // dcs.log(_footer);
+    _footer = _pec.querySelector('div.c_footer');
+    // dcs.log(_footer);
 
-//     let le = _footer.lastElementChild;
-//     if (le) {
-//         le.insertAdjacentHTML('beforebegin', `
-// <span class="c_tip">ArrowLeft: add(-1), ArrowRight: add(1), Delete: clear</span>
-//         `.trim());
-//         _btnArr = Array.from(_footer.children);
-//         // dcs.log(_btnArr);
+    _pec.querySelector('div.c_tip').textContent = `
+[##KeyDown]
+ Backquote: reset(), Digit1: start(), Digit2: stop(), Delete: Clear
+    `.trim();
 
-//         for (let te of _btnArr) {
-//             te.addEventListener('click', fn_btn_clh);
-//         }
-//     }
+    _btnArr = Array.from(_footer.children);
+    // dcs.log(_btnArr);
+    for (let te of _btnArr) {
+        te.addEventListener('click', fn_btn_clh);
+    }
 };
 
 /** @type {IPageData} */
