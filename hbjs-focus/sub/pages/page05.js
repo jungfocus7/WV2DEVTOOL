@@ -1,13 +1,5 @@
 import { dcs } from "../../hbjs/hfCommon.js";
-import {
-    hfEasingKind,
-    hfEaseBack,
-    hfEaseBounce,
-    hfEaseCircular,
-    hfEaseElastic,
-    hfEaseExponential,
-    hfTween,
-} from "../../hbjs/hfTween.js";
+import { hfWeich } from "../../hbjs/hfWeich.js";
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -34,17 +26,29 @@ const fn_print = (msg=null, ba=true) => {
 
 /**
  * @param {string} et EventType
- * @param {number} cv CurrentValue
+ * @param {number} _ CurrentValue
  */
-const fn_twa_cbf = (et, cv) => {
-    if (et === hfTween.ET_UPDATE) {
-        _cx = _bx + (_xv * cv);
-        _cy = _by + (_yv * cv);
-        _ce.setAttribute('cx', _cx);
-        _ce.setAttribute('cy', _cy);
-        fn_print(`${et}: (X=${_cx}, Y=${_cy});`);
-    } else if (et === hfTween.ET_END) {
-        fn_print(`${et}: (X=${_cx}, Y=${_cy});`);
+const fn_wc_cbf = (et, _) => {
+    if (et === hfWeich.ET_UPDATE) {
+        _cx = _wcx.now;
+        _cy = _wcy.now;
+        if (_uc === 0) {
+            _uc = 1;
+        } else {
+            _uc = 0;
+            _sce.setAttribute('cx', _cx);
+            _sce.setAttribute('cy', _cy);
+            fn_print(`${et}: (X=${ _cx }, Y=${ _cy });`);
+        }
+    } else if (et === hfWeich.ET_END) {
+        if (_ec === 0) {
+            _ec = 1;
+        } else {
+            _ec = 0;
+            _cx = _wcx.end;
+            _cy = _wcy.end;
+            fn_print(`${et}: (X=${ _cx }, Y=${ _cy });`);
+        }
     }
 };
 
@@ -52,36 +56,36 @@ const fn_twa_cbf = (et, cv) => {
  * @param {PointerEvent} pe
  */
 const fn_svgCont_clh = (pe) => {
-    dcs.log('>>>>>>');
     fn_print();
+    let mx = pe.offsetX;
+    let my = pe.offsetY;
     fn_print(`begin: (X=${_cx}, Y=${_cy});`);
-    _bx = _cx, _by = _cy;
-    _ex = pe.offsetX, _ey = pe.offsetY;
-    _xv = _ex - _cx, _yv = _ey - _cy;
-    _twa.fromTo(0, 1);
+    fn_print(`end: (X=${mx}, Y=${my});`);
+    _uc = 0;
+    _ec = 0;
+    _wcx.to(mx);
+    _wcy.to(my);
 };
 
 /** @type {SVGSVGElement} */
 let _svgCont = null;
-// console.log(_svgCont);
 
 /** @type {SVGCircleElement} */
-let _ce = null;
-// console.log(_ce);
+let _sce = null;
 
 /** @type {HTMLTextAreaElement} */
 let _tam = null;
 
 let _cx = 0; // current x
 let _cy = 0; // current y
-// console.log(_cx, _cy);
 
-let _bx = 0.0, _by = 0.0; // begin point
-let _ex = 0.0, _ey = 0.0; // end point
-let _xv = 0.0, _yv = 0.0; // vector point
+let _uc = 0;
+let _ec = 0;
 
-/** @type {hfTween} */
-let _twa = null;
+/** @type {hfWeich} */
+let _wcx = null;
+/** @type {hfWeich} */
+let _wcy = null;
 
 
 const fn_initWork = () => {
@@ -89,8 +93,8 @@ const fn_initWork = () => {
     // console.log(_svgCont);
     _svgCont.addEventListener('click', fn_svgCont_clh);
 
-    _ce = _svgCont.lastElementChild;
-    // console.log(_ce);
+    _sce = _svgCont.lastElementChild;
+    // console.log(_sce);
 
     _tam = _pec.querySelector('textarea.c_tam');
     // dcs.log(_tam);
@@ -103,16 +107,12 @@ const fn_initWork = () => {
         // dcs.log(err);
     }
 
-    _cx = Number.parseInt(_ce.getAttribute('cx'), 10); // current x
-    _cy = Number.parseInt(_ce.getAttribute('cy'), 10); // current y
+    _cx = Number.parseInt(_sce.getAttribute('cx'), 10); // current x
+    _cy = Number.parseInt(_sce.getAttribute('cy'), 10); // current y
     // console.log(_cx, _cy);
 
-    _bx = 0.0, _by = 0.0; // begin point
-    _ex = 0.0, _ey = 0.0; // end point
-    _xv = 0.0, _yv = 0.0; // vector point
-
-    _twa = new hfTween(_cy, 36,
-        new hfEaseElastic(hfEasingKind.easeOut), fn_twa_cbf);
+    _wcx = new hfWeich(_cx, 0.2, 1.0, fn_wc_cbf);
+    _wcy = new hfWeich(_cy, 0.2, 1.0, fn_wc_cbf);
 };
 
 
@@ -130,7 +130,8 @@ const fn_keydown = (ke) => {
     const kcd = ke.code;
     if (kcd === 'Delete') {
         fn_print(null);
-        _twa.stop();
+        _wcx.stop();
+        _wcy.stop();
         return;
     }
 };
@@ -149,7 +150,8 @@ const fn_btn_clh = (pe) => {
     switch (nm) {
         case 'Clear': {
             fn_print(null);
-            _twa.stop();
+            _wcx.stop();
+            _wcy.stop();
             break;
         }
     }

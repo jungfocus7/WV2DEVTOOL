@@ -62,18 +62,15 @@ const fn_svgCont_clh = (pe) => {
 
 /** @type {SVGSVGElement} */
 let _svgCont = null;
-// console.log(_svgCont);
 
 /** @type {SVGCircleElement} */
 let _ce = null;
-// console.log(_ce);
 
 /** @type {HTMLTextAreaElement} */
 let _tam = null;
 
 let _cx = 0; // current x
 let _cy = 0; // current y
-// console.log(_cx, _cy);
 
 let _bx = 0.0, _by = 0.0; // begin point
 let _ex = 0.0, _ey = 0.0; // end point
@@ -105,10 +102,6 @@ const fn_initWork = () => {
     _cx = Number.parseInt(_ce.getAttribute('cx'), 10); // current x
     _cy = Number.parseInt(_ce.getAttribute('cy'), 10); // current y
     // console.log(_cx, _cy);
-
-    _bx = 0.0, _by = 0.0; // begin point
-    _ex = 0.0, _ey = 0.0; // end point
-    _xv = 0.0, _yv = 0.0; // vector point
 
     _twa = new hfTween(_cy, 36,
         new hfEaseElastic(hfEasingKind.easeOut), fn_twa_cbf);
