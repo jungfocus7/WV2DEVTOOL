@@ -1,3 +1,168 @@
+====================================================================================================
+
+
+
+
+
+
+====================================================================================================
+@charset "utf-8";
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
+html, body {
+  background-color: transparent;
+  width: 100vw; height: 100vh; margin: 0px; padding: 0px;
+  font-family: 'Consolas', 'Courier New', 'monospace';
+  font-size: 0px; color: black; white-space: nowrap;
+  overflow: hidden; user-select: none;
+}
+/*#endregion*/
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 02)*/
+div.c_rootCont {
+	background: linear-gradient(darkgray, whitesmoke);
+	width: 100%; height: 100%;
+	overflow: auto;
+}
+
+div.c_leftMenuCont {
+  position: relative; display: inline-block;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 150px; height: 100vh;
+  box-sizing: border-box;
+  border-color: aquamarine;
+  border-width: 0px 5px 0px 0px;
+  border-style: solid;
+  overflow-x: hidden; overflow-y: hidden;
+  padding: 10px 0px 0px 0px;
+}
+
+div.c_pageCont {
+  display: inline-block;
+  width: auto; height: 100%;
+  overflow: auto; scroll-behavior: auto;
+}
+/*#endregion*/
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 03)*/
+div.c_leftMenuCont>div.c_mbtn {
+  display: flex; align-items: center;
+  width: 200px; height: 30px;
+  margin: 0px 0px 3px 0px;
+  padding: 3px 0px 5px 4px;
+  background-color: aquamarine;
+  box-sizing: border-box;
+  border: 3px dashed transparent;
+  border-radius: 5px; cursor: pointer;
+	color: dimgray; text-align: left;
+  font-family: inherit;
+  font-size: 13px; font-weight: bold;
+  transition: border-color 0.3s ease-out;
+}
+
+div.c_leftMenuCont>div.c_mbtn:focus-visible {
+	outline: none;
+}
+
+div.c_leftMenuCont>div.c_mbtn:hover {
+  transition-duration: 0s;
+  border-color: dimgray;
+}
+
+div.c_leftMenuCont>div.c_mbtn>span {
+  display: inline-block;
+  /* background-color: brown; */
+  pointer-events: none;
+}
+
+div.c_leftMenuCont>div.c_mbtn:active>span {
+  transform: translate(1px, 1px);
+}
+/*#endregion*/
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 04)*/
+div.c_leftMenuCont>span.c_pinRect {
+	position: absolute; display: inline-block;
+	width: 4px; height: 30px;
+	right: 0px; top: 0px;
+	box-sizing: border-box;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 3px 0px 3px 0px;
+	background-color: blue;
+  pointer-events: none;
+}
+
+div.c_leftMenuCont>span.c_pinFold {
+	position: absolute; display: inline-block;
+	width: 17px; height: 20px;
+	right: 0px; bottom: 5px;
+	border-radius: 5px 0px 0px 5px;
+	background-color: red; cursor: pointer;
+}
+/*#endregion*/
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 05)*/
+div.c_pageCont>div.c_page {
+  position: relative; display: flex;
+  flex-direction: column; align-items: stretch;
+  width: 500px; height: 400px;
+  margin: 0px 0px 10px 0px; padding: 0px 4px 4px 4px;
+  background-color: transparent;
+  box-sizing: border-box;
+  border-width: 5px 5px 5px 0px;
+  border-style: solid;
+  border-color: dimgray;
+  overflow: hidden;
+}
+
+div.c_pageCont>div.c_page:focus-within {
+  border-color: aquamarine;
+  outline: none;
+}
+
+div.c_pageCont>div.c_page>span.c_tname {
+  align-self: flex-start;
+  margin: 0px; padding: 0px 10px 0px 10px;
+  background-color: transparent;
+  font-size: 13px; font-weight: bold;
+	color: dimgray; text-align: left;
+}
+
+div.c_pageCont>div.c_page:focus-within>span.c_tname {
+  background-color: aquamarine;
+}
+/*#endregion*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+====================================================================================================
 @charset "utf-8";
 
 
@@ -132,7 +297,7 @@ div.c_pageCont>div.c_page:focus-within>span.c_tname {
 }
 
 div.c_page>div.c_pec {
-  position: relative; visibility: hidden;
+  position: relative; visibility: visible;
   width: 100%; height: 100%;
   background-color: transparent;
 }
@@ -179,8 +344,7 @@ div.c_pec>div.c_footer>span.c_tip {
 
 /*#region 33-tp1) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 div.c_tp1>textarea.c_tam {
-  display: block;
-  width: calc(100% - 10px); height: calc(100% - 100px);
+  width: calc(100% - 10px); height: calc(100% - 21px);
   margin: 4px 0px 0px 0px; padding: 5px 5px 5px 5px;
   background-color: whitesmoke;
   box-sizing: border-box; border: 1px solid black;
@@ -188,23 +352,6 @@ div.c_tp1>textarea.c_tam {
   font-size: 11px; color: black;
   resize: none; outline: none;
 }
-
-div.c_tp1>div.c_tip {
-  display: inline-flex;
-  align-items: start; justify-content: start;
-  width: auto; height: 50px;
-  background-color: transparent;
-  box-sizing: border-box;
-  margin: 4px 0px 4px 0px;
-  padding: 0px 4px 0px 4px;
-  font-family: inherit; font-weight: bold;
-  font-size: 12px; color: dimgray;
-  white-space: pre-wrap ;
-}
-/*#endregion*/
-
-
-/*#region 33-tp2) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 /*#endregion*/
 
 

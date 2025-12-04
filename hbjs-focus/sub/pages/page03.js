@@ -94,17 +94,15 @@ const fn_init = (pd) => {
     _footer = _pec.querySelector('div.c_footer');
     // dcs.log(_footer);
 
-    let le = _footer.lastElementChild;
-    if (le) {
-        le.insertAdjacentHTML('beforebegin', `
-<span class="c_tip">ArrowLeft: add(-1), ArrowRight: add(1), Delete: clear</span>
-        `.trim());
-        _btnArr = Array.from(_footer.children);
-        // dcs.log(_btnArr);
+    _pec.querySelector('div.c_tip').textContent = `
+[##KeyDown]
+ ArrowLeft: add(-1), ArrowRight: add(1), Delete: clear
+    `.trim();
 
-        for (let te of _btnArr) {
-            te.addEventListener('click', fn_btn_clh);
-        }
+    _btnArr = Array.from(_footer.children);
+    // dcs.log(_btnArr);
+    for (let te of _btnArr) {
+        te.addEventListener('click', fn_btn_clh);
     }
 
     fn_beforePrint('1');

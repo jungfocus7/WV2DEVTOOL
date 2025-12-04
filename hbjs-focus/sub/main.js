@@ -130,28 +130,19 @@ const fn_initPageCont = () => {
 };
 
 const fn_importPages = async () => {
-    // let i = 0;
     for (let pd of _pageDataArr) {
         if (pd.pgurl !== null) {
-            // /** @type {IPageWork} */
-            // let rmd = (await import(pd.pgurl)).default;
-            // pd.fn_clear = rmd.fn_clear;
-            // pd.fn_stop = rmd.fn_stop;
-            // pd.fn_init = rmd.fn_init;
             try {
-                // dcs.log('>>>>', pd.pgurl);
                 /** @type {IPageWork} */
                 let rmd = (await import(pd.pgurl)).default;
                 pd.fn_clear = rmd.fn_clear;
                 pd.fn_stop = rmd.fn_stop;
                 pd.fn_init = rmd.fn_init;
             } catch (err) {
-                // dcs.log(err);
+                dcs.log(err);
             }
         }
-        // dcs.log('~~~~~ 2 >>> ', i++);
     }
-    // dcs.log('~~~~~ 2');
 };
 
 /**
@@ -231,7 +222,7 @@ const fn_initPages = () => {
             let rv = `${t2}${pd.mi}${t3}`;
             return rv;
         });
-        rhs = rhs.replace(/("c_tname">)hfCommon(<)/, (_, t2, t3) => {
+        rhs = rhs.replace(/("c_tname">)XXXXXX(<)/, (_, t2, t3) => {
             let rv = `${t2}${pd.pgtnm}${t3}`;
             return rv;
         });

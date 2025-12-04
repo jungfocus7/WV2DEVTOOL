@@ -276,7 +276,6 @@ const fn_init = (pd) => {
         `.trim());
         _btnArr = Array.from(_footer.children);
         // dcs.log(_btnArr);
-
         for (let te of _btnArr) {
             te.addEventListener('click', fn_btn_clh);
         }
