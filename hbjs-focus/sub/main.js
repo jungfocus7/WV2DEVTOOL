@@ -2,7 +2,6 @@ import { dcs, hfEventTypes } from "../hbjs/hfCommon.js";
 import { hfEasingKind, hfEaseExponential, hfTween } from "../hbjs/hfTween.js";
 
 
-
 /** @type {HTMLDivElement} */
 const _rootCont = document.querySelector('div.c_rootCont');
 
@@ -74,37 +73,222 @@ const _pgdmpMap = (() => {
     }
     return map;
 })();
-// dcs.log(_pgdmpMap.size);
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const fn_focusPage = () => {
-    let max = _pageCont.scrollHeight - _pageCont.clientHeight;
-    let ctr = _pageCont.scrollTop / max;
-    // dcs.log(ctr);
-    let li = _pageDataArr.length - 1;
-    // let i = Math.round(li * ctr);
-    let i = Math.floor(li * ctr);
-    // dcs.log(li, i);
-
-    let pd = _pageDataArr.at(i);
-    let ey = pd.mbtn.offsetTop;
-    _pinRect.style.top = `${ey}px`;
-    pd.pge?.focus({preventScroll: true});
+/**
+ * @param {string} ttp
+ */
+const fn_getMatchingPageType = (ttp) => {
+    if (_pgdmpMap.has(ttp)) {
+        return _pgdmpMap.get(ttp);
+    } else {
+        return '<span style="font-size: 22px;">NotType</span>';
+    }
 };
 
-let _btwr = false;
-const fn_initPageCont = () => {
-    let pst = _pageCont.scrollTop;
-    _pageCont.addEventListener('scroll', (_) => {
-        if (_btwr) return;
+const fn_getPageIndex = () => {
+    let kvsa = document.cookie.split(';');
+    let rv = '';
+    for (let kvs of kvsa) {
+        // 'pgi=333345'.match(/pgi=(\d+)/)?.at(1);
+        rv = kvs.match(/pgi=(\d+)/)?.at(1);
+    }
+    return +rv;
+};
 
-        let cst = _pageCont.scrollTop;
-        let ds = Math.abs(cst - pst);
-        // dcs.log(pst, cst, ds);
-        pst = cst;
-        if (ds > 0) {
+const fn_savePageIndex = () => {
+    if (_cpd) {
+        document.cookie = `pgi=${_cpd.mi}`;
+    }
+};
+
+const fn_updatePinRect = () => {
+    if (_cpd) {
+        let ey = _cpd.mbtn.offsetTop;
+        _pinRect.style.top = `${ey}px`;
+    }
+};
+
+const fn_focusPage = () => {
+    if (_cpd) {
+        _cpd.pge?.focus({preventScroll: true});
+    }
+};
+
+
+/** @type {IPageData} */
+let _cpd = null;
+let _btwr = false;
+
+const fn_twr1_stop = () => {
+    _btwr = false;
+    _twr1.stop();
+};
+
+const fn_twr1_cbf = (et, cv) => {
+    if (et === hfTween.ET_UPDATE) {
+        _pageCont.scrollTo(0, cv);
+    } else if (et === hfTween.ET_END) {
+        window.setTimeout(() => {
+            _btwr = false;
+        }, 100);
+    }
+};
+
+const _twr1 = new hfTween(0, 32,
+    new hfEaseExponential(hfEasingKind.easeInOut), fn_twr1_cbf);
+
+
+const fn_ggonly = () => {
+    if (_cpd) {
+        let begin = _pageCont.scrollTop;
+        let end = _cpd.pge.offsetTop;
+        let max = _pageCont.scrollHeight - _pageCont.clientHeight;
+        if (end > max) end = max;
+        if (begin !== end) {
+            _btwr = true;
+            _twr1.fromTo(begin, end);
+        }
+    }
+};
+
+const fn_ggwave = (bs=true) => {
+    if (_cpd) {
+        if (bs) fn_savePageIndex();
+        fn_updatePinRect();
+        fn_focusPage();
+        fn_ggonly();
+    }
+};
+
+/**
+ * @param {PointerEvent} pe
+ */
+const fn_mbtn_clh = (pe) => {
+    /** @type {HTMLButtonElement} */
+    let btn = pe.currentTarget;
+    /** @type {IPageData} */
+    let pd = btn.pd;
+    if (pd) {
+        if (pd !== _cpd) {
+            _cpd = pd;
+            fn_ggwave();
+        } else {
             fn_focusPage();
+        }
+    } else {
+        dcs.log(`[#App(Error) Page not found] ${btn.textContent}`);
+    }
+};
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+const fn_importPages = async () => {
+    for (let pd of _pageDataArr) {
+        if (pd.pgurl !== null) {
+            try {
+                /** @type {IPageWork} */
+                let rmd = (await import(pd.pgurl)).default;
+                pd.fn_clear = rmd.fn_clear;
+                pd.fn_stop = rmd.fn_stop;
+                pd.fn_init = rmd.fn_init;
+            } catch (err) {
+                dcs.log(err);
+            }
+        }
+    }
+};
+
+const fn_initPages = () => {
+    _pageCont.innerHTML = '';
+
+    for (let pd of _pageDataArr) {
+        let rhs = fn_getMatchingPageType(pd.pgtp);
+        if (!rhs) continue;
+
+        rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
+            return '';
+        });
+        rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
+            let rv = `${t2}${pd.mi}${t3}`;
+            return rv;
+        });
+        rhs = rhs.replace(/("c_tname">)XXXXXX(<)/, (_, t2, t3) => {
+            let rv = `${t2}${pd.pgtnm}${t3}`;
+            return rv;
+        });
+        _pageCont.insertAdjacentHTML('beforeend', rhs);
+
+        pd.mbtn.addEventListener(hfEventTypes.CLICK, fn_mbtn_clh);
+        pd.pge = _pageCont.lastElementChild;
+        try {
+            pd.fn_init?.(pd);
+        } catch (err) {
+            dcs.log(err);
+        }
+
+        Reflect.defineProperty(pd.mbtn, 'pd', {value: pd});
+    }
+};
+
+const fn_initPageCont = () => {
+    // /**
+    //  * @param {HTMLElement} te
+    //  * @returns
+    //  */
+    // const fn_fpe = (te) => {
+    //     do {
+    //         if (te?.getAttribute('class') === 'c_page') {
+    //             // dcs.log(1004);
+    //             // dcs.log(te, me.target);
+    //             break;
+    //         }
+    //         te = te.parentElement;
+    //     } while (te instanceof HTMLElement);
+    //     dcs.log(te);
+    //     return te;
+    // };
+    // _pageCont.addEventListener('mousedown', (me) => {
+    //     fn_fpe(me.target);
+
+    //     // let ce = te;
+    //     // do {
+    //     //     dcs.log(ce?.getAttribute('class'));
+    //     //     break;
+    //     //     if (ce?.getAttribute('class') === 'c_page') {
+    //     //         dcs.log(1004);
+    //     //         // dcs.log(te, me.target);
+    //     //         break;
+    //     //     }
+    //     //     ce = ce.parentElement;
+    //     // } while (ce instanceof HTMLElement);
+    //     // dcs.log(ce);
+
+    //     // do {
+    //     //     te = te.parentElement;
+    //     //     dcs.log(te);
+    //     // } while (te instanceof HTMLDivElement);
+    // });
+
+    _pageCont.addEventListener('focusin', (fe) => {
+        // dcs.log('focusin');
+        fe.stopPropagation();
+
+        const mcc = 'rgb(127, 255, 212)';
+        for (let pd of _pageDataArr) {
+            let st = getComputedStyle(pd.pge);
+            if (st.borderColor === mcc) {
+                if (pd !== _cpd) {
+                    dcs.log('~~~~');
+                    _cpd = pd;
+                    fn_savePageIndex();
+                    fn_updatePinRect();
+                    fn_ggonly();
+                }
+
+                break;
+            }
         }
     });
 
@@ -129,119 +313,6 @@ const fn_initPageCont = () => {
     });
 };
 
-const fn_importPages = async () => {
-    for (let pd of _pageDataArr) {
-        if (pd.pgurl !== null) {
-            try {
-                /** @type {IPageWork} */
-                let rmd = (await import(pd.pgurl)).default;
-                pd.fn_clear = rmd.fn_clear;
-                pd.fn_stop = rmd.fn_stop;
-                pd.fn_init = rmd.fn_init;
-            } catch (err) {
-                dcs.log(err);
-            }
-        }
-    }
-};
-
-/**
- * @param {HTMLDivElement} pge
- */
-const fn_ggwave = (pge) => {
-    let begin = _pageCont.scrollTop;
-    let end = pge.offsetTop;
-    let max = _pageCont.scrollHeight - _pageCont.clientHeight;
-    if (end > max) end = max;
-
-    if (begin === end) {
-        fn_focusPage();
-    } else {
-        _btwr = true;
-        _twr1.fromTo(begin, end);
-    }
-};
-
-const fn_twr1_stop = () => {
-    _twr1.stop();
-    _btwr = false;
-};
-const fn_twr1_cbf = (et, cv) => {
-    // dcs.log(et, cv);
-    if (et === hfTween.ET_UPDATE) {
-        _pageCont.scrollTo(0, cv);
-    } else if (et === hfTween.ET_END) {
-        window.setTimeout(() => {
-            _btwr = false;
-            fn_focusPage();
-        }, 100);
-    }
-};
-const _twr1 = new hfTween(0, 32
-    , new hfEaseExponential(hfEasingKind.easeInOut), fn_twr1_cbf);
-
-
-/**
- * @param {string} ttp
- */
-const fn_getMatchingPageType = (ttp) => {
-    if (_pgdmpMap.has(ttp)) {
-        return _pgdmpMap.get(ttp);
-    } else {
-        return '<span style="font-size: 22px;">NotType</span>';
-    }
-};
-
-/**
- * @param {PointerEvent} pe
- */
-const fn_mbtn_cl = (pe) => {
-    /** @type {HTMLButtonElement} */
-    let btn = pe.currentTarget;
-    let pd = btn.pd;
-    if (pd) {
-        fn_ggwave(pd.pge);
-    } else {
-        dcs.log(`[#App(Error)] No page ${btn.textContent}`);
-    }
-};
-
-const fn_initPages = () => {
-    // let hts = _pageCont.innerHTML;
-    _pageCont.innerHTML = '';
-
-    for (let pd of _pageDataArr) {
-        let rhs = fn_getMatchingPageType(pd.pgtp);
-        // dcs.log(rhs);
-        if (!rhs) continue;
-
-        rhs = rhs.replace(/<!--[\s\S]+?-->/g, () => {
-            return '';
-        });
-        rhs = rhs.replace(/(tabindex=")01(")/, (_, t2, t3) => {
-            let rv = `${t2}${pd.mi}${t3}`;
-            return rv;
-        });
-        rhs = rhs.replace(/("c_tname">)XXXXXX(<)/, (_, t2, t3) => {
-            let rv = `${t2}${pd.pgtnm}${t3}`;
-            return rv;
-        });
-        _pageCont.insertAdjacentHTML('beforeend', rhs);
-
-        pd.mbtn.addEventListener(hfEventTypes.CLICK, fn_mbtn_cl);
-        pd.pge = _pageCont.lastElementChild;
-        // pd.fn_init?.(pd);
-        try {
-            // dcs.log(pd.fn_init);
-            pd.fn_init?.(pd);
-        } catch (err) {
-            dcs.log(err);
-        }
-
-        Reflect.defineProperty(pd.mbtn, 'pd', {value: pd});
-    }
-};
-
 const fn_initPins = () => {
     let bc = true;
     let fn_clh = (_) => {
@@ -259,18 +330,16 @@ const fn_initPins = () => {
 };
 
 const fn_initOnce = async () => {
-    // dcs.log(_pageDataArr);
-
     await fn_importPages();
     fn_initPages();
     fn_initPageCont();
     fn_initPins();
 
-    let pd = _pageDataArr.at(0);
+    let pi = fn_getPageIndex();
+    let pd = _pageDataArr.at(pi);
     if (pd) {
-        let ey = pd.mbtn.offsetTop;
-        _pinRect.style.top = `${ey}px`;
-        pd.pge.focus({preventScroll: true});
+        _cpd = pd;
+        fn_ggwave(false);
     }
 
     dcs.log('[#App(Initialized)]');
@@ -278,12 +347,3 @@ const fn_initOnce = async () => {
 
 
 fn_initOnce();
-
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// _rootCont.addEventListener('mousewheel', (e) => {
-//     e.preventDefault();
-//     // console.log(1004);
-// });
-

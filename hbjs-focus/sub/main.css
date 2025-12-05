@@ -80,7 +80,7 @@ div.c_leftMenuCont>div.c_mbtn:active>span {
 div.c_leftMenuCont>span.c_pinRect {
 	position: absolute; display: inline-block;
 	width: 4px; height: 30px;
-	right: 0px; top: 0px;
+	right: 0px; top: -200px;
 	box-sizing: border-box;
   border-color: transparent;
   border-style: solid;

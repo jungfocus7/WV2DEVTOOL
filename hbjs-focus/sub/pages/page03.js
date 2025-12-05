@@ -5,11 +5,12 @@ import { hfNumberRanger } from "../../hbjs/hfNumberRanger.js";
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const fn_beforePrint = (t1) => {
     let msg = `
+_nbrg = new hfNumberRanger(13, 10);
 _nbrg.add(${t1});
-_nbrg.min: ${_nbrg.min},
-_nbrg.len: ${_nbrg.len},
-_nbrg.max: ${_nbrg.max},
-_nbrg.now: ${_nbrg.now},
+_nbrg.min: ${_nbrg.min};
+_nbrg.len: ${_nbrg.len};
+_nbrg.max: ${_nbrg.max};
+_nbrg.now: ${_nbrg.now};
     `.trim();
     fn_print(msg, false);
 };

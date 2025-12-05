@@ -5,11 +5,12 @@ import { hfCountTask } from "../../hbjs/hfCountTask.js";
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const fn_beforePrint = (t1) => {
     let msg = `
+_cnt = new hfCountTask(17, 321, -21.2134)
 _cnt.${t1}();
-_cnt.begin: ${_cnt.begin},
-_cnt.end: ${_cnt.end},
-_cnt.add: ${_cnt.add},
-_cnt.now: ${_cnt.now},
+_cnt.begin: ${_cnt.begin};
+_cnt.end: ${_cnt.end};
+_cnt.add: ${_cnt.add};
+_cnt.now: ${_cnt.now};
     `.trim();
     fn_print(msg, false);
 };
