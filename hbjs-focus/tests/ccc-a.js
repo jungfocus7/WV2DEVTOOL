@@ -1,63 +1,133 @@
-//#region [01) Models]
-class User {
-    #md = {
-        email: '',
-        age: 0,
-        name: ''
-    };
-    constructor(email='', age=0, name='') {
-        const md = this.#md;
-        md.email = email;
-        md.age = age;
-        md.name = name;
-    }
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
-    email(tv) {
-        const md = this.#md;
-        if (typeof tv !== 'string') {
-            return md.email;
-        } else {
-            md.email = tv;
-        }
-    }
 
-    age(tv) {
-        const md = this.#md;
-        if (!Number.isFinite(tv)) {
-            return md.age;
-        } else {
-            md.age = tv;
-        }
-    }
+// document.addEventListener('mousedown', (me) => {
+// 	console.log('mousedown', me);
+// });
 
-    name(tv) {
-        const md = this.#md;
-        if (typeof tv !== 'string') {
-            return md.name;
-        } else {
-            md.name = tv;
-        }
-    }
+// document.addEventListener('focus', (fe) => {
+// 	fe.stopPropagation();
+// 	console.log('focus', fe);
+// });
 
-    get info() {
-        const md = this.#md;
-        return `
-email: ${md.email},
-age: ${md.age},
-name: ${md.name},
-        `.trim();
-    }
+// document.addEventListener('focus', (fe) => {
+// 	fe.stopPropagation();
+// 	console.log('focus', fe);
+// }, {capture: true});
 
-    // // ⭐️ 핵심: 이 게터(Getter)가 개발자 도구의 로그 표현식을 정의합니다.
-    // get [Symbol.toPrimitive]() {
-    //     return `XXXXXXXXXXXXXX`;
-    // }
+// document.addEventListener('focus', (fe) => {
+// 	fe.stopPropagation();
+// 	console.log('focus', fe);
+// }, {capture: false});
 
-    // // (일반적인 toString()은 [Symbol.toStringTag]가 없을 때만 사용됨)
-    // toString() {
-    //     return `[Object User - Name: this.name]`;
-    // }
-}
+// document.addEventListener('focusin', (fe) => {
+// 	fe.stopPropagation();
+// 	console.log('focusin', fe);
+// });
+
+// document.addEventListener('focusin', (fe) => {
+//     if (fe.relatedTarget === null) return;
+//     fe.preventDefault();
+// 	fe.stopPropagation();
+//     fe.stopImmediatePropagation();
+//     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+// 	console.log('focusin', fe.timeStamp);
+//     console.log('currentTarget: ' + fe.currentTarget);
+//     console.log('relatedTarget: ' + fe.relatedTarget);
+//     console.log('target: ' + fe.target);
+//     console.log();
+// }, {capture: false});
+
+// document.addEventListener('focusin', (fe) => {
+// 	fe.stopPropagation();
+// 	console.log('focusin', fe);
+// }, {capture: false});
+
+
+
+document.addEventListener('focusin', (fe) => {
+    // if (fe.relatedTarget === null) return;
+    fe.preventDefault();
+	fe.stopPropagation();
+    fe.stopImmediatePropagation();
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+	console.log('focusin', fe.timeStamp);
+    console.log('currentTarget: ' + fe.currentTarget);
+    console.log('relatedTarget: ' + fe.relatedTarget);
+    console.log('target: ' + fe.target);
+    console.log();
+}, {capture: false});
+
+
+
+
+
+
+
+
+
+
+
+// //#region [01) Models]
+// class User {
+//     #md = {
+//         email: '',
+//         age: 0,
+//         name: ''
+//     };
+//     constructor(email='', age=0, name='') {
+//         const md = this.#md;
+//         md.email = email;
+//         md.age = age;
+//         md.name = name;
+//     }
+
+//     email(tv) {
+//         const md = this.#md;
+//         if (typeof tv !== 'string') {
+//             return md.email;
+//         } else {
+//             md.email = tv;
+//         }
+//     }
+
+//     age(tv) {
+//         const md = this.#md;
+//         if (!Number.isFinite(tv)) {
+//             return md.age;
+//         } else {
+//             md.age = tv;
+//         }
+//     }
+
+//     name(tv) {
+//         const md = this.#md;
+//         if (typeof tv !== 'string') {
+//             return md.name;
+//         } else {
+//             md.name = tv;
+//         }
+//     }
+
+//     get info() {
+//         const md = this.#md;
+//         return `
+// email: ${md.email},
+// age: ${md.age},
+// name: ${md.name},
+//         `.trim();
+//     }
+
+//     // // ⭐️ 핵심: 이 게터(Getter)가 개발자 도구의 로그 표현식을 정의합니다.
+//     // get [Symbol.toPrimitive]() {
+//     //     return `XXXXXXXXXXXXXX`;
+//     // }
+
+//     // // (일반적인 toString()은 [Symbol.toStringTag]가 없을 때만 사용됨)
+//     // toString() {
+//     //     return `[Object User - Name: this.name]`;
+//     // }
+// }
 
 
 // let _user = new User('pook61@facebook.com', 37, '박종명');
@@ -88,18 +158,18 @@ name: ${md.name},
 
 
 
-let x0 = document.querySelector('div.c_root');
-// console.log(Reflect.defineProperty);
-Reflect.defineProperty(window, '_gxx', {value: x0});
+// let x0 = document.querySelector('div.c_root');
+// // console.log(Reflect.defineProperty);
+// Reflect.defineProperty(window, '_gxx', {value: x0});
 
-x0.insertAdjacentHTML("beforeend", '<span>박부장</span>');
-x0.insertAdjacentHTML("beforeend", '<span>박부장</span>');
-x0.insertAdjacentHTML("beforeend", '<span>박부장</span>');
-x0.insertAdjacentHTML("beforeend", '<span>박부장</span>');
+// x0.insertAdjacentHTML("beforeend", '<span>박부장</span>');
+// x0.insertAdjacentHTML("beforeend", '<span>박부장</span>');
+// x0.insertAdjacentHTML("beforeend", '<span>박부장</span>');
+// x0.insertAdjacentHTML("beforeend", '<span>박부장</span>');
 
 
 
-{/* <span style="ba"></span> */}
+// {/* <span style="ba"></span> */}
 
 
 

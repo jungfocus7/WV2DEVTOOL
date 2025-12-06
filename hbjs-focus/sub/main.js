@@ -229,6 +229,7 @@ const fn_initPages = () => {
         }
 
         Reflect.defineProperty(pd.mbtn, 'pd', {value: pd});
+        Reflect.defineProperty(pd.pge, 'pd', {value: pd});
     }
 };
 
@@ -271,9 +272,54 @@ const fn_initPageCont = () => {
     //     // } while (te instanceof HTMLDivElement);
     // });
 
+
+
+
+
+
+    /**
+     * @param {HTMLElement} te
+     * @returns
+     */
+    const fn_findParent = (te) => {
+        let re = te;
+        do {
+            if (re?.getAttribute('class') === 'c_page') {
+                // dcs.log('찾음');
+                break;
+            }
+            re = re.parentElement;
+        } while (re instanceof HTMLElement);
+        // dcs.log(re);
+        return re;
+    };
     _pageCont.addEventListener('focusin', (fe) => {
+        if (fe.relatedTarget === null) return;
+
         // dcs.log('focusin');
         fe.stopPropagation();
+        // fe.stopImmediatePropagation();
+        // fe.preventDefault();
+
+        let re = fn_findParent(fe.target);
+        let pd = re.pd;
+        if (pd !== _cpd) {
+            // dcs.log('~~~~');
+            _cpd = pd;
+            fn_savePageIndex();
+            fn_updatePinRect();
+            fn_ggonly();
+        }
+    });
+
+    /* //#처음꺼
+    _pageCont.addEventListener('focusin', (fe) => {
+        if (fe.relatedTarget === null) return;
+
+        dcs.log('focusin');
+        fe.stopPropagation();
+        // fe.stopImmediatePropagation();
+        // fe.preventDefault();
 
         const mcc = 'rgb(127, 255, 212)';
         for (let pd of _pageDataArr) {
@@ -290,7 +336,7 @@ const fn_initPageCont = () => {
                 break;
             }
         }
-    });
+    });*/
 
     _pageCont.addEventListener('mousedown', (me) => {
         // dcs.log('mousedown', me);

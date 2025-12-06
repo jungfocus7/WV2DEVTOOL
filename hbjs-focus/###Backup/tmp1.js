@@ -1,3 +1,33 @@
+document.addEventListener('focus', (fe) => {
+	fe.stopPropagation();
+	console.log('focusin', fe);
+});
+
+document.addEventListener('focus', (fe) => {
+	fe.stopPropagation();
+	console.log('focusin', fe);
+}, {capture: true});
+
+document.addEventListener('focus', (fe) => {
+	fe.stopPropagation();
+	console.log('focusin', fe);
+}, {capture: false});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { dcs, hfEventTypes } from "../hbjs/hfCommon.js";
 import { hfEasingKind, hfEaseExponential, hfTween } from "../hbjs/hfTween.js";
 
