@@ -1,6 +1,24 @@
+import { ScrollLogic, ScrollLogicType } from "../hbjs/hfScrollLogic.js";
+
+
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ===========================================================================
 // document.addEventListener('mousedown', (me) => {
 // 	console.log('mousedown', me);
 // });
@@ -45,18 +63,18 @@ console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
 
 
-document.addEventListener('focusin', (fe) => {
-    // if (fe.relatedTarget === null) return;
-    fe.preventDefault();
-	fe.stopPropagation();
-    fe.stopImmediatePropagation();
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-	console.log('focusin', fe.timeStamp);
-    console.log('currentTarget: ' + fe.currentTarget);
-    console.log('relatedTarget: ' + fe.relatedTarget);
-    console.log('target: ' + fe.target);
-    console.log();
-}, {capture: false});
+// document.addEventListener('focusin', (fe) => {
+//     // if (fe.relatedTarget === null) return;
+//     fe.preventDefault();
+// 	fe.stopPropagation();
+//     fe.stopImmediatePropagation();
+//     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+// 	console.log('focusin', fe.timeStamp);
+//     console.log('currentTarget: ' + fe.currentTarget);
+//     console.log('relatedTarget: ' + fe.relatedTarget);
+//     console.log('target: ' + fe.target);
+//     console.log();
+// }, {capture: false});
 
 
 

@@ -225,3 +225,41 @@ div.c_tp3>textarea.c_tam {
 
 
 
+
+
+div.c_tp3>div.c_scroll-cont {
+  position: relative;
+  background-color: darkgreen;
+  width: 300px; height: 200px;
+  margin: 4px 0px 0px 0px; padding: 0px;
+  border: 3px dotted black; cursor: pointer;
+  /* position: relative; display: block;
+  width: calc(100% - 10px); height: calc(100% - 10px);
+  background-color: red;
+  margin: 5px; padding: 0px;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  cursor: auto; */
+}
+
+div.c_tp3>div.c_scroll-cont>div#vscr {
+  position: absolute; display: block;
+  width: 20px; height: 170px;
+  background-color: darkblue;
+  margin: 0px; padding: 0px;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  left: 20px; top: 10px;
+  cursor: pointer;
+}
+
+div.c_tp3>div.c_scroll-cont>div#hscr {
+  position: absolute; display: block;
+  width: 170px; height: 20px;
+  background-color: darkblue;
+  margin: 0px; padding: 0px;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  left: 60px; top: 40px;
+  cursor: pointer;
+}

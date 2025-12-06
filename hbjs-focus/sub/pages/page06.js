@@ -36,6 +36,7 @@ let _frpt = new hfFrameRepeater(5, 100, fn_cbf);
  */
 const fn_keydown = (ke) => {
     // dcs.log('fn_keydown');
+    dcs.log(ke.code);
 
     ke.preventDefault();
 
@@ -47,6 +48,7 @@ const fn_keydown = (ke) => {
     } else if (kcd === 'Digit2') {
         _frpt.stop();
     } else if (kcd === 'Delete') {
+        _frpt.stop();
         fn_print(null);
     }
 };
@@ -56,6 +58,19 @@ const fn_keydown = (ke) => {
  */
 const fn_btn_clh = (pe) => {
     // dcs.log('fn_btn_clh');
+
+    /** @type {HTMLDivElement} */
+    let te = pe.currentTarget;
+    let nm = te.textContent.trim();
+    // dcs.log(nm);
+
+    switch (nm) {
+        case 'Clear': {
+            _frpt.stop();
+            fn_print(null);
+            break;
+        }
+    }
 };
 
 

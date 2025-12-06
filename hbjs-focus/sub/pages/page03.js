@@ -65,7 +65,19 @@ const fn_keydown = (ke) => {
  * @param {PointerEvent} pe
  */
 const fn_btn_clh = (pe) => {
-    // dcs.log('fn_btn_clh');
+    dcs.log('fn_btn_clh');
+
+    /** @type {HTMLDivElement} */
+    let te = pe.currentTarget;
+    let nm = te.textContent.trim();
+    // dcs.log(nm);
+
+    switch (nm) {
+        case 'Clear': {
+            fn_print(null);
+            break;
+        }
+    }
 };
 
 
