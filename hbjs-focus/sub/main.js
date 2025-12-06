@@ -234,49 +234,6 @@ const fn_initPages = () => {
 };
 
 const fn_initPageCont = () => {
-    // /**
-    //  * @param {HTMLElement} te
-    //  * @returns
-    //  */
-    // const fn_fpe = (te) => {
-    //     do {
-    //         if (te?.getAttribute('class') === 'c_page') {
-    //             // dcs.log(1004);
-    //             // dcs.log(te, me.target);
-    //             break;
-    //         }
-    //         te = te.parentElement;
-    //     } while (te instanceof HTMLElement);
-    //     dcs.log(te);
-    //     return te;
-    // };
-    // _pageCont.addEventListener('mousedown', (me) => {
-    //     fn_fpe(me.target);
-
-    //     // let ce = te;
-    //     // do {
-    //     //     dcs.log(ce?.getAttribute('class'));
-    //     //     break;
-    //     //     if (ce?.getAttribute('class') === 'c_page') {
-    //     //         dcs.log(1004);
-    //     //         // dcs.log(te, me.target);
-    //     //         break;
-    //     //     }
-    //     //     ce = ce.parentElement;
-    //     // } while (ce instanceof HTMLElement);
-    //     // dcs.log(ce);
-
-    //     // do {
-    //     //     te = te.parentElement;
-    //     //     dcs.log(te);
-    //     // } while (te instanceof HTMLDivElement);
-    // });
-
-
-
-
-
-
     /**
      * @param {HTMLElement} te
      * @returns
@@ -288,9 +245,10 @@ const fn_initPageCont = () => {
                 // dcs.log('찾음');
                 break;
             }
+            // dcs.log('>>> ' + re);
             re = re.parentElement;
         } while (re instanceof HTMLElement);
-        // dcs.log(re);
+
         return re;
     };
     _pageCont.addEventListener('focusin', (fe) => {
