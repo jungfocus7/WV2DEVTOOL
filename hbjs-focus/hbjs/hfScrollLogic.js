@@ -1,12 +1,185 @@
-import { hfEventTypes } from "./hfCommon.js";
-import { fn_containsRect, fn_getRect, fn_setHeight, fn_setLeft, fn_setTop, fn_setWidth, fn_updateRect } from "./hfStyleFunctions.js";
-var ScrollLogicType;
-(function (ScrollLogicType) {
-    ScrollLogicType["HORIZONTAL"] = "horizontal";
-    ScrollLogicType["VERTICAL"] = "vertical";
-})(ScrollLogicType || (ScrollLogicType = {}));
-;
-;
+import { hfEventTypes, hfStyleHelper } from "./hfCommon.js";
+
+
+const hfScrollLogicType = Object.freeze({
+    HORIZONTAL: "horizontal",
+    VERTICAL: "vertical",
+});
+
+
+/**
+ * @typedef {object} IScrollLogicConstructorArguments
+ * @property {hfScrollLogicType} logicType
+ * @property {HTMLDivElement} heTarget
+ * @property {string} targetStyle
+ * @property {string} thumbHtml
+ */
+
+/**
+ * @typedef {object} IScrollLogic
+ * @property {(args: IScrollLogicConstructorArguments) => IScrollLogic} constructor
+ * @property {() => number} getScrollSizeRatio
+ * @property {(val: number, bApply: boolean=true) => void} setScrollSizeRatio
+ * @property {() => number} getScrollPositionRatio
+ * @property {(val: number, bApply: boolean=true) => void} setScrollPositionRatio
+ */
+
+/** @type {IScrollLogic} */
+const hfScrollLogic = Object.freeze(class {
+    #MINV = 30.0;
+
+    #md = Object.seal({
+        logicType: '',
+
+        /** @type {HTMLDivElement} */
+        heTarget: null,
+        /** @type {HTMLDivElement} */
+        heThumb: null,
+        /** @type {HTMLSpanElement} */
+        heSpan: null,
+
+        /** @type {DOMRect} */
+        rctGround: null,
+        /** @type {DOMRect} */
+        rctThumb: null,
+
+        scrollSizeRatio: 1.0,
+        scrollPositionRatio: 0.0,
+
+        mdp: NaN,
+
+        fn_mouseDownHandler: null,
+        fn_resizeHandler: null,
+    });
+
+    /**
+     * @param {IScrollLogicConstructorArguments} args
+     */
+    constructor(args) {
+        const md = this.#md;
+
+        md.logicType = args.logicType ?? hfScrollLogicType.VERTICAL;
+        md.heTarget = args.heTarget;
+
+        if (args.targetStyle) {
+            md.heTarget.setAttribute('style', args.targetStyle);
+        } else {
+            md.heTarget.setAttribute('style', `
+width: 20px; height: 100%;
+background-color: #595959;
+position: static; display: inline-block;
+overflow-x: hidden; overflow-y: hidden;
+font-size: 0px; cursor: pointer;
+            `.trim());
+        }
+
+        if (args.thumbHtml) {
+            md.heTarget.innerHTML = args.thumbHtml;
+        } else {
+            const uq1 = (md.logicType == hfScrollLogicType.VERTICAL) ? ' rotate(-90deg)' : '';
+            md.heTarget.innerHTML = `
+<div style="background-color: #748B96;
+    position: relative;
+    width: 100%; height: 100%;
+    left: 0px; top: 0px;
+    pointer-events: none; overflow: visible;
+    box-sizing: border-box; font-size: 0px;
+    border: 3px solid #595959;">
+    <span style="
+        position: relative;
+        display: inline-block;
+        width: auto; height: auto;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%)${uq1};
+        user-select: none; white-space: nowrap;
+        font-family: 'Consolas', 'monospace', 'monaco';
+        font-size: 10px; color: #ffffff66;"></span>
+</div>
+            `.trim();
+        }
+
+        md.heThumb = md.heTarget.querySelector('div');
+        md.heSpan = md.heThumb.querySelector('span');
+        md.heSpan.innerText = '';
+
+        md.rctGround = hfStyleHelper.getRect(md.heTarget);
+        md.rctThumb = hfStyleHelper.getRect(md.heThumb);
+
+        md.fn_mouseDownHandler = this.#fn_mouseDown.bind(this);
+        md.fn_resizeHandler = this.#fn_resize.bind(this);
+
+        md.heTarget.addEventListener(hfEventTypes.MOUSE_DOWN, md.fn_mouseDownHandler);
+        window.addEventListener(hfEventTypes.RESIZE, md.fn_resizeHandler);
+
+        Object.seal(this);
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    /**
+     * Thumb 스크롤 정보 표시
+     */
+    #fn_printSpanLog() {
+        const md = this.#md;
+
+        let ssr = 100 * md.scrollSizeRatio;
+        let spr = 100 * md.scrollPositionRatio;
+        md.heSpan.innerText = `${ssr.toFixed(1)}%/${spr.toFixed(1)}%`;
+    }
+
+    get #groundCheckSize() {
+        const md = this.#md;
+
+        let rv = 0.0;
+        if (md.logicType === hfScrollLogicType.VERTICAL)
+            rv = md.rctGround.height;
+        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+            rv = md.rctGround.width;
+
+        return rv;
+    }
+
+    get #thumbCheckSize() {
+        const md = this.#md;
+
+        let rv = 0.0;
+        if (md.logicType === hfScrollLogicType.VERTICAL)
+            rv = md.rctThumb.height;
+        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+            rv = md.rctThumb.width;
+
+        return rv;
+    }
+
+    set #thumbCheckSize(val) {
+        const md = this.#md;
+
+        let tv = Number.isFinite(val) ? val : 0.0;
+        if (md.logicType === hfScrollLogicType.VERTICAL)
+            md.rctThumb.height = tv;
+        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+            md.rctThumb.width = tv;
+    }
+
+
+    /**
+     * @param {MouseEvent} te
+     */
+    #fn_mouseDown(te) {
+
+    }
+
+    /**
+     * @param {Event} te
+     */
+    #fn_resize(te) {
+
+    }
+
+});
+
+
+
+
 class ScrollLogic extends EventTarget {
     constructor(parms) {
         super();

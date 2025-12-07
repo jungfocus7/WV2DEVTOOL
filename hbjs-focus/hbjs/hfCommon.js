@@ -330,6 +330,9 @@ export const hfEventTypes = Object.freeze({
     BLUR: 'blur',
     RESIZE: 'resize',
     SCROLL: 'scroll',
+    FOCUS_OUT: 'focusout',
+    FOCUS_IN: 'focusin',
+    FOCUS: 'focus',
 
     // Mouse
     MOUSE_MOVE: 'mousemove',
@@ -344,6 +347,9 @@ export const hfEventTypes = Object.freeze({
 });
 
 
+/**
+ * DebugConsole
+ */
 export const dcs = Object.seal({
     /**
      * 로그 사용여부
@@ -355,7 +361,7 @@ export const dcs = Object.seal({
      * @param {...any} args
      */
     log: (...args) => {
-        if (dcs.isLog === true)
+        if (dcs.isLog)
             console.log.apply(null, args);
     },
 
@@ -364,8 +370,212 @@ export const dcs = Object.seal({
      * @param {string} msg
      */
     msg: (msg) => {
-        if (dcs.isLog === true)
+        if (dcs.isLog)
             console.log(msg);
     }
 
 });
+
+
+//#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [31) 스타일 관련]
+/**
+ * 넘버인지 확인후 반환
+ * @param {number | string} tv
+ * @param {number} dv
+ * @returns {number}
+ */
+const fn_checkNumber = (tv, dv=0) => {
+    let rv = NaN;
+    if (typeof tv === 'number')
+        rv = tv;
+    else if (typeof tv === 'string')
+        rv = +tv;
+
+    if (Number.isFinite(rv))
+        return rv;
+    else
+        return dv;
+};
+
+/**
+ * HTMLElement 스타일 객체 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {boolean} bw writeable
+ * @returns {CSSStyleDeclaration}
+ */
+const fn_getStyle = (to, bw=false) => {
+    if (to instanceof CSSStyleDeclaration)
+        return to;
+    else if (to instanceof HTMLElement) {
+        if (bw)
+            return to.style;
+        else
+            return getComputedStyle(to);
+    }
+    else
+        return null;
+};
+
+/**
+ * HTMLElement width(Number) 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {number}
+ */
+const fn_getWidth = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tv = csd.getPropertyValue('width');
+        return fn_checkNumber(tv);
+    }
+    else return 0;
+};
+
+/**
+ * HTMLElement width(Number) 설정
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {number} tv
+ */
+const fn_setWidth = (to, tv) => {
+    const csd = fn_getStyle(to, true);
+    if (csd) {
+        tv = fn_checkNumber(tv);
+        csd.setProperty('width', `${tv}px`);
+    }
+};
+
+
+/**
+ * HTMLElement height(Number) 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {number}
+ */
+const fn_getHeight = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tv = csd.getPropertyValue('height');
+        return fn_checkNumber(tv);
+    }
+    else return 0;
+};
+
+/**
+ * HTMLElement height(Number) 설정
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {number} tv
+ */
+const fn_setHeight = (to, tv) => {
+    const csd = fn_getStyle(to, true);
+    if (csd) {
+        tv = fn_checkNumber(tv);
+        csd.setProperty('height', `${tv}px`);
+    }
+};
+
+/**
+ * HTMLElement left(Number) 가져오기
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {number}
+ */
+const fn_getLeft = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tv = csd.getPropertyValue('left');
+        return fn_checkNumber(tv);
+    }
+    else return 0;
+};
+
+/**
+ * HTMLElement left(Number) 설정하기
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {number} tv
+ */
+const fn_setLeft = (to, tv) => {
+    const csd = fn_getStyle(to, true);
+    if (csd) {
+        tv = fn_checkNumber(tv);
+        csd.setProperty('left', `${tv}px`);
+    }
+};
+
+/**
+ * HTMLElement top(Number) 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {number}
+ */
+const fn_getTop = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tv = csd.getPropertyValue('top');
+        return fn_checkNumber(tv);
+    }
+    else return 0;
+};
+
+/**
+ * HTMLElement top(Number) 설정
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {number} tv
+ */
+const fn_setTop = (to, tv) => {
+    const csd = fn_getStyle(to, true);
+    if (csd) {
+        tv = fn_checkNumber(tv);
+        csd.setProperty('top', `${tv}px`);
+    }
+};
+
+/**
+ * HTMLElement Rect 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {DOMRect}
+ */
+const fn_getRect = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tx = fn_getLeft(csd);
+        let ty = fn_getTop(csd);
+        let tw = fn_getWidth(csd);
+        let th = fn_getHeight(csd);
+        let rct = new DOMRect(tx, ty, tw, th);
+        return rct;
+    }
+    else return null;
+};
+
+/**
+ * HTMLElement Rect 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {DOMRect} rct
+ * @returns {DOMRect}
+ */
+const fn_updateRect = (to, rct) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tw = fn_getWidth(csd);
+        let th = fn_getHeight(csd);
+        let tx = fn_getLeft(csd);
+        let ty = fn_getTop(csd);
+        rct.width = tw;
+        rct.height = th;
+        rct.x = tx;
+        rct.y = ty;
+    }
+};
+
+export const hfStyleHelper = Object.seal({
+    checkNumber: fn_checkNumber,
+    getStyle: fn_getStyle,
+    getWidth: fn_getWidth,
+    setWidth: fn_setWidth,
+    getHeight: fn_getHeight,
+    setHeight: fn_setHeight,
+    getLeft: fn_getLeft,
+    setLeft: fn_setLeft,
+    getTop: fn_getTop,
+    setTop: fn_setTop,
+    getRect: fn_getRect,
+    updateRect: fn_updateRect,
+});
+//#endregion
+
