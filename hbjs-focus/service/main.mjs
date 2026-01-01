@@ -13,18 +13,23 @@ const __dirname = path.dirname(__filename);
 console.log('#__dirname:', __dirname);
 
 
-/** 웹서비스 포트 */
+/** 호스트명 */
+const _hostName = 'localhost';
+console.log('#_hostName:', _hostName);
+
+/** 포트 */
 const _port = 3000;
+console.log('#_port:', _port);
 
 /**
- * 리소스 마메타입
+ * 리소스 마메타입들
  */
-const _mimeTypes = {
+const _mimeTypes = Object.freeze({
     '.html': 'text/html',
     '.css': 'text/css',
     '.js': 'text/javascript',
     '.ico': 'image/x-icon',
-};
+});
 
 
 /**
@@ -101,6 +106,6 @@ const _server = http.createServer(async (req, res) => {
 });
 
 _server.listen(_port, () => {
-    console.log(`Server running at http://localhost:${_port}/`);
+    console.log(`Server running at http://${_hostName}:${_port}/`);
 });
 

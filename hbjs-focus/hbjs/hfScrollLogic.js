@@ -482,4 +482,5 @@ font-size: 0px; cursor: pointer;
     };
 }
 Object.freeze(ScrollLogic);
-export { ScrollLogic, ScrollLogicType };
+
+export { ScrollLogic, hfScrollLogicType };
