@@ -1,3 +1,63 @@
+{
+    "compilerOptions": {
+        // !! module 설정의 주된 역할은 **"모듈 구문(import/export)을 어떤 규칙에 따라 해석해야 하는지
+        //    "**를 VS Code의 TypeScript Language Server (JavaScript의 IntelliSense를 담당하는 서비스)에게
+        //    알려주는 것
+        "module": "esnext",
+
+        // !! module 옵션의 보조 역할을 하며
+        //    어떤 방식으로 모듈을 접근하는지 알려주는 것
+        "moduleResolution": "node",
+
+        // !! 번들러나 컴파일러(TypeScript Compiler, Babel 등)에게
+        //    이 코드를 어떤 ECMAScript 버전의 문법으로 변환(컴파일)해야 할지 알려주는 용도
+        "target": "esnext",
+
+        // !!
+        "lib": [
+            "ESNext",
+            "DOM",
+        ],
+
+        // !!
+        "types": [
+            "node",
+        ],
+
+        // !! cjs, esm 사이를 유기적으로 처리하는 옵션
+        "esModuleInterop": true,
+
+        // !! 프로젝트에 js사용 (js만 쓰니까 당연하지)
+        "allowJs": true,
+
+        // !! js 타입검사를 적극적으로 수행함
+        "checkJs": true,
+    },
+
+    // VS Code가 Node.js API 타입을 찾을 수 있도록 합니다.
+    "typeAcquisition": {
+        "include": [
+            "node"
+        ]
+    },
+
+    // 프로젝트 내의 모든 JS 파일을 언어 서비스의 분석 대상에 포함합니다.
+    "include": [
+        "**/*.js",
+        "**/*.mjs",
+    ],
+
+    // 무시할 폴더 및 파일 (일반적인 Node.js 프로젝트 설정)
+    "exclude": [
+        "node_modules",
+        "**/node_modules",
+        "dist",
+        "build"
+    ],
+}
+
+
+
 // {
 //     // "compilerOptions": {
 //     // "moduleResolution": "node",
