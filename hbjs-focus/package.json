@@ -17,5 +17,8 @@
     "rollup": "^4.53.3",
     "rollup-plugin-esbuild": "^6.2.1",
     "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "fastify": "^5.6.2"
   }
 }
