@@ -48,7 +48,7 @@ class hfNumberRanger {
         return this.#now;
     }
 
-    set now(vn=0) {
+    set now(vn) {
         this.#now = this.check(vn);
     }
 

@@ -1,4 +1,4 @@
-//#region `Signature definition`
+//#region [Signature Definitions]
 /**
  * @typedef {Object} EasingObject
  * @property {(t: number, b: number, e: number, d: number) => number} fn
@@ -326,7 +326,7 @@ class hfTween {
     /**
      * @param {number} current 현재값
      * @param {number} duration 진행시간(초)
-     * @param {EasingFunction} easing 이징객체
+     * @param {EasingObject} easing 이징객체
      * @param {TweenCallbackFunction} cbf 콜백함수
      */
     constructor(current=0, duration=36, easing=null, cbf=null) {

@@ -3,3 +3,9 @@ https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.esm-browser.js
 
 Developer: Reload Window
 Workspaces: Manage Workspace Trust
+
+
+
+#########################################################
+pnpm install
+pnpm update --latest

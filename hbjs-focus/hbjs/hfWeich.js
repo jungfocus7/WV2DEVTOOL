@@ -1,4 +1,4 @@
-//#region `Signature definition`
+//#region [Signature Definitions]
 /**
  * @callback CallbackFunction
  * @param {string} et - EventType

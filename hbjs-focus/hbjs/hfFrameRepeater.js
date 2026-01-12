@@ -1,4 +1,4 @@
-//#region `Signature definition`
+//#region [Signature Definitions]
 /**
  * @callback FrameRepeaterCallback
  * @param {string} et - EventType

@@ -547,7 +547,6 @@ const fn_getRect = (to) => {
  * HTMLElement Rect 반환
  * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
  * @param {DOMRect} rct
- * @returns {DOMRect}
  */
 const fn_updateRect = (to, rct) => {
     const csd = fn_getStyle(to);
@@ -563,6 +562,36 @@ const fn_updateRect = (to, rct) => {
     }
 };
 
+/**
+ * Rect에 좌표(tx, ty)가 포함되는지 여부
+ * @param {DOMRect} rct
+ * @param {number} tx
+ * @param {number} ty
+ * @returns {boolean}
+ */
+const fn_containsRect = (rct, tx, ty) => {
+    const rb =
+        ((rct.left <= tx) && (rct.right >= tx)) &&
+        ((rct.top <= ty) && (rct.bottom >= ty));
+    return rb;
+};
+
+/**
+ * Element에 Rect 적용하기
+ * @param {CSSStyleDeclaration | HTMLElement} to
+ * @param {DOMRect} rct
+ */
+const fn_applyRectToElement = (to, rct) => {
+    const csd = fn_getStyle(to, true);
+    if ((csd !== null) && (rct instanceof DOMRect)) {
+        fn_setLeft(csd, rct.left);
+        fn_setTop(csd, rct.top);
+        fn_setWidth(csd, rct.width);
+        fn_setHeight(csd, rct.height);
+    }
+};
+
+
 export const hfStyleHelper = Object.seal({
     checkNumber: fn_checkNumber,
     getStyle: fn_getStyle,
@@ -576,6 +605,8 @@ export const hfStyleHelper = Object.seal({
     setTop: fn_setTop,
     getRect: fn_getRect,
     updateRect: fn_updateRect,
+    containsRect: fn_containsRect,
+    applyRectToElement: fn_applyRectToElement,
 });
 //#endregion
 
