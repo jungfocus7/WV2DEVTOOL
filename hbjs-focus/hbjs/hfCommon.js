@@ -53,7 +53,8 @@ export const hfnum = Object.freeze({
      * @returns
      */
     randRange: (min, max) => {
-        return min + Math.round(Math.random() * (max - min));
+        return min + Math.floor(Math.random() * (max - min + 1));
+        // return min + Math.round(Math.random() * (max - min)); // 약 20년간 잘못된 랜덤뽑기 사용했내 ;;
     },
 
 
@@ -389,7 +390,7 @@ const fn_checkNumber = (tv, dv=0) => {
     if (typeof tv === 'number')
         rv = tv;
     else if (typeof tv === 'string')
-        rv = +tv;
+        rv = Number.parseFloat(tv);
 
     if (Number.isFinite(rv))
         return rv;

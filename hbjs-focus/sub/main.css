@@ -230,4 +230,48 @@ div.c_tp3>textarea.c_tam {
 /*#endregion*/
 
 
+/*#region 33-tp4) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+div.c_tp4>div.c_scroll-cont {
+  position: relative;
+  width: 300px; height: 200px;
+  background-color: darkslategrey;
+  margin: 4px 0px 0px 0px; padding: 0px;
+  border: 3px dotted black;
+}
+
+div.c_tp4>div.c_scroll-cont>div#vscr {
+  position: absolute;
+  width: 30px; height: 170px;
+  background-color: darkblue;
+  margin: 0px; padding: 0px;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  cursor: pointer;
+  left: 10px; top: 10px;
+}
+
+div.c_tp4>div.c_scroll-cont>div#hscr {
+  position: absolute;
+  width: 170px; height: 30px;
+  background-color: darkblue;
+  margin: 0px; padding: 0px;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  cursor: pointer;
+  left: 50px; top: 100px;
+}
+
+div.c_tp4>textarea.c_tam {
+  width: calc(100% - 10px); height: calc(100% - 234px);
+  margin: 4px 0px 0px 0px; padding: 5px 5px 5px 5px;
+  right: 0px; bottom: 0px;
+  background-color: whitesmoke;
+  box-sizing: border-box; border: 1px solid black;
+  font-family: inherit; font-weight: normal;
+  font-size: 11px; color: black;
+  resize: none; outline: none;
+}
+/*#endregion*/
+
+
 

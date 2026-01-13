@@ -101,13 +101,13 @@ class hfScrollLogic {
         if (args.targetStyle) {
             md.heTarget.setAttribute('style', args.targetStyle);
         } else {
-            md.heTarget.setAttribute('style', `
-width: 20px; height: 100%;
-background-color: #595959;
-position: static; display: inline-block;
-overflow-x: hidden; overflow-y: hidden;
-font-size: 0px; cursor: pointer;
-            `.trim());
+//             md.heTarget.setAttribute('style', `
+// width: 20px; height: 100%;
+// background-color: #595959;
+// position: static; display: inline-block;
+// overflow-x: hidden; overflow-y: hidden;
+// font-size: 0px; cursor: pointer;
+//             `.trim());
         }
 
         if (args.thumbHtml) {
@@ -163,9 +163,12 @@ font-size: 0px; cursor: pointer;
     #fn_printSpanLog() {
         const md = this.#md;
 
-        let srp = 100 * md.scrollSizeRatio;
-        let prp = 100 * md.scrollPositionRatio;
-        md.heSpan.innerText = `${srp.toFixed(1)}%/${prp.toFixed(1)}%`;
+        // let srp = 100 * md.scrollSizeRatio;
+        // let prp = 100 * md.scrollPositionRatio;
+        // md.heSpan.innerText = `${srp.toFixed(1)}%/${prp.toFixed(1)}%`;
+
+        let txt = `${md.scrollSizeRatio.toFixed(1)}/${md.scrollPositionRatio.toFixed(1)}`;
+        md.heSpan.innerText = txt;
     }
 
     /**
@@ -204,17 +207,19 @@ font-size: 0px; cursor: pointer;
     set #thumbCheckSize(val) {
         const md = this.#md;
 
-        let tv = Number.isFinite(val) ? val : 0.0;
-        if (md.logicType === hfScrollLogicType.VERTICAL)
-            md.rctThumb.height = tv;
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
-            md.rctThumb.width = tv;
+        let tv = val;
+        if (Number.isFinite(tv)) {
+            if (md.logicType === hfScrollLogicType.VERTICAL)
+                md.rctThumb.height = tv;
+            else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+                md.rctThumb.width = tv;
+        }
     }
 
     /**
-     * Thumb Location (getter)
+     * Thumb Position (getter)
      */
-    get #thumbCheckLocation() {
+    get #thumbCheckPosition() {
         const md = this.#md;
 
         let rv = 0.0;
@@ -227,16 +232,25 @@ font-size: 0px; cursor: pointer;
     }
 
     /**
-     * Thumb Location (setter)
+     * Thumb Position (setter)
      */
-    set #thumbCheckLocation(val) {
+    set #thumbCheckPosition(val) {
         const md = this.#md;
 
-        let tv = Number.isFinite(val) ? val : 0.0;
+        let cv = val;
+        if (Number.isFinite(cv)) {
+            let bv = 0.0;
+            let ev = this.#fn_getScrollSize();
+            if (cv < bv) cv = bv;
+            else if (cv > ev) cv = ev;
+        } else {
+            cv = 0.0;
+        }
+
         if (md.logicType === hfScrollLogicType.VERTICAL)
-            md.rctThumb.y = tv;
+            md.rctThumb.y = cv;
         else if (md.logicType === hfScrollLogicType.HORIZONTAL)
-            md.rctThumb.x = tv;
+            md.rctThumb.x = cv;
     }
 
     /**
@@ -247,26 +261,30 @@ font-size: 0px; cursor: pointer;
     #fn_applyElementSize(he, val) {
         const md = this.#md;
 
-        let tv = Number.isFinite(val) ? val : 0.0;
-        if (md.logicType === hfScrollLogicType.VERTICAL)
-            hfStyleHelper.setHeight(he, tv);
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
-            hfStyleHelper.setWidth(he, tv);
+        let tv = val;
+        if (Number.isFinite(tv)) {
+            if (md.logicType === hfScrollLogicType.VERTICAL)
+                hfStyleHelper.setHeight(he, tv);
+            else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+                hfStyleHelper.setWidth(he, tv);
+        }
     }
 
     /**
-     * HtmlElement Location 적용
+     * HtmlElement Position 적용
      * @param {HTMLElement} he
      * @param {number} val
      */
-    #fn_applyElementLocation(he, val) {
+    #fn_applyElementPosition(he, val) {
         const md = this.#md;
 
-        let tv = Number.isFinite(val) ? val : 0.0;
-        if (md.logicType === hfScrollLogicType.VERTICAL)
-            hfStyleHelper.setTop(he, tv);
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
-            hfStyleHelper.setLeft(he, tv);
+        let tv = val;
+        if (Number.isFinite(tv)) {
+            if (md.logicType === hfScrollLogicType.VERTICAL)
+                hfStyleHelper.setTop(he, tv);
+            else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+                hfStyleHelper.setLeft(he, tv);
+        }
     }
 
     /**
@@ -291,19 +309,23 @@ font-size: 0px; cursor: pointer;
 
         if (val === this.#thumbCheckSize) return;
 
-        let bs = hfScrollLogic.#MINV;
-        let es = this.#groundCheckSize;
-        let cs = Number.isFinite(val) ? val : 0.0;
-        if (cs < bs) cs = bs;
-        else if (cs > es) cs = es;
+        let cs = val;
+        if (Number.isFinite(cs)) {
+            let bs = hfScrollLogic.#MINV;
+            let es = this.#groundCheckSize;
+            if (cs < bs) cs = bs;
+            else if (cs > es) cs = es;
+        } else {
+            cs = 0.0;
+        }
         this.#thumbCheckSize = cs;
 
         let cl = this.#fn_getScrollSize() * md.scrollPositionRatio;
-        this.#thumbCheckLocation = cl;
+        this.#thumbCheckPosition = cl;
 
         if (bApply) {
             this.#fn_applyElementSize(md.heThumb, cs);
-            this.#fn_applyElementLocation(md.heThumb, cl);
+            this.#fn_applyElementPosition(md.heThumb, cl);
         }
     }
 
@@ -313,10 +335,10 @@ font-size: 0px; cursor: pointer;
      * @param {boolean} bApply
      * @returns
      */
-    #fn_setThumbLocation(val, bApply=true) {
+    #fn_setThumbPosition(val, bApply=true) {
         const md = this.#md;
 
-        if (val === this.#thumbCheckLocation) return;
+        if (val === this.#thumbCheckPosition) return;
 
         let bl = 0.0;
         let el = this.#fn_getScrollSize();
@@ -327,7 +349,7 @@ font-size: 0px; cursor: pointer;
         } else {
             cl = 0.0;
         }
-        this.#thumbCheckLocation = cl;
+        this.#thumbCheckPosition = cl;
 
         let cr = (cl - bl) / (el - bl);
         if (Number.isFinite(cr)) {
@@ -339,7 +361,7 @@ font-size: 0px; cursor: pointer;
         md.scrollPositionRatio = cr;
 
         if (bApply) {
-            this.#fn_applyElementLocation(md.heThumb, cl);
+            this.#fn_applyElementPosition(md.heThumb, cl);
         }
     }
 
@@ -422,19 +444,22 @@ font-size: 0px; cursor: pointer;
         }
         md.scrollPositionRatio = cr;
 
-        let bl = 0.0;
-        let el = this.#fn_getScrollSize();
         let cl = el * md.scrollPositionRatio;
-        if (cl < bl) cl = bl;
-        else if (cl > el) cl = el;
-        this.#thumbCheckLocation = cl;
+        if (Number.isFinite(cl)) {
+            let bl = 0.0;
+            let el = this.#fn_getScrollSize();
+            if (cl < bl) cl = bl;
+            else if (cl > el) cl = el;
+        } else {
+            cl = 0.0;
+        }
+        this.#thumbCheckPosition = cl;
 
         if (bApply) {
-            this.#fn_applyElementLocation(md.heThumb, cl);
+            this.#fn_applyElementPosition(md.heThumb, cl);
         }
 
         this.#fn_printSpanLog();
-
     }
 
     #fn_updateAfterResized(bApply=true) {
@@ -447,16 +472,16 @@ font-size: 0px; cursor: pointer;
             if (cs < bs) cs = bs;
             else if (cs > es) cs = es;
         } else {
-            cs = 0.0;
+            cs = es;
         }
         this.#thumbCheckSize = cs;
 
         let cl = this.#fn_getScrollSize() * md.scrollPositionRatio;
-        this.#thumbCheckLocation = cl;
+        this.#thumbCheckPosition = cl;
 
         if (bApply) {
             this.#fn_applyElementSize(md.heThumb, cs);
-            this.#fn_applyElementLocation(md.heThumb, cl);
+            this.#fn_applyElementPosition(md.heThumb, cl);
         }
 
         this.#fn_printSpanLog();
@@ -512,11 +537,11 @@ font-size: 0px; cursor: pointer;
         if (md.scrollSizeRatio === 1.0) return;
 
         let cl = this.#fn_clientXorY(pe) - md.mdp;
-        this.#fn_setThumbLocation(cl);
+        this.#fn_setThumbPosition(cl);
 
         this.#fn_printSpanLog();
 
-        md.cbf(hfEventTypes.SCROLL, md.scrollSizeRatio, md.scrollPositionRatio);
+        md.cbf?.(hfEventTypes.SCROLL, md.scrollSizeRatio, md.scrollPositionRatio);
     }
 
     /**
@@ -536,27 +561,27 @@ font-size: 0px; cursor: pointer;
      * @param {PointerEvent} pe
      */
     #fn_mouseDown(pe) {
+        const md = this.#md;
+
         if (pe.button !== 0) {
             return
         }
-
-        const md = this.#md;
 
         window.addEventListener(hfEventTypes.MOUSE_MOVE, md.fn_mmh);
         window.addEventListener(hfEventTypes.MOUSE_UP, md.fn_muh);
         window.addEventListener(hfEventTypes.BLUR, md.fn_muh);
 
         if (hfStyleHelper.containsRect(md.rctThumb, pe.offsetX, pe.offsetY)) {
-            md.mdp = this.#fn_clientXorY(pe) - this.#thumbCheckLocation;
+            md.mdp = this.#fn_clientXorY(pe) - this.#thumbCheckPosition;
             this.#fn_mouseMove(pe);
         } else {
             let cl = this.#fn_offsetXorY(pe) - (this.#thumbCheckSize / 2);
-            this.#fn_setThumbLocation(cl);
-            md.mdp = this.#fn_clientXorY(pe) - this.#thumbCheckLocation;
+            this.#fn_setThumbPosition(cl);
+            md.mdp = this.#fn_clientXorY(pe) - this.#thumbCheckPosition;
 
             this.#fn_printSpanLog();
 
-            md.cbf(hfEventTypes.SCROLL, md.scrollSizeRatio, md.scrollPositionRatio);
+            md.cbf?.(hfEventTypes.SCROLL, md.scrollSizeRatio, md.scrollPositionRatio);
         }
     }
 
