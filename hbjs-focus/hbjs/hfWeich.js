@@ -1,6 +1,6 @@
 //#region [Signature Definitions]
 /**
- * @callback CallbackFunction
+ * @callback WeichCallbackFunction
  * @param {string} et - EventType
  * @param {number} cv - CurrentValue
  * @returns {void}
@@ -8,7 +8,7 @@
 //#endregion
 
 
-//#region `hfWeich: (LastUpdated: 251114)`
+//#region [hfWeich: (LastUpdated: 251114)]
 //https://github.com/jungfocus7/jhb0b_as3_libs/blob/master/hbx/src/hbx/balence/CSmoothControl.as
 class hfWeich {
     static ET_UPDATE = 'update';
@@ -18,7 +18,7 @@ class hfWeich {
      * @param {number} now - 0.0
      * @param {number} speed - 0.3
      * @param {number} dst - 1.0
-     * @param {CallbackFunction} cbf
+     * @param {WeichCallbackFunction} cbf
      */
     constructor(now, speed=0.3, dst=1.0, cbf=null) {
         const md = this.#md;
@@ -37,7 +37,7 @@ class hfWeich {
         dst: 1.0,
         fid: -1,
         /** @type {FrameRequestCallback} */ fnfrc: null,
-        /** @type {CallbackFunction} */ cbf: null,
+        /** @type {WeichCallbackFunction} */ cbf: null,
     });
 
     get running() {
@@ -104,11 +104,12 @@ class hfWeich {
         this.fromTo(end, this.#md.now);
     }
 
-}
+};
 Object.freeze(hfWeich);
 //#endregion
 
 
 export {
     hfWeich
-}
+};
+

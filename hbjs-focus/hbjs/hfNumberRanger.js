@@ -1,4 +1,4 @@
-//#region `hfNumberRanger: `
+//#region [Number 범위조작기]
 class hfNumberRanger {
     /**
      * Number를 min, len, max 기준점으로 안전한 범위관리
@@ -82,10 +82,12 @@ min: ${this.#min}, len: ${this.#len}, max: ${this.#max}, now: ${this.#now}
         return fv / lv;
     }
 
-}
+};
 Object.freeze(hfNumberRanger);
+//#endregion
+
 
 export {
     hfNumberRanger
 };
-//#endregion
+

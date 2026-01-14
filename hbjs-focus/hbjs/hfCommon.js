@@ -1,4 +1,4 @@
-//#region `hfnum: 넘버 관련 모듈`
+//#region [Number 관련]
 export const hfnum = Object.freeze({
     /**
      * 넘버가 맞는지 확인
@@ -81,7 +81,7 @@ export const hfnum = Object.freeze({
 //#endregion
 
 
-//#region `hfstr: 문자열 관련 모듈`
+//#region [String 관련]
 export const hfstr = Object.freeze({
     /**
      * 문자열 사용불가 확인
@@ -145,7 +145,7 @@ export const hfstr = Object.freeze({
 //#endregion
 
 
-//#region `hfarr: 배열 관련 모듈`
+//#region [Array 관련]
 export const hfarr = Object.freeze({
     isEmpty: (arr) => {
         if (Array.isArray(arr))
@@ -219,7 +219,7 @@ export const hfarr = Object.freeze({
 //#endregion
 
 
-//#region `hfdtime: 날짜,시간 관련 유틸리티`
+//#region [(날짜, 시간) 관련]
 export const hfdtime = Object.freeze({
     /**
      * 시간 스탬프 기본
@@ -326,6 +326,7 @@ export const hfdtime = Object.freeze({
 //#endregion
 
 
+//#region [EventTypes 분류]
 export const hfEventTypes = Object.freeze({
     // Base
     BLUR: 'blur',
@@ -346,8 +347,10 @@ export const hfEventTypes = Object.freeze({
     UPDATE: 'update',
     END: 'end',
 });
+//#endregion
 
 
+//#region [DebugConsole 관련]
 /**
  * DebugConsole
  */
@@ -376,9 +379,10 @@ export const dcs = Object.seal({
     }
 
 });
+//#endregion
 
 
-//#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [31) 스타일 관련]
+//#region [Style 관련]
 /**
  * 넘버인지 확인후 반환
  * @param {number | string} tv
@@ -591,7 +595,6 @@ const fn_applyRectToElement = (to, rct) => {
         fn_setHeight(csd, rct.height);
     }
 };
-
 
 export const hfStyleHelper = Object.seal({
     checkNumber: fn_checkNumber,

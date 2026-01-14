@@ -22,7 +22,7 @@
 //#endregion
 
 
-//#region `Easing Objects`
+//#region [Easing Objects]
 const hfEasingKind = Object.freeze({
     easeIn: 'easeIn',
     easeOut: 'easeOut',
@@ -316,7 +316,7 @@ Object.freeze(hfEaseExponential);
 //#endregion
 
 
-//#region `hfTween: (LastUpdated: 251122)`
+//#region [hfTween: (LastUpdated: 251122)]
 class hfTween {
     /** EventType Update */
     static ET_UPDATE = 'update';
@@ -326,7 +326,7 @@ class hfTween {
     /**
      * @param {number} current 현재값
      * @param {number} duration 진행시간(초)
-     * @param {EasingObject} easing 이징객체
+     * @param {EasingFunction} easing 이징객체
      * @param {TweenCallbackFunction} cbf 콜백함수
      */
     constructor(current=0, duration=36, easing=null, cbf=null) {
@@ -461,3 +461,4 @@ export {
     hfEaseExponential,
     hfTween,
 };
+
