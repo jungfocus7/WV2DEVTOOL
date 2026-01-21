@@ -3,12 +3,13 @@ import { hfEventTypes, hfStyleHelper } from "./hfCommon.js";
 
 
 //#region [Signature Definitions]
-/**
- * @enum {string}
- */
+// /**
+//  * @enum {string} hfScrollLogicType
+//  */
 const hfScrollLogicType = Object.freeze({
     VERTICAL: 'vertical',
     HORIZONTAL: 'horizontal',
+    BOTH: 'both',
 });
 
 
@@ -178,10 +179,13 @@ class hfScrollLogic {
         const md = this.#md;
 
         let rv = 0.0;
-        if (md.logicType === hfScrollLogicType.VERTICAL)
+        if (md.logicType === hfScrollLogicType.VERTICAL) {
             rv = md.rctGround.height;
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+        } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
             rv = md.rctGround.width;
+        } else if (md.logicType === hfScrollLogicType.BOTH) {
+            //
+        }
 
         return rv;
     }
@@ -193,10 +197,13 @@ class hfScrollLogic {
         const md = this.#md;
 
         let rv = 0.0;
-        if (md.logicType === hfScrollLogicType.VERTICAL)
+        if (md.logicType === hfScrollLogicType.VERTICAL) {
             rv = md.rctThumb.height;
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+        } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
             rv = md.rctThumb.width;
+        } else if (md.logicType === hfScrollLogicType.BOTH) {
+            //
+        }
 
         return rv;
     }
@@ -209,10 +216,13 @@ class hfScrollLogic {
 
         let tv = val;
         if (Number.isFinite(tv)) {
-            if (md.logicType === hfScrollLogicType.VERTICAL)
+            if (md.logicType === hfScrollLogicType.VERTICAL) {
                 md.rctThumb.height = tv;
-            else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+            } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
                 md.rctThumb.width = tv;
+            } else if (md.logicType === hfScrollLogicType.BOTH) {
+                //
+            }
         }
     }
 
@@ -223,10 +233,13 @@ class hfScrollLogic {
         const md = this.#md;
 
         let rv = 0.0;
-        if (md.logicType === hfScrollLogicType.VERTICAL)
+        if (md.logicType === hfScrollLogicType.VERTICAL) {
             rv = md.rctThumb.top;
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+        } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
             rv = md.rctThumb.left;
+        } else if (md.logicType === hfScrollLogicType.BOTH) {
+            //
+        }
 
         return rv;
     }
@@ -247,43 +260,50 @@ class hfScrollLogic {
             cv = 0.0;
         }
 
-        if (md.logicType === hfScrollLogicType.VERTICAL)
+        if (md.logicType === hfScrollLogicType.VERTICAL) {
             md.rctThumb.y = cv;
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+        } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
             md.rctThumb.x = cv;
+        } else if (md.logicType === hfScrollLogicType.BOTH) {
+            //
+        }
     }
 
     /**
      * HtmlElement Size 적용
-     * @param {HTMLElement} he
      * @param {number} val
      */
-    #fn_applyElementSize(he, val) {
+    #fn_applyElementSize(val) {
         const md = this.#md;
 
         let tv = val;
         if (Number.isFinite(tv)) {
-            if (md.logicType === hfScrollLogicType.VERTICAL)
-                hfStyleHelper.setHeight(he, tv);
-            else if (md.logicType === hfScrollLogicType.HORIZONTAL)
-                hfStyleHelper.setWidth(he, tv);
+            if (md.logicType === hfScrollLogicType.VERTICAL) {
+                hfStyleHelper.setHeight(md.heThumb, tv);
+            } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
+                hfStyleHelper.setWidth(md.heThumb, tv);
+            } else if (md.logicType === hfScrollLogicType.BOTH) {
+                //
+            }
         }
     }
 
     /**
      * HtmlElement Position 적용
-     * @param {HTMLElement} he
      * @param {number} val
      */
-    #fn_applyElementPosition(he, val) {
+    #fn_applyElementPosition(val) {
         const md = this.#md;
 
         let tv = val;
         if (Number.isFinite(tv)) {
-            if (md.logicType === hfScrollLogicType.VERTICAL)
-                hfStyleHelper.setTop(he, tv);
-            else if (md.logicType === hfScrollLogicType.HORIZONTAL)
-                hfStyleHelper.setLeft(he, tv);
+            if (md.logicType === hfScrollLogicType.VERTICAL) {
+                hfStyleHelper.setTop(md.heThumb, tv);
+            } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
+                hfStyleHelper.setLeft(md.heThumb, tv);
+            } else if (md.logicType === hfScrollLogicType.BOTH) {
+                //
+            }
         }
     }
 
@@ -320,12 +340,12 @@ class hfScrollLogic {
         }
         this.#thumbCheckSize = cs;
 
-        let cl = this.#fn_getScrollSize() * md.scrollPositionRatio;
-        this.#thumbCheckPosition = cl;
+        let cp = this.#fn_getScrollSize() * md.scrollPositionRatio;
+        this.#thumbCheckPosition = cp;
 
         if (bApply) {
-            this.#fn_applyElementSize(md.heThumb, cs);
-            this.#fn_applyElementPosition(md.heThumb, cl);
+            this.#fn_applyElementSize(cs);
+            this.#fn_applyElementPosition(cp);
         }
     }
 
@@ -340,18 +360,18 @@ class hfScrollLogic {
 
         if (val === this.#thumbCheckPosition) return;
 
-        let bl = 0.0;
-        let el = this.#fn_getScrollSize();
-        let cl = val;
-        if (Number.isFinite(cl)) {
-            if (cl < bl) cl = bl;
-            else if (cl > el) cl = el;
+        let bp = 0.0;
+        let ep = this.#fn_getScrollSize();
+        let cp = val;
+        if (Number.isFinite(cp)) {
+            if (cp < bp) cp = bp;
+            else if (cp > ep) cp = ep;
         } else {
-            cl = 0.0;
+            cp = 0.0;
         }
-        this.#thumbCheckPosition = cl;
+        this.#thumbCheckPosition = cp;
 
-        let cr = (cl - bl) / (el - bl);
+        let cr = (cp - bp) / (ep - bp);
         if (Number.isFinite(cr)) {
             if (cr < 0.0) cr = 0.0;
             else if (cr > 1.0) cr = 1.0;
@@ -361,7 +381,7 @@ class hfScrollLogic {
         md.scrollPositionRatio = cr;
 
         if (bApply) {
-            this.#fn_applyElementPosition(md.heThumb, cl);
+            this.#fn_applyElementPosition(cp);
         }
     }
 
@@ -396,7 +416,7 @@ class hfScrollLogic {
             if (cv < 0.0) cv = 0.0;
             else if (cv > 1.0) cv = 1.0;
         } else {
-            cv = 0.0;
+            cv = 1.0;
         }
         md.scrollSizeRatio = cv;
 
@@ -444,19 +464,19 @@ class hfScrollLogic {
         }
         md.scrollPositionRatio = cr;
 
-        let cl = el * md.scrollPositionRatio;
-        if (Number.isFinite(cl)) {
-            let bl = 0.0;
-            let el = this.#fn_getScrollSize();
-            if (cl < bl) cl = bl;
-            else if (cl > el) cl = el;
+        let bp = 0.0;
+        let ep = this.#fn_getScrollSize();
+        let cp = ep * md.scrollPositionRatio;
+        if (Number.isFinite(cp)) {
+            if (cp < bp) cp = bp;
+            else if (cp > ep) cp = ep;
         } else {
-            cl = 0.0;
+            cp = 0.0;
         }
-        this.#thumbCheckPosition = cl;
+        this.#thumbCheckPosition = cp;
 
         if (bApply) {
-            this.#fn_applyElementPosition(md.heThumb, cl);
+            this.#fn_applyElementPosition(cp);
         }
 
         this.#fn_printSpanLog();
@@ -476,19 +496,19 @@ class hfScrollLogic {
         }
         this.#thumbCheckSize = cs;
 
-        let cl = this.#fn_getScrollSize() * md.scrollPositionRatio;
-        this.#thumbCheckPosition = cl;
+        let cp = this.#fn_getScrollSize() * md.scrollPositionRatio;
+        this.#thumbCheckPosition = cp;
 
         if (bApply) {
-            this.#fn_applyElementSize(md.heThumb, cs);
-            this.#fn_applyElementPosition(md.heThumb, cl);
+            this.#fn_applyElementSize(cs);
+            this.#fn_applyElementPosition(cp);
         }
 
         this.#fn_printSpanLog();
     }
 
     /**
-     * ??
+     * Mouse client coordinates
      * @param {PointerEvent} pe
      * @returns
      */
@@ -496,16 +516,19 @@ class hfScrollLogic {
         const md = this.#md;
 
         let rv = 0.0;
-        if (md.logicType === hfScrollLogicType.VERTICAL)
+        if (md.logicType === hfScrollLogicType.VERTICAL) {
             rv = pe.clientY;
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+        } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
             rv = pe.clientX;
+        } else if (md.logicType === hfScrollLogicType.BOTH) {
+            //
+        }
 
         return rv;
     }
 
     /**
-     * ??
+     * Mouse offset coordinates
      * @param {PointerEvent} pe
      * @returns
      */
@@ -513,10 +536,13 @@ class hfScrollLogic {
         const md = this.#md;
 
         let rv = 0.0;
-        if (md.logicType === hfScrollLogicType.VERTICAL)
+        if (md.logicType === hfScrollLogicType.VERTICAL) {
             rv = pe.offsetY;
-        else if (md.logicType === hfScrollLogicType.HORIZONTAL)
+        } else if (md.logicType === hfScrollLogicType.HORIZONTAL) {
             rv = pe.offsetX;
+        } else if (md.logicType === hfScrollLogicType.BOTH) {
+            //
+        }
 
         return rv;
     }
@@ -534,14 +560,16 @@ class hfScrollLogic {
             return
         }
 
-        if (md.scrollSizeRatio === 1.0) return;
+        // if (md.scrollSizeRatio === 1.0) return;
 
-        let cl = this.#fn_clientXorY(pe) - md.mdp;
-        this.#fn_setThumbPosition(cl);
+        if (md.scrollSizeRatio < 1.0) {
+            let cp = this.#fn_clientXorY(pe) - md.mdp;
+            this.#fn_setThumbPosition(cp);
 
-        this.#fn_printSpanLog();
+            this.#fn_printSpanLog();
 
-        md.cbf?.(hfEventTypes.SCROLL, md.scrollSizeRatio, md.scrollPositionRatio);
+            md.cbf?.(hfEventTypes.SCROLL, md.scrollSizeRatio, md.scrollPositionRatio);
+        }
     }
 
     /**
@@ -573,10 +601,10 @@ class hfScrollLogic {
 
         if (hfStyleHelper.containsRect(md.rctThumb, pe.offsetX, pe.offsetY)) {
             md.mdp = this.#fn_clientXorY(pe) - this.#thumbCheckPosition;
-            this.#fn_mouseMove(pe);
+            // this.#fn_mouseMove(pe);
         } else {
-            let cl = this.#fn_offsetXorY(pe) - (this.#thumbCheckSize / 2);
-            this.#fn_setThumbPosition(cl);
+            let cp = this.#fn_offsetXorY(pe) - (this.#thumbCheckSize / 2);
+            this.#fn_setThumbPosition(cp);
             md.mdp = this.#fn_clientXorY(pe) - this.#thumbCheckPosition;
 
             this.#fn_printSpanLog();
