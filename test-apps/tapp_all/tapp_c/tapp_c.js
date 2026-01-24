@@ -211,3 +211,10 @@ window.addEventListener('load', () => {
     window.dataGrid.data.unshift(...specialData);
     window.dataGrid.renderRows();
 });
+
+
+
+
+
+
+
