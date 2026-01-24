@@ -1,26 +1,71 @@
-import { dcs, hfEventTypes, hfStyleHelper } from "./hfCommon.js";
+import { hfEventTypes, hfStyleHelper, dcs } from "./hfCommon.js";
 
 
 
-//#region [Signature Definitions]
+//#region [01)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]
+/**
+ * @typedef {object} IScrollTargetArea
+ * @property {number} viewportWidth
+ * @property {number} viewportHeight
+ * @property {number} viewportLeft
+ * @property {number} viewportTop
+ * @property {number} viewportWidthRatio
+ * @property {number} viewportHeightRatio
+ * @property {number} bodyWidth
+ * @property {number} bodyHeight
+ * @property {number} bodyLeft
+ * @property {number} bodyTop
+ * @property {(spr: number) => void} fn_calcBodyLeft
+ * @property {(spr: number) => void} fn_calcBodyTop
+ */
+
 /**
  * @typedef {object} IScrollWaveConstructorArguments
- * @property {"vertical" | "horizontal" | "both"} logicType
+ * @property {IScrollTargetArea} targetArea
+ * @property {"vertical" | "horizontal" | "both"} scrollType
  * @property {HTMLDivElement} heGround
  */
-//#endregion
 
-
-//#region [hfScrollWaveType]
-const hfScrollWaveType = Object.freeze({
-    VERTICAL: 'vertical',
-    HORIZONTAL: 'horizontal',
+const hfScrollType = Object.freeze({
+    NONE: 'none',
     BOTH: 'both',
+    HORIZONTAL: 'horizontal',
+    VERTICAL: 'vertical',
+});
+
+
+const hfCheckHelper = Object.freeze({
+    /**
+     * 비율값이 (0 ~ 1)사이에 있는지 체크하고 반환
+     * @param {number} tv
+     */
+    fn_checkRatio(tv) {
+        let rv = tv;
+        if (Number.isFinite(rv)) {
+            if (rv < 0.0) rv = 0.0;
+            else if (rv > 1.0) rv = 1.0;
+        } else {
+            rv = 0.0;
+        }
+        return rv;
+    },
+
+    /**
+     * 비율값 계산
+     * @param {number} v1
+     * @param {number} v2
+     */
+    fn_calcRatio(v1, v2) {
+        let rv = hfCheckHelper.fn_checkRatio(v1 / v2);
+        return rv;
+    }
+
 });
 //#endregion
 
 
-//#region [hfScrollTargetArea]
+//#region [02)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]
+/** @implements {IScrollTargetArea} */
 class hfScrollTargetArea {
     #md = Object.seal({
         /** @type {DOMRect} */
@@ -36,10 +81,16 @@ class hfScrollTargetArea {
      */
     constructor(rctViewport, rctBody) {
         const md = this.#md;
-        md.viewportBounds = rctViewport;
-        md.bodyBounds = rctBody;
 
-        Object.seal(this);
+        if ((rctViewport instanceof DOMRect) &&
+            (rctBody instanceof DOMRect)) {
+            md.viewportBounds = rctViewport;
+            md.bodyBounds = rctBody;
+
+            Object.seal(this);
+        } else {
+            throw 'Constructor arguments is not DOMRect';
+        }
     }
 
     //#region ViewportBounds
@@ -105,6 +156,24 @@ class hfScrollTargetArea {
     set viewportTop(tv) {
         const md = this.#md;
         md.viewportBounds.y = tv;
+    }
+
+    /**
+     * @returns {number}
+     */
+    get viewportWidthRatio() {
+        const md = this.#md;
+        let rv = md.viewportBounds.width / md.bodyBounds.width;
+        return hfCheckHelper.fn_checkRatio(rv);
+    }
+
+    /**
+     * @returns {number}
+     */
+    get viewportHeightRatio() {
+        const md = this.#md;
+        let rv = md.viewportBounds.height / md.bodyBounds.height;
+        return hfCheckHelper.fn_checkRatio(rv);
     }
     //#endregion
 
@@ -205,38 +274,21 @@ Object.freeze(hfScrollTargetArea);
 //#endregion
 
 
-//#region [hfScrollWave]
+//#region [03)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]
 class hfScrollWave extends EventTarget {
-    /**
-     * 비율값 계산
-     * @param {number} v1
-     * @param {number} v2
-     */
-    static #fn_calcRatio(v1, v2) {
-        let rv = v1 / v2;
-        if (Number.isFinite(rv)) {
-            if (rv < 0.0) rv = 0.0;
-            else if (rv > 1.0) rv = 1.0;
-        } else {
-            rv = 0.0;
-        }
-
-        return rv;
-    }
-
-    static #MINV = 30.0;
+    static #MINV = 20.0;
 
     #md = Object.seal({
         /**
          * TargetArea
-         * @type {hfScrollTargetArea}
+         * @type {IScrollTargetArea}
          */
         targetArea: null,
         /**
-         * LogicType
+         * ScrollType
          * @type {string}
          */
-        logicType: '',
+        scrollType: '',
 
         /**
          * Track 엘리먼트
@@ -266,22 +318,22 @@ class hfScrollWave extends EventTarget {
         rctThumb: null,
 
         /**
-         * Scroll Width Ratio
+         * Thumb Width Ratio
          */
-        swr: 1.0,
+        twr: 1.0,
         /**
-         * Scroll Height Ratio
+         * Thumb Height Ratio
          */
-        shr: 1.0,
+        thr: 1.0,
 
         /**
-         * Width Scroll Position Ratio
-         */
-        wspr: 0.0,
-        /**
-         * Height Scroll Position Ratio
+         * Horizontal Scroll Position Ratio
          */
         hspr: 0.0,
+        /**
+         * Vertical Scroll Position Ratio
+         */
+        vspr: 0.0,
 
         /**
          * Mouse Down X
@@ -323,9 +375,10 @@ class hfScrollWave extends EventTarget {
 
         const md = this.#md;
 
-        md.targetArea = null;
-        md.logicType = args.logicType ?? hfScrollWaveType.VERTICAL;
+        md.targetArea = args.targetArea;
+        md.scrollType = args.scrollType;
         md.heGround = args.heGround;
+
         md.heThumb = md.heGround.querySelector('div');
         md.heSpan = md.heThumb.querySelector('span');
         md.heSpan.innerText = '';
@@ -339,7 +392,28 @@ class hfScrollWave extends EventTarget {
         md.fn_rsh = this.#fn_resize.bind(this);
 
         md.heGround.addEventListener(hfEventTypes.MOUSE_DOWN, md.fn_mdh);
-        md.heGround.addEventListener(hfEventTypes.RESIZE, md.fn_rsh);
+        window.addEventListener(hfEventTypes.RESIZE, md.fn_rsh);
+
+        if (md.scrollType === hfScrollType.BOTH) {
+            md.twr = md.targetArea.viewportWidthRatio;
+            md.thr = md.targetArea.viewportHeightRatio;
+            md.hspr = 0.0;
+            md.vspr = 0.0;
+        } else if (md.scrollType === hfScrollType.HORIZONTAL) {
+            md.twr = md.targetArea.viewportWidthRatio;
+            md.thr = 1.0;
+            md.hspr = 0.0;
+            md.vspr = 0.0;
+        } else if (md.scrollType === hfScrollType.VERTICAL) {
+            md.twr = 1.0;
+            md.thr = md.targetArea.viewportHeightRatio;
+            md.hspr = 0.0;
+            md.vspr = 0.0;
+        } else {
+            throw 'error';
+        }
+
+        this.#fn_updateRects();
 
         Object.seal(this);
     }
@@ -350,84 +424,123 @@ class hfScrollWave extends EventTarget {
     #fn_printSpanLog() {
         const md = this.#md;
 
-        if (md.logicType === hfScrollWaveType.VERTICAL) {
-            let txt = `${md.shr.toFixed(1)}/${md.shr.toFixed(1)}`;
+        if (md.scrollType === hfScrollType.BOTH) {
+            let phsr = 100 * md.twr;
+            let phpr = 100 * md.hspr;
+            let pvsr = 100 * md.thr;
+            let pvpr = 100 * md.vspr;
+            let txt = `
+${phsr.toFixed(1)}%/${phpr.toFixed(1)}%
+${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
+            `.trim();
             md.heSpan.innerText = txt;
-        } else if (md.logicType === hfScrollWaveType.HORIZONTAL) {
-            let txt = `${md.swr.toFixed(1)}/${md.swr.toFixed(1)}`;
+        } else if (md.scrollType === hfScrollType.HORIZONTAL) {
+            let phsr = 100 * md.twr;
+            let phpr = 100 * md.hspr;
+            let txt = `
+${phsr.toFixed(1)}%/${phpr.toFixed(1)}%
+            `.trim();
             md.heSpan.innerText = txt;
-        } else if (md.logicType === hfScrollWaveType.BOTH) {
-            let tx1 = `${md.swr.toFixed(1)}/${md.swr.toFixed(1)}`;
-            let tx2 = `${md.shr.toFixed(1)}/${md.shr.toFixed(1)}`;
-            md.heSpan.innerText = `${tx1}\n${tx2}`;
+        } else if (md.scrollType === hfScrollType.VERTICAL) {
+            let pvsr = 100 * md.thr;
+            let pvpr = 100 * md.vspr;
+            let txt = `
+${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
+            `.trim();
+            md.heSpan.innerText = txt;
         }
     }
 
     /**
-     * Height Scroll 사이즈 반환
+     * @returns
      */
-    #fn_calcHeightScrollSize() {
+    #fn_calcHoriScrollSize() {
         const md = this.#md;
-
-        let rv = md.rctGround.height - md.rctThumb.height;
-        if (rv < 0.0) rv = 0.0;
-
-        return rv;
-    }
-
-    /**
-     * Width Scroll 사이즈 반환
-     */
-    #fn_calcWidthScrollSize() {
-        const md = this.#md;
-
         let rv = md.rctGround.width - md.rctThumb.width;
-        if (rv < 0.0) rv = 0.0;
-
+        if (Number.isFinite(rv)) {
+            if (rv < 0.0) rv = 0.0;
+        } else {
+            rv = 0.0;
+        }
         return rv;
     }
 
     /**
-     * ???
-     * @param {number} ty
+     * @returns
      */
-    #fn_updateThumbTop(ty) {
+    #fn_calcVertScrollSize() {
         const md = this.#md;
-
-        dcs.log('>>>2', md.shr);
-        if ((md.shr < 1.0) && (ty !== md.rctThumb.top)) {
-            let by = 0.0;
-            let ey = this.#fn_calcHeightScrollSize();
-
-            let cy = ty;
-            if (cy < by) cy = by;
-            else if (cy > ey) cy = ey;
-            md.rctThumb.y = cy;
-
-            let v1 = cy - by;
-            let v2 = ey - by;
-            let spr = hfScrollWave.#fn_calcRatio(v1, v2);
-            md.hspr = spr;
-
-            md.targetArea.fn_calcBodyTop(spr);
-
-            hfStyleHelper.setTop(md.heThumb, cy);
-            this.#fn_printSpanLog();
-
-            this.dispatchEvent(new Event(hfEventTypes.SCROLL));
+        let rv = md.rctGround.height - md.rctThumb.height;
+        if (Number.isFinite(rv)) {
+            if (rv < 0.0) rv = 0.0;
+        } else {
+            rv = 0.0;
         }
+        return rv;
     }
 
     /**
-     * ???
-     * @param {number} tx
+     * @param {boolean} bFirst
      */
-    #fn_updateThumbLeft(tx) {
+    #fn_applyRectThumb(bFirst=false) {
         const md = this.#md;
 
-        if ((md.swr < 1.0) && (tx !== md.rctThumb.top)) {
+        if (bFirst || (md.scrollType === hfScrollType.BOTH)) {
+            hfStyleHelper.setWidth(md.heThumb, md.rctThumb.width);
+            hfStyleHelper.setHeight(md.heThumb, md.rctThumb.height);
+            hfStyleHelper.setLeft(md.heThumb, md.rctThumb.left);
+            hfStyleHelper.setTop(md.heThumb, md.rctThumb.top);
+        } else if (md.scrollType === hfScrollType.HORIZONTAL) {
+            hfStyleHelper.setWidth(md.heThumb, md.rctThumb.width);
+            hfStyleHelper.setLeft(md.heThumb, md.rctThumb.left);
+        } else if (md.scrollType === hfScrollType.VERTICAL) {
+            hfStyleHelper.setHeight(md.heThumb, md.rctThumb.height);
+            hfStyleHelper.setTop(md.heThumb, md.rctThumb.top);
+        }
+    }
+
+    #fn_updateRects() {
+        const md = this.#md;
+
+        if (md.scrollType === hfScrollType.NONE) return;
+
+        // md.rctGround = hfStyleHelper.getRect(md.heGround);
+        hfStyleHelper.updateRect(md.heGround, md.rctGround);
+        // dcs.log('>>>', md.rctGround);
+
+        let tw = md.rctGround.width * md.twr;
+        if (tw < hfScrollWave.#MINV) tw = hfScrollWave.#MINV;
+        md.rctThumb.width = tw;
+
+        let th = md.rctGround.height * md.thr;
+        if (th < hfScrollWave.#MINV) th = hfScrollWave.#MINV;
+        md.rctThumb.height = th;
+
+        let hss = this.#fn_calcHoriScrollSize();
+        md.rctThumb.x = hss * md.hspr;
+
+        let vss = this.#fn_calcVertScrollSize();
+        md.rctThumb.y = vss * md.vspr;
+        dcs.log(md.rctThumb.y);
+
+        this.#fn_applyRectThumb(true);
+        this.#fn_printSpanLog();
+
+        this.dispatchEvent(new Event(hfEventTypes.SCROLL));
+    }
+
+    /**
+     * @param {number} tx
+     * @returns
+     */
+    #fn_setCheckThumbLeft(tx) {
+        const md = this.#md;
+
+        if ((md.twr >= 1.0) || (tx === md.rctThumb.left)) {
+            return false;
+        } else {
             let bx = 0.0;
-            let ex = this.#fn_calcWidthScrollSize();
+            let ex = this.#fn_calcHoriScrollSize();
 
             let cx = tx;
             if (cx < bx) cx = bx;
@@ -436,48 +549,128 @@ class hfScrollWave extends EventTarget {
 
             let v1 = cx - bx;
             let v2 = ex - bx;
-            let spr = hfScrollWave.#fn_calcRatio(v1, v2);
-            md.wspr = spr;
+            let spr = hfCheckHelper.fn_calcRatio(v1, v2);
+            md.hspr = spr;
 
             md.targetArea.fn_calcBodyLeft(spr);
 
-            hfStyleHelper.setLeft(md.heThumb, cx);
-            this.#fn_printSpanLog();
+            return true;
+        }
+    }
 
+    /**
+     * @param {number} ty
+     * @returns
+     */
+    #fn_setCheckThumbTop(ty) {
+        const md = this.#md;
+
+        if ((md.thr >= 1.0) || (ty === md.rctThumb.top)) {
+            return false;
+        } else {
+            let by = 0.0;
+            let ey = this.#fn_calcVertScrollSize();
+
+            let cy = ty;
+            if (cy < by) cy = by;
+            else if (cy > ey) cy = ey;
+            md.rctThumb.y = cy;
+
+            let v1 = cy - by;
+            let v2 = ey - by;
+            let spr = hfCheckHelper.fn_calcRatio(v1, v2);
+            md.vspr = spr;
+
+            md.targetArea.fn_calcBodyTop(spr);
+
+            return true;
+        }
+    }
+
+    /**
+     * @param {number} tx
+     * @param {number} ty
+     * @returns
+     */
+    #fn_updateThumbPosition(tx, ty) {
+        const md = this.#md;
+
+        let bAfter = false;
+
+        if (this.#fn_setCheckThumbLeft(tx)) {
+            hfStyleHelper.setLeft(md.heThumb, md.rctThumb.left);
+            bAfter = true;
+        }
+
+        if (this.#fn_setCheckThumbTop(ty)) {
+            hfStyleHelper.setTop(md.heThumb, md.rctThumb.top);
+            bAfter = true;
+        }
+
+        if (bAfter) {
+            this.#fn_printSpanLog();
             this.dispatchEvent(new Event(hfEventTypes.SCROLL));
         }
     }
 
     /**
-     * ???
      * @param {number} tx
-     * @param {number} ty
      */
-    #fn_updateThumbPosition(tx, ty) {
+    #fn_updateThumbLeft(tx) {
+        const md = this.#md;
+
+        if (this.#fn_setCheckThumbLeft(tx)) {
+            hfStyleHelper.setLeft(md.heThumb, md.rctThumb.left);
+            this.#fn_printSpanLog();
+            this.dispatchEvent(new Event(hfEventTypes.SCROLL));
+        }
     }
 
     /**
-     * 마우스 무브
+     * @param {number} ty
+     */
+    #fn_updateThumbTop(ty) {
+        const md = this.#md;
+
+        if (this.#fn_setCheckThumbTop(ty)) {
+            hfStyleHelper.setTop(md.heThumb, md.rctThumb.top);
+            this.#fn_printSpanLog();
+            this.dispatchEvent(new Event(hfEventTypes.SCROLL));
+        }
+    }
+
+    /**
+     * @param {Event} _
+     */
+    #fn_resize(_) {
+        this.#fn_updateRects();
+    }
+
+    /**
      * @param {PointerEvent} pe
      * @returns
      */
     #fn_mouseMove(pe) {
+        const md = this.#md;
+
         if (pe.buttons !== 1) {
             return
         }
 
-        const md = this.#md;
-
-        if (md.logicType === hfScrollWaveType.VERTICAL) {
+        if (md.scrollType === hfScrollType.BOTH) {
+            let tx = pe.clientX - md.mdx;
+            let ty = pe.clientY - md.mdy;
+            this.#fn_updateThumbPosition(tx, ty);
+        } else if (md.scrollType === hfScrollType.HORIZONTAL) {
+            let tx = pe.clientX - md.mdx;
+            this.#fn_updateThumbLeft(tx);
+        } else if (md.scrollType === hfScrollType.VERTICAL) {
             let ty = pe.clientY - md.mdy;
             this.#fn_updateThumbTop(ty);
-        } else if (md.logicType === hfScrollWaveType.HORIZONTAL) {
-        } else if (md.logicType === hfScrollWaveType.BOTH) {
         }
     }
 
     /**
-     * 마우스 업
      * @param {PointerEvent} _
      */
     #fn_mouseUp(_) {
@@ -489,64 +682,133 @@ class hfScrollWave extends EventTarget {
     }
 
     /**
-     * 마우스 다운
      * @param {PointerEvent} pe
      */
     #fn_mouseDown(pe) {
+        const md = this.#md;
+
         if (pe.buttons !== 1) {
             return
         }
-
-        const md = this.#md;
 
         window.addEventListener(hfEventTypes.MOUSE_MOVE, md.fn_mmh);
         window.addEventListener(hfEventTypes.MOUSE_UP, md.fn_muh);
         window.addEventListener(hfEventTypes.BLUR, md.fn_muh);
 
         if (hfStyleHelper.containsRect(md.rctThumb, pe.offsetX, pe.offsetY)) {
-            if (md.logicType === hfScrollWaveType.VERTICAL) {
-                //
-                md.mdy = pe.clientY - md.rctThumb.top;
-            } else if (md.logicType === hfScrollWaveType.HORIZONTAL) {
-                //
-                md.mdx = pe.clientX - md.rctThumb.left;
-            } else if (md.logicType === hfScrollWaveType.BOTH) {
-                md.mdx = pe.clientX - md.rctThumb.left;
-                md.mdy = pe.clientY - md.rctThumb.top;
-            }
+            md.mdx = pe.clientX - md.rctThumb.left;
+            md.mdy = pe.clientY - md.rctThumb.top;
         } else {
-            if (md.logicType === hfScrollWaveType.VERTICAL) {
-                //
-                let ty = pe.clientY - (md.rctThumb.height / 2);
-                this.#fn_updateThumbTop(ty);
-                //
-                md.mdy = pe.clientY - md.rctThumb.top;
-            } else if (md.logicType === hfScrollWaveType.HORIZONTAL) {
-                let tx = pe.clientX - (md.rctThumb.width / 2);
-                //
-                this.#fn_updateThumbLeft(tx);
-                md.mdx = pe.clientX - md.rctThumb.left;
-                //
-            } else if (md.logicType === hfScrollWaveType.BOTH) {
+            if (md.scrollType === hfScrollType.BOTH) {
                 let tx = pe.clientX - (md.rctThumb.width / 2);
                 let ty = pe.clientY - (md.rctThumb.height / 2);
                 this.#fn_updateThumbPosition(tx, ty);
-                md.mdx = pe.clientX - md.rctThumb.left;
-                md.mdy = pe.clientY - md.rctThumb.top;
+            } else if (md.scrollType === hfScrollType.HORIZONTAL) {
+                let tx = pe.clientX - (md.rctThumb.width / 2);
+                this.#fn_updateThumbLeft(tx);
+            } else if (md.scrollType === hfScrollType.VERTICAL) {
+                let ty = pe.clientY - (md.rctThumb.height / 2);
+                this.#fn_updateThumbTop(ty);
             }
+
+            md.mdx = pe.clientX - md.rctThumb.left;
+            md.mdy = pe.clientY - md.rctThumb.top;
         }
     }
 
-    /**
-     * ??
-     * @param {Event} _
-     */
-    #fn_resize(_) {
-        dcs.log('빌런');
+    get rectGround() {
+        const md = this.#md;
+        return md.rctGround;
+    }
+
+    get rectThumb() {
+        const md = this.#md;
+        return md.rctThumb;
+    }
+
+    get thumbWidthRatio() {
+        const md = this.#md;
+        return md.twr;
+    }
+
+    set thumbWidthRatio(tv) {
+        const md = this.#md;
+        if (tv === md.twr) return;
+        md.twr = hfCheckHelper.fn_checkRatio(tv);
+
+        let tw = md.rctGround.width * md.twr;
+        if (tw < hfScrollWave.#MINV)
+            tw = hfScrollWave.#MINV;
+        md.rctThumb.width = tw;
+
+        let tss = this.#fn_calcHoriScrollSize();
+        let tx = tss * md.hspr;
+        md.rctThumb.x = tx;
+
+        this.#fn_applyRectThumb();
+        this.#fn_printSpanLog();
+    }
+
+    get thumbHeightRatio() {
+        const md = this.#md;
+        return md.thr;
+    }
+
+    set thumbHeightRatio(tv) {
+        const md = this.#md;
+        if (tv === md.thr) return;
+        md.thr = hfCheckHelper.fn_checkRatio(tv);
+
+        let th = md.rctGround.height * md.thr;
+        if (th < hfScrollWave.#MINV)
+            th = hfScrollWave.#MINV;
+        md.rctThumb.height = th;
+
+        let tss = this.#fn_calcVertScrollSize();
+        let ty = tss * md.vspr;
+        md.rctThumb.y = ty;
+
+        this.#fn_applyRectThumb();
+        this.#fn_printSpanLog();
+    }
+
+    get horiScrollRatio() {
+        const md = this.#md;
+        return md.hspr;
+    }
+
+    set horiScrollRatio(tv) {
+        const md = this.#md;
+        if (tv === md.hspr) return;
+        md.hspr = hfCheckHelper.fn_checkRatio(tv);
+
+        let tss = this.#fn_calcHoriScrollSize();
+        let tx = tss * md.hspr;
+        md.rctThumb.x = tx;
+
+        hfStyleHelper.setLeft(md.heThumb, tx);
+        this.#fn_printSpanLog();
+    }
+
+    get vertScrollRatio() {
+        const md = this.#md;
+        return md.vspr;
+    }
+
+    set vertScrollRatio(tv) {
+        const md = this.#md;
+        if (tv === md.vspr) return;
+        md.vspr = hfCheckHelper.fn_checkRatio(tv);
+
+        let tss = this.#fn_calcVertScrollSize();
+        let ty = tss * md.vspr;
+        md.rctThumb.y = ty;
+
+        hfStyleHelper.setTop(md.heThumb, ty);
+        this.#fn_printSpanLog();
     }
 
     /**
-     *
      * @param {number} tw
      * @param {number} th
      */
@@ -555,17 +817,19 @@ class hfScrollWave extends EventTarget {
 
         md.targetArea.viewportWidth = tw;
         md.targetArea.viewportHeight = th;
-        md.targetArea.fn_calcBodyLeft(md.wspr);
-        md.targetArea.fn_calcBodyTop(md.hspr);
+
+        md.targetArea.fn_calcBodyLeft(md.hspr);
+        md.targetArea.fn_calcBodyTop(md.vspr);
     }
 
-};
+}
 Object.freeze(hfScrollWave);
 //#endregion
 
 
 export {
-    hfScrollWaveType,
+    hfScrollType,
+    hfScrollTargetArea,
     hfScrollWave,
 };
 
