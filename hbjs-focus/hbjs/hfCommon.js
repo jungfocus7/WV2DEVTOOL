@@ -147,6 +147,11 @@ export const hfstr = Object.freeze({
 
 //#region [Array 관련]
 export const hfarr = Object.freeze({
+    /**
+     * 배열객체가 유효하지 않다. 확인
+     * @param {any[]} arr
+     * @returns
+     */
     isEmpty: (arr) => {
         if (Array.isArray(arr))
             return arr.length === 0;
@@ -549,7 +554,7 @@ const fn_getRect = (to) => {
 };
 
 /**
- * HTMLElement Rect 반환
+ * TargetObject를 rct로 업데이트 한다.
  * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
  * @param {DOMRect} rct
  */
