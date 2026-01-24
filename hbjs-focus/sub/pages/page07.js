@@ -35,6 +35,9 @@ let _scrlgV = null;
 /** @type {hfScrollLogic} */
 let _scrlgH = null;
 
+/** @type {hfScrollLogic} */
+let _scrlgB = null;
+
 
 /**
  * @param {PointerEvent} pe
@@ -50,6 +53,25 @@ const fn_btn_clh = (pe) => {
     switch (nm) {
         case 'Clear': {
             fn_print(null);
+            break;
+        }
+
+        case 'Open ScrollWave': {
+            // alert('1004');
+
+            const fn_openPopup = () => {
+                let tw = 700; // 팝업 너비
+                let th = 500; // 팝업 높이
+                // let tl = (window.screen.width / 2) - (tw / 2);
+                // let tt = (window.screen.height / 2) - (th / 2);
+                let tl = 100;
+                let tt = 40;
+                window.open('/sub/pages/page07_p.html', 'popup',
+                    `width=${tw}, height=${th}, top=${tt}, left=${tl},
+                     toolbar=no, menubar=no, scrollbars=yes, resizable=no,
+                     location=no, status=no`);
+            };
+            fn_openPopup();
             break;
         }
     }

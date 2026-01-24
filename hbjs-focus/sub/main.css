@@ -234,7 +234,7 @@ div.c_tp3>textarea.c_tam {
 div.c_tp4>div.c_scroll-cont {
   position: relative;
   width: 300px; height: 200px;
-  background-color: darkslategrey;
+  background-color: dodgerblue;
   margin: 4px 0px 0px 0px; padding: 0px;
   border: 3px dotted black;
 }
@@ -258,7 +258,18 @@ div.c_tp4>div.c_scroll-cont>div#hscr {
   box-sizing: border-box;
   border: 0px solid transparent;
   cursor: pointer;
-  left: 50px; top: 100px;
+  left: 50px; top: 150px;
+}
+
+div.c_tp4>div.c_scroll-cont>div#bscr {
+  position: absolute;
+  width: 120px; height: 120px;
+  background-color: darkblue;
+  margin: 0px; padding: 0px;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  cursor: pointer;
+  left: 50px; top: 10px;
 }
 
 div.c_tp4>textarea.c_tam {

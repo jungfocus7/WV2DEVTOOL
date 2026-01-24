@@ -57,6 +57,7 @@ const _hrfa = [
     '/hbjs/hfFrameRepeater.js',
     '/hbjs/hfNumberRanger.js',
     '/hbjs/hfScrollLogic.js',
+    '/hbjs/hfScrollWave.js',
     '/hbjs/hfStyleFunctions.js',
     '/hbjs/hfTween.js',
     '/hbjs/hfWeich.js',
@@ -68,6 +69,7 @@ const _hrfa = [
     '/sub/pages/page06.js',
     '/sub/pages/page07.js',
     '/sub/pages/page91.js',
+    '/sub/pages/page07_p.html',
 ];
 
 const _server = http.createServer(async (req, res) => {
