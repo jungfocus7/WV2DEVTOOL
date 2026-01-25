@@ -40,29 +40,29 @@ let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
      * @type {HTMLDivElement}
      */
     let bscr = _contentCont.querySelector('div.c_scroll-cont>div#bscr');
-    dcs.log('bscr: ', bscr);
+    // dcs.log('bscr: ', bscr);
 
     /**
      * @type {HTMLDivElement}
      */
     let hscr = _contentCont.querySelector('div.c_scroll-cont>div#hscr');
-    dcs.log('hscr: ', hscr);
+    // dcs.log('hscr: ', hscr);
 
     /**
      * @type {HTMLDivElement}
      */
     let vscr = _contentCont.querySelector('div.c_scroll-cont>div#vscr');
-    dcs.log('vscr: ', vscr);
+    // dcs.log('vscr: ', vscr);
 
 
     let rctViewport = hfStyleHelper.getRect(_viewport);
-    dcs.log('rctViewport:', rctViewport);
+    // dcs.log('rctViewport:', rctViewport);
 
     let rctBody = hfStyleHelper.getRect(_img);
-    dcs.log('rctBody:', rctBody);
+    // dcs.log('rctBody:', rctBody);
 
     let scrta = new hfScrollTargetArea(rctViewport, rctBody);
-    dcs.log('scrta:', scrta);
+    // dcs.log('scrta:', scrta);
 
 
     let scrBoth = new hfScrollWave({
@@ -85,7 +85,6 @@ let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
 
 
     const fn_updateOutText = () => {
-        // rctViewport.
         let txt = `
 rctViewport.width: ${rctViewport.width},
 rctViewport.height: ${rctViewport.height},
@@ -145,11 +144,44 @@ rctBody.top: ${rctBody.top},
      * @param {Event} _
      */
     const fn_resize = (_) => {
+        scrBoth.fn_updateViewportSize(_viewport);
+
+        let tx = scrta.bodyLeft;
+        let ty = scrta.bodyTop;
+        hfStyleHelper.setLeft(_img, tx);
+        hfStyleHelper.setTop(_img, ty);
+
+        fn_updateOutText();
+
+        // scrta.fn_updateViewportBounds(_viewport);
+        // scrta.fn_updateBodyBounds(_img);
+        // scrBoth.fn_updateViewportSize(rctViewport.width, rctViewport.height);
+        // scrBoth.fn_updateBodyPosition();
+
+        // let tx = scrta.bodyLeft;
+        // let ty = scrta.bodyTop;
+        // hfStyleHelper.setLeft(_img, tx);
+        // hfStyleHelper.setTop(_img, ty);
+
+/*
+        scrta.fn_updateViewportBounds(_viewport);
+        scrta.fn_updateBodyBounds(_img);
+        dcs.log('rctViewport:', rctViewport);
+        dcs.log('rctBody:', rctBody);
+
+        let tx = scrta.bodyLeft;
+        let ty = scrta.bodyTop;
+        hfStyleHelper.setLeft(_img, tx);
+        hfStyleHelper.setTop(_img, ty);
+*/
+        // fn_updateBodyPosition(hfScrollType.BOTH);
+
+        /*
         hfStyleHelper.updateRect(_viewport, rctViewport);
         hfStyleHelper.updateRect(_img, rctBody);
-        // dcs.log('rctViewport:', rctViewport);
+        dcs.log('rctViewport:', rctViewport);
         // dcs.log('rctBody:', rctBody);
-        scrBoth.fn_updateViewportSize(rctViewport.width, rctViewport.height);
+        // scrBoth.fn_updateViewportSize(rctViewport.width, rctViewport.height);
 
         let vwr = scrta.viewportWidthRatio;
         let vhr = scrta.viewportHeightRatio;
@@ -158,16 +190,23 @@ rctBody.top: ${rctBody.top},
 
         scrHori.thumbWidthRatio = vwr;
         scrVert.thumbHeightRatio = vhr;
+
+        fn_updateBodyPosition(hfScrollType.BOTH);
+        fn_updateOutText();
+
+        scrHori.horiScrollRatio = scrBoth.horiScrollRatio;
+        scrVert.vertScrollRatio = scrBoth.vertScrollRatio;*/
     };
-    const rsobv = new ResizeObserver((ros) => {
-        for (let ro of ros) {
-            if (ro.target === _contentCont) {
-                fn_resize(null);
-                break;
-            }
-        }
+    let rsosv = new ResizeObserver((ros) => {
+        // for (let ro of ros) {
+        //     if (ro.target === _contentCont) {
+        //         fn_resize(null);
+        //         break;
+        //     }
+        // }
+        fn_resize(null);
     });
-    rsobv.observe(_contentCont);
+    rsosv.observe(_contentCont);
 
 })();
 
