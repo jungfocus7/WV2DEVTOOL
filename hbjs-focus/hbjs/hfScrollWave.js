@@ -73,6 +73,24 @@ class hfScrollTargetArea {
 
         /** @type {DOMRect} */
         bodyBounds: null,
+
+        // /**
+        //  * Thumb Width Ratio
+        //  */
+        // twr: 1.0,
+        // /**
+        //  * Thumb Height Ratio
+        //  */
+        // thr: 1.0,
+
+        // /**
+        //  * Horizontal Scroll Position Ratio
+        //  */
+        // hspr: 0.0,
+        // /**
+        //  * Vertical Scroll Position Ratio
+        //  */
+        // vspr: 0.0,
     });
 
     /**
@@ -525,33 +543,6 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         }
     }
 
-    /*#fn_updateRects() {
-        const md = this.#md;
-        if (md.scrollType === hfScrollType.NONE) return;
-
-        hfStyleHelper.updateRect(md.heGround, md.rctGround);
-
-        let tw = md.rctGround.width * md.twr;
-        if (tw < hfScrollWave.#MINV) tw = hfScrollWave.#MINV;
-        md.rctThumb.width = tw;
-
-        let th = md.rctGround.height * md.thr;
-        if (th < hfScrollWave.#MINV) th = hfScrollWave.#MINV;
-        md.rctThumb.height = th;
-
-        let hss = this.#fn_calcHoriScrollSize();
-        md.rctThumb.x = hss * md.hspr;
-
-        let vss = this.#fn_calcVertScrollSize();
-        md.rctThumb.y = vss * md.vspr;
-        // dcs.log(md.rctThumb.y);
-
-        this.#fn_applyRectThumb(true);
-        this.#fn_printSpanLog();
-
-        // this.dispatchEvent(new Event(hfEventTypes.SCROLL));
-    }*/
-
     /**
      * @param {number} tx
      * @returns
@@ -666,8 +657,6 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
      * @param {Event} _
      */
     #fn_resize(_) {
-        // this.#fn_updateRects();
-
         const md = this.#md;
         hfStyleHelper.updateRect(md.heGround, md.rctGround);
 
@@ -684,7 +673,6 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
 
         let vss = this.#fn_calcVertScrollSize();
         md.rctThumb.y = vss * md.vspr;
-        // dcs.log(md.rctThumb.y);
 
         this.#fn_applyRectThumb(true);
         // this.#fn_printSpanLog();
@@ -760,15 +748,15 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         }
     }
 
-    get rectGround() {
-        const md = this.#md;
-        return md.rctGround;
-    }
+    // get rectGround() {
+    //     const md = this.#md;
+    //     return md.rctGround;
+    // }
 
-    get rectThumb() {
-        const md = this.#md;
-        return md.rctThumb;
-    }
+    // get rectThumb() {
+    //     const md = this.#md;
+    //     return md.rctThumb;
+    // }
 
     get thumbWidthRatio() {
         const md = this.#md;
@@ -852,41 +840,19 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         this.#fn_printSpanLog();
     }
 
-    /**
-     * @param {HTMLElement} he
-     */
-    fn_updateViewportSize(he) {
-        const md = this.#md;
-
-        let tw = hfStyleHelper.getWidth(he);
-        let th = hfStyleHelper.getHeight(he);
-        md.targetArea.viewportWidth = tw;
-        md.targetArea.viewportHeight = th;
-
-        md.targetArea.fn_calcBodyLeft(md.hspr);
-        md.targetArea.fn_calcBodyTop(md.vspr);
-    }
-
-    // /** */
-    // fn_updateBodyPosition() {
-    //     const md = this.#md;
-
-    //     // md.targetArea.viewportWidth = tw;
-    //     // md.targetArea.viewportHeight = th;
-
-    //     md.targetArea.fn_calcBodyLeft(md.hspr);
-    //     md.targetArea.fn_calcBodyTop(md.vspr);
-    // }
-
     // /**
-    //  * @param {number} tw
-    //  * @param {number} th
+    //  * @param {HTMLElement} he
     //  */
-    // fn_updateViewportSize(tw, th) {
+    // fn_updateViewportSize(he) {
     //     const md = this.#md;
 
-    //     // md.targetArea.viewportWidth = tw;
-    //     // md.targetArea.viewportHeight = th;
+    //     let tw = hfStyleHelper.getWidth(he);
+    //     let th = hfStyleHelper.getHeight(he);
+    //     md.targetArea.viewportWidth = tw;
+    //     md.targetArea.viewportHeight = th;
+
+    //     md.twr = md.targetArea.viewportWidthRatio;
+    //     md.thr = md.targetArea.viewportHeightRatio;
 
     //     md.targetArea.fn_calcBodyLeft(md.hspr);
     //     md.targetArea.fn_calcBodyTop(md.vspr);

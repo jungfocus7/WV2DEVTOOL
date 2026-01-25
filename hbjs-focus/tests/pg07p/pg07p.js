@@ -144,6 +144,36 @@ rctBody.top: ${rctBody.top},
      * @param {Event} _
      */
     const fn_resize = (_) => {
+        let vpw = hfStyleHelper.getWidth(_viewport);
+        let vph = hfStyleHelper.getHeight(_viewport);
+        scrta.viewportWidth = vpw;
+        scrta.viewportHeight = vph;
+
+        let hspr = scrBoth.horiScrollRatio;
+        let vspr = scrBoth.vertScrollRatio;
+        scrta.fn_calcBodyLeft(hspr);
+        scrta.fn_calcBodyTop(vspr);
+
+        let tx = scrta.bodyLeft;
+        let ty = scrta.bodyTop;
+        hfStyleHelper.setLeft(_img, tx);
+        hfStyleHelper.setTop(_img, ty);
+
+        let vwr = scrta.viewportWidthRatio;
+        let vhr = scrta.viewportHeightRatio;
+        scrBoth.thumbWidthRatio = vwr;
+        scrBoth.thumbHeightRatio = vhr;
+
+        scrHori.thumbWidthRatio = vwr;
+        scrVert.thumbHeightRatio = vhr;
+
+
+        /*
+        md.twr = scrta.viewportWidthRatio;
+        md.thr = scrta.viewportHeightRatio;
+        */
+
+        /*
         scrBoth.fn_updateViewportSize(_viewport);
 
         let tx = scrta.bodyLeft;
@@ -152,6 +182,7 @@ rctBody.top: ${rctBody.top},
         hfStyleHelper.setTop(_img, ty);
 
         fn_updateOutText();
+        */
 
         // scrta.fn_updateViewportBounds(_viewport);
         // scrta.fn_updateBodyBounds(_img);
@@ -198,12 +229,6 @@ rctBody.top: ${rctBody.top},
         scrVert.vertScrollRatio = scrBoth.vertScrollRatio;*/
     };
     let rsosv = new ResizeObserver((ros) => {
-        // for (let ro of ros) {
-        //     if (ro.target === _contentCont) {
-        //         fn_resize(null);
-        //         break;
-        //     }
-        // }
         fn_resize(null);
     });
     rsosv.observe(_contentCont);
