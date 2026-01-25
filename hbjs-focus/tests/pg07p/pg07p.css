@@ -37,7 +37,7 @@ div.c_content-cont>div.c_viewport {
   pointer-events: none;
 }
 
-div.c_viewport>img.c_img {
+div.c_viewport>img.c_body {
   position: absolute;
   box-sizing: border-box;
   border: 2px solid red;
@@ -55,7 +55,7 @@ div.c_scroll-cont>div#bscr {
   position: absolute;
   left: 0px; top: 0px;
   width: calc(100% - 20px); height: calc(100% - 20px);
-  cursor: pointer; opacity: 0.3;
+  cursor: pointer; opacity: 0.75;
 }
 
 div.c_scroll-cont>div#bscr>div {
@@ -80,6 +80,7 @@ div.c_scroll-cont>div#hscr {
   position: absolute;
   left: 0px; bottom: 0px;
   width: calc(100% - 20px); height: 20px;
+  background-color: darkblue;
   cursor: pointer;
 }
 
@@ -107,6 +108,7 @@ div.c_scroll-cont>div#vscr {
   position: absolute;
   right: 0px; top: 0px;
   width: 20px; height: calc(100% - 20px);
+  background-color: darkblue;
   cursor: pointer;
 }
 

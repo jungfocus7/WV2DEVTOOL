@@ -19,14 +19,14 @@ const _contentCont = _rootCont.querySelector('div.c_content-cont');
 /**
  * @type {HTMLDivElement}
  */
-const _viewport = _rootCont.querySelector('div.c_viewport');
-// dcs.log('_viewport:', _viewport);
+const _heViewport = _rootCont.querySelector('div.c_viewport');
+// dcs.log('_heViewport:', _heViewport);
 
 /**
  * @type {HTMLDivElement}
  */
-const _img = _viewport.querySelector('img.c_img');
-// dcs.log('_img:', _img);
+const _heBody = _heViewport.querySelector('img.c_body');
+// dcs.log('_heBody:', _heBody);
 
 /**
  * @type {HTMLTextAreaElement}
@@ -55,10 +55,10 @@ let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
     // dcs.log('vscr: ', vscr);
 
 
-    let rctViewport = hfStyleHelper.getRect(_viewport);
+    let rctViewport = hfStyleHelper.getRect(_heViewport);
     // dcs.log('rctViewport:', rctViewport);
 
-    let rctBody = hfStyleHelper.getRect(_img);
+    let rctBody = hfStyleHelper.getRect(_heBody);
     // dcs.log('rctBody:', rctBody);
 
     let scrta = new hfScrollTargetArea(rctViewport, rctBody);
@@ -106,14 +106,14 @@ rctBody.top: ${rctBody.top},
         if (stp === hfScrollType.BOTH) {
             let tx = scrta.bodyLeft;
             let ty = scrta.bodyTop;
-            hfStyleHelper.setLeft(_img, tx);
-            hfStyleHelper.setTop(_img, ty);
+            hfStyleHelper.setLeft(_heBody, tx);
+            hfStyleHelper.setTop(_heBody, ty);
         } else if (stp === hfScrollType.HORIZONTAL) {
             let tx = scrta.bodyLeft;
-            hfStyleHelper.setLeft(_img, tx);
+            hfStyleHelper.setLeft(_heBody, tx);
         } else if (stp === hfScrollType.VERTICAL) {
             let ty = scrta.bodyTop;
-            hfStyleHelper.setTop(_img, ty);
+            hfStyleHelper.setTop(_heBody, ty);
         }
     };
 
@@ -144,44 +144,17 @@ rctBody.top: ${rctBody.top},
      * @param {Event} _
      */
     const fn_resize = (_) => {
-        let vpw = hfStyleHelper.getWidth(_viewport);
-        let vph = hfStyleHelper.getHeight(_viewport);
+        let vpw = hfStyleHelper.getWidth(_heViewport);
+        let vph = hfStyleHelper.getHeight(_heViewport);
         scrta.viewportWidth = vpw;
         scrta.viewportHeight = vph;
 
         let cx = scrta.bodyLeft;
         let cy = scrta.bodyTop;
-        hfStyleHelper.setLeft(_img, cx);
-        hfStyleHelper.setTop(_img, cy);
-
-        // scrBoth.fn_updateAfterRect();
-
-        /*
-        let vpw = hfStyleHelper.getWidth(_viewport);
-        let vph = hfStyleHelper.getHeight(_viewport);
-        scrta.viewportWidth = vpw;
-        scrta.viewportHeight = vph;
-
-        let hspr = scrBoth.horiScrollRatio;
-        let vspr = scrBoth.vertScrollRatio;
-        scrta.fn_calcBodyLeft(hspr);
-        scrta.fn_calcBodyTop(vspr);
-
-        let tx = scrta.bodyLeft;
-        let ty = scrta.bodyTop;
-        hfStyleHelper.setLeft(_img, tx);
-        hfStyleHelper.setTop(_img, ty);
-
-        let vwr = scrta.viewportWidthRatio;
-        let vhr = scrta.viewportHeightRatio;
-        scrBoth.thumbWidthRatio = vwr;
-        scrBoth.thumbHeightRatio = vhr;
-
-        scrHori.thumbWidthRatio = vwr;
-        scrVert.thumbHeightRatio = vhr;
-        */
+        hfStyleHelper.setLeft(_heBody, cx);
+        hfStyleHelper.setTop(_heBody, cy);
     };
-    let rsosv = new ResizeObserver((ros) => {
+    let rsosv = new ResizeObserver((_) => {
         fn_resize(null);
     });
     rsosv.observe(_contentCont);

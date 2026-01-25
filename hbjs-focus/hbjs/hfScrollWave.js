@@ -102,6 +102,7 @@ class hfScrollTargetArea {
          * Horizontal Scroll Position Ratio
          */
         hspr: 0.0,
+
         /**
          * Vertical Scroll Position Ratio
          */
@@ -510,6 +511,7 @@ class hfScrollWave extends EventTarget {
         this.#fn_applyHoriRectForThumb();
         this.#fn_applyVertRectForThumb();
         this.#fn_printSpanLog();
+        this.#fn_checkEnabled();
 
         md.fn_mmh = this.#fn_mouseMove.bind(this);
         md.fn_muh = this.#fn_mouseUp.bind(this);
@@ -725,12 +727,47 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         }
     }
 
-    /**
-     * @param {Event} _
-     */
-    #fn_resize(_) {
+    #fn_groundOnOff(bv=false) {
         const md = this.#md;
-        hfStyleHelper.updateRect(md.heGround, md.rctGround);
+        let csd = md.heGround.style;
+        if (bv) {
+            csd.setProperty('pointer-events', 'auto');
+            csd.setProperty('visibility', 'visible');
+        } else {
+            csd.setProperty('pointer-events', 'none');
+            csd.setProperty('visibility', 'hidden');
+        }
+    }
+    #fn_checkEnabled() {
+        const md = this.#md;
+
+        if (md.scrollType === hfScrollType.BOTH) {
+            if ((md.targetArea.vwr >= 1.0) && (md.targetArea.vhr >= 1.0)) {
+                this.#fn_groundOnOff(false);
+            } else {
+                this.#fn_groundOnOff(true);
+            }
+        } else if (md.scrollType === hfScrollType.HORIZONTAL) {
+            if (md.targetArea.vwr >= 1.0) {
+                this.#fn_groundOnOff(false);
+            } else {
+                this.#fn_groundOnOff(true);
+            }
+        } else if (md.scrollType === hfScrollType.VERTICAL) {
+            if (md.targetArea.vhr >= 1.0) {
+                this.#fn_groundOnOff(false);
+                dcs.log('222', md.targetArea.vhr);
+            } else {
+                this.#fn_groundOnOff(true);
+            }
+        }
+    }
+
+    /**
+     * Update After Rect
+     */
+    fn_updateAfterRect() {
+        const md = this.#md;
 
         if (md.scrollType === hfScrollType.BOTH) {
             this.#fn_calcHoriRectThumb();
@@ -747,6 +784,20 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
             this.#fn_applyVertRectForThumb();
             this.#fn_printSpanLog();
         }
+    }
+
+    /**
+     * @param {Event} _
+     */
+    #fn_resize(_) {
+        const md = this.#md;
+
+        hfStyleHelper.updateRect(md.heGround, md.rctGround);
+        this.fn_updateAfterRect();
+        // this.#fn_checkEnabled();
+        setTimeout(() => {
+            this.#fn_checkEnabled();
+        }, 1);
     }
 
     /**
@@ -816,29 +867,6 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
 
             md.mdx = pe.clientX - md.rctThumb.left;
             md.mdy = pe.clientY - md.rctThumb.top;
-        }
-    }
-
-    /**
-     *
-     */
-    fn_updateAfterRect() {
-        const md = this.#md;
-
-        if (md.scrollType === hfScrollType.BOTH) {
-            this.#fn_calcHoriRectThumb();
-            this.#fn_calcVertRectThumb();
-            this.#fn_applyHoriRectForThumb();
-            this.#fn_applyVertRectForThumb();
-            this.#fn_printSpanLog();
-        } else if (md.scrollType === hfScrollType.HORIZONTAL) {
-            this.#fn_calcHoriRectThumb();
-            this.#fn_applyHoriRectForThumb();
-            this.#fn_printSpanLog();
-        } else if (md.scrollType === hfScrollType.VERTICAL) {
-            this.#fn_calcVertRectThumb();
-            this.#fn_applyVertRectForThumb();
-            this.#fn_printSpanLog();
         }
     }
 
