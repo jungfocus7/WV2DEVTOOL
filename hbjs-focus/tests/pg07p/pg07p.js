@@ -121,22 +121,22 @@ rctBody.top: ${rctBody.top},
         fn_updateBodyPosition(hfScrollType.BOTH);
         fn_updateOutText();
 
-        // scrHori.horiScrollRatio = scrBoth.horiScrollRatio;
-        // scrVert.vertScrollRatio = scrBoth.vertScrollRatio;
+        scrHori.fn_updateAfterRect();
+        scrVert.fn_updateAfterRect();
     });
 
     scrHori.addEventListener(hfEventTypes.SCROLL, (_) => {
         fn_updateBodyPosition(hfScrollType.HORIZONTAL);
         fn_updateOutText();
 
-        // scrBoth.horiScrollRatio = scrHori.horiScrollRatio;
+        scrBoth.fn_updateAfterRect();
     });
 
     scrVert.addEventListener(hfEventTypes.SCROLL, (_) => {
         fn_updateBodyPosition(hfScrollType.VERTICAL);
         fn_updateOutText();
 
-        // scrBoth.vertScrollRatio = scrVert.vertScrollRatio;
+        scrBoth.fn_updateAfterRect();
     });
 
 
@@ -148,6 +148,13 @@ rctBody.top: ${rctBody.top},
         let vph = hfStyleHelper.getHeight(_viewport);
         scrta.viewportWidth = vpw;
         scrta.viewportHeight = vph;
+
+        let cx = scrta.bodyLeft;
+        let cy = scrta.bodyTop;
+        hfStyleHelper.setLeft(_img, cx);
+        hfStyleHelper.setTop(_img, cy);
+
+        // scrBoth.fn_updateAfterRect();
 
         /*
         let vpw = hfStyleHelper.getWidth(_viewport);
