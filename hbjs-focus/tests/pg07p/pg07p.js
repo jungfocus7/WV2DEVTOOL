@@ -153,6 +153,8 @@ rctBody.top: ${rctBody.top},
         let cy = scrta.bodyTop;
         hfStyleHelper.setLeft(_heBody, cx);
         hfStyleHelper.setTop(_heBody, cy);
+
+        fn_updateOutText();
     };
     let rsosv = new ResizeObserver((_) => {
         fn_resize(null);

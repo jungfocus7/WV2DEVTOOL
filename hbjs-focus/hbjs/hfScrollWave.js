@@ -792,12 +792,18 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
     #fn_resize(_) {
         const md = this.#md;
 
-        hfStyleHelper.updateRect(md.heGround, md.rctGround);
-        this.fn_updateAfterRect();
+        // hfStyleHelper.updateRect(md.heGround, md.rctGround);
+        // this.fn_updateAfterRect();
         // this.#fn_checkEnabled();
+        // setTimeout(() => {
+        //     this.#fn_checkEnabled();
+        // }, 1);
+
         setTimeout(() => {
+            hfStyleHelper.updateRect(md.heGround, md.rctGround);
+            this.fn_updateAfterRect();
             this.#fn_checkEnabled();
-        }, 1);
+        });
     }
 
     /**

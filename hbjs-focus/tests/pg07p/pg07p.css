@@ -55,7 +55,7 @@ div.c_scroll-cont>div#bscr {
   position: absolute;
   left: 0px; top: 0px;
   width: calc(100% - 20px); height: calc(100% - 20px);
-  cursor: pointer; opacity: 0.75;
+  cursor: pointer; opacity: 0.35;
 }
 
 div.c_scroll-cont>div#bscr>div {
