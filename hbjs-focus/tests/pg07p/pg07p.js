@@ -59,7 +59,7 @@ let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
     // dcs.log('rctViewport:', rctViewport);
 
     let rctBody = hfStyleHelper.getRect(_heBody);
-    dcs.log('rctBody:', rctBody);
+    // dcs.log('rctBody:', rctBody);
 
     let scrta = new hfScrollTargetArea(rctViewport, rctBody);
     // dcs.log('scrta:', scrta);

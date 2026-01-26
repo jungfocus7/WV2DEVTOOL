@@ -198,25 +198,43 @@ class hfScrollTargetArea {
     }
 
     /**
-     * Calc Horizontal Scroll Position Ratio
+     * Update Horizontal Scroll Position Ratio
      */
     #fn_calc_hspr() {
         const md = this.#md;
 
-        let v1 = Math.abs(md.bodyBounds.left);
-        let v2 = this.#fn_get_hss();
-        md.hspr = hfRatioHelper.fn_calc(v1, v2);
+        let bx = 0.0;
+        let ex = this.#fn_get_hss();
+        let cx = md.bodyBounds.left;
+        if (cx < bx) cx = bx;
+        else if (cx > ex) cx = ex;
+
+        let v1 = cx - bx;
+        let v2 = ex - bx;
+        let spr = hfRatioHelper.fn_calc(v1, v2);
+        md.hspr = spr;
+
+        this.#fn_calc_bodyLeft();
     }
 
     /**
-     * Calc Vertical Scroll Position Ratio
+     * Update Vertical Scroll Position Ratio
      */
     #fn_calc_vspr() {
         const md = this.#md;
 
-        let v1 = Math.abs(md.bodyBounds.top);
-        let v2 = this.#fn_get_vss();
-        md.vspr = hfRatioHelper.fn_calc(v1, v2);
+        let by = 0.0;
+        let ey = this.#fn_get_vss();
+        let cy = md.bodyBounds.top;
+        if (cy < by) cy = by;
+        else if (cy > ey) cy = ey;
+
+        let v1 = cy - by;
+        let v2 = ey - by;
+        let spr = hfRatioHelper.fn_calc(v1, v2);
+        md.vspr = spr;
+
+        this.#fn_calc_bodyTop();
     }
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -741,6 +759,7 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         } else if (md.scrollType === hfScrollType.VERTICAL) {
             if (md.targetArea.vhr >= 1.0) {
                 this.#fn_groundOnOff(false);
+                dcs.log('222', md.targetArea.vhr);
             } else {
                 this.#fn_groundOnOff(true);
             }
