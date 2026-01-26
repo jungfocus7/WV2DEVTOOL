@@ -26,14 +26,6 @@ import { hfEventTypes, hfStyleHelper, dcs } from "./hfCommon.js";
  * @property {HTMLDivElement} heGround
  */
 
-const hfScrollType = Object.freeze({
-    NONE: 'none',
-    BOTH: 'both',
-    HORIZONTAL: 'horizontal',
-    VERTICAL: 'vertical',
-});
-
-
 const hfRatioHelper = Object.freeze({
     /**
      * 비율값이 (0 ~ 1)사이에 있는지 체크하고 반환
@@ -68,6 +60,13 @@ const hfRatioHelper = Object.freeze({
         return rv;
     }
 
+});
+
+const hfScrollType = Object.freeze({
+    NONE: 'none',
+    BOTH: 'both',
+    HORIZONTAL: 'horizontal',
+    VERTICAL: 'vertical',
 });
 //#endregion
 
@@ -791,13 +790,6 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
      */
     #fn_resize(_) {
         const md = this.#md;
-
-        // hfStyleHelper.updateRect(md.heGround, md.rctGround);
-        // this.fn_updateAfterRect();
-        // this.#fn_checkEnabled();
-        // setTimeout(() => {
-        //     this.#fn_checkEnabled();
-        // }, 1);
 
         setTimeout(() => {
             hfStyleHelper.updateRect(md.heGround, md.rctGround);

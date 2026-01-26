@@ -86,14 +86,14 @@ let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
 
     const fn_updateOutText = () => {
         let txt = `
-rctViewport.width: ${rctViewport.width},
-rctViewport.height: ${rctViewport.height},
-rctViewport.left: ${rctViewport.left},
-rctViewport.top: ${rctViewport.top},
-rctBody.width: ${rctBody.width},
-rctBody.height: ${rctBody.height},
-rctBody.left: ${rctBody.left},
-rctBody.top: ${rctBody.top},
+ViewportWidth: ${rctViewport.width},
+ViewportHeight: ${rctViewport.height},
+ViewportLeft: ${rctViewport.left},
+ViewportTop: ${rctViewport.top},
+BodyWidth: ${rctBody.width},
+BodyHeight: ${rctBody.height},
+BodyLeft: ${rctBody.left},
+BodyTop: ${rctBody.top},
         `.trim();
 
         _tam.value = txt;
@@ -162,32 +162,5 @@ rctBody.top: ${rctBody.top},
     rsosv.observe(_contentCont);
 
 })();
-
-
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// const _contentCont = document.querySelector('div.c_root-cont>div.c_content-cont');
-
-// let _scrta = new hfScrollTargetArea(
-//     new DOMRect(), new DOMRect());
-// dcs.log(_scrta);
-
-
-
-// import { dcs } from "../../hbjs/hfCommon.js";
-// import { hfScrollWaveType, hfScrollWave } from "../../hbjs/hfScrollWave.js";
-
-// dcs.log('~~~~~~~~~~~~~~');
-// // dcs.log(hfScrollWaveType, hfScrollWave);
-// // dcs.log(document.querySelector('div.c_scroll-cont>div#vscr'));
-
-// let _scwvV = new hfScrollWave({
-//   logicType: hfScrollWaveType.VERTICAL,
-//   heGround: document.querySelector('div.c_scroll-cont>div#vscr'),
-// });
-
-
-// console.log('...');
 
 
