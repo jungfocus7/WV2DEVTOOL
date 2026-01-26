@@ -325,6 +325,8 @@ class hfScrollTargetArea {
     set bodyWidth(tv) {
         const md = this.#md;
         md.bodyBounds.width = tv;
+        this.#fn_calc_vwr();
+        this.#fn_calc_bodyLeft();
     }
 
     /**
@@ -341,6 +343,8 @@ class hfScrollTargetArea {
     set bodyHeight(tv) {
         const md = this.#md;
         md.bodyBounds.height = tv;
+        this.#fn_calc_vhr();
+        this.#fn_calc_bodyTop();
     }
 
     /**

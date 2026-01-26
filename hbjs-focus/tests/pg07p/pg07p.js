@@ -25,7 +25,7 @@ const _heViewport = _rootCont.querySelector('div.c_viewport');
 /**
  * @type {HTMLDivElement}
  */
-const _heBody = _heViewport.querySelector('img.c_body');
+const _heBody = _heViewport.querySelector('div.c_body');
 // dcs.log('_heBody:', _heBody);
 
 /**
@@ -59,7 +59,7 @@ let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
     // dcs.log('rctViewport:', rctViewport);
 
     let rctBody = hfStyleHelper.getRect(_heBody);
-    // dcs.log('rctBody:', rctBody);
+    dcs.log('rctBody:', rctBody);
 
     let scrta = new hfScrollTargetArea(rctViewport, rctBody);
     // dcs.log('scrta:', scrta);
@@ -160,6 +160,60 @@ BodyTop: ${rctBody.top},
         fn_resize(null);
     });
     rsosv.observe(_contentCont);
+
+
+
+
+
+
+
+
+
+    // /**
+    //  * 클립보드 이벤트를 처리하여 이미지 태그의 src를 변경합니다.
+    //  */
+    // document.addEventListener('paste', (event) => {
+    //     // 1. 클립보드 데이터 확인
+    //     let clipboardData = event.clipboardData;
+    //     if (!clipboardData) return;
+
+    //     // 2. 대상 이미지 요소 선택 및 타입 명시 (checkJs 오류 해결)
+    //     /** @type {HTMLImageElement} */
+    //     let targetImg = _heViewport.querySelector('img.c_body');
+    //     if (!targetImg) return;
+
+    //     // 3. 아이템 순회 및 이미지 처리
+    //     const items = clipboardData.items;
+    //     for (let i = 0; i < items.length; i++) {
+    //         if (items[i].type.indexOf('image') !== -1) {
+    //             const blob = items[i].getAsFile();
+    //             if (blob) {
+    //                 // 기존 ObjectURL이 있다면 메모리 해제 (선택 사항)
+    //                 if (targetImg.src.startsWith('blob:')) {
+    //                     URL.revokeObjectURL(targetImg.src);
+    //                 }
+
+    //                 targetImg.onload = () => {
+    //                     let tw = targetImg.width;
+    //                     let th = targetImg.height;
+    //                     console.log(tw, th);
+    //                     scrta.bodyWidth = tw;
+    //                     scrta.bodyHeight = th;
+
+    //                     // scrBoth.fn_updateAfterRect();
+    //                     // scrHori.fn_updateAfterRect();
+    //                     // scrVert.fn_updateAfterRect();
+
+    //                     fn_resize(null);
+    //                 };
+    //                 // 4. 새로운 src 할당
+    //                 targetImg.src = URL.createObjectURL(blob);
+
+    //                 break; // 이미지 하나만 처리할 경우 루프 종료
+    //             }
+    //         }
+    //     }
+    // });
 
 })();
 
