@@ -715,12 +715,13 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
     #fn_groundOnOff(bv=false) {
         const md = this.#md;
         let csd = md.heGround.style;
+        let csd2 = md.heThumb.style;
         if (bv) {
             csd.setProperty('pointer-events', 'auto');
-            csd.setProperty('visibility', 'visible');
+            csd2.setProperty('visibility', 'visible');
         } else {
             csd.setProperty('pointer-events', 'none');
-            csd.setProperty('visibility', 'hidden');
+            csd2.setProperty('visibility', 'hidden');
         }
     }
     #fn_checkEnabled() {
