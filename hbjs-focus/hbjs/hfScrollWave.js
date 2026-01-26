@@ -132,29 +132,13 @@ class hfScrollTargetArea {
     }
 
     /**
-     * Update Viewport Width Ratio
+     * Calc Viewport Width Ratio
      */
     #fn_calc_vwr() {
         const md = this.#md;
         let cr = hfRatioHelper.fn_check(
             md.viewportBounds.width / md.bodyBounds.width, 'e');
         md.vwr = cr;
-    }
-
-    #fn_calc_bodyLeft() {
-        const md = this.#md;
-
-        let hss = this.#fn_get_hss();
-        let cx = -hss * md.hspr;
-        md.bodyBounds.x = cx;
-    }
-
-    #fn_calc_bodyTop() {
-        const md = this.#md;
-
-        let vss = this.#fn_get_vss();
-        let cy = -vss * md.vspr;
-        md.bodyBounds.y = cy;
     }
 
     /**
@@ -217,6 +201,22 @@ class hfScrollTargetArea {
         let v1 = Math.abs(md.bodyBounds.top);
         let v2 = this.#fn_get_vss();
         md.vspr = hfRatioHelper.fn_calc(v1, v2);
+    }
+
+    #fn_calc_bodyLeft() {
+        const md = this.#md;
+
+        let hss = this.#fn_get_hss();
+        let cx = -hss * md.hspr;
+        md.bodyBounds.x = cx;
+    }
+
+    #fn_calc_bodyTop() {
+        const md = this.#md;
+
+        let vss = this.#fn_get_vss();
+        let cy = -vss * md.vspr;
+        md.bodyBounds.y = cy;
     }
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
