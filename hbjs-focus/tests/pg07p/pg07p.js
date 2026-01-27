@@ -61,40 +61,61 @@ let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
     let rctBody = hfStyleHelper.getRect(_heBody);
     // dcs.log('rctBody:', rctBody);
 
-    let scrta = new hfScrollTargetArea(rctViewport, rctBody);
-    // dcs.log('scrta:', scrta);
+    let scrTargetArea = new hfScrollTargetArea(rctViewport, rctBody);
+    // dcs.log('scrTargetArea:', scrTargetArea);
 
 
+    /** */
     let scrBoth = new hfScrollWave({
-        targetArea: scrta,
+        targetArea: scrTargetArea,
         scrollType: hfScrollType.BOTH,
         heGround: bscr,
     });
 
+    /** */
     let scrHori = new hfScrollWave({
-        targetArea: scrta,
+        targetArea: scrTargetArea,
         scrollType: hfScrollType.HORIZONTAL,
         heGround: hscr,
     });
 
+    /** */
     let scrVert = new hfScrollWave({
-        targetArea: scrta,
+        targetArea: scrTargetArea,
         scrollType: hfScrollType.VERTICAL,
         heGround: vscr,
     });
 
 
+    /**
+     * ???
+     */
     const fn_updateOutText = () => {
+//         let txt = `
+// ViewportWidth: ${rctViewport.width},
+// ViewportHeight: ${rctViewport.height},
+// ViewportLeft: ${rctViewport.left},
+// ViewportTop: ${rctViewport.top},
+// BodyWidth: ${rctBody.width},
+// BodyHeight: ${rctBody.height},
+// BodyLeft: ${rctBody.left},
+// BodyTop: ${rctBody.top},
+//         `.trim();
+
         let txt = `
-ViewportWidth: ${rctViewport.width},
-ViewportHeight: ${rctViewport.height},
-ViewportLeft: ${rctViewport.left},
-ViewportTop: ${rctViewport.top},
-BodyWidth: ${rctBody.width},
-BodyHeight: ${rctBody.height},
-BodyLeft: ${rctBody.left},
-BodyTop: ${rctBody.top},
+TargetArea.vwr: ${(100 * scrTargetArea.vwr).toFixed(1)}%,
+TargetArea.vhr: ${(100 * scrTargetArea.vhr).toFixed(1)}%,
+TargetArea.hspr: ${(100 * scrTargetArea.hspr).toFixed(1)}%,
+TargetArea.vspr: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
+ViewportWidth: ${scrTargetArea.viewportWidth},
+ViewportHeight: ${scrTargetArea.viewportHeight},
+BodyWidth: ${scrTargetArea.bodyWidth},
+BodyHeight: ${scrTargetArea.bodyHeight},
+BodyLeft: ${scrTargetArea.bodyLeft},
+BodyTop: ${scrTargetArea.bodyTop},
         `.trim();
+
+
 
         _tam.value = txt;
     };
@@ -104,18 +125,36 @@ BodyTop: ${rctBody.top},
      */
     const fn_updateBodyPosition = (stp) => {
         if (stp === hfScrollType.BOTH) {
-            let tx = scrta.bodyLeft;
-            let ty = scrta.bodyTop;
+            let tx = scrTargetArea.bodyLeft;
+            let ty = scrTargetArea.bodyTop;
             hfStyleHelper.setLeft(_heBody, tx);
             hfStyleHelper.setTop(_heBody, ty);
         } else if (stp === hfScrollType.HORIZONTAL) {
-            let tx = scrta.bodyLeft;
+            let tx = scrTargetArea.bodyLeft;
             hfStyleHelper.setLeft(_heBody, tx);
         } else if (stp === hfScrollType.VERTICAL) {
-            let ty = scrta.bodyTop;
+            let ty = scrTargetArea.bodyTop;
             hfStyleHelper.setTop(_heBody, ty);
         }
     };
+
+    // /**
+    //  * @param {string} stp
+    //  */
+    // const fn_updateBodySize = (stp) => {
+    //     if (stp === hfScrollType.BOTH) {
+    //         let tw = scrTargetArea.bodyWidth;
+    //         let th = scrTargetArea.bodyHeight;
+    //         hfStyleHelper.setWidth(_heBody, tw);
+    //         hfStyleHelper.setHeight(_heBody, th);
+    //     } else if (stp === hfScrollType.HORIZONTAL) {
+    //         let tw = scrTargetArea.bodyWidth;
+    //         hfStyleHelper.setWidth(_heBody, tw);
+    //     } else if (stp === hfScrollType.VERTICAL) {
+    //         let th = scrTargetArea.bodyHeight;
+    //         hfStyleHelper.setHeight(_heBody, th);
+    //     }
+    // };
 
     scrBoth.addEventListener(hfEventTypes.SCROLL, (_) => {
         fn_updateBodyPosition(hfScrollType.BOTH);
@@ -146,11 +185,11 @@ BodyTop: ${rctBody.top},
     const fn_resize = (_) => {
         let vpw = hfStyleHelper.getWidth(_heViewport);
         let vph = hfStyleHelper.getHeight(_heViewport);
-        scrta.viewportWidth = vpw;
-        scrta.viewportHeight = vph;
+        scrTargetArea.viewportWidth = vpw;
+        scrTargetArea.viewportHeight = vph;
 
-        let cx = scrta.bodyLeft;
-        let cy = scrta.bodyTop;
+        let cx = scrTargetArea.bodyLeft;
+        let cy = scrTargetArea.bodyTop;
         hfStyleHelper.setLeft(_heBody, cx);
         hfStyleHelper.setTop(_heBody, cy);
 
@@ -164,6 +203,53 @@ BodyTop: ${rctBody.top},
 
 
 
+    // window.addEventListener('keydown', (ke) => {
+    //     switch (ke.code) {
+    //         case 'Digit1': {
+    //             scrTargetArea.bodyWidth = 1200;
+    //             scrTargetArea.bodyHeight = 1200;
+
+    //             // fn_updateBodySize(hfScrollType.BOTH);
+    //             // fn_updateBodyPosition(hfScrollType.BOTH);
+    //             scrTargetArea.fn_applyBodyRectToElement(_heBody);
+    //             fn_updateOutText();
+
+    //             scrBoth.fn_updateAfterRect();
+    //             scrHori.fn_updateAfterRect();
+    //             scrVert.fn_updateAfterRect();
+
+    //             break;
+    //         }
+    //     }
+    // });
+
+    const fn_sizeUp = () => {
+        scrTargetArea.bodyWidth += 100;
+        scrTargetArea.bodyHeight += 100;
+        scrTargetArea.fn_applyBodyRectToElement(_heBody);
+        fn_updateOutText();
+
+        scrBoth.fn_updateAfterRect();
+        scrHori.fn_updateAfterRect();
+        scrVert.fn_updateAfterRect();
+    };
+    const fn_sizeDown = () => {
+        scrTargetArea.bodyWidth -= 100;
+        scrTargetArea.bodyHeight -= 100;
+        scrTargetArea.fn_applyBodyRectToElement(_heBody);
+        fn_updateOutText();
+
+        scrBoth.fn_updateAfterRect();
+        scrHori.fn_updateAfterRect();
+        scrVert.fn_updateAfterRect();
+    };
+    window.addEventListener('wheel', (we) => {
+        if (we.deltaY < 0) {
+            fn_sizeUp();
+        } else if (we.deltaY > 0) {
+            fn_sizeDown();
+        }
+    });
 
 
 

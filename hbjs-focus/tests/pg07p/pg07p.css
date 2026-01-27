@@ -22,7 +22,7 @@ div.c_root-cont>div.c_content-cont {
   min-width: 200px; min-height: 100px;
   left: 10px; top: 10px;
   right: 260px; bottom: 40px;
-  background-color: black;
+  background-color: darkolivegreen;
   box-sizing: border-box;
   border: 1px solid black;
   box-shadow: 1px 1px 5px;
@@ -44,9 +44,13 @@ div.c_viewport>div.c_body {
   background-color: darkslategrey;
   box-sizing: border-box;
   border: 2px solid red;
-  background-image: url(./img_2.png);
+  background-image: url(./pg07p.png);
   background-repeat: no-repeat;
-  background-position: left top;
+  /* background-position: left top; */
+  /* background-size: cover; */
+  background-size: 100% 100%;
+  image-rendering: pixelated;
+  overflow: hidden;
 }
 
 div.c_content-cont>div.c_scroll-cont {
@@ -61,7 +65,7 @@ div.c_scroll-cont>div#bscr {
   position: absolute;
   left: 0px; top: 0px;
   width: calc(100% - 20px); height: calc(100% - 20px);
-  cursor: pointer; opacity: 0.05;
+  cursor: pointer; opacity: 0.75;
 }
 
 div.c_scroll-cont>div#bscr>div {

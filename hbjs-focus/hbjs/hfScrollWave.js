@@ -58,8 +58,22 @@ const hfRatioHelper = Object.freeze({
     fn_calc(v1, v2, dc='b') {
         let rv = hfRatioHelper.fn_check(v1 / v2, dc);
         return rv;
-    }
+    },
+});
 
+const hfValueHelper = Object.freeze({
+    /**
+     * 최소값으로 체크후 설정
+     * @param {number} tv
+     * @param {number} gv
+     * @returns
+     */
+    fn_checkMinVal(tv, gv) {
+        if ((Number.isFinite(tv) === false) ||
+            (Number.isFinite(gv) === false)) return 0;
+
+        return (tv < gv) ? gv : tv;
+    },
 });
 
 const hfScrollType = Object.freeze({
@@ -233,7 +247,10 @@ class hfScrollTargetArea {
      */
     set viewportWidth(tv) {
         const md = this.#md;
-        md.viewportBounds.width = tv;
+
+        let cv = hfValueHelper.fn_checkMinVal(tv, 100);
+        md.viewportBounds.width = cv;
+
         this.#fn_calc_vwr();
         this.#fn_calc_bodyLeft();
     }
@@ -251,7 +268,10 @@ class hfScrollTargetArea {
      */
     set viewportHeight(tv) {
         const md = this.#md;
-        md.viewportBounds.height = tv;
+
+        let cv = hfValueHelper.fn_checkMinVal(tv, 100);
+        md.viewportBounds.height = cv;
+
         this.#fn_calc_vhr();
         this.#fn_calc_bodyTop();
     }
@@ -306,7 +326,10 @@ class hfScrollTargetArea {
      */
     set bodyWidth(tv) {
         const md = this.#md;
-        md.bodyBounds.width = tv;
+
+        let cv = hfValueHelper.fn_checkMinVal(tv, 100);
+        md.bodyBounds.width = cv;
+
         this.#fn_calc_vwr();
         this.#fn_calc_bodyLeft();
     }
@@ -324,7 +347,10 @@ class hfScrollTargetArea {
      */
     set bodyHeight(tv) {
         const md = this.#md;
-        md.bodyBounds.height = tv;
+
+        let cv = hfValueHelper.fn_checkMinVal(tv, 100);
+        md.bodyBounds.height = cv;
+
         this.#fn_calc_vhr();
         this.#fn_calc_bodyTop();
     }
@@ -390,6 +416,15 @@ class hfScrollTargetArea {
         let vss = this.#fn_get_vss();
         let cy = -vss * spr;
         md.bodyBounds.y = cy;
+    }
+
+    /**
+     * @param {HTMLElement} he
+     */
+    fn_applyBodyRectToElement(he) {
+        const md = this.#md;
+
+        hfStyleHelper.applyRectToElement(he, md.bodyBounds);
     }
 
 };
@@ -545,7 +580,7 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
     /**
      * @returns
      */
-    #fn_calcHoriScrollSize() {
+    #fn_getHoriScrollSize() {
         const md = this.#md;
 
         let rv = md.rctGround.width - md.rctThumb.width;
@@ -560,7 +595,7 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
     /**
      * @returns
      */
-    #fn_calcVertScrollSize() {
+    #fn_getVertScrollSize() {
         const md = this.#md;
 
         let rv = md.rctGround.height - md.rctThumb.height;
@@ -572,6 +607,9 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         return rv;
     }
 
+    /**
+     *
+     */
     #fn_calcHoriRectThumb() {
         const md = this.#md;
 
@@ -579,10 +617,13 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         if (cw < hfScrollWave.#MINV) cw = hfScrollWave.#MINV;
         md.rctThumb.width = cw;
 
-        let hss = this.#fn_calcHoriScrollSize();
+        let hss = this.#fn_getHoriScrollSize();
         md.rctThumb.x = hss * md.targetArea.hspr;
     }
 
+    /**
+     *
+     */
     #fn_calcVertRectThumb() {
         const md = this.#md;
 
@@ -590,10 +631,13 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         if (ch < hfScrollWave.#MINV) ch = hfScrollWave.#MINV;
         md.rctThumb.height = ch;
 
-        let vss = this.#fn_calcVertScrollSize();
+        let vss = this.#fn_getVertScrollSize();
         md.rctThumb.y = vss * md.targetArea.vspr;
     }
 
+    /**
+     *
+     */
     #fn_applyHoriRectForThumb() {
         const md = this.#md;
 
@@ -601,6 +645,9 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         hfStyleHelper.setLeft(md.heThumb, md.rctThumb.left);
     }
 
+    /**
+     *
+     */
     #fn_applyVertRectForThumb() {
         const md = this.#md;
 
@@ -619,7 +666,7 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
             return false;
         } else {
             let bx = 0.0;
-            let ex = this.#fn_calcHoriScrollSize();
+            let ex = this.#fn_getHoriScrollSize();
             let cx = tx;
             if (cx < bx) cx = bx;
             else if (cx > ex) cx = ex;
@@ -644,7 +691,7 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
             return false;
         } else {
             let by = 0.0;
-            let ey = this.#fn_calcVertScrollSize();
+            let ey = this.#fn_getVertScrollSize();
             let cy = ty;
             if (cy < by) cy = by;
             else if (cy > ey) cy = ey;
@@ -759,14 +806,20 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
             this.#fn_calcVertRectThumb();
             this.#fn_applyHoriRectForThumb();
             this.#fn_applyVertRectForThumb();
+            this.#fn_checkEnabled();
+
             this.#fn_printSpanLog();
         } else if (md.scrollType === hfScrollType.HORIZONTAL) {
             this.#fn_calcHoriRectThumb();
             this.#fn_applyHoriRectForThumb();
+            this.#fn_checkEnabled();
+
             this.#fn_printSpanLog();
         } else if (md.scrollType === hfScrollType.VERTICAL) {
             this.#fn_calcVertRectThumb();
             this.#fn_applyVertRectForThumb();
+            this.#fn_checkEnabled();
+
             this.#fn_printSpanLog();
         }
     }
@@ -833,24 +886,54 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
         window.addEventListener(hfEventTypes.MOUSE_UP, md.fn_muh);
         window.addEventListener(hfEventTypes.BLUR, md.fn_muh);
 
+        // if (hfStyleHelper.containsRect(md.rctThumb, pe.offsetX, pe.offsetY)) {
+        //     md.mdx = pe.clientX - md.rctThumb.left;
+        //     md.mdy = pe.clientY - md.rctThumb.top;
+        // } else {
+        //     if (md.scrollType === hfScrollType.BOTH) {
+        //         let tx = pe.clientX - (md.rctThumb.width / 2);
+        //         let ty = pe.clientY - (md.rctThumb.height / 2);
+        //         this.#fn_updateThumbPosition(tx, ty);
+        //     } else if (md.scrollType === hfScrollType.HORIZONTAL) {
+        //         let tx = pe.clientX - (md.rctThumb.width / 2);
+        //         this.#fn_updateThumbLeft(tx);
+        //     } else if (md.scrollType === hfScrollType.VERTICAL) {
+        //         let ty = pe.clientY - (md.rctThumb.height / 2);
+        //         this.#fn_updateThumbTop(ty);
+        //     }
+
+        //     md.mdx = pe.clientX - md.rctThumb.left;
+        //     md.mdy = pe.clientY - md.rctThumb.top;
+        // }
+
         if (hfStyleHelper.containsRect(md.rctThumb, pe.offsetX, pe.offsetY)) {
-            md.mdx = pe.clientX - md.rctThumb.left;
-            md.mdy = pe.clientY - md.rctThumb.top;
+            if (md.scrollType === hfScrollType.BOTH) {
+                md.mdx = pe.clientX - md.rctThumb.left;
+                md.mdy = pe.clientY - md.rctThumb.top;
+            } else if (md.scrollType === hfScrollType.HORIZONTAL) {
+                md.mdx = pe.clientX - md.rctThumb.left;
+            } else if (md.scrollType === hfScrollType.VERTICAL) {
+                md.mdy = pe.clientY - md.rctThumb.top;
+            }
         } else {
             if (md.scrollType === hfScrollType.BOTH) {
                 let tx = pe.clientX - (md.rctThumb.width / 2);
                 let ty = pe.clientY - (md.rctThumb.height / 2);
                 this.#fn_updateThumbPosition(tx, ty);
+
+                md.mdx = pe.clientX - md.rctThumb.left;
+                md.mdy = pe.clientY - md.rctThumb.top;
             } else if (md.scrollType === hfScrollType.HORIZONTAL) {
                 let tx = pe.clientX - (md.rctThumb.width / 2);
                 this.#fn_updateThumbLeft(tx);
+
+                md.mdx = pe.clientX - md.rctThumb.left;
             } else if (md.scrollType === hfScrollType.VERTICAL) {
                 let ty = pe.clientY - (md.rctThumb.height / 2);
                 this.#fn_updateThumbTop(ty);
-            }
 
-            md.mdx = pe.clientX - md.rctThumb.left;
-            md.mdy = pe.clientY - md.rctThumb.top;
+                md.mdy = pe.clientY - md.rctThumb.top;
+            }
         }
     }
 
