@@ -74,6 +74,7 @@ div.c_scroll-cont>div#bscr>div {
   left: 0px; top: 0px;
   background-color: #748B96;
   pointer-events: none; overflow: visible;
+  box-shadow: inset 0 0 10px;
 }
 
 div.c_scroll-cont>div#bscr>div>span {
