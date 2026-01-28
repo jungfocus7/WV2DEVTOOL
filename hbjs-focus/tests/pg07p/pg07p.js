@@ -103,16 +103,16 @@ let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
 //         `.trim();
 
         let txt = `
-TargetArea.vwr: ${(100 * scrTargetArea.vwr).toFixed(1)}%,
-TargetArea.vhr: ${(100 * scrTargetArea.vhr).toFixed(1)}%,
-TargetArea.hspr: ${(100 * scrTargetArea.hspr).toFixed(1)}%,
-TargetArea.vspr: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
-ViewportWidth: ${scrTargetArea.viewportWidth},
-ViewportHeight: ${scrTargetArea.viewportHeight},
-BodyWidth: ${scrTargetArea.bodyWidth},
-BodyHeight: ${scrTargetArea.bodyHeight},
-BodyLeft: ${scrTargetArea.bodyLeft},
-BodyTop: ${scrTargetArea.bodyTop},
+ViewportWidth: ${scrTargetArea.viewportWidth.toFixed(1)},
+ViewportHeight: ${scrTargetArea.viewportHeight.toFixed(1)},
+BodyWidth: ${scrTargetArea.bodyWidth.toFixed(1)},
+BodyHeight: ${scrTargetArea.bodyHeight.toFixed(1)},
+BodyLeft: ${scrTargetArea.bodyLeft.toFixed(1)},
+BodyTop: ${scrTargetArea.bodyTop.toFixed(1)},
+VWR: ${(100 * scrTargetArea.vwr).toFixed(1)}%,
+VHR: ${(100 * scrTargetArea.vhr).toFixed(1)}%,
+HSPR: ${(100 * scrTargetArea.hspr).toFixed(1)}%,
+VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
         `.trim();
 
 
@@ -224,8 +224,8 @@ BodyTop: ${scrTargetArea.bodyTop},
     // });
 
     const fn_sizeUp = () => {
-        scrTargetArea.bodyWidth += 100;
-        scrTargetArea.bodyHeight += 100;
+        scrTargetArea.bodyWidth += 10;
+        scrTargetArea.bodyHeight += 10;
         scrTargetArea.fn_applyBodyRectToElement(_heBody);
         fn_updateOutText();
 
@@ -234,8 +234,8 @@ BodyTop: ${scrTargetArea.bodyTop},
         scrVert.fn_updateAfterRect();
     };
     const fn_sizeDown = () => {
-        scrTargetArea.bodyWidth -= 100;
-        scrTargetArea.bodyHeight -= 100;
+        scrTargetArea.bodyWidth -= 10;
+        scrTargetArea.bodyHeight -= 10;
         scrTargetArea.fn_applyBodyRectToElement(_heBody);
         fn_updateOutText();
 
