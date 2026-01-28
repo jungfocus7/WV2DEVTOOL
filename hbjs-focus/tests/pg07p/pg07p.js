@@ -203,26 +203,6 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
 
 
 
-    // window.addEventListener('keydown', (ke) => {
-    //     switch (ke.code) {
-    //         case 'Digit1': {
-    //             scrTargetArea.bodyWidth = 1200;
-    //             scrTargetArea.bodyHeight = 1200;
-
-    //             // fn_updateBodySize(hfScrollType.BOTH);
-    //             // fn_updateBodyPosition(hfScrollType.BOTH);
-    //             scrTargetArea.fn_applyBodyRectToElement(_heBody);
-    //             fn_updateOutText();
-
-    //             scrBoth.fn_updateAfterRect();
-    //             scrHori.fn_updateAfterRect();
-    //             scrVert.fn_updateAfterRect();
-
-    //             break;
-    //         }
-    //     }
-    // });
-
     const fn_sizeUp = () => {
         scrTargetArea.bodyWidth += 10;
         scrTargetArea.bodyHeight += 10;
@@ -251,6 +231,69 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
         }
     });
 
+
+    window.addEventListener('keydown', (ke) => {
+        console.log(ke.code);
+
+        const fn_ppval = () => {
+            if (ke.ctrlKey) return 1;
+            else if (ke.shiftKey) return 100;
+            else return 10;
+        };
+
+        switch (ke.code) {
+            case 'ArrowLeft': {
+                scrTargetArea.bodyLeft += fn_ppval();
+                scrTargetArea.fn_applyBodyRectToElement(_heBody);
+                fn_updateOutText();
+
+                scrBoth.fn_updateAfterRect();
+                scrHori.fn_updateAfterRect();
+                break;
+            }
+            case 'ArrowRight': {
+                scrTargetArea.bodyLeft -= fn_ppval();
+                scrTargetArea.fn_applyBodyRectToElement(_heBody);
+                fn_updateOutText();
+
+                scrBoth.fn_updateAfterRect();
+                scrHori.fn_updateAfterRect();
+                break;
+            }
+            case 'ArrowUp': {
+                scrTargetArea.bodyTop += fn_ppval();
+                scrTargetArea.fn_applyBodyRectToElement(_heBody);
+                fn_updateOutText();
+
+                scrBoth.fn_updateAfterRect();
+                scrVert.fn_updateAfterRect();
+                break;
+            }
+            case 'ArrowDown': {
+                scrTargetArea.bodyTop -= fn_ppval();
+                scrTargetArea.fn_applyBodyRectToElement(_heBody);
+                fn_updateOutText();
+
+                scrBoth.fn_updateAfterRect();
+                scrVert.fn_updateAfterRect();
+                break;
+            }
+            case 'Minus': {
+                if (ke.ctrlKey) {
+                    ke.preventDefault();
+                    fn_sizeDown();
+                }
+                break;
+            }
+            case 'Equal': {
+                if (ke.ctrlKey) {
+                    ke.preventDefault();
+                    fn_sizeUp();
+                }
+                break;
+            }
+        }
+    });
 
 
 

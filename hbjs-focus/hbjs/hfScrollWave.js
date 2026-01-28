@@ -217,6 +217,9 @@ class hfScrollTargetArea {
         md.vspr = hfRatioHelper.fn_calc(v1, v2);
     }
 
+    /**
+     * Calc Body Left
+     */
     #fn_calc_bodyLeft() {
         const md = this.#md;
 
@@ -225,6 +228,9 @@ class hfScrollTargetArea {
         md.bodyBounds.x = cx;
     }
 
+    /**
+     * Calc Body Top
+     */
     #fn_calc_bodyTop() {
         const md = this.#md;
 
@@ -368,7 +374,14 @@ class hfScrollTargetArea {
      */
     set bodyLeft(tv) {
         const md = this.#md;
-        md.bodyBounds.x = tv;
+
+        let bv = -this.#fn_get_hss();
+        let ev = 0.0;
+        let cv = tv;
+        if (cv < bv) cv = bv;
+        else if (cv > ev) cv = ev;
+        md.bodyBounds.x = cv;
+
         this.#fn_calc_hspr();
     }
 
@@ -385,7 +398,14 @@ class hfScrollTargetArea {
      */
     set bodyTop(tv) {
         const md = this.#md;
-        md.bodyBounds.y = tv;
+
+        let bv = -this.#fn_get_vss();
+        let ev = 0.0;
+        let cv = tv;
+        if (cv < bv) cv = bv;
+        else if (cv > ev) cv = ev;
+        md.bodyBounds.y = cv;
+
         this.#fn_calc_vspr();
     }
 
