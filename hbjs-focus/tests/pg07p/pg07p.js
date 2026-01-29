@@ -292,6 +292,11 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
                 }
                 break;
             }
+
+            // case 'KeyA': {
+            //     console.log('여기');
+            //     break;
+            // }
         }
     });
 
