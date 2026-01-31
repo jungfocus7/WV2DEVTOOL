@@ -1,0 +1,15 @@
+D:\###DOWNLOAD\hfwProjectFocus\##Debug\TESTROLL31.exe.config
+D:\###DOWNLOAD\hfwProjectFocus\##Debug\TESTROLL31.exe
+D:\###DOWNLOAD\hfwProjectFocus\##Debug\TESTROLL31.pdb
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31.csprojAssemblyReference.cache
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TesterWindow.baml
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TesterWindow.g.cs
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TesterApp.g.cs
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31_MarkupCompile.cache
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31.g.resources
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31.Properties.Resources.resources
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31.csproj.GenerateResource.cache
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31.csproj.CoreCompileInputs.cache
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31.csproj.CopyComplete
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31.exe
+D:\###DOWNLOAD\hfwProjectFocus\@@TESTERs\TESTROLL31\obj\Debug\TESTROLL31.pdb
