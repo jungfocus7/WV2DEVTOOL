@@ -54,7 +54,7 @@
             gl.bindVertexArray(vao);
             for(let y=-1; y<=1; y++) {
                 for(let x=-1; x<=1; x++) {
-                    gl.uniform2f(uOff, x*0.5, y*0.5);
+                    gl.uniform2f(uOff, x*0.9, y*0.5);
                     gl.drawArrays(gl.TRIANGLES, 0, 6);
                 }
             }

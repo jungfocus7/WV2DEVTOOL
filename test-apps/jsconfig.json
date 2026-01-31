@@ -31,7 +31,7 @@
         "allowJs": true,
 
         // !! js 타입검사를 적극적으로 수행함
-        "checkJs": false,
+        "checkJs": true,
     },
 
     // VS Code가 Node.js API 타입을 찾을 수 있도록 합니다.
