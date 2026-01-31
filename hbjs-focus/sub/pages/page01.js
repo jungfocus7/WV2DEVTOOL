@@ -178,8 +178,102 @@ const _tester_hfdtime = Object.freeze({
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /**
+<<<<<<< HEAD:hbjs-focus/sub/pages/page01.js
  * @param {string | null} msg
  * @param {boolean} ba
+=======
+ * @param {PointerEvent} pe
+ */
+const fn_ftbtns_cl = (pe) => {
+    /** @type {HTMLButtonElement} */
+    let btn = pe.currentTarget;
+    let nc = btn.textContent.substring(0, 2);
+    switch (nc) {
+        case '00': {
+            fn_print(null);
+            break;
+        }
+        case '01': {
+            _tester_hfnum.fn_test();
+            break;
+        }
+        case '02': {
+            _tester_hfstr.fn_test();
+            break;
+        }
+        case '03': {
+            _tester_hfarr.fn_test();
+            break;
+        }
+        case '04': {
+            _tester_hfdtime.fn_test();
+            break;
+        }
+    }
+};
+//#endregion }}
+
+
+//#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 00)
+/**
+ * Menu 생성
+ */
+const fn_createMenu = () => {
+    const pd = _page01;
+
+    if (pd.mbtn === null) {
+        pd.leftMenuCont.insertAdjacentHTML('beforeend', `
+<button type="button" class="c_bt"><span>01) hfCommon</span></button>
+        `.trim());
+        pd.mbtn = pd.leftMenuCont.lastElementChild;
+
+        // dcs.log('# 메뉴 생성완료');
+    }
+};
+
+/**
+ * Page 생성
+ */
+const fn_createPageData = () => {
+    const pd = _page01;
+
+    if (pd.pge === null) {
+        pd.pageCont.insertAdjacentHTML('beforeend', `
+<div class="c_page" data-index="0" tabindex="01">
+  <span class="c_tname">hfCommon</span>
+  <textarea class="c_tam" placeholder="empty" name="empty" spellcheck="false" readonly></textarea>
+  <div class="c_btc">
+      <button type="button" class="c_bt"><span>00)clear</span></button>
+      <button type="button" class="c_bt"><span>01)hfnum</span></button>
+      <button type="button" class="c_bt"><span>02)hfstr</span></button>
+      <button type="button" class="c_bt"><span>03)hfarr</span></button>
+      <button type="button" class="c_bt"><span>04)hfdtime</span></button>
+  </div>
+</div>
+        `.trim());
+        pd.pge = pd.pageCont.lastElementChild;
+
+        pd.txa = pd.pge.querySelector('textarea.c_tam');
+
+        pd.ftbtns = Array.from(pd.pge.querySelectorAll('div.c_btc>button.c_bt'));
+        for (let btn of pd.ftbtns) {
+            btn.addEventListener(hfEventTypes.CLICK, fn_ftbtns_cl);
+        }
+
+        // dcs.log('# 페이지 생성완료');
+    }
+};
+
+/**
+ * 작업 중지
+ */
+const fn_stop = () => {
+};
+
+/**
+ * 기능 출력
+ * @param {string} msg
+>>>>>>> main:hbjs-focus/src/pages/page_a.js
  * @returns
  */
 const fn_print = (msg=null, ba=true) => {
@@ -215,6 +309,7 @@ const fn_btn_clh = (pe) => {
     let nm = te.textContent.trim();
     // dcs.log(nm);
 
+<<<<<<< HEAD:hbjs-focus/sub/pages/page01.js
     switch (nm) {
         case 'hfnum': {
             _tester_hfnum.fn_test();
@@ -236,6 +331,30 @@ const fn_btn_clh = (pe) => {
             fn_print(null);
             break;
         }
+=======
+        pd.gdo.pageDataArr.push(pd);
+
+
+        // configurable, enumerable,
+        // writable, value,
+        // get, set
+        Reflect.defineProperty(window, 'hfnum', {
+            configurable: false, enumerable: false, writable: false,
+            value: hfnum
+        });
+        Reflect.defineProperty(window, 'hfstr', {
+            configurable: false, enumerable: false, writable: false,
+            value: hfstr
+        });
+        Reflect.defineProperty(window, 'hfarr', {
+            configurable: false, enumerable: false, writable: false,
+            value: hfarr
+        });
+        Reflect.defineProperty(window, 'hfdtime', {
+            configurable: false, enumerable: false, writable: false,
+            value: hfdtime
+        });
+>>>>>>> main:hbjs-focus/src/pages/page_a.js
     }
 };
 
