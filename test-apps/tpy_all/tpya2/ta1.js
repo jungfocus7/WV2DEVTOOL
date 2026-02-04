@@ -1,3 +1,4 @@
+(() => {
 const canvas = document.querySelector('canvas');
 const _wgl = canvas.getContext('webgl2');
 
@@ -41,6 +42,7 @@ _wgl.clear(_wgl.COLOR_BUFFER_BIT);
 _wgl.useProgram(program);
 _wgl.drawArrays(_wgl.TRIANGLES, 0, 3);
 
+})();
 
 
 
