@@ -206,46 +206,49 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
         }
     });
 
+
+    const fn_updatePageItems = () => {};
+
     const fn_updateVirtualRender = () => {
-        // 1. 설정값 및 현재 좌표 (300x300 고정 크기 기준)
-        const cellW = _dataSource.getCellWidth();
-        const cellH = _dataSource.getCellHeight();
-        const bLeft = Math.abs(scrTargetArea.bodyLeft);
-        const bTop = Math.abs(scrTargetArea.bodyTop);
-        /*
-        // 2. 가상화할 행(Row)과 열(Col)의 시작/끝 인덱스 계산
-        const startRow = Math.floor(bTop / cellH);
-        const endRow = Math.min(_dataSource.getRowCount() - 1, Math.floor((bTop + scrTargetArea.viewportHeight) / cellH));
+        // // 1. 설정값 및 현재 좌표 (300x300 고정 크기 기준)
+        // const cellW = _dataSource.getCellWidth();
+        // const cellH = _dataSource.getCellHeight();
+        // const bLeft = Math.abs(scrTargetArea.bodyLeft);
+        // const bTop = Math.abs(scrTargetArea.bodyTop);
+        // /*
+        // // 2. 가상화할 행(Row)과 열(Col)의 시작/끝 인덱스 계산
+        // const startRow = Math.floor(bTop / cellH);
+        // const endRow = Math.min(_dataSource.getRowCount() - 1, Math.floor((bTop + scrTargetArea.viewportHeight) / cellH));
 
-        const startCol = Math.floor(bLeft / cellW);
-        // 현재 데이터 구조상 RowItem 내부에 CNM01~06까지 있으므로 가로 개수는 고정값이나 데이터 기반으로 계산
-        const endCol = Math.min(5, Math.floor((bLeft + scrTargetArea.viewportWidth) / cellW));
-        console.log(startCol, endCol, startRow, endRow);*/
+        // const startCol = Math.floor(bLeft / cellW);
+        // // 현재 데이터 구조상 RowItem 내부에 CNM01~06까지 있으므로 가로 개수는 고정값이나 데이터 기반으로 계산
+        // const endCol = Math.min(5, Math.floor((bLeft + scrTargetArea.viewportWidth) / cellW));
+        // console.log(startCol, endCol, startRow, endRow);*/
 
-        // 1. 시작 및 끝 인덱스 계산 (범위 방어 코드 적용)
-        const rowCount = _dataSource.getRowCount();
-        const colCount = _dataSource.getColCount();
+        // // 1. 시작 및 끝 인덱스 계산 (범위 방어 코드 적용)
+        // const rowCount = _dataSource.getRowCount();
+        // const colCount = _dataSource.getColCount();
 
-        const startRow = Math.max(0, Math.floor(bTop / cellH));
-        const endRow = Math.min(rowCount - 1, Math.floor((bTop + scrTargetArea.viewportHeight) / cellH));
+        // const startRow = Math.max(0, Math.floor(bTop / cellH));
+        // const endRow = Math.min(rowCount - 1, Math.floor((bTop + scrTargetArea.viewportHeight) / cellH));
 
-        const startCol = Math.max(0, Math.floor(bLeft / cellW));
-        const endCol = Math.min(colCount - 1, Math.floor((bLeft + scrTargetArea.viewportWidth) / cellW));
+        // const startCol = Math.max(0, Math.floor(bLeft / cellW));
+        // const endCol = Math.min(colCount - 1, Math.floor((bLeft + scrTargetArea.viewportWidth) / cellW));
 
-        console.log(startCol, endCol, startRow, endRow);
+        // console.log(startCol, endCol, startRow, endRow);
 
-        // 3. 루프를 돌며 렌더링할 아이템 추출
-        for (let r = startRow; r <= endRow; r++) {
-            const rowData = _dataSource.getRowItem(r);
-            for (let c = startCol; c <= endCol; c++) {
-                const fieldName = `CNM0${c + 1}`; // CNM01, CNM02...
-                const cellData = rowData[fieldName];
-                // console.log(cellData);
+        // // 3. 루프를 돌며 렌더링할 아이템 추출
+        // for (let r = startRow; r <= endRow; r++) {
+        //     const rowData = _dataSource.getRowItem(r);
+        //     for (let c = startCol; c <= endCol; c++) {
+        //         const fieldName = `CNM0${c + 1}`; // CNM01, CNM02...
+        //         const cellData = rowData[fieldName];
+        //         // console.log(cellData);
 
-                // 여기서 실제 DOM 생성 또는 Canvas 드로잉 수행
-                // console.log(`Rendering Cell [${r}, ${c}]:`, cellData);
-            }
-        }
+        //         // 여기서 실제 DOM 생성 또는 Canvas 드로잉 수행
+        //         // console.log(`Rendering Cell [${r}, ${c}]:`, cellData);
+        //     }
+        // }
     };
 
 
@@ -253,7 +256,7 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
         fn_updateBodyPosition(hfScrollType.BOTH);
         fn_updateOutText();
 
-        fn_updateVirtualRender();
+        // fn_updateVirtualRender();
 
         scrHori.fn_updateAfterRect();
         scrVert.fn_updateAfterRect();

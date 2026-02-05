@@ -42,6 +42,7 @@ div.c_viewport>div.c_body {
   /* width: 513px; height: 377px; */
   /* width: 500px; height: 400px; */
   width: 1500px; height: 1500px;
+  /* width: 100000000px; height: 100000000px; */
   background-color: darkslategrey;
   box-sizing: border-box;
   border: 2px solid red;
