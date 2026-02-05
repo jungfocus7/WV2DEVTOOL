@@ -28,7 +28,7 @@ const fn_isNumber = (tv) => {
 };
 
 /**
- * 넘버가 잘못된지 확인
+ * 넘버가 아닌지 확인
  * @param {number} tv
  * @returns
  */
@@ -112,66 +112,15 @@ const fn_clamp = (bv, ev, cv) => {
 };
 
 export const hfnum = Object.freeze({
-    /**
-     * 넘버가 맞는지 확인
-     * @param {number} tv
-     * @returns
-     */
     isNumber: fn_isNumber,
-
-    /**
-     * 넘버가 아닌지 확인
-     * @param {number} tv
-     * @returns
-     */
     notNumber: fn_notNumber,
-
-    /**
-     * 넘버가 실수인지 확인
-     * @param {number} tv
-     * @returns
-     */
     isFloat: fn_isFloat,
-
-    /**
-     * 넘버가 음수인지 확인
-     * @param {number} tv
-     * @returns
-     */
     isMinus: fn_isMinus,
-
-    /**
-     * 난수 만들기 0~n
-     * @param {number} tv
-     * @returns
-     */
     random: fn_random,
-
-
-    /**
-     * 난수 만들기 min~max
-     * @param {number} min
-     * @param {number} max
-     * @returns
-     */
     randRange: fn_randRange,
-
-
-    /**
-     * 넘버가 홀수인지 확인
-     * @param {number} tv
-     * @returns
-     */
     isOdd: fn_isOdd,
-
-
-    /**
-     * 넘버가 짝수인지 확인
-     * @param {number} tv
-     * @returns
-     */
     isEven: fn_isEven,
-
+    clamp: fn_clamp,
 });
 //#endregion
 
