@@ -42,6 +42,7 @@ const fn_notNumber = (tv) => {
  * @returns
  */
 const fn_isFloat = (tv) => {
+    fn_cknb(tv);
     return (tv % 1) !== 0;
 };
 
@@ -51,6 +52,7 @@ const fn_isFloat = (tv) => {
  * @returns
  */
 const fn_isMinus = (tv) => {
+    fn_cknb(tv);
     return tv < 0;
 };
 
@@ -60,6 +62,7 @@ const fn_isMinus = (tv) => {
  * @returns
  */
 const fn_random = (tv) => {
+    fn_cknb(tv);
     return Math.round(Math.random() * (tv - 1));
 };
 
@@ -70,6 +73,7 @@ const fn_random = (tv) => {
  * @returns
  */
 const fn_randRange = (min, max) => {
+    fn_cknbs(min, max);
     return min + Math.floor(Math.random() * (max - min + 1));
 };
 
@@ -79,6 +83,7 @@ const fn_randRange = (min, max) => {
  * @returns
  */
 const fn_isOdd = (tv) => {
+    fn_cknbs(tv);
     return (tv % 2) > 0;
 };
 
@@ -88,22 +93,22 @@ const fn_isOdd = (tv) => {
  * @returns
  */
 const fn_isEven = (tv) => {
+    fn_cknbs(tv);
     return (tv % 2) === 0;
 };
 
 /**
- * 값을 특정 범위(min ~ max) 내로 제한하는 함수
- * @param {number} val
- * @param {number} min
- * @param {number} max
+ * 값을 특정 범위(Begin ~ End) 내로 제한하는 함수
+ * @param {number} bv Begin Value
+ * @param {number} ev End Value
+ * @param {number} cv Current Value
  * @returns
  */
-const fn_clamp = (val, min, max) => {
-    fn_cknbs(val, min, max);
-
-    if (val < min) return min;
-    else if (val > max) return max;
-    else return val;
+const fn_clamp = (bv, ev, cv) => {
+    fn_cknbs(bv, ev, cv);
+    if (cv < bv) return bv;
+    else if (cv > ev) return ev;
+    else return cv;
 };
 
 export const hfnum = Object.freeze({
