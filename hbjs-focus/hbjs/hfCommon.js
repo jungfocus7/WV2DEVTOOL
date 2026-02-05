@@ -1,4 +1,111 @@
 //#region [Number 관련]
+/**
+ * Check Number
+ * @param {number} tv
+ */
+const fn_cknb = (tv) => {
+    if (!Number.isFinite(tv))
+        throw `Invalid argument, not a number.`;
+};
+
+/**
+ * Check Numbers
+ * @param {...number} tva
+ */
+const fn_cknbs = (...tva) => {
+    for (let tv of tva) {
+        fn_cknb(tv);
+    }
+};
+
+/**
+ * 넘버가 유효한지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isNumber = (tv) => {
+    return Number.isFinite(tv);
+};
+
+/**
+ * 넘버가 잘못된지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_notNumber = (tv) => {
+    return Number.isFinite(tv) === false;
+};
+
+/**
+ * 넘버가 실수인지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isFloat = (tv) => {
+    return (tv % 1) !== 0;
+};
+
+/**
+ * 넘버가 음수인지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isMinus = (tv) => {
+    return tv < 0;
+};
+
+/**
+ * 난수 만들기 0~n
+ * @param {number} tv
+ * @returns
+ */
+const fn_random = (tv) => {
+    return Math.round(Math.random() * (tv - 1));
+};
+
+/**
+ * 난수 만들기 min~max
+ * @param {number} min
+ * @param {number} max
+ * @returns
+ */
+const fn_randRange = (min, max) => {
+    return min + Math.floor(Math.random() * (max - min + 1));
+};
+
+/**
+ * 넘버가 홀수인지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isOdd = (tv) => {
+    return (tv % 2) > 0;
+};
+
+/**
+ * 넘버가 짝수인지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isEven = (tv) => {
+    return (tv % 2) === 0;
+};
+
+/**
+ * 값을 특정 범위(min ~ max) 내로 제한하는 함수
+ * @param {number} val
+ * @param {number} min
+ * @param {number} max
+ * @returns
+ */
+const fn_clamp = (val, min, max) => {
+    fn_cknbs(val, min, max);
+
+    if (val < min) return min;
+    else if (val > max) return max;
+    else return val;
+};
+
 export const hfnum = Object.freeze({
     /**
      * 넘버가 맞는지 확인
