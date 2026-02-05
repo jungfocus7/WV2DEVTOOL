@@ -4,7 +4,7 @@
  * @param {number} tv
  */
 const fn_cknb = (tv) => {
-    if (!Number.isFinite(tv))
+    if (Number.isFinite(tv) === false)
         throw `Invalid argument, not a number.`;
 };
 
@@ -63,7 +63,7 @@ const fn_isMinus = (tv) => {
  */
 const fn_random = (tv) => {
     fn_cknb(tv);
-    return Math.round(Math.random() * (tv - 1));
+    return Math.floor(Math.random() * tv);
 };
 
 /**
@@ -84,7 +84,7 @@ const fn_randRange = (min, max) => {
  */
 const fn_isOdd = (tv) => {
     fn_cknbs(tv);
-    return (tv % 2) > 0;
+    return (tv % 2) !== 0;
 };
 
 /**
