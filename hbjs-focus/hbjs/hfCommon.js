@@ -117,45 +117,35 @@ export const hfnum = Object.freeze({
      * @param {number} tv
      * @returns
      */
-    isNumber: (tv) => {
-        return Number.isFinite(tv);
-    },
+    isNumber: fn_isNumber,
 
     /**
      * 넘버가 아닌지 확인
      * @param {number} tv
      * @returns
      */
-    notNumber: (tv) => {
-        return Number.isFinite(tv) === false;
-    },
+    notNumber: fn_notNumber,
 
     /**
      * 넘버가 실수인지 확인
      * @param {number} tv
      * @returns
      */
-    isFloat: (tv) => {
-        return (tv % 1) !== 0;
-    },
+    isFloat: fn_isFloat,
 
     /**
      * 넘버가 음수인지 확인
      * @param {number} tv
      * @returns
      */
-    isMinus: (tv) => {
-        return tv < 0;
-    },
+    isMinus: fn_isMinus,
 
     /**
      * 난수 만들기 0~n
      * @param {number} tv
      * @returns
      */
-    random: (tv) => {
-        return Math.round(Math.random() * (tv - 1));
-    },
+    random: fn_random,
 
 
     /**
@@ -164,10 +154,7 @@ export const hfnum = Object.freeze({
      * @param {number} max
      * @returns
      */
-    randRange: (min, max) => {
-        return min + Math.floor(Math.random() * (max - min + 1));
-        // return min + Math.round(Math.random() * (max - min)); // 약 20년간 잘못된 랜덤뽑기 사용했내 ;;
-    },
+    randRange: fn_randRange,
 
 
     /**
@@ -175,9 +162,7 @@ export const hfnum = Object.freeze({
      * @param {number} tv
      * @returns
      */
-    isOdd: (tv) => {
-        return (tv % 2) > 0;
-    },
+    isOdd: fn_isOdd,
 
 
     /**
@@ -185,9 +170,7 @@ export const hfnum = Object.freeze({
      * @param {number} tv
      * @returns
      */
-    isEven: (tv) => {
-        return (tv % 2) === 0;
-    },
+    isEven: fn_isEven,
 
 });
 //#endregion
