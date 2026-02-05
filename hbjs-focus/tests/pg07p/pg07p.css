@@ -40,7 +40,8 @@ div.c_content-cont>div.c_viewport {
 div.c_viewport>div.c_body {
   position: absolute; display: inline-block;
   /* width: 513px; height: 377px; */
-  width: 500px; height: 400px;
+  /* width: 500px; height: 400px; */
+  width: 1500px; height: 1500px;
   background-color: darkslategrey;
   box-sizing: border-box;
   border: 2px solid red;

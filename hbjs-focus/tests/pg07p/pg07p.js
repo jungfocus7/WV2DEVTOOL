@@ -156,9 +156,104 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
     //     }
     // };
 
+
+    const _dataSource = Object.seal(new class {
+        #md = Object.seal({
+            cellWidth: 300, cellHeight: 300,
+            items: [
+                {CNM01: 'R0101', CNM02: 'R0201', CNM03: 'R0301', CNM04: 'R0401', CNM05: 'R0501'},
+                {CNM01: 'R0102', CNM02: 'R0202', CNM03: 'R0302', CNM04: 'R0402', CNM05: 'R0502'},
+                {CNM01: 'R0103', CNM02: 'R0203', CNM03: 'R0303', CNM04: 'R0403', CNM05: 'R0503'},
+                {CNM01: 'R0104', CNM02: 'R0204', CNM03: 'R0304', CNM04: 'R0404', CNM05: 'R0504'},
+                {CNM01: 'R0105', CNM02: 'R0205', CNM03: 'R0305', CNM04: 'R0405', CNM05: 'R0505'},
+            ],
+        });
+        constructor() { }
+
+        /**
+         * @returns
+         */
+        getColCount() {
+            const items = this.#md.items;
+            return items.length > 0 ? Object.keys(items[0]).length : 0;
+        }
+
+        /**
+         * @returns
+         */
+        getRowCount() {
+            const md = this.#md;
+            return md.items.length;
+        }
+
+        /**
+         * @param {number} i
+         * @returns
+         */
+        getRowItem(i) {
+            const md = this.#md;
+            return md.items.at(i);
+        }
+
+        getCellWidth() {
+            const md = this.#md;
+            return md.cellWidth;
+        }
+
+        getCellHeight() {
+            const md = this.#md;
+            return md.cellHeight;
+        }
+    });
+
+    const fn_updateVirtualRender = () => {
+        // 1. 설정값 및 현재 좌표 (300x300 고정 크기 기준)
+        const cellW = _dataSource.getCellWidth();
+        const cellH = _dataSource.getCellHeight();
+        const bLeft = Math.abs(scrTargetArea.bodyLeft);
+        const bTop = Math.abs(scrTargetArea.bodyTop);
+        /*
+        // 2. 가상화할 행(Row)과 열(Col)의 시작/끝 인덱스 계산
+        const startRow = Math.floor(bTop / cellH);
+        const endRow = Math.min(_dataSource.getRowCount() - 1, Math.floor((bTop + scrTargetArea.viewportHeight) / cellH));
+
+        const startCol = Math.floor(bLeft / cellW);
+        // 현재 데이터 구조상 RowItem 내부에 CNM01~06까지 있으므로 가로 개수는 고정값이나 데이터 기반으로 계산
+        const endCol = Math.min(5, Math.floor((bLeft + scrTargetArea.viewportWidth) / cellW));
+        console.log(startCol, endCol, startRow, endRow);*/
+
+        // 1. 시작 및 끝 인덱스 계산 (범위 방어 코드 적용)
+        const rowCount = _dataSource.getRowCount();
+        const colCount = _dataSource.getColCount();
+
+        const startRow = Math.max(0, Math.floor(bTop / cellH));
+        const endRow = Math.min(rowCount - 1, Math.floor((bTop + scrTargetArea.viewportHeight) / cellH));
+
+        const startCol = Math.max(0, Math.floor(bLeft / cellW));
+        const endCol = Math.min(colCount - 1, Math.floor((bLeft + scrTargetArea.viewportWidth) / cellW));
+
+        console.log(startCol, endCol, startRow, endRow);
+
+        // 3. 루프를 돌며 렌더링할 아이템 추출
+        for (let r = startRow; r <= endRow; r++) {
+            const rowData = _dataSource.getRowItem(r);
+            for (let c = startCol; c <= endCol; c++) {
+                const fieldName = `CNM0${c + 1}`; // CNM01, CNM02...
+                const cellData = rowData[fieldName];
+                // console.log(cellData);
+
+                // 여기서 실제 DOM 생성 또는 Canvas 드로잉 수행
+                // console.log(`Rendering Cell [${r}, ${c}]:`, cellData);
+            }
+        }
+    };
+
+
     scrBoth.addEventListener(hfEventTypes.SCROLL, (_) => {
         fn_updateBodyPosition(hfScrollType.BOTH);
         fn_updateOutText();
+
+        fn_updateVirtualRender();
 
         scrHori.fn_updateAfterRect();
         scrVert.fn_updateAfterRect();

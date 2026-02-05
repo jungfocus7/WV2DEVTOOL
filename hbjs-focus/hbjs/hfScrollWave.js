@@ -690,6 +690,8 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
             let cx = tx;
             if (cx < bx) cx = bx;
             else if (cx > ex) cx = ex;
+
+            if (cx === md.rctThumb.left) return false;
             md.rctThumb.x = cx;
 
             let v1 = cx - bx;
@@ -715,6 +717,8 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
             let cy = ty;
             if (cy < by) cy = by;
             else if (cy > ey) cy = ey;
+
+            if (cy === md.rctThumb.top) return false;
             md.rctThumb.y = cy;
 
             let v1 = cy - by;
