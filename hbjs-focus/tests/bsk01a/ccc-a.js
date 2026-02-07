@@ -1,8 +1,124 @@
-import { ScrollLogic, ScrollLogicType } from "../hbjs/hfScrollLogic.js";
+const _dataSource = Object.seal({
+    cellWidth: 200, cellHeight: 200,
+    items: [
+        {CNM01: 'R0101', CNM02: 'R0201', CNM03: 'R0301', CNM04: 'R0401', CNM05: 'R0501', CNM06: 'R0601'},
+        {CNM01: 'R0102', CNM02: 'R0202', CNM03: 'R0302', CNM04: 'R0402', CNM05: 'R0502', CNM06: 'R0601'},
+        {CNM01: 'R0103', CNM02: 'R0203', CNM03: 'R0303', CNM04: 'R0403', CNM05: 'R0503', CNM06: 'R0601'},
+        {CNM01: 'R0104', CNM02: 'R0204', CNM03: 'R0304', CNM04: 'R0404', CNM05: 'R0504', CNM06: 'R0601'},
+        {CNM01: 'R0105', CNM02: 'R0205', CNM03: 'R0305', CNM04: 'R0405', CNM05: 'R0505', CNM06: 'R0601'},
+    ],
 
+    viewportBounds: new DOMRect(0, 0, 400, 300),
+    bodyBounds: new DOMRect(0, 0, 100 * 6, 100 * 6),
+
+    poolInfo: Object.seal({
+        columnCount: 0,
+        rowCount: 0,
+        totalCount: 0,
+        elements: [],
+    }),
+});
+
+const fn_prepareVirtualDomElements = () => {
+    const viewportWidth = _dataSource.viewportBounds.width;
+    const viewportHeight = _dataSource.viewportBounds.height;
+    const cellWidth = _dataSource.cellWidth;
+    const cellHeight = _dataSource.cellHeight;
+
+    // viewport에 들어갈 개수 + 1줄 버퍼
+    _dataSource.poolInfo.rowCount = Math.ceil(viewportHeight / cellHeight) + 1;
+    _dataSource.poolInfo.columnCount = Math.ceil(viewportWidth / cellWidth) + 1;
+    _dataSource.poolInfo.totalCount = _dataSource.poolInfo.rowCount * _dataSource.poolInfo.columnCount;
+
+    // elements 배열 초기화
+    _dataSource.poolInfo.elements.length = 0;
+};
+
+const fn_updateDomElementsRender = () => {
+    const viewportX = _dataSource.viewportBounds.x;
+    const viewportY = _dataSource.viewportBounds.y;
+    const cellWidth = _dataSource.cellWidth;
+    const cellHeight = _dataSource.cellHeight;
+
+    // viewport에서 보이는 데이터의 시작 인덱스
+    const startRow = Math.floor(viewportY / cellHeight);
+    const startCol = Math.floor(viewportX / cellWidth);
+
+    // 픽셀 offset
+    const offsetY = -(viewportY % cellHeight);
+    const offsetX = -(viewportX % cellWidth);
+
+    // 컬럼명 배열 추출
+    const columnKeys = _dataSource.items.length > 0 ? Object.keys(_dataSource.items[0]) : [];
+
+    // elements 배열 초기화
+    _dataSource.poolInfo.elements.length = 0;
+
+    for (let poolRow = 0; poolRow < _dataSource.poolInfo.rowCount; poolRow++) {
+        const dataRowIndex = startRow + poolRow;
+
+        // 데이터 범위 체크
+        if (dataRowIndex >= _dataSource.items.length) continue;
+
+        const rowData = _dataSource.items[dataRowIndex];
+
+        for (let poolCol = 0; poolCol < _dataSource.poolInfo.columnCount; poolCol++) {
+            const dataColIndex = startCol + poolCol;
+
+            // 컬럼 범위 체크
+            if (dataColIndex >= columnKeys.length) continue;
+
+            const columnKey = columnKeys[dataColIndex];
+            const cellValue = rowData[columnKey];
+
+            // DOM 위치 계산
+            const x = poolCol * cellWidth + offsetX;
+            const y = poolRow * cellHeight + offsetY;
+
+            _dataSource.poolInfo.elements.push({
+                poolRow: poolRow,
+                poolCol: poolCol,
+                dataRow: dataRowIndex,
+                dataCol: dataColIndex,
+                columnKey: columnKey,
+                value: cellValue,
+                x: x,
+                y: y
+            });
+        }
+    }
+};
+
+
+// 테스트
+fn_prepareVirtualDomElements();
+console.log('Pool Info:', {
+    rowCount: _dataSource.poolInfo.rowCount,
+    columnCount: _dataSource.poolInfo.columnCount,
+    totalCount: _dataSource.poolInfo.totalCount
+});
+
+fn_updateDomElementsRender();
+console.log('Visible Elements:', _dataSource.poolInfo.elements);
 
 console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+[### AI에게 설명하기 ###]
+
+위에 정리된 _dataSource로 작업을 해라.
+꼭 필요한 것은 추가로 나한테 먼저 요청을 하고.
+
+이렇게 poolInfo속성으로 정리 했어.
+fn_prepareVirtualDomElements, fn_updateDomElementsRender
+함수명도 변경되었어 최종 사용할 이름이야
+
+작업 다시 해봐
+
+*/
 
 
 
