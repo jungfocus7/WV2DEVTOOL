@@ -42,6 +42,7 @@ div.c_viewport>div.c_body {
   width: 100%; height: 100%;
   background-color: darkslategrey;
   overflow: hidden;
+  pointer-events: none; user-select: none;
 }
 
 div.c_content-cont>div.c_scroll-cont {
@@ -59,8 +60,10 @@ div.c_body>div.c_hex {
 }
 
 div.c_hex>span.c_sp {
-  background-color: aqua;
-  font-size: 17px; color: black;
+  background-color: black;
+  font-size: 10px; color: whitesmoke;
+  display: inline-block; padding: 4px;
+  white-space: nowrap;
 }
 /*#endregion*/
 
@@ -79,7 +82,7 @@ div.c_scroll-cont>div#bscr>div {
   left: 0px; top: 0px;
   background-color: #748B96;
   pointer-events: none; overflow: visible;
-  opacity: 0.05;
+  opacity: 0.35;
 }
 
 div.c_scroll-cont>div#bscr>div>span {

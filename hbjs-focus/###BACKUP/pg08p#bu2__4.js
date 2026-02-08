@@ -110,25 +110,13 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
         _tam.value = txt;
     };
 
-    /**
-     * @param {number} ta
-     * @returns
-     */
-    const fn_ndgt = (ta) => {
-        let tx = Math.log(Math.abs(ta)) * Math.LOG10E;
-        let ty = Math.max(Math.floor(tx), 0);
-        let tz = ty + 1;
-        // console.log(tz);
-        return tz;
-    };
 
     // {{------------------------------------------------------------------------------------------------------------------------
     const _dtsc = Object.seal(new class {
         #md = Object.seal({
-            rclw: 150, // real cell width
-            rclh: 50, // real cell height
+            rclw: 100, // real cell width
+            rclh: 100, // real cell height
 
-            /*
             rioa: [ // real item object array
                 {CN01: 'R0101', CN02: 'R0201', CN03: 'R0301', CN04: 'R0401', CN05: 'R0501', CN06: 'R0601'},
                 {CN01: 'R0102', CN02: 'R0202', CN03: 'R0302', CN04: 'R0402', CN05: 'R0502', CN06: 'R0602'},
@@ -137,8 +125,6 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
                 {CN01: 'R0105', CN02: 'R0205', CN03: 'R0305', CN04: 'R0405', CN05: 'R0505', CN06: 'R0605'},
                 {CN01: 'R0105', CN02: 'R0205', CN03: 'R0305', CN04: 'R0405', CN05: 'R0505', CN06: 'R0606'},
             ],
-            */
-           rioa: null,
 
             rcc: 0, // real column count
             rrc: 0, // real row count
@@ -150,33 +136,8 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
         constructor() {
             const md = this.#md;
 
-            md.rioa = [];
-            let m = 10, p = fn_ndgt(m); //row
-            let l = 5, o = fn_ndgt(l); //col
-            // console.log(m, p);
-            // console.log(l, o);
-            console.log(m * l);
-            for (let j = 0; j < m; j++) {
-                let rio = {};
-                let rn = (j + 1).toString().padStart(p, '0');
-                // console.log(rn);
-                for (let i = 0; i < l; i++) {
-                    let cn = (i + 1).toString().padStart(o, '0');
-                    // console.log(cn);
-                    rio[`CN${cn}`] = `
-C${cn}
-R${rn}
-                    `.trim();
-                }
-                md.rioa.push(rio);
-            }
-            // console.log('>>>', md.rioa.length);
-            // console.log(md.rioa);
-            // console.log(m * l);
-
             md.rcc = Object.keys(md.rioa.at(0)).length;
             md.rrc = md.rioa.length;
-            console.log('>>>', md.rrc);
 
             md.rbw = md.rclw * md.rcc;
             md.rbh = md.rclh * md.rrc;
@@ -216,8 +177,7 @@ R${rn}
         cio(i, j) {
             const md = this.#md;
             let io = md.rioa.at(j);
-            let kn = (i + 1).toString().padStart(fn_ndgt(md.rcc), '0');
-            // console.log('====', kn);
+            let kn = (i + 1).toString().padStart(2, '0');
             let ro = io[`CN${kn}`].toString();
             return ro;
         }
@@ -275,14 +235,9 @@ R${rn}
         let clh = _dtsc.rclh;
         // console.log(clw, clh);
 
-        // let chc = Math.min(Math.ceil(vpw / clw), _dtsc.rcc) + 0;
-        // let cvc = Math.min(Math.ceil(vph / clh), _dtsc.rrc) + 0;
         let chc = Math.ceil(vpw / clw) + 1;
         let cvc = Math.ceil(vph / clh) + 1;
         // console.log(chc, cvc);
-        // console.log(_dtsc.rcc, _dtsc.rrc);
-        let cac = chc * cvc;
-        // console.log(cac);
 
         const epi = _dtsc.epi;
         const ahtp = `
@@ -292,16 +247,6 @@ R${rn}
         `.trim();
         const tsbf = [];
 
-
-
-        let l = cac - _heBody.childElementCount;
-        if (l > 0) {
-            for (let i = 0; i < l; i++) {
-                tsbf.push(ahtp);
-            }
-        }
-
-/*
         let l = chc - epi.phc;
         if (l > 0) {
             epi.phc = chc;
@@ -316,25 +261,7 @@ R${rn}
             for (let i = 0; i < l; i++) {
                 tsbf.push(ahtp);
             }
-        }*/
-
-
-        /*
-        let ha = chc - epi.phc;
-        let va = cvc - epi.pvc;
-        // console.log(ha, va);
-        if ((ha > 0) || (va > 0)) {
-            epi.phc = chc;
-            epi.pvc = cvc;
-            if (ha < 1) ha = 1;
-            if (va < 1) va = 1;
-            let l = ha * va;
-            for (let i = 0; i < l; i++) {
-                tsbf.push(ahtp);
-            }
-        }*/
-
-
+        }
 
         if (tsbf.length > 0) {
             _heBody.insertAdjacentHTML('beforeend', tsbf.join(''));
@@ -397,7 +324,6 @@ R${rn}
         hea.forEach((he) => {
             let csd = he.style;
             csd.setProperty('visibility', 'hidden');
-            csd.setProperty('transform', 'translate(0px, 0px)');
         });
 
         let k = 0;
@@ -407,8 +333,7 @@ R${rn}
                 if (he) {
                     let co = _dtsc.cio(i, j);
                     // console.log(co);
-                    // he.firstElementChild.textContent = co.toString();
-                    he.firstElementChild['innerText'] = co.toString();
+                    he.firstElementChild.textContent = co.toString();
 
                     let cx = (clw * i) + bdx;
                     let cy = (clh * j) + bdy;

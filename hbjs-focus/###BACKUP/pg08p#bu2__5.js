@@ -125,8 +125,8 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
     // {{------------------------------------------------------------------------------------------------------------------------
     const _dtsc = Object.seal(new class {
         #md = Object.seal({
-            rclw: 150, // real cell width
-            rclh: 50, // real cell height
+            rclw: 100, // real cell width
+            rclh: 100, // real cell height
 
             /*
             rioa: [ // real item object array
@@ -151,11 +151,10 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
             const md = this.#md;
 
             md.rioa = [];
-            let m = 10, p = fn_ndgt(m); //row
-            let l = 5, o = fn_ndgt(l); //col
+            let m = 100, p = fn_ndgt(m);
+            let l = 100, o = fn_ndgt(l);
             // console.log(m, p);
             // console.log(l, o);
-            console.log(m * l);
             for (let j = 0; j < m; j++) {
                 let rio = {};
                 let rn = (j + 1).toString().padStart(p, '0');
@@ -164,15 +163,42 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
                     let cn = (i + 1).toString().padStart(o, '0');
                     // console.log(cn);
                     rio[`CN${cn}`] = `
-C${cn}
-R${rn}
+C${rn}
+R${cn}
                     `.trim();
                 }
                 md.rioa.push(rio);
+
+// let rns = (j + 1).toString().padStart(6, '0');
+//                 md.rioa.push({
+//                     CN01: `
+// C000001
+// R${rns}
+//                     `.trim(),
+//                     CN02: `
+// C000002
+// R${rns}
+//                     `.trim(),
+//                     CN03: `
+// C000003
+// R${rns}
+//                     `.trim(),
+//                     CN04: `
+// C000004
+// R${rns}
+//                     `.trim(),
+//                     CN05: `
+// C000005
+// R${rns}
+//                     `.trim(),
+//                     CN06: `
+// C000006
+// R${rns}
+//                     `.trim(),
+//                 });
             }
             // console.log('>>>', md.rioa.length);
             // console.log(md.rioa);
-            // console.log(m * l);
 
             md.rcc = Object.keys(md.rioa.at(0)).length;
             md.rrc = md.rioa.length;
@@ -277,12 +303,10 @@ R${rn}
 
         // let chc = Math.min(Math.ceil(vpw / clw), _dtsc.rcc) + 0;
         // let cvc = Math.min(Math.ceil(vph / clh), _dtsc.rrc) + 0;
-        let chc = Math.ceil(vpw / clw) + 1;
-        let cvc = Math.ceil(vph / clh) + 1;
+        let chc = Math.ceil(vpw / clw) + 2;
+        let cvc = Math.ceil(vph / clh) + 2;
         // console.log(chc, cvc);
         // console.log(_dtsc.rcc, _dtsc.rrc);
-        let cac = chc * cvc;
-        // console.log(cac);
 
         const epi = _dtsc.epi;
         const ahtp = `
@@ -291,15 +315,6 @@ R${rn}
 </div>
         `.trim();
         const tsbf = [];
-
-
-
-        let l = cac - _heBody.childElementCount;
-        if (l > 0) {
-            for (let i = 0; i < l; i++) {
-                tsbf.push(ahtp);
-            }
-        }
 
 /*
         let l = chc - epi.phc;
@@ -319,7 +334,7 @@ R${rn}
         }*/
 
 
-        /*
+
         let ha = chc - epi.phc;
         let va = cvc - epi.pvc;
         // console.log(ha, va);
@@ -332,8 +347,7 @@ R${rn}
             for (let i = 0; i < l; i++) {
                 tsbf.push(ahtp);
             }
-        }*/
-
+        }
 
 
         if (tsbf.length > 0) {

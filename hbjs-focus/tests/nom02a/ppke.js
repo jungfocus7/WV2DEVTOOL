@@ -1,3 +1,4 @@
+(() => {
 /**
  * @param {number} l
  * @param {number} j
@@ -40,6 +41,8 @@ for (let i = 0; i < l; i++) {
 }
 
 console.log('>>>>>>>>>>');
+
+})();
 
 
 
