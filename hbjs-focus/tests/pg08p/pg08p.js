@@ -125,8 +125,8 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
     // {{------------------------------------------------------------------------------------------------------------------------
     const _dtsc = Object.seal(new class {
         #md = Object.seal({
-            rclw: 150, // real cell width
-            rclh: 50, // real cell height
+            rclw: 200, // real cell width
+            rclh: 100, // real cell height
 
             /*
             rioa: [ // real item object array
@@ -151,8 +151,8 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
             const md = this.#md;
 
             md.rioa = [];
-            let m = 10, p = fn_ndgt(m); //row
-            let l = 5, o = fn_ndgt(l); //col
+            let m = 7, p = fn_ndgt(m); //row
+            let l = 4, o = fn_ndgt(l); //col
             // console.log(m, p);
             // console.log(l, o);
             console.log(m * l);

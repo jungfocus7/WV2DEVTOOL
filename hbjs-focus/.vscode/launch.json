@@ -11,6 +11,16 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
+            "runtimeArgs": [
+                "--max-old-space-size=32768",
+                "--abort-on-uncaught-exception",
+                "--trace-gc",
+                "--trace-warnings",
+                "--trace-uncaught",
+            ],
+            "env": {
+                "NODE_DEBUG": "*"
+            },
             "program": "${file}",
         },
     ]
