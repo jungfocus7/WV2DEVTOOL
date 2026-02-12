@@ -262,7 +262,7 @@ div.c_tp4>div.c_scroll-cont>div#hscr {
 }
 
 div.c_tp4>div.c_scroll-cont>div#bscr {
-  position: absolute;
+  position: absolute; display: none;
   width: 120px; height: 120px;
   background-color: darkblue;
   margin: 0px; padding: 0px;

@@ -1,4 +1,4 @@
-import { dcs } from "../../hbjs/hfCommon.js";
+// import { dcs } from "../../hbjs/hfCommon.js";
 import { hfScrollLogicType, hfScrollLogic } from "../../hbjs/hfScrollLogic.js";
 
 
@@ -26,6 +26,12 @@ const fn_print = (msg=null, ba=true) => {
 };
 
 
+/**
+ * @param {string} cbt - CallbackType
+ * @param {number} sr - ScrollSizeRatio
+ * @param {number} pr - ScrollPositionRatio
+ * @returns {void}
+ */
 const fn_scrlg_cbf = (cbt, sr, pr) => {
     fn_print(`cbt:${cbt}, sr:${sr}, pr:${pr}`);
 };
@@ -35,9 +41,6 @@ let _scrlgV = null;
 /** @type {hfScrollLogic} */
 let _scrlgH = null;
 
-/** @type {hfScrollLogic} */
-let _scrlgB = null;
-
 
 /**
  * @param {PointerEvent} pe
@@ -45,8 +48,7 @@ let _scrlgB = null;
 const fn_btn_clh = (pe) => {
     // dcs.log('fn_btn_clh');
 
-    /** @type {HTMLDivElement} */
-    let te = pe.currentTarget;
+    let te = /** @type {HTMLDivElement} */(pe.currentTarget);
     let nm = te.textContent.trim();
     // dcs.log(nm);
 
@@ -66,7 +68,7 @@ const fn_btn_clh = (pe) => {
                 // let tt = (window.screen.height / 2) - (th / 2);
                 let tl = 100;
                 let tt = 40;
-                window.open('/sub/pages/page07_p.html', 'popup',
+                window.open('/sub/page91a/page91a.html', 'popup',
                     `width=${tw}, height=${th}, top=${tt}, left=${tl},
                      toolbar=no, menubar=no, scrollbars=yes, resizable=no,
                      location=no, status=no`);
@@ -107,7 +109,7 @@ const fn_init = (pd) => {
     _footer = _pec.querySelector('div.c_footer');
     // dcs.log(_footer);
 
-    _btnArr = Array.from(_footer.children);
+    _btnArr = /** @type {HTMLDivElement[]} */(Array.from(_footer.children));
     // dcs.log(_btnArr);
     for (let te of _btnArr) {
         te.addEventListener('click', fn_btn_clh);
@@ -117,10 +119,11 @@ const fn_init = (pd) => {
     let scrc = _pec.querySelector('.c_scroll-cont');
 
     const fn_rdsr = () => {
-        let min = 30;
-        let max = 100;
-        let rv = min + Math.floor(Math.random() * (max - min + 1));
-        return rv / 100;
+        // let min = 30;
+        // let max = 100;
+        // let rv = min + Math.floor(Math.random() * (max - min + 1));
+        // return rv / 100;
+        return 0.1;
     };
 
     _scrlgV = new hfScrollLogic({

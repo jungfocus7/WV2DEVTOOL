@@ -19,7 +19,7 @@
                 "--trace-uncaught",
             ],
             "env": {
-                "NODE_DEBUG": "*"
+                "NODE_DEBUG": ""
             },
             "program": "${file}",
         },

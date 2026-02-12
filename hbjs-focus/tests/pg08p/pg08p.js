@@ -137,7 +137,7 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
             const md = this.#md;
 
             try {
-                let res = await fetch('http://127.0.0.1:5501/tests/pg08p/fxdt3.txt');
+                let res = await fetch('http://127.0.0.1:5501/tests/pg08p/fxdt2.txt');
                 if (!res.ok) {
                     throw res.status;
                 }
@@ -243,12 +243,12 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
     await _dtsc.initOnce();
 
     const fn_prepareVirtualDomElements = () => {
-        let vpw = scrTargetArea.viewportWidth;
-        let vph = scrTargetArea.viewportHeight;
+        const {
+            viewportWidth: vpw,
+            viewportHeight: vph, } = scrTargetArea;
         // console.log(vpw, vph);
 
-        let clw = _dtsc.rclw;
-        let clh = _dtsc.rclh;
+        const { rclw: clw, rclh: clh, } = _dtsc;
         // console.log(clw, clh);
 
         let chc = Math.ceil(vpw / clw) + 1;
@@ -287,24 +287,33 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
 
     const fn_updateDomElementsRender = () => {
         const {
-            viewportWidth: vpw, viewportHeight: vph,
-            bodyLeft: bdx, bodyTop: bdy } = scrTargetArea;
+            viewportWidth: vpw,
+            viewportHeight: vph, } = scrTargetArea;
         // console.log(vpw, vph);
+
+        const bdx = Math.abs(scrTargetArea.bodyLeft);
+        const bdy = Math.abs(scrTargetArea.bodyTop);
         // console.log(bdx, bdy);
 
-        const { rclw: clw, rclh: clh, rcc, rrc } = _dtsc;
+        const {
+            rclw: clw, rclh: clh,
+            rcc: cc, rrc: rc, } = _dtsc;
         // console.log(clw, clh);
+        // console.log(cc, rc);
 
         // column begin index
-        let bi = Math.floor(Math.abs(bdx) / clw);
+        let bi = Math.floor(bdx / clw);
         // row begin index
-        let bj = Math.floor(Math.abs(bdy) / clh);
+        let bj = Math.floor(bdy / clh);
         // console.log(bi, bj);
 
         // column end index
-        let ei = Math.min(_dtsc.rcc - 1, Math.floor((Math.abs(bdx) + vpw) / clw));
+        let ei = Math.floor((bdx + vpw) / clw);
+        if (ei >= cc) ei = cc - 1;
+
         // row end index
-        let ej = Math.min(_dtsc.rrc - 1, Math.floor((Math.abs(bdy) + vph) / clh));
+        let ej = Math.floor((bdy + vph) / clh);
+        if (ej >= rc) ej = rc - 1;
         // console.log(ei, ej);
 
 
@@ -321,8 +330,8 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
                 // hse.textContent = co.toString();
                 hse.innerText = co.toString();
 
-                let cx = (clw * i) + bdx;
-                let cy = (clh * j) + bdy;
+                let cx = (clw * i) - bdx;
+                let cy = (clh * j) - bdy;
                 // console.log(cx, cy);
 
                 let csd = he.style;

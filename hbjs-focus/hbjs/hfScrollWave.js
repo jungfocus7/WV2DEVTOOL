@@ -941,19 +941,19 @@ ${pvsr.toFixed(1)}%/${pvpr.toFixed(1)}%
             }
         } else {
             if (md.scrollType === hfScrollType.BOTH) {
-                let tx = pe.clientX - (md.rctThumb.width / 2);
-                let ty = pe.clientY - (md.rctThumb.height / 2);
+                let tx = pe.offsetX - (md.rctThumb.width / 2);
+                let ty = pe.offsetY - (md.rctThumb.height / 2);
                 this.#fn_updateThumbPosition(tx, ty);
 
                 md.mdx = pe.clientX - md.rctThumb.left;
                 md.mdy = pe.clientY - md.rctThumb.top;
             } else if (md.scrollType === hfScrollType.HORIZONTAL) {
-                let tx = pe.clientX - (md.rctThumb.width / 2);
+                let tx = pe.offsetX - (md.rctThumb.width / 2);
                 this.#fn_updateThumbLeft(tx);
 
                 md.mdx = pe.clientX - md.rctThumb.left;
             } else if (md.scrollType === hfScrollType.VERTICAL) {
-                let ty = pe.clientY - (md.rctThumb.height / 2);
+                let ty = pe.offsetY - (md.rctThumb.height / 2);
                 this.#fn_updateThumbTop(ty);
 
                 md.mdy = pe.clientY - md.rctThumb.top;
