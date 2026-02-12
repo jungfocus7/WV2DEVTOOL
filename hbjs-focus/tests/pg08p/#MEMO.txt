@@ -1,0 +1,5 @@
+https://programming119.tistory.com/241#google_vignette
+디바운싱(Debouncing)과 쓰로틀링(Throttling)
+
+
+

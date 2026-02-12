@@ -1,4 +1,4 @@
-import { hfEventTypes, hfStyleHelper, dcs } from "../../hbjs/hfCommon.js";
+import { hfEventTypes, hfStyleHelper } from "../../hbjs/hfCommon.js";
 import { hfScrollTargetArea, hfScrollType, hfScrollWave } from "../../hbjs/hfScrollWave.js";
 
 
@@ -7,65 +7,65 @@ import { hfScrollTargetArea, hfScrollType, hfScrollWave } from "../../hbjs/hfScr
 
 
 
-(() => {
+(async () => {
     /**
      * @type {HTMLDivElement}
      */
     const _rootCont = document.querySelector('div.c_root-cont');
-    // dcs.log('_rootCont:', _rootCont);
+    // console.log('_rootCont:', _rootCont);
 
     /**
      * @type {HTMLDivElement}
      */
     const _contentCont = _rootCont.querySelector('div.c_content-cont');
-    // dcs.log('_contentCont:', _contentCont);
+    // console.log('_contentCont:', _contentCont);
 
     /**
      * @type {HTMLDivElement}
      */
     const _heViewport = _rootCont.querySelector('div.c_viewport');
-    // dcs.log('_heViewport:', _heViewport);
+    // console.log('_heViewport:', _heViewport);
 
     /**
      * @type {HTMLDivElement}
      */
     const _heBody = _heViewport.querySelector('div.c_body');
-    // dcs.log('_heBody:', _heBody);
+    // console.log('_heBody:', _heBody);
 
     /**
      * @type {HTMLTextAreaElement}
      */
     let _tam = _rootCont.querySelector('div.c_input-cont>textarea.c_tam');
-    // dcs.log('_tam: ', _tam);
+    // console.log('_tam: ', _tam);
 
 
     /**
      * @type {HTMLDivElement}
      */
     let bscr = _contentCont.querySelector('div.c_scroll-cont>div#bscr');
-    // dcs.log('bscr: ', bscr);
+    // console.log('bscr: ', bscr);
 
     /**
      * @type {HTMLDivElement}
      */
     let hscr = _contentCont.querySelector('div.c_scroll-cont>div#hscr');
-    // dcs.log('hscr: ', hscr);
+    // console.log('hscr: ', hscr);
 
     /**
      * @type {HTMLDivElement}
      */
     let vscr = _contentCont.querySelector('div.c_scroll-cont>div#vscr');
-    // dcs.log('vscr: ', vscr);
+    // console.log('vscr: ', vscr);
 
 
     let rctViewport = hfStyleHelper.getRect(_heViewport);
-    // dcs.log('rctViewport:', rctViewport);
+    // console.log('rctViewport:', rctViewport);
 
     let rctBody = hfStyleHelper.getRect(_heBody);
-    // dcs.log('rctBody:', rctBody);
+    // console.log('rctBody:', rctBody);
 
     let scrTargetArea = new hfScrollTargetArea(rctViewport, rctBody);
-    // dcs.log('scrTargetArea:', scrTargetArea);
+    // console.log('scrTargetArea:', scrTargetArea);
 
 
     /** */
@@ -110,77 +110,62 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
         _tam.value = txt;
     };
 
-    /**
-     * @param {number} ta
-     * @returns
-     */
-    const fn_ndgt = (ta) => {
-        let tx = Math.log(Math.abs(ta)) * Math.LOG10E;
-        let ty = Math.max(Math.floor(tx), 0);
-        let tz = ty + 1;
-        // console.log(tz);
-        return tz;
-    };
 
     // {{------------------------------------------------------------------------------------------------------------------------
     const _dtsc = Object.seal(new class {
         #md = Object.seal({
-            rclw: 200, // real cell width
-            rclh: 100, // real cell height
+            /** real cell width */
+            rclw: 100,
+            /** real cell height */
+            rclh: 50,
 
-            /*
-            rioa: [ // real item object array
-                {CN01: 'R0101', CN02: 'R0201', CN03: 'R0301', CN04: 'R0401', CN05: 'R0501', CN06: 'R0601'},
-                {CN01: 'R0102', CN02: 'R0202', CN03: 'R0302', CN04: 'R0402', CN05: 'R0502', CN06: 'R0602'},
-                {CN01: 'R0103', CN02: 'R0203', CN03: 'R0303', CN04: 'R0403', CN05: 'R0503', CN06: 'R0603'},
-                {CN01: 'R0104', CN02: 'R0204', CN03: 'R0304', CN04: 'R0404', CN05: 'R0504', CN06: 'R0604'},
-                {CN01: 'R0105', CN02: 'R0205', CN03: 'R0305', CN04: 'R0405', CN05: 'R0505', CN06: 'R0605'},
-                {CN01: 'R0105', CN02: 'R0205', CN03: 'R0305', CN04: 'R0405', CN05: 'R0505', CN06: 'R0606'},
-            ],
-            */
-           rioa: null,
+            /** row item object arr */
+            rioa: null,
 
-            rcc: 0, // real column count
-            rrc: 0, // real row count
+            /** real column count */
+            rcc: 0,
+            /** real row count */
+            rrc: 0,
 
-            rbw: 0, // real body width
-            rbh: 0, // real body height
+            /** real body width */
+            rbw: 0,
+            /** real body height */
+            rbh: 0,
         });
 
-        constructor() {
+        async initOnce() {
             const md = this.#md;
 
-            md.rioa = [];
-            let m = 7, p = fn_ndgt(m); //row
-            let l = 4, o = fn_ndgt(l); //col
-            // console.log(m, p);
-            // console.log(l, o);
-            console.log(m * l);
-            for (let j = 0; j < m; j++) {
-                let rio = {};
-                let rn = (j + 1).toString().padStart(p, '0');
-                // console.log(rn);
-                for (let i = 0; i < l; i++) {
-                    let cn = (i + 1).toString().padStart(o, '0');
-                    // console.log(cn);
-                    rio[`CN${cn}`] = `
-C${cn}
-R${rn}
-                    `.trim();
+            try {
+                let res = await fetch('http://127.0.0.1:5501/tests/pg08p/fxdt2.txt');
+                if (!res.ok) {
+                    throw res.status;
                 }
-                md.rioa.push(rio);
+
+                let txt = await res.text();
+
+                // 2. 데이터 파싱 (단순 분리)
+                let rowa = txt.split('\n') // row arr
+                    .filter(ls => ls.trim() !== '')
+                    .map((ls) => ls.split('|'));
+                let rca = rowa.at(0); // row cell arr
+                if (!rca) {
+                    throw 'error';
+                }
+
+                md.rioa = rowa;
+                md.rcc = rca.length;
+                md.rrc = rowa.length;
+                console.log(`ColumnCount: ${md.rcc}, RowCount: ${md.rrc}`);
+
+                md.rbw = md.rclw * md.rcc;
+                md.rbh = md.rclh * md.rrc;
+                // console.log(md.rbw, md.rbh);
+            } catch (err) {
+                throw err;
             }
-            // console.log('>>>', md.rioa.length);
-            // console.log(md.rioa);
-            // console.log(m * l);
-
-            md.rcc = Object.keys(md.rioa.at(0)).length;
-            md.rrc = md.rioa.length;
-            console.log('>>>', md.rrc);
-
-            md.rbw = md.rclw * md.rcc;
-            md.rbh = md.rclh * md.rrc;
         }
+
 
         /**
          * real cell width
@@ -215,11 +200,11 @@ R${rn}
          */
         cio(i, j) {
             const md = this.#md;
-            let io = md.rioa.at(j);
-            let kn = (i + 1).toString().padStart(fn_ndgt(md.rcc), '0');
-            // console.log('====', kn);
-            let ro = io[`CN${kn}`].toString();
-            return ro;
+            // row cell arr
+            let rca = md.rioa.at(j);
+            // row cell
+            let rc = rca.at(i);
+            return rc;
         }
 
         /**
@@ -254,17 +239,8 @@ R${rn}
             return md.rbh;
         }
 
-        /**
-         * end pool info
-         */
-        epi = Object.seal({
-            /** preview horizontal cell count */
-            phc: 0,
-            /** preview vertical cell count */
-            pvc: 0,
-        });
-
     });
+    await _dtsc.initOnce();
 
     const fn_prepareVirtualDomElements = () => {
         let vpw = scrTargetArea.viewportWidth;
@@ -275,66 +251,24 @@ R${rn}
         let clh = _dtsc.rclh;
         // console.log(clw, clh);
 
-        // let chc = Math.min(Math.ceil(vpw / clw), _dtsc.rcc) + 0;
-        // let cvc = Math.min(Math.ceil(vph / clh), _dtsc.rrc) + 0;
         let chc = Math.ceil(vpw / clw) + 1;
         let cvc = Math.ceil(vph / clh) + 1;
         // console.log(chc, cvc);
-        // console.log(_dtsc.rcc, _dtsc.rrc);
         let cac = chc * cvc;
         // console.log(cac);
 
-        const epi = _dtsc.epi;
         const ahtp = `
 <div class="c_hex">
     <span class="c_sp">XXXX</span>
 </div>
         `.trim();
         const tsbf = [];
-
-
-
-        let l = cac - _heBody.childElementCount;
-        if (l > 0) {
-            for (let i = 0; i < l; i++) {
+        let li = cac - _heBody.childElementCount;
+        if (li > 0) {
+            for (let i = 0; i < li; i++) {
                 tsbf.push(ahtp);
             }
         }
-
-/*
-        let l = chc - epi.phc;
-        if (l > 0) {
-            epi.phc = chc;
-            for (let i = 0; i < l; i++) {
-                tsbf.push(ahtp);
-            }
-        }
-
-        l = cvc - epi.pvc;
-        if (l > 0) {
-            epi.pvc = cvc;
-            for (let i = 0; i < l; i++) {
-                tsbf.push(ahtp);
-            }
-        }*/
-
-
-        /*
-        let ha = chc - epi.phc;
-        let va = cvc - epi.pvc;
-        // console.log(ha, va);
-        if ((ha > 0) || (va > 0)) {
-            epi.phc = chc;
-            epi.pvc = cvc;
-            if (ha < 1) ha = 1;
-            if (va < 1) va = 1;
-            let l = ha * va;
-            for (let i = 0; i < l; i++) {
-                tsbf.push(ahtp);
-            }
-        }*/
-
-
 
         if (tsbf.length > 0) {
             _heBody.insertAdjacentHTML('beforeend', tsbf.join(''));
@@ -352,32 +286,13 @@ R${rn}
     };
 
     const fn_updateDomElementsRender = () => {
-        let prx = scrTargetArea.hspr;
-        let pry = scrTargetArea.vspr;
-        // console.log(prx, pry);
-
-        let dfx = scrTargetArea.viewportWidth - scrTargetArea.bodyWidth;
-        let dfy = scrTargetArea.viewportHeight - scrTargetArea.bodyHeight;
-        // console.log(dfx, dfy);
-
-        let spx = dfx * prx;
-        let spy = dfy * pry;
-        // console.log(spx, spy);
-
-        let bdw = _dtsc.rbw;
-        let bdh = _dtsc.rbh;
-        // console.log(bdw, bdh);
-
-        let vpw = scrTargetArea.viewportWidth;
-        let vph = scrTargetArea.viewportHeight;
+        const {
+            viewportWidth: vpw, viewportHeight: vph,
+            bodyLeft: bdx, bodyTop: bdy } = scrTargetArea;
         // console.log(vpw, vph);
-
-        let bdx = scrTargetArea.bodyLeft;
-        let bdy = scrTargetArea.bodyTop;
         // console.log(bdx, bdy);
 
-        let clw = _dtsc.rclw;
-        let clh = _dtsc.rclh;
+        const { rclw: clw, rclh: clh, rcc, rrc } = _dtsc;
         // console.log(clw, clh);
 
         // column begin index
@@ -394,88 +309,70 @@ R${rn}
 
 
         let hea = /** @type {HTMLDivElement[]} */(Array.from(_heBody.children));
-        hea.forEach((he) => {
-            let csd = he.style;
-            csd.setProperty('visibility', 'hidden');
-            csd.setProperty('transform', 'translate(0px, 0px)');
-        });
-
-        let k = 0;
+        let lk = hea.length, k = 0;
         for (let j = bj; j <= ej; j++) {
             for (let i = bi; i <= ei; i++) {
                 let he = hea.at(k++);
-                if (he) {
-                    let co = _dtsc.cio(i, j);
-                    // console.log(co);
-                    // he.firstElementChild.textContent = co.toString();
-                    he.firstElementChild['innerText'] = co.toString();
+                if (!he) break;
 
-                    let cx = (clw * i) + bdx;
-                    let cy = (clh * j) + bdy;
-                    // console.log(cx, cy);
+                const co = _dtsc.cio(i, j);
+                // console.log(co);
+                let hse = /** @type {HTMLSpanElement} */(he.firstElementChild);
+                // hse.textContent = co.toString();
+                hse.innerText = co.toString();
 
-                    let csd = he.style;
-                    csd.setProperty('width', `${clw}px`);
-                    csd.setProperty('height', `${clh}px`);
-                    csd.setProperty('transform', `translate(${cx}px, ${cy}px)`);
-                    csd.setProperty('visibility', 'visible');
-                }
+                let cx = (clw * i) + bdx;
+                let cy = (clh * j) + bdy;
+                // console.log(cx, cy);
+
+                let csd = he.style;
+                csd.width = `${clw}px`;
+                csd.height = `${clh}px`;
+                csd.transform = `translate(${cx}px, ${cy}px)`;
+                if (csd.visibility !== 'visible') csd.visibility = 'visible';
             }
-
+            if (k >= lk) break;
         }
 
-
-
-
-        // const epi = _dtsc.epi;
-
-        // let hea = /** @type {HTMLDivElement[]} */(Array.from(_heBody.children));
-        // let i = 0;
-        // for (const he of hea) {
-        //     const csd = he.style;
-        //     if (i === 0) {
-        //         let ci = bi + 0;
-        //         let cj = bj + 0;
-        //         // console.log(ci, cj);
-        //         let co = _dtsc.cio(ci, cj);
-        //         // console.log(co);
-        //         he.firstElementChild.textContent = co.toString();
-
-        //         console.log();
-
-        //         csd.setProperty('visibility', 'visible');
-        //     } else {
-        //         csd.setProperty('visibility', 'hidden');
-        //     }
-
-        //     i++;
-        //     //epi.phc
-        // }
-
-
-
+        for (let i = k; i < lk; i++) {
+            let he = hea.at(i);
+            let csd = he.style;
+            if (csd.visibility !== 'hidden') {
+                csd.visibility = 'hidden';
+            }
+        }
     };
     // }}
 
 
+    let _bgp = true;
+    const fn_scrollOptimized = (ba=false) => {
+        if (_bgp) {
+            requestAnimationFrame(() => {
+                if (ba) fn_prepareVirtualDomElements();
+                fn_updateDomElementsRender();
+                fn_updateOutText();
+                _bgp = true;
+            });
+            _bgp = false;
+        }
+    };
+
     scrBoth.addEventListener(hfEventTypes.SCROLL, (_) => {
-        fn_updateDomElementsRender();
-        fn_updateOutText();
+        fn_scrollOptimized();
 
         scrHori.fn_updateAfterRect();
         scrVert.fn_updateAfterRect();
     });
 
     scrHori.addEventListener(hfEventTypes.SCROLL, (_) => {
-        fn_updateDomElementsRender();
-        fn_updateOutText();
+        fn_scrollOptimized();
 
         scrBoth.fn_updateAfterRect();
     });
 
     scrVert.addEventListener(hfEventTypes.SCROLL, (_) => {
-        fn_updateDomElementsRender();
-        fn_updateOutText();
+        fn_scrollOptimized();
 
         scrBoth.fn_updateAfterRect();
     });
@@ -490,10 +387,7 @@ R${rn}
         scrTargetArea.viewportWidth = vpw;
         scrTargetArea.viewportHeight = vph;
 
-        fn_prepareVirtualDomElements();
-        fn_updateDomElementsRender();
-
-        fn_updateOutText();
+        fn_scrollOptimized(true);
     };
     let rsosv = new ResizeObserver((_) => {
         fn_resize(null);
@@ -501,8 +395,50 @@ R${rn}
     rsosv.observe(_contentCont);
 
 
-
     window.addEventListener('keydown', (ke) => {
+        // console.log(ke.code);
+
+        const fn_ppval = () => {
+            if (ke.ctrlKey) return 1;
+            else if (ke.shiftKey) return 100;
+            else return 10;
+        };
+
+        switch (ke.code) {
+            case 'ArrowLeft': {
+                scrTargetArea.bodyLeft += fn_ppval();
+                fn_scrollOptimized();
+
+                scrBoth.fn_updateAfterRect();
+                scrHori.fn_updateAfterRect();
+                break;
+            }
+            case 'ArrowRight': {
+                scrTargetArea.bodyLeft -= fn_ppval();
+                fn_scrollOptimized();
+
+                scrBoth.fn_updateAfterRect();
+                scrHori.fn_updateAfterRect();
+                break;
+            }
+            case 'ArrowUp': {
+                scrTargetArea.bodyTop += fn_ppval();
+                fn_scrollOptimized();
+
+                scrBoth.fn_updateAfterRect();
+                scrVert.fn_updateAfterRect();
+                break;
+            }
+            case 'ArrowDown': {
+                scrTargetArea.bodyTop -= fn_ppval();
+                fn_scrollOptimized();
+
+                scrBoth.fn_updateAfterRect();
+                scrVert.fn_updateAfterRect();
+                break;
+            }
+        }
+
     });
 
 })();
