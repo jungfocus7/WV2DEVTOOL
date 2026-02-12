@@ -2,4 +2,16 @@ https://programming119.tistory.com/241#google_vignette
 디바운싱(Debouncing)과 쓰로틀링(Throttling)
 
 
-
+    let _bgp = true;
+    const fn_scrollOptimized = (ba=false) => {
+        if (_bgp) {
+            requestAnimationFrame(() => {
+                if (ba) fn_prepareVirtualDomElements();
+                fn_updateDomElementsRender();
+                fn_updateOutText();
+                _bgp = true;
+            });
+            _bgp = false;
+        }
+    };
+    // 디바운싱 구현체 샘플

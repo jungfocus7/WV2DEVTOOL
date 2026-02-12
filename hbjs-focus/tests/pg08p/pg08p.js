@@ -137,7 +137,7 @@ VSPR: ${(100 * scrTargetArea.vspr).toFixed(1)}%,
             const md = this.#md;
 
             try {
-                let res = await fetch('http://127.0.0.1:5501/tests/pg08p/fxdt2.txt');
+                let res = await fetch('http://127.0.0.1:5501/tests/pg08p/fxdt3.txt');
                 if (!res.ok) {
                     throw res.status;
                 }
