@@ -29,6 +29,7 @@ const _mimeTypes = Object.freeze({
     '.css': 'text/css',
     '.js': 'text/javascript',
     '.ico': 'image/x-icon',
+    '.txt': 'text/plain',
 });
 
 
@@ -52,6 +53,7 @@ const fn_defaultEnd = (res, ctp, txt) => {
 const _hrfa = [
     '/sub/main.css',
     '/sub/main.js',
+
     '/hbjs/hfCommon.js',
     '/hbjs/hfCountTask.js',
     '/hbjs/hfFrameRepeater.js',
@@ -61,6 +63,7 @@ const _hrfa = [
     '/hbjs/hfStyleFunctions.js',
     '/hbjs/hfTween.js',
     '/hbjs/hfWeich.js',
+
     '/sub/pages/page01.js',
     '/sub/pages/page02.js',
     '/sub/pages/page03.js',
@@ -69,7 +72,14 @@ const _hrfa = [
     '/sub/pages/page06.js',
     '/sub/pages/page07.js',
     '/sub/pages/page91.js',
+
     '/sub/pages/page07_p.html',
+
+    '/sub/page07a/page07a.html',
+    '/sub/page07a/page07a.css',
+    '/sub/page07a/page07a.js',
+    '/sub/page07a/fxdt2.txt',
+    '/sub/page07a/fxdt3.txt',
 ];
 
 const _server = http.createServer(async (req, res) => {
@@ -91,7 +101,7 @@ const _server = http.createServer(async (req, res) => {
             if (_hrfa.indexOf(req.url) > -1) {
                 try {
                     let hfp = path.join(path.dirname(__dirname), req.url);
-                    // console.log('#hfp:', hfp);
+                    console.log('#hfp:', hfp);
                     let data = await fs.readFile(hfp);
                     let exn = path.extname(hfp);
                     // console.log('#exn:', exn);

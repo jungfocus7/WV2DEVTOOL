@@ -68,7 +68,7 @@ const fn_btn_clh = (pe) => {
                 // let tt = (window.screen.height / 2) - (th / 2);
                 let tl = 100;
                 let tt = 40;
-                window.open('/sub/page91a/page91a.html', 'popup',
+                window.open('/sub/page07a/page07a.html', 'popup',
                     `width=${tw}, height=${th}, top=${tt}, left=${tl},
                      toolbar=no, menubar=no, scrollbars=yes, resizable=no,
                      location=no, status=no`);
