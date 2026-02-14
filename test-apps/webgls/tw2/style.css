@@ -1,0 +1,25 @@
+:root {
+  --vmg: 5px;
+  --vmg2: 10px;
+}
+
+body {
+  margin: 0px; padding: 0px;
+  background-color: black;
+  font-size: 0px;
+}
+
+div.c_root {
+  position: absolute; display: block;
+  width: calc(100% - var(--vmg2));
+  height: calc(100% - var(--vmg2));
+  margin: var(--vmg); padding: 20px;
+  background-color: dimgray;
+  box-sizing: border-box;
+  border-radius: 7px;
+}
+
+canvas.c_cvs {
+  background-color: darkblue;
+  width: 400px; height: 300px;
+}

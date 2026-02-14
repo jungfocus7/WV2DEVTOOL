@@ -5,5 +5,7 @@ Developer: Reload Window
 Workspaces: Manage Workspace Trust
 
 
-https://github.com/jungfocus7/hf_final
-이거 참조해서 완성해라 [251126]
+
+#########################################################
+pnpm install
+pnpm update --latest

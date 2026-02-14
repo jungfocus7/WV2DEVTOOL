@@ -1,0 +1,41 @@
+:root {
+  --mg: 5px;
+  --mg2: 10px;
+  --mg4: 20px;
+}
+
+html, body {
+  margin: 0px; padding: 0px;
+  width: 100%; height: 100%;
+  background-color: black;
+  font-size: 0px;
+}
+
+div.c_root {
+  position: relative;
+  width: calc(100% - var(--mg2));
+  height: calc(100% - var(--mg2));
+  margin: var(--mg); padding: var(--mg4);
+  background-color: dimgray;
+  box-sizing: border-box;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+canvas.c_cvs {
+  background-color: darkblue;
+  width: 400px; height: 300px;
+  cursor: pointer;
+}
+
+span.c_info {
+  position: absolute; display: block;
+  background-color: rgba(102, 51, 153, 0.35);
+  width: 100px; height: 17px;
+  left: 317px; top: 324px;
+  padding: 0px 0px 2px 0px;
+  font-size: 11px; color: rgba(245, 245, 245, 0.555);
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}

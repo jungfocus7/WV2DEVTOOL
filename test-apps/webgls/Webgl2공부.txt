@@ -1,0 +1,5 @@
+1) javascript코드로 webgl2관련 코드 세팅 및 실행
+
+2) Vertext Shader (그래픽 요소를 만드는 뼈대들의 각 점들) 코드 실행
+
+3) Rasterization (자동공정) GPU집약 처리작업이며 정점들 사이에 표면적 구성들의 좌표를 계산

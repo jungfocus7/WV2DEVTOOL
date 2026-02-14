@@ -1,0 +1,107 @@
+{
+    "compilerOptions": {
+        // !! module 설정의 주된 역할은 **"모듈 구문(import/export)을 어떤 규칙에 따라 해석해야 하는지
+        //    "**를 VS Code의 TypeScript Language Server (JavaScript의 IntelliSense를 담당하는 서비스)에게
+        //    알려주는 것
+        "module": "esnext",
+
+        // !! module 옵션의 보조 역할을 하며
+        //    어떤 방식으로 모듈을 접근하는지 알려주는 것
+        "moduleResolution": "node",
+
+        // !! 번들러나 컴파일러(TypeScript Compiler, Babel 등)에게
+        //    이 코드를 어떤 ECMAScript 버전의 문법으로 변환(컴파일)해야 할지 알려주는 용도
+        "target": "esnext",
+
+        // !!
+        "lib": [
+            "ESNext"
+        ],
+
+        // !!
+        "types": [
+            "node"
+        ],
+
+        // !! cjs, esm 사이를 유기적으로 처리하는 옵션
+        "esModuleInterop": true,
+
+        // !! 프로젝트에 js사용 (js만 쓰니까 당연하지)
+        "allowJs": true,
+
+        // !! js 타입검사를 적극적으로 수행함
+        "checkJs": true,
+    },
+
+    // VS Code가 Node.js API 타입을 찾을 수 있도록 합니다.
+    "typeAcquisition": {
+        "include": [
+            "node"
+        ]
+    },
+
+    // 프로젝트 내의 모든 JS 파일을 언어 서비스의 분석 대상에 포함합니다.
+    "include": [
+        "**/*.js",
+        "**/*.mjs" // Node.js ESM 파일도 포함
+    ],
+
+    // 무시할 폴더 및 파일 (일반적인 Node.js 프로젝트 설정)
+    "exclude": [
+        "node_modules",
+        "**/node_modules",
+        "dist",
+        "build"
+    ],
+}
+
+
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// {
+//     "compilerOptions": {
+//         "moduleResolution": "node",
+//         "module": "esnext",
+//         "target": "esnext",
+//         "lib": [
+//             "ESNext"
+//         ],
+//         "types": [
+//             "node"
+//         ],
+//         "esModuleInterop": true,
+//         "checkJs": true,
+//         "allowJs": true,
+//     },
+//     "include": [
+//         "**/*.js"
+//     ]
+// }
+// [!!!! 제미나이가 알려준거 최종 외우자]
+//  https://code.visualstudio.com/docs/languages/jsconfig
+// // jsconfig.json (Node.js ESM, 최신 JS 문법 우선)
+// {
+//   "compilerOptions": {
+//     // 1. **대상 환경 (Target):** 모든 JS 문법을 최신 상태로 유지하고 변환을 최소화합니다.
+//     "target": "ESNext",
+//     // 2. **모듈 시스템 (Module):** 최신 모듈 방식인 ESM(import/export)을 사용합니다.
+//     "module": "ESNext",
+//     // 3. **모듈 해석 (Module Resolution):** Node.js의 최신 ESM 규칙(NodeNext)을 따릅니다.
+//     "moduleResolution": "NodeNext",
+//     // 4. **라이브러리 정의 (Lib):** 브라우저 DOM을 제외하고, 최신 JS 표준 API만 로드합니다.
+//     "lib": ["ESNext"],
+//     // 5. **타입 정의 (Types):** Node.js 전용 API를 로드하고, 불필요한 전역 타입을 차단합니다.
+//     "types": ["node"],
+//     // 6. **호환성:** CJS와 ESM 간의 import/export 충돌을 자동으로 해결합니다.
+//     "esModuleInterop": true,
+//     // 7. **JS 파일 검사:** 순수 JS 파일에서도 타입 검사와 풍부한 IntelliSense를 활성화합니다.
+//     "checkJs": true,
+//     "allowJs": true,
+//   },
+//   // 프로젝트 내 모든 JS 파일을 IntelliSense 대상에 포함합니다.
+//   "include": [
+//     "**/*.js"
+//   ]
+// }
