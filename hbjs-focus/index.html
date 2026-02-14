@@ -4,40 +4,118 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HBJS-FOCUS (251125-1)</title>
-  <link href="./src/main.css" rel="stylesheet">
-  <link href="./src/pages/page_.css" rel="stylesheet">
+  <title>HBJS-FOCUS (251125-2)</title>
+  <!-- <link href="./tests/ccc-a.css" rel="stylesheet"> -->
+  <link href="./sub/main.css" rel="stylesheet">
+  <!-- <link href="./sub/pages/page_com.css" rel="stylesheet"> -->
 </head>
 
 <body>
   <div class="c_rootCont">
-    <div class="c_leftMenuCont">
-      <button type="button" class="c_mbtn"><span>01) hfCommon</span></button>
-      <button type="button" class="c_mbtn"><span>02) hfCountTask</span></button>
-      <button type="button" class="c_mbtn"><span>03) hfNumberRanger</span></button>
-      <button type="button" class="c_mbtn"><span>04) hfTween</span></button>
-      <button type="button" class="c_mbtn"><span>05) hfWeich</span></button>
-      <button type="button" class="c_mbtn"><span>06) hfFrameRepeater</span></button>
-      <button type="button" class="c_mbtn"><span>07) hfScrollLogic</span></button>
-      <button type="button" class="c_mbtn"><span>91) Tmp1</span></button>
-      <span class="c_pinbt"></span>
+    <div class="c_leftMenuCont" tabindex="-1">
+      <div class="c_mbtn" data-dts="page01,tp1">
+        <span>01)hfCommon</span>
+      </div>
+      <div class="c_mbtn" data-dts="page02,tp1">
+        <span>02)hfCountTask</span>
+      </div>
+      <div class="c_mbtn" data-dts="page03,tp1">
+        <span>03)hfNumberRanger</span>
+      </div>
+      <div class="c_mbtn" data-dts="page04,tp3">
+        <span>04)hfTween</span>
+      </div>
+      <div class="c_mbtn" data-dts="page05,tp3">
+        <span>05)hfWeich</span>
+      </div>
+      <div class="c_mbtn" data-dts="page06,tp1">
+        <span>06)hfFrameRepeater</span>
+      </div>
+      <div class="c_mbtn" data-dts="page07,tp4">
+        <span>07)hfScrollLogic</span>
+      </div>
+      <div class="c_mbtn" data-dts="page91,tp1">
+        <span>91)Tmp1</span>
+      </div>
+      <span class="c_pinRect"></span>
+      <span class="c_pinFold"></span>
     </div>
 
     <div class="c_pageCont">
-      <!--{{########### -->
-      <div class="c_page" tabindex="01">
-        <span class="c_tname">hfCommon</span>
-        <!-- <textarea class="c_tam" placeholder="empty" name="empty" spellcheck="false" readonly></textarea> -->
-        <!-- <div class="c_btc">
-            <button type="button" class="c_bt"><span>00)clear</span></button>
-            <button type="button" class="c_bt"><span>01)hfnum</span></button>
-            <button type="button" class="c_bt"><span>02)hfstr</span></button>
-            <button type="button" class="c_bt"><span>03)hfarr</span></button>
-        </div> -->
+      <div class="c_page" tabindex="0" data-tp="tp1">
+        <span class="c_tname">XXXXXX</span>
+        <div class="c_pec c_tp1">
+          <textarea class="c_tam" name="empty" spellcheck="false"
+            placeholder="empty" readonly></textarea>
+          <div class="c_tip"></div>
+          <div class="c_footer">
+            <div class="c_btn"><span>Clear</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="c_page" tabindex="0" data-tp="tp2">
+        <span class="c_tname">XXXXXX</span>
+        <div class="c_pec c_tp2">
+          <textarea class="c_tam" name="empty" spellcheck="false"
+            placeholder="empty" readonly></textarea>
+          <div class="c_footer">
+            <div class="c_btn"><span>Clear</span></div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="c_page" tabindex="0" data-tp="tp3">
+        <span class="c_tname">XXXXXX</span>
+        <div class="c_pec c_tp3">
+          <svg class="c_svg">
+            <circle cx="50" cy="50" r="20" fill="black"/>
+          </svg>
+          <textarea class="c_tam" name="empty" spellcheck="false"
+            placeholder="empty" readonly></textarea>
+          <div class="c_footer">
+            <div class="c_btn"><span>Clear</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c_page" tabindex="0" data-tp="tp4">
+        <span class="c_tname">XXXXXX</span>
+        <div class="c_pec c_tp4">
+          <div class="c_scroll-cont">
+            <div id="vscr"></div>
+            <div id="hscr"></div>
+            <div id="bscr"></div>
+          </div>
+          <textarea class="c_tam" name="empty" spellcheck="false"
+            placeholder="empty" readonly>xxxx</textarea>
+          <div class="c_footer">
+            <div class="c_btn"><span>Clear</span></div>
+            <div class="c_btn"><span>Open ScrollWave</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+  <div class="c_xxts">
+    <div class="c_page" tabindex="0" data-tp="tp3">
+      <span class="c_tname">EmptyPage</span>
+      <div class="c_pec">
+        <textarea class="c_tam" name="empty" spellcheck="false"
+          placeholder="empty" readonly></textarea>
+        <div class="c_footer">
+          <div class="c_btn"><span>Clear</span></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <script type="module" src="./src/main.js"></script>
+  <script type="module" src="./sub/main.js"></script>
 </body>
 </html>

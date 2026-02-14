@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TESTER</title>
+</head>
+<body>
+<div class="c_root">
+</div>
+<script>
+// let _parent = {
+//     name: '박명식'
+// };
+// let _child = Object.create(_parent);
+// console.log(_child);
+// console.log(_child.__proto__);
+
+
+/*
+const Parent = function() {
+};
+Object.assign(Parent.prototype, {
+    getName() {
+        return this._name;
+    }
+});
+
+const Child = Object.create(Parent);
+console.log(Child);
+*/
+
+
+// const _user = Object.defineProperties({}, {
+//     name: {
+//         configurable: false,
+//         writable: false,
+//         // get: () => {
+//         //     return '박종명';
+//         // }
+//         value: '박종명'
+//     }
+// });
+// _user.name = '임헌진';
+// console.log(_user.name);
+// Object.defineProperty(_user, 'name', {
+//     writable: false
+// });
+// _user.name = '이중호';
+// console.log(_user.name);
+
+// const _x0 = Object.defineProperty({}, 'name', {
+//     value: '김도기'
+// });
+// console.log(Object.getOwnPropertyDescriptor(_x0, 'name'));
+
+// for (let pn in _user) {
+//     console.log(pn);
+// }
+
+
+// const _user = Object.defineProperties({}, {
+//     name: {
+//         // configurable: false,
+//         // enumerable: true,
+//         // writable: true,
+//         value: '박종명',
+//         // _name: '',
+//         // get: () => {
+//         //     return '박종명';
+//         // },
+//         // set: (tv) => {
+//         //     console.log(tv);
+//         //     console.log('>>> ', this._name);
+//         // },
+//         // // value: '박종명'
+//     }
+// });
+const _user = {name: '박종명', age: 37, job: '유통업'};
+_user.name = '임헌진';
+console.log(_user.name);
+console.log(Object.getOwnPropertyDescriptor(_user, 'name'));
+Object.defineProperty(_user, 'name', {configurable: false, enumerable: false, writable: false})
+console.log(Object.getOwnPropertyDescriptor(_user, 'name'));
+
+console.log(Object.keys(_user));
+console.log(Object.getOwnPropertyDescriptors(Object.keys(_user)));
+
+// for (let pn in _user) {
+//     console.log('>>>', pn);
+// }
+
+// with (_user) {
+//     console.log(name);
+// }
+
+// class UserInfo {
+//     #md = Object.seal({
+//         email: '',
+//         age: 0,
+//         name: '',
+//     });
+//     constructor() {
+//         const md = this.#md;
+
+//     }
+// }
+
+
+let _arr = Array.from('01234');
+console.log(_arr);
+_arr.reverse();
+console.log(_arr[Symbol.iterator]());
+console.log(_arr);
+
+
+</script>
+</body>
+</html>

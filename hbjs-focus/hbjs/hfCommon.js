@@ -1,86 +1,131 @@
-//#region `hfnum: 넘버 관련 모듈`
+//#region [Number 관련]
+/**
+ * Check Number
+ * @param {number} tv
+ */
+const fn_cknb = (tv) => {
+    if (Number.isFinite(tv) === false)
+        throw `Invalid argument, not a number.`;
+};
+
+/**
+ * Check Numbers
+ * @param {...number} tva
+ */
+const fn_cknbs = (...tva) => {
+    for (let tv of tva) {
+        fn_cknb(tv);
+    }
+};
+
+/**
+ * 넘버가 유효한지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isNumber = (tv) => {
+    return Number.isFinite(tv);
+};
+
+/**
+ * 넘버가 아닌지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_notNumber = (tv) => {
+    return Number.isFinite(tv) === false;
+};
+
+/**
+ * 넘버가 실수인지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isFloat = (tv) => {
+    fn_cknb(tv);
+    return (tv % 1) !== 0;
+};
+
+/**
+ * 넘버가 음수인지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isMinus = (tv) => {
+    fn_cknb(tv);
+    return tv < 0;
+};
+
+/**
+ * 난수 만들기 0~n
+ * @param {number} tv
+ * @returns
+ */
+const fn_random = (tv) => {
+    fn_cknb(tv);
+    return Math.floor(Math.random() * tv);
+};
+
+/**
+ * 난수 만들기 min~max
+ * @param {number} min
+ * @param {number} max
+ * @returns
+ */
+const fn_randRange = (min, max) => {
+    fn_cknbs(min, max);
+    return min + Math.floor(Math.random() * (max - min + 1));
+};
+
+/**
+ * 넘버가 홀수인지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isOdd = (tv) => {
+    fn_cknbs(tv);
+    return (tv % 2) !== 0;
+};
+
+/**
+ * 넘버가 짝수인지 확인
+ * @param {number} tv
+ * @returns
+ */
+const fn_isEven = (tv) => {
+    fn_cknbs(tv);
+    return (tv % 2) === 0;
+};
+
+/**
+ * 값을 특정 범위(Begin ~ End) 내로 제한하는 함수
+ * @param {number} bv Begin Value
+ * @param {number} ev End Value
+ * @param {number} cv Current Value
+ * @returns
+ */
+const fn_clamp = (bv, ev, cv) => {
+    fn_cknbs(bv, ev, cv);
+    if (cv < bv) return bv;
+    else if (cv > ev) return ev;
+    else return cv;
+};
+
 export const hfnum = Object.freeze({
-    /**
-     * 넘버가 맞는지 확인
-     * @param {number} tv
-     * @returns
-     */
-    isNumber: (tv) => {
-        return Number.isFinite(tv);
-    },
-
-    /**
-     * 넘버가 아닌지 확인
-     * @param {number} tv
-     * @returns
-     */
-    notNumber: (tv) => {
-        return Number.isFinite(tv) === false;
-    },
-
-    /**
-     * 넘버가 실수인지 확인
-     * @param {number} tv
-     * @returns
-     */
-    isFloat: (tv) => {
-        return (tv % 1) !== 0;
-    },
-
-    /**
-     * 넘버가 음수인지 확인
-     * @param {number} tv
-     * @returns
-     */
-    isMinus: (tv) => {
-        return tv < 0;
-    },
-
-    /**
-     * 난수 만들기 0~n
-     * @param {number} tv
-     * @returns
-     */
-    random: (tv) => {
-        return Math.round(Math.random() * (tv - 1));
-    },
-
-
-    /**
-     * 난수 만들기 min~max
-     * @param {number} min
-     * @param {number} max
-     * @returns
-     */
-    randRange: (min, max) => {
-        return min + Math.round(Math.random() * (max - min));
-    },
-
-
-    /**
-     * 넘버가 홀수인지 확인
-     * @param {number} tv
-     * @returns
-     */
-    isOdd: (tv) => {
-        return (tv % 2) > 0;
-    },
-
-
-    /**
-     * 넘버가 짝수인지 확인
-     * @param {number} tv
-     * @returns
-     */
-    isEven: (tv) => {
-        return (tv % 2) === 0;
-    },
-
+    isNumber: fn_isNumber,
+    notNumber: fn_notNumber,
+    isFloat: fn_isFloat,
+    isMinus: fn_isMinus,
+    random: fn_random,
+    randRange: fn_randRange,
+    isOdd: fn_isOdd,
+    isEven: fn_isEven,
+    clamp: fn_clamp,
 });
 //#endregion
 
 
-//#region `hfstr: 문자열 관련 모듈`
+//#region [String 관련]
 export const hfstr = Object.freeze({
     /**
      * 문자열 사용불가 확인
@@ -144,8 +189,13 @@ export const hfstr = Object.freeze({
 //#endregion
 
 
-//#region `hfarr: 배열 관련 모듈`
+//#region [Array 관련]
 export const hfarr = Object.freeze({
+    /**
+     * 배열객체가 유효하지 않다. 확인
+     * @param {any[]} arr
+     * @returns
+     */
     isEmpty: (arr) => {
         if (Array.isArray(arr))
             return arr.length === 0;
@@ -218,7 +268,7 @@ export const hfarr = Object.freeze({
 //#endregion
 
 
-//#region `hfdtime: 날짜,시간 관련 유틸리티`
+//#region [(날짜, 시간) 관련]
 export const hfdtime = Object.freeze({
     /**
      * 시간 스탬프 기본
@@ -325,11 +375,15 @@ export const hfdtime = Object.freeze({
 //#endregion
 
 
+//#region [EventTypes 분류]
 export const hfEventTypes = Object.freeze({
     // Base
     BLUR: 'blur',
     RESIZE: 'resize',
     SCROLL: 'scroll',
+    FOCUS_OUT: 'focusout',
+    FOCUS_IN: 'focusin',
+    FOCUS: 'focus',
 
     // Mouse
     MOUSE_MOVE: 'mousemove',
@@ -342,8 +396,13 @@ export const hfEventTypes = Object.freeze({
     UPDATE: 'update',
     END: 'end',
 });
+//#endregion
 
 
+//#region [DebugConsole 관련]
+/**
+ * DebugConsole
+ */
 export const dcs = Object.seal({
     /**
      * 로그 사용여부
@@ -355,7 +414,7 @@ export const dcs = Object.seal({
      * @param {...any} args
      */
     log: (...args) => {
-        if (dcs.isLog === true)
+        if (dcs.isLog)
             console.log.apply(null, args);
     },
 
@@ -364,8 +423,243 @@ export const dcs = Object.seal({
      * @param {string} msg
      */
     msg: (msg) => {
-        if (dcs.isLog === true)
+        if (dcs.isLog)
             console.log(msg);
     }
 
 });
+//#endregion
+
+
+//#region [Style 관련]
+/**
+ * 넘버인지 확인후 반환
+ * @param {number | string} tv
+ * @param {number} dv
+ * @returns {number}
+ */
+const fn_checkNumber = (tv, dv=0) => {
+    let rv = NaN;
+    if (typeof tv === 'number')
+        rv = tv;
+    else if (typeof tv === 'string')
+        rv = Number.parseFloat(tv);
+
+    if (Number.isFinite(rv))
+        return rv;
+    else
+        return dv;
+};
+
+/**
+ * HTMLElement 스타일 객체 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {boolean} bw writeable
+ * @returns {CSSStyleDeclaration}
+ */
+const fn_getStyle = (to, bw=false) => {
+    if (to instanceof CSSStyleDeclaration)
+        return to;
+    else if (to instanceof HTMLElement) {
+        if (bw)
+            return to.style;
+        else
+            return getComputedStyle(to);
+    }
+    else
+        return null;
+};
+
+/**
+ * HTMLElement width(Number) 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {number}
+ */
+const fn_getWidth = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tv = csd.getPropertyValue('width');
+        return fn_checkNumber(tv);
+    }
+    else return 0;
+};
+
+/**
+ * HTMLElement width(Number) 설정
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {number} tv
+ */
+const fn_setWidth = (to, tv) => {
+    const csd = fn_getStyle(to, true);
+    if (csd) {
+        tv = fn_checkNumber(tv);
+        csd.setProperty('width', `${tv}px`);
+    }
+};
+
+
+/**
+ * HTMLElement height(Number) 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {number}
+ */
+const fn_getHeight = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tv = csd.getPropertyValue('height');
+        return fn_checkNumber(tv);
+    }
+    else return 0;
+};
+
+/**
+ * HTMLElement height(Number) 설정
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {number} tv
+ */
+const fn_setHeight = (to, tv) => {
+    const csd = fn_getStyle(to, true);
+    if (csd) {
+        tv = fn_checkNumber(tv);
+        csd.setProperty('height', `${tv}px`);
+    }
+};
+
+/**
+ * HTMLElement left(Number) 가져오기
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {number}
+ */
+const fn_getLeft = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tv = csd.getPropertyValue('left');
+        return fn_checkNumber(tv);
+    }
+    else return 0;
+};
+
+/**
+ * HTMLElement left(Number) 설정하기
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {number} tv
+ */
+const fn_setLeft = (to, tv) => {
+    const csd = fn_getStyle(to, true);
+    if (csd) {
+        tv = fn_checkNumber(tv);
+        csd.setProperty('left', `${tv}px`);
+    }
+};
+
+/**
+ * HTMLElement top(Number) 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {number}
+ */
+const fn_getTop = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tv = csd.getPropertyValue('top');
+        return fn_checkNumber(tv);
+    }
+    else return 0;
+};
+
+/**
+ * HTMLElement top(Number) 설정
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {number} tv
+ */
+const fn_setTop = (to, tv) => {
+    const csd = fn_getStyle(to, true);
+    if (csd) {
+        tv = fn_checkNumber(tv);
+        csd.setProperty('top', `${tv}px`);
+    }
+};
+
+/**
+ * HTMLElement Rect 반환
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @returns {DOMRect}
+ */
+const fn_getRect = (to) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tx = fn_getLeft(csd);
+        let ty = fn_getTop(csd);
+        let tw = fn_getWidth(csd);
+        let th = fn_getHeight(csd);
+        let rct = new DOMRect(tx, ty, tw, th);
+        return rct;
+    }
+    else return null;
+};
+
+/**
+ * TargetObject를 rct로 업데이트 한다.
+ * @param {CSSStyleDeclaration | HTMLElement} to TargetObject
+ * @param {DOMRect} rct
+ */
+const fn_updateRect = (to, rct) => {
+    const csd = fn_getStyle(to);
+    if (csd) {
+        let tw = fn_getWidth(csd);
+        let th = fn_getHeight(csd);
+        let tx = fn_getLeft(csd);
+        let ty = fn_getTop(csd);
+        rct.width = tw;
+        rct.height = th;
+        rct.x = tx;
+        rct.y = ty;
+    }
+};
+
+/**
+ * Rect에 좌표(tx, ty)가 포함되는지 여부
+ * @param {DOMRect} rct
+ * @param {number} tx
+ * @param {number} ty
+ * @returns {boolean}
+ */
+const fn_containsRect = (rct, tx, ty) => {
+    const rb =
+        ((rct.left <= tx) && (rct.right >= tx)) &&
+        ((rct.top <= ty) && (rct.bottom >= ty));
+    return rb;
+};
+
+/**
+ * Element에 Rect 적용하기
+ * @param {CSSStyleDeclaration | HTMLElement} to
+ * @param {DOMRect} rct
+ */
+const fn_applyRectToElement = (to, rct) => {
+    const csd = fn_getStyle(to, true);
+    if ((csd !== null) && (rct instanceof DOMRect)) {
+        fn_setLeft(csd, rct.left);
+        fn_setTop(csd, rct.top);
+        fn_setWidth(csd, rct.width);
+        fn_setHeight(csd, rct.height);
+    }
+};
+
+export const hfStyleHelper = Object.seal({
+    checkNumber: fn_checkNumber,
+    getStyle: fn_getStyle,
+    getWidth: fn_getWidth,
+    setWidth: fn_setWidth,
+    getHeight: fn_getHeight,
+    setHeight: fn_setHeight,
+    getLeft: fn_getLeft,
+    setLeft: fn_setLeft,
+    getTop: fn_getTop,
+    setTop: fn_setTop,
+    getRect: fn_getRect,
+    updateRect: fn_updateRect,
+    containsRect: fn_containsRect,
+    applyRectToElement: fn_applyRectToElement,
+});
+//#endregion
+

@@ -1,0 +1,100 @@
+@charset "utf-8";
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 01)*/
+div.c_page>div.c_pec {
+  position: relative; visibility: hidden;
+  width: 100%; height: 100%;
+  background-color: transparent;
+}
+
+div.c_page>div.c_pec>textarea.c_tam {
+  width: calc(100% - 10px); height: calc(100% - 30px);
+  margin: 0px 0px 0px 0px; padding: 5px 5px 5px 5px;
+  background-color: whitesmoke;
+  box-sizing: border-box; border: 1px solid black;
+  resize: none; outline: none;
+  font-family: inherit; font-weight: normal; font-size: 11px;
+}
+
+div.c_page>div.c_pec>div.c_footer {
+  position: absolute;
+  width: auto; height: auto;
+  padding: 0px 0px 0px 0px;
+  right: 0px; bottom: 0px;
+  background-color: transparent;
+  text-align: end; overflow: hidden;
+
+  /* font-family: inherit; font-size: 0px; */
+  /* align-content: center; */
+  /* position: absolute; */
+  /* width: auto; height: auto; */
+  /* overflow: auto; */
+  /* font-size: 0px; */
+  /* white-space: nowrap; */
+  /* right: 0px; bottom: 0px; */
+}
+/*#endregion*/
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 02)*/
+div.c_pec>div.c_footer>div.c_btn {
+  display: inline-block;
+  background-color: darkblue;
+  margin: 0px 0px 0px 4px;
+  padding: 2px 4px 2px 4px;
+  border-width: 0px;
+  font-family: inherit; font-size: 11px;
+  color: whitesmoke; cursor: pointer;
+}
+
+div.c_pec>div.c_footer>div.c_btn>span {
+  display: inline-block;
+}
+
+div.c_pec>div.c_footer>div.c_btn:active>span {
+  transform: translate(1.0px, 1.0px);
+}
+
+div.c_pec>div.c_footer>span.c_tip {
+  display: inline-block;
+  padding: 1px 10px 1px 1px;
+  color: dimgray;
+  font-weight: bolder;
+  font-size: 11px;
+}
+/*#endregion*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*#region ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/* div.c_footer>button.c_bt____ {
+  appearance: none;
+  background-color: darkblue;
+  margin: 0px 0px 0px 5px;
+  padding: 1px 1px 1px 1px;
+  border-width: 0px;
+  font-family: inherit; font-size: 11px;
+  color: whitesmoke; cursor: pointer;
+}
+
+div.c_footer>button.c_bt>span____ {
+  display: block;
+}
+
+div.c_footer>button.c_bt:active>span____ {
+  transform: translate(1px, 1px);
+} */
+/*#endregion*/

@@ -1,4 +1,4 @@
-//#region `Signature definition`
+//#region [Signature Definitions]
 /**
  * @callback FrameRepeaterCallback
  * @param {string} et - EventType
@@ -9,6 +9,7 @@
 //#endregion
 
 
+//#region [Frame 반복기]
 class hfFrameRepeater {
     static ET_UPDATE = 'update';
     static ET_END = 'end';
@@ -91,7 +92,10 @@ class hfFrameRepeater {
 
 };
 Object.freeze(hfFrameRepeater);
+//#endregion
+
 
 export {
     hfFrameRepeater
 };
+

@@ -1,0 +1,55 @@
+https://programming119.tistory.com/241#google_vignette
+디바운싱(Debouncing)과 쓰로틀링(Throttling)
+
+
+    let _bgp = true;
+    const fn_scrollOptimized = (ba=false) => {
+        if (_bgp) {
+            requestAnimationFrame(() => {
+                if (ba) fn_prepareVirtualDomElements();
+                fn_updateDomElementsRender();
+                fn_updateOutText();
+                _bgp = true;
+            });
+            _bgp = false;
+        }
+    };
+    // 디바운싱 구현체 샘플
+
+
+"sub/page07a/" 로 이전함
+테스트 완료 패쇄
+
+
+
+
+
+
+Node.js 개발 시 주로 사용되는 주요 MIME 타입(Media Type)은 다음과 같습니다. Node.js 자체에 내장된 목록은 없으며, 일반적으로 IANA 공식 표준을 따릅니다.
+1. 주요 카테고리별 MIME 타입
+텍스트 (Text):
+text/html: HTML 문서
+text/plain: 일반 텍스트 파일
+text/css: CSS 스타일시트
+text/javascript: 자바스크립트 파일 (최신 표준 권장)
+이미지 (Image):
+image/jpeg, image/png, image/gif: 일반적인 이미지 포맷
+image/svg+xml: SVG 벡터 이미지
+image/webp: 최신 웹 이미지 포맷
+애플리케이션 및 데이터 (Application):
+application/json: JSON 데이터 (API 통신 시 필수)
+application/pdf: PDF 문서
+application/octet-stream: 바이너리 데이터 (파일 다운로드 강제 시 사용)
+멀티미디어 (Audio/Video):
+audio/mpeg (MP3), video/mp4: 미디어 스트리밍 시 사용
+2. Node.js에서 MIME 타입 처리 방법
+Node.js 서버(Express 등)에서 파일 확장자에 따라 MIME 타입을 자동으로 설정하고 싶다면 전문 라이브러리를 사용하는 것이 효율적입니다.
+mime-types (NPM): 파일 확장자로 MIME 타입을 조회하거나 반대로 MIME 타입으로 확장자를 찾을 때 가장 많이 사용됩니다.
+mime (NPM): 간단한 API(getType, getExtension)를 제공하는 대중적인 패키지입니다.
+javascript
+// mime-types 사용 예시
+const mime = require('mime-types');
+const type = mime.lookup('.json'); // 'application/json' 반환
+코드를 사용할 때는 주의가 필요합니다.
+
+특정 파일 확장자에 대한 MIME 타입 확인이 필요하신가요, 아니면 Express 서버에서의 설정 방법이 궁금하신가요?

@@ -1,4 +1,4 @@
-//#region `hfCountTask: `
+//#region [Count 연산기]
 class hfCountTask {
     /**
      * 카운트 연산하기
@@ -67,9 +67,6 @@ class hfCountTask {
 
     /**
      * 리셋 하기
-     */
-    /**
-     * 리셋 하기
      * @param {boolean} bEnd end로 reset 여부
      */
     reset(bEnd=false) {
@@ -80,10 +77,13 @@ class hfCountTask {
             md.now = md.begin;
     }
 
-}
+};
 Object.freeze(hfCountTask);
+//#endregion
+
 
 export {
     hfCountTask
 };
-//#endregion
+
+
