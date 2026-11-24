@@ -1,4 +1,4 @@
-import { dcs } from "../../hbjs/hfStyleHelper.mjs";
+import { dcs } from "../../hbjs/hfCommon.js";
 import { hfWeich } from "../../hbjs/hfWeich.js";
 
 

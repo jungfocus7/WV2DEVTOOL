@@ -71,6 +71,10 @@ export class hfWeich {
         }
     }
 
+    /**
+     *
+     * @param {DOMHighResTimeStamp} _
+     */
     #fn_loopFrame(_) {
         const md = this.#md;
 

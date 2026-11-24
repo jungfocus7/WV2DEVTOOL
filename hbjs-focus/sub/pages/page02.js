@@ -1,4 +1,4 @@
-import { dcs } from "../../hbjs/hfStyleHelper.mjs";
+import { dcs } from "../../hbjs/hfCommon.js";
 import { hfCountTask } from "../../hbjs/hfCountTask.js";
 
 
@@ -47,10 +47,10 @@ const fn_keydown = (ke) => {
 
     const kcd = ke.code;
     if (kcd === 'ArrowLeft') {
-        _cnt.fn_prev();
+        _cnt.prev();
         fn_beforePrint('prev');
     } else if (kcd === 'ArrowRight') {
-        _cnt.fn_next();
+        _cnt.next();
         fn_beforePrint('next');
     } else if (kcd === 'Delete') {
         fn_print();
@@ -68,11 +68,11 @@ const fn_btn_clh = (pe) => {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const fn_clear = () => {
-    dcs.fn_log('fn_clear');
+    dcs.log('fn_clear');
 };
 
 const fn_stop = () => {
-    dcs.fn_log('fn_stop');
+    dcs.log('fn_stop');
 };
 
 const fn_init = (pd) => {
