@@ -1,0 +1,7 @@
+C:\Users\fkrrm\AppData\Local\Programs\Microsoft VS Code\41dd792b5e\resources\app\out\vs\workbench\workbench.desktop.main.css
+
+
+.titlebar-container.has-center>.titlebar-center{order:1;width:60%;
+.titlebar-container.has-center>.titlebar-right{order:2;width:20%;
+
+display:none;

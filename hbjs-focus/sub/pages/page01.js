@@ -1,5 +1,5 @@
-import { dcs } from "../../hbjs/hfCommon.js";
-import { hfnum, hfstr, hfarr, hfdtime } from "../../hbjs/hfCommon.js";
+import { dcs } from "../../hbjs/hfStyleHelper.mjs";
+import { hfnum, hfstr, hfarr, hfdtime } from "../../hbjs/hfStyleHelper.mjs";
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

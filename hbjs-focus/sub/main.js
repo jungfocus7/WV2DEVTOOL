@@ -1,4 +1,4 @@
-import { dcs, hfEventTypes } from "../hbjs/hfCommon.js";
+import { dcs, hfEventTypes } from "../hbjs/hfStyleHelper.mjs";
 import { hfEasingKind, hfEaseExponential, hfTween } from "../hbjs/hfTween.js";
 
 
@@ -179,7 +179,7 @@ const fn_mbtn_clh = (pe) => {
             fn_focusPage();
         }
     } else {
-        dcs.log(`[#App(Error) Page not found] ${btn.textContent}`);
+        dcs.fn_log(`[#App(Error) Page not found] ${btn.textContent}`);
     }
 };
 
@@ -195,7 +195,7 @@ const fn_importPages = async () => {
                 pd.fn_stop = rmd.fn_stop;
                 pd.fn_init = rmd.fn_init;
             } catch (err) {
-                dcs.log(err);
+                dcs.fn_log(err);
             }
         }
     }
@@ -226,7 +226,7 @@ const fn_initPages = () => {
         try {
             pd.fn_init?.(pd);
         } catch (err) {
-            dcs.log(err);
+            dcs.fn_log(err);
         }
 
         Reflect.defineProperty(pd.mbtn, 'pd', {value: pd});
@@ -347,7 +347,7 @@ const fn_initOnce = async () => {
         fn_ggwave(false);
     }
 
-    dcs.log('[#App(Initialized)]');
+    dcs.fn_log('[#App(Initialized)]');
 };
 
 

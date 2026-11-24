@@ -1,4 +1,4 @@
-import { dcs } from "../../hbjs/hfCommon.js";
+import { dcs } from "../../hbjs/hfStyleHelper.mjs";
 import { hfNumberRanger } from "../../hbjs/hfNumberRanger.js";
 
 
@@ -50,10 +50,10 @@ const fn_keydown = (ke) => {
 
     const kcd = ke.code;
     if (kcd === 'ArrowLeft') {
-        _nbrg.add(-1);
+        _nbrg.fn_add(-1);
         fn_beforePrint('-1');
     } else if (kcd === 'ArrowRight') {
-        _nbrg.add(1);
+        _nbrg.fn_add(1);
         fn_beforePrint('1');
     } else if (kcd === 'Delete') {
         fn_print();
@@ -65,7 +65,7 @@ const fn_keydown = (ke) => {
  * @param {PointerEvent} pe
  */
 const fn_btn_clh = (pe) => {
-    dcs.log('fn_btn_clh');
+    dcs.fn_log('fn_btn_clh');
 
     /** @type {HTMLDivElement} */
     let te = pe.currentTarget;

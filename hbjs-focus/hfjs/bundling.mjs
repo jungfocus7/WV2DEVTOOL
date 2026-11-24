@@ -1,4 +1,4 @@
-import { hfnum, hfstr, hfarr, hfdtime } from "./hfCommon.js";
+import { hfnum, hfstr, hfarr, hfdtime } from "./hfStyleHelper.mjs";
 import { hfCountTask } from "./hfCountTask.js";
 import { hfNumberRanger } from "./hfNumberRanger.js";
 import { hfEasingKind, hfEaseBack, hfEaseBounce, hfEaseCircular

@@ -1,4 +1,4 @@
-import { dcs } from "../../hbjs/hfCommon.js";
+import { dcs } from "../../hbjs/hfStyleHelper.mjs";
 import { hfFrameRepeater } from "../../hbjs/hfFrameRepeater.js";
 
 
@@ -36,19 +36,19 @@ let _frpt = new hfFrameRepeater(5, 100, fn_cbf);
  */
 const fn_keydown = (ke) => {
     // dcs.log('fn_keydown');
-    dcs.log(ke.code);
+    dcs.fn_log(ke.code);
 
     ke.preventDefault();
 
     let kcd = ke.code;
     if (kcd === 'Backquote') {
-        _frpt.reset();
+        _frpt.fn_reset();
     } else if (kcd === 'Digit1') {
-        _frpt.start();
+        _frpt.fn_start();
     } else if (kcd === 'Digit2') {
-        _frpt.stop();
+        _frpt.fn_stop();
     } else if (kcd === 'Delete') {
-        _frpt.stop();
+        _frpt.fn_stop();
         fn_print(null);
     }
 };
@@ -66,7 +66,7 @@ const fn_btn_clh = (pe) => {
 
     switch (nm) {
         case 'Clear': {
-            _frpt.stop();
+            _frpt.fn_stop();
             fn_print(null);
             break;
         }

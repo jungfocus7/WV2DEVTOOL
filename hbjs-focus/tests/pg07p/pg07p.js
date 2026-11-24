@@ -1,4 +1,4 @@
-import { hfEventTypes, hfStyleHelper, dcs } from "../../hbjs/hfCommon.js";
+import { hfEventTypes, hfStyleHelper, dcs } from "../../hbjs/hfStyleHelper.mjs";
 import { hfScrollTargetArea, hfScrollType, hfScrollWave } from "../../hbjs/hfScrollWave.js";
 
 

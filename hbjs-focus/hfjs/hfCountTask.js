@@ -1,22 +1,26 @@
-//#region [Count 연산기]
-class hfCountTask {
+/**
+ * Count 연산기
+ */
+export class hfCountTask {
+    #md = Object.seal({
+        begin: 0, end: 0, add: 0, now: 0
+    });
+
     /**
-     * 카운트 연산하기
      * @param {number} begin
      * @param {number} end
      * @param {number} add
      */
     constructor(begin=1, end=10, add=1) {
         const md = this.#md;
+
         md.begin = begin;
         md.end = end;
         md.add = Math.abs(Math.round(add));
         md.now = begin;
+
         Object.seal(this);
     }
-    #md = Object.seal({
-        begin: 0, end: 0, add: 0, now: 0
-    });
 
     get begin() {
         return this.#md.begin;
@@ -39,12 +43,13 @@ class hfCountTask {
      * 이전 단계
      * @returns boolean
      */
-    prev() {
+    fn_prev() {
         const md = this.#md;
-        const tc = md.now - md.add;
-        if (tc < md.begin)
+
+        let tc = md.now - md.add;
+        if (tc < md.begin) {
             return false;
-        else {
+        } else {
             md.now = tc;
             return true;
         }
@@ -54,12 +59,13 @@ class hfCountTask {
      * 다음 단계
      * @returns boolean
      */
-    next() {
+    fn_next() {
         const md = this.#md;
-        const tc = md.now + md.add;
-        if (tc > md.end)
+
+        let tc = md.now + md.add;
+        if (tc > md.end) {
             return false;
-        else {
+        } else {
             md.now = tc;
             return true;
         }
@@ -67,23 +73,18 @@ class hfCountTask {
 
     /**
      * 리셋 하기
-     * @param {boolean} bEnd end로 reset 여부
+     * @param {boolean} be end로 reset 여부
      */
-    reset(bEnd=false) {
+    fn_reset(be=false) {
         const md = this.#md;
-        if (bEnd)
+
+        if (be) {
             md.now = md.end;
-        else
+        } else {
             md.now = md.begin;
+        }
     }
 
 };
 Object.freeze(hfCountTask);
-//#endregion
-
-
-export {
-    hfCountTask
-};
-
-
+Object.freeze(hfCountTask.prototype);
