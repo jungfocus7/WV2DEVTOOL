@@ -26,3 +26,8 @@ export const fn_delay = (ms) => {
             globalThis.setTimeout(reject, ms);
     });
 };
+
+
+export const hfcom = Object.freeze({
+    fn_err, fn_delay,
+});

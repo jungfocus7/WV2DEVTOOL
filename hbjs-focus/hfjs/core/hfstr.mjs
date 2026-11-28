@@ -46,8 +46,8 @@ const fn_str2Ab = (str) => {
 const _decoder = new TextDecoder('utf-8', {fatal: true});
 /**
  * ArrayBuffer >> 문자열 변환
- * @param {Uint16Array} ab
- * @returns {any}
+ * @param {Uint8Array} ab
+ * @returns
  */
 const fn_ab2Str = (ab) => {
     return _decoder.decode(ab);

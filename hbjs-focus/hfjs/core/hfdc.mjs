@@ -1,18 +1,27 @@
+let _bUsed = true;
+
 /**
  * hf debug console
  */
-export const hfdc = Object.seal({
+export const hfdc = Object.freeze({
     /**
-     * 로그 사용여부
+     * ??
+     * @param {boolean} tv
      */
-    isLog: true,
+    fn_used(tv) {
+        if (typeof tv === 'boolean') {
+            _bUsed = tv;
+        } else {
+            return _bUsed;
+        }
+    },
 
     /**
      * 로그 기본
      * @param {...any} args
      */
     fn_log: (...args) => {
-        if (hfdc.isLog) {
+        if (_bUsed) {
             console.log.apply(null, args);
         }
     },
@@ -22,7 +31,7 @@ export const hfdc = Object.seal({
      * @param {string} msg
      */
     fn_msg: (msg) => {
-        if (hfdc.isLog) {
+        if (_bUsed) {
             console.log(msg);
         }
     }

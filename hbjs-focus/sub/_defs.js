@@ -5,7 +5,7 @@
  * @property {HTMLDivElement} leftMenuCont
  * @property {HTMLDivElement} pageCont
  *
- * @property {HTMLButtonElement} mbtn
+ * @property {HTMLDivElement} mbtn
  * @property {number} mi
  * @property {string} pgtnm
  * @property {string} pgtp

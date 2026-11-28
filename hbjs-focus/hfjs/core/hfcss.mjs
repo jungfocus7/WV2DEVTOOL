@@ -6,15 +6,17 @@
  */
 const fn_checkNumber = (tv, dv=0) => {
     let rv = NaN;
-    if (typeof tv === 'number')
+    if (typeof tv === 'number') {
         rv = tv;
-    else if (typeof tv === 'string')
+    } else if (typeof tv === 'string') {
         rv = Number.parseFloat(tv);
+    }
 
-    if (Number.isFinite(rv))
+    if (Number.isFinite(rv)) {
         return rv;
-    else
+    } else {
         return dv;
+    }
 };
 
 /**
@@ -24,16 +26,17 @@ const fn_checkNumber = (tv, dv=0) => {
  * @returns {CSSStyleDeclaration}
  */
 const fn_getStyle = (to, bw=false) => {
-    if (to instanceof CSSStyleDeclaration)
+    if (to instanceof CSSStyleDeclaration) {
         return to;
-    else if (to instanceof HTMLElement) {
-        if (bw)
+    } else if (to instanceof HTMLElement) {
+        if (bw) {
             return to.style;
-        else
+        } else {
             return getComputedStyle(to);
-    }
-    else
+        }
+    } else {
         return null;
+    }
 };
 
 /**
@@ -42,12 +45,13 @@ const fn_getStyle = (to, bw=false) => {
  * @returns {number}
  */
 const fn_getWidth = (to) => {
-    const csd = fn_getStyle(to);
+    let csd = fn_getStyle(to);
     if (csd) {
         let tv = csd.getPropertyValue('width');
         return fn_checkNumber(tv);
+    } else {
+        return 0;
     }
-    else return 0;
 };
 
 /**
@@ -56,7 +60,7 @@ const fn_getWidth = (to) => {
  * @param {number} tv
  */
 const fn_setWidth = (to, tv) => {
-    const csd = fn_getStyle(to, true);
+    let csd = fn_getStyle(to, true);
     if (csd) {
         tv = fn_checkNumber(tv);
         csd.setProperty('width', `${tv}px`);
@@ -70,12 +74,13 @@ const fn_setWidth = (to, tv) => {
  * @returns {number}
  */
 const fn_getHeight = (to) => {
-    const csd = fn_getStyle(to);
+    let csd = fn_getStyle(to);
     if (csd) {
         let tv = csd.getPropertyValue('height');
         return fn_checkNumber(tv);
+    } else {
+        return 0;
     }
-    else return 0;
 };
 
 /**
@@ -84,7 +89,7 @@ const fn_getHeight = (to) => {
  * @param {number} tv
  */
 const fn_setHeight = (to, tv) => {
-    const csd = fn_getStyle(to, true);
+    let csd = fn_getStyle(to, true);
     if (csd) {
         tv = fn_checkNumber(tv);
         csd.setProperty('height', `${tv}px`);
@@ -97,12 +102,13 @@ const fn_setHeight = (to, tv) => {
  * @returns {number}
  */
 const fn_getLeft = (to) => {
-    const csd = fn_getStyle(to);
+    let csd = fn_getStyle(to);
     if (csd) {
         let tv = csd.getPropertyValue('left');
         return fn_checkNumber(tv);
+    } else {
+        return 0;
     }
-    else return 0;
 };
 
 /**
@@ -111,7 +117,7 @@ const fn_getLeft = (to) => {
  * @param {number} tv
  */
 const fn_setLeft = (to, tv) => {
-    const csd = fn_getStyle(to, true);
+    let csd = fn_getStyle(to, true);
     if (csd) {
         tv = fn_checkNumber(tv);
         csd.setProperty('left', `${tv}px`);
@@ -124,12 +130,13 @@ const fn_setLeft = (to, tv) => {
  * @returns {number}
  */
 const fn_getTop = (to) => {
-    const csd = fn_getStyle(to);
+    let csd = fn_getStyle(to);
     if (csd) {
         let tv = csd.getPropertyValue('top');
         return fn_checkNumber(tv);
+    } else {
+        return 0;
     }
-    else return 0;
 };
 
 /**
@@ -138,7 +145,7 @@ const fn_getTop = (to) => {
  * @param {number} tv
  */
 const fn_setTop = (to, tv) => {
-    const csd = fn_getStyle(to, true);
+    let csd = fn_getStyle(to, true);
     if (csd) {
         tv = fn_checkNumber(tv);
         csd.setProperty('top', `${tv}px`);
@@ -151,7 +158,7 @@ const fn_setTop = (to, tv) => {
  * @returns {DOMRect}
  */
 const fn_getRect = (to) => {
-    const csd = fn_getStyle(to);
+    let csd = fn_getStyle(to);
     if (csd) {
         let tx = fn_getLeft(csd);
         let ty = fn_getTop(csd);
@@ -159,8 +166,9 @@ const fn_getRect = (to) => {
         let th = fn_getHeight(csd);
         let rct = new DOMRect(tx, ty, tw, th);
         return rct;
+    } else {
+        return null;
     }
-    else return null;
 };
 
 /**
@@ -169,7 +177,7 @@ const fn_getRect = (to) => {
  * @param {DOMRect} rct
  */
 const fn_updateRect = (to, rct) => {
-    const csd = fn_getStyle(to);
+    let csd = fn_getStyle(to);
     if (csd) {
         let tw = fn_getWidth(csd);
         let th = fn_getHeight(csd);
@@ -190,7 +198,7 @@ const fn_updateRect = (to, rct) => {
  * @returns {boolean}
  */
 const fn_containsRect = (rct, tx, ty) => {
-    const rb =
+    let rb =
         ((rct.left <= tx) && (rct.right >= tx)) &&
         ((rct.top <= ty) && (rct.bottom >= ty));
     return rb;
@@ -202,7 +210,7 @@ const fn_containsRect = (rct, tx, ty) => {
  * @param {DOMRect} rct
  */
 const fn_applyRectToElement = (to, rct) => {
-    const csd = fn_getStyle(to, true);
+    let csd = fn_getStyle(to, true);
     if ((csd !== null) && (rct instanceof DOMRect)) {
         fn_setLeft(csd, rct.left);
         fn_setTop(csd, rct.top);
@@ -212,7 +220,7 @@ const fn_applyRectToElement = (to, rct) => {
 };
 
 
-export const hfStyleHelper = Object.freeze({
+export const hfcss = Object.freeze({
     fn_checkNumber,
     fn_getStyle,
     fn_getWidth, fn_setWidth,

@@ -1,6 +1,8 @@
-import { dcs, hfEventTypes } from "../hbjs/hfCommon.js";
-import { hfEasingKind, hfEaseExponential, hfTween } from "../hbjs/hfTween.js";
-
+// import { dcs, hfEventTypes } from "../hbjs/hfCommon.js";
+// import { hfEasingKind, hfEaseExponential, hfTween } from "../hbjs/hfTween.js";
+import { hfdc } from "../hfjs/core/hfdc.mjs";
+import { hfEventTypes } from "../hfjs/mods/hfEventTypes.mjs";
+import { hfEasingFunctions, hfTween } from "../hfjs/mods/hfTween.mjs";
 
 
 /** @type {HTMLDivElement} */
@@ -21,41 +23,48 @@ const _pinFold = _leftMenuCont.querySelector('span.c_pinFold');
 
 /** @type {IPageData[]} */
 const _pageDataArr = (() => {
-    let ra = Array.from(_leftMenuCont.querySelectorAll('div.c_mbtn'))
-        .map((te, ti) => {
-            let txt = te.textContent.trim();
-            let pgtnm = txt.substring(3);
+    hfdc.fn_used(false);
 
-            /** @type {string} */
-            let dts = te.dataset['dts']?.trim();
-            let jar = dts?.split(',');
-            // dcs.log(dts, jar);
-            let pnm = jar.at(0);
-            let ptp = jar.at(1);
-            // dcs.log(pnm, ptp);
-            let purl = (pnm) ? `./pages/${pnm}.js` : null;
-            // dcs.log(purl);
 
-            /** @type {IPageData} */
-            let pd = {
-                rootCont: _rootCont,
-                leftMenuCont: _leftMenuCont,
-                pageCont: _pageCont,
+    /** @type {NodeListOf<HTMLDivElement>} */
+    let hes = _leftMenuCont.querySelectorAll('div.c_mbtn');
+    let ra = Array.from(hes).map((te, ti) => {
+        let txt = te.textContent.trim();
+        let pgtnm = txt.substring(3);
 
-                mbtn: te,
-                mi: ti,
-                pgtnm,
-                pgtp: ptp ?? null,
-                pgurl: purl,
-                pge: null,
+        /** @type {string} */
+        let dts = te.dataset['dts']?.trim();
+        let jar = dts?.split(',');
+        hfdc.fn_log(dts, jar);
 
-                fn_clear: null,
-                fn_stop: null,
-                fn_init: null,
-            };
-            // dcs.log(pd);
-            return Object.seal(pd);
-        });
+        let pnm = jar.at(0);
+        let ptp = jar.at(1);
+        hfdc.fn_log(pnm, ptp);
+
+        let purl = (pnm) ? `./pages/${pnm}.js` : null;
+        hfdc.fn_log(purl);
+
+        /** @type {IPageData} */
+        let pd = {
+            rootCont: _rootCont,
+            leftMenuCont: _leftMenuCont,
+            pageCont: _pageCont,
+
+            mbtn: te,
+            mi: ti,
+            pgtnm,
+            pgtp: ptp ?? null,
+            pgurl: purl,
+            pge: null,
+
+            fn_clear: null,
+            fn_stop: null,
+            fn_init: null,
+        };
+        hfdc.fn_log(pd);
+
+        return Object.seal(pd);
+    });
     return ra;
 })();
 
@@ -63,15 +72,18 @@ const _pageDataArr = (() => {
 const _pgdmpMap = (() => {
     /** @type {HTMLElement[]} */
     let tea = Array.from(_pageCont.querySelectorAll('div.c_pageCont>div.c_page'));
+
     /** @type {Map<string, string>} */
     let map = new Map();
+
     for (let te of tea) {
         let dsm = te.dataset;
         if ('tp' in dsm) {
-            // dcs.log('>>>>>', dsm.tp);
+            // hfdc.fn_log('>>>>>', dsm.tp);
             map.set(dsm.tp, te.outerHTML);
         }
     }
+
     return map;
 })();
 
@@ -88,6 +100,9 @@ const fn_getMatchingPageType = (ttp) => {
     }
 };
 
+/**
+ *
+ */
 const fn_getPageIndex = () => {
     let kvsa = document.cookie.split(';');
     let rv = '';
@@ -98,12 +113,18 @@ const fn_getPageIndex = () => {
     return +rv;
 };
 
+/**
+ *
+ */
 const fn_savePageIndex = () => {
     if (_cpd) {
         document.cookie = `pgi=${_cpd.mi}`;
     }
 };
 
+/**
+ *
+ */
 const fn_updatePinRect = () => {
     if (_cpd) {
         let ey = _cpd.mbtn.offsetTop;
@@ -111,6 +132,9 @@ const fn_updatePinRect = () => {
     }
 };
 
+/**
+ *
+ */
 const fn_focusPage = () => {
     if (_cpd) {
         _cpd.pge?.focus({preventScroll: true});
@@ -122,15 +146,22 @@ const fn_focusPage = () => {
 let _cpd = null;
 let _btwr = false;
 
+/**
+ *
+ */
 const fn_twr1_stop = () => {
     _btwr = false;
-    _twr1.stop();
+    _twr1.fn_stop();
 };
 
+/**
+ * @param {string} et
+ * @param {number} cv
+ */
 const fn_twr1_cbf = (et, cv) => {
-    if (et === hfTween.ET_UPDATE) {
+    if (et === hfTween.CT_UPDATE) {
         _pageCont.scrollTo(0, cv);
-    } else if (et === hfTween.ET_END) {
+    } else if (et === hfTween.CT_END) {
         window.setTimeout(() => {
             _btwr = false;
         }, 100);
@@ -138,9 +169,11 @@ const fn_twr1_cbf = (et, cv) => {
 };
 
 const _twr1 = new hfTween(0, 32,
-    new hfEaseExponential(hfEasingKind.easeInOut), fn_twr1_cbf);
+    hfEasingFunctions.circular.fn_easeInOut, fn_twr1_cbf);
 
-
+/**
+ *
+ */
 const fn_ggonly = () => {
     if (_cpd) {
         let begin = _pageCont.scrollTop;
@@ -149,11 +182,14 @@ const fn_ggonly = () => {
         if (end > max) end = max;
         if (begin !== end) {
             _btwr = true;
-            _twr1.fromTo(begin, end);
+            _twr1.fn_fromTo(begin, end);
         }
     }
 };
 
+/**
+ *
+ */
 const fn_ggwave = (bs=true) => {
     if (_cpd) {
         if (bs) fn_savePageIndex();
@@ -167,9 +203,8 @@ const fn_ggwave = (bs=true) => {
  * @param {PointerEvent} pe
  */
 const fn_mbtn_clh = (pe) => {
-    /** @type {HTMLButtonElement} */
-    let btn = pe.currentTarget;
-    /** @type {IPageData} */
+    let btn = /** @type {HTMLButtonElement} */(pe.currentTarget);
+    /** @type {IPageData} */ // @ts-ignore
     let pd = btn.pd;
     if (pd) {
         if (pd !== _cpd) {
@@ -179,12 +214,15 @@ const fn_mbtn_clh = (pe) => {
             fn_focusPage();
         }
     } else {
-        dcs.log(`[#App(Error) Page not found] ${btn.textContent}`);
+        hfdc.fn_log(`[#App(Error) Page not found] ${btn.textContent}`);
     }
 };
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ *
+ */
 const fn_importPages = async () => {
     for (let pd of _pageDataArr) {
         if (pd.pgurl !== null) {
@@ -195,12 +233,15 @@ const fn_importPages = async () => {
                 pd.fn_stop = rmd.fn_stop;
                 pd.fn_init = rmd.fn_init;
             } catch (err) {
-                dcs.log(err);
+                hfdc.fn_log(err);
             }
         }
     }
 };
 
+/**
+ *
+ */
 const fn_initPages = () => {
     _pageCont.innerHTML = '';
 
@@ -222,11 +263,11 @@ const fn_initPages = () => {
         _pageCont.insertAdjacentHTML('beforeend', rhs);
 
         pd.mbtn.addEventListener(hfEventTypes.CLICK, fn_mbtn_clh);
-        pd.pge = _pageCont.lastElementChild;
+        pd.pge = /** @type {HTMLDivElement} */ (_pageCont.lastElementChild);
         try {
             pd.fn_init?.(pd);
         } catch (err) {
-            dcs.log(err);
+            hfdc.fn_log(err);
         }
 
         Reflect.defineProperty(pd.mbtn, 'pd', {value: pd});
@@ -234,6 +275,9 @@ const fn_initPages = () => {
     }
 };
 
+/**
+ *
+ */
 const fn_initPageCont = () => {
     /**
      * @param {HTMLElement} te
@@ -243,10 +287,10 @@ const fn_initPageCont = () => {
         let re = te;
         do {
             if (re?.getAttribute('class') === 'c_page') {
-                // dcs.log('찾음');
+                // hfdc.fn_log('찾음');
                 break;
             }
-            // dcs.log('>>> ' + re);
+            // hfdc.fn_log('>>> ' + re);
             re = re.parentElement;
         } while (re instanceof HTMLElement);
 
@@ -255,15 +299,17 @@ const fn_initPageCont = () => {
     _pageCont.addEventListener('focusin', (fe) => {
         if (fe.relatedTarget === null) return;
 
-        // dcs.log('focusin');
+        // hfdc.fn_log('focusin');
         fe.stopPropagation();
         // fe.stopImmediatePropagation();
         // fe.preventDefault();
 
+        // @ts-ignore
         let re = fn_findParent(fe.target);
+        // @ts-ignore
         let pd = re.pd;
         if (pd !== _cpd) {
-            // dcs.log('~~~~');
+            // hfdc.fn_log('~~~~');
             _cpd = pd;
             fn_savePageIndex();
             fn_updatePinRect();
@@ -275,7 +321,7 @@ const fn_initPageCont = () => {
     _pageCont.addEventListener('focusin', (fe) => {
         if (fe.relatedTarget === null) return;
 
-        dcs.log('focusin');
+        hfdc.fn_log('focusin');
         fe.stopPropagation();
         // fe.stopImmediatePropagation();
         // fe.preventDefault();
@@ -285,7 +331,7 @@ const fn_initPageCont = () => {
             let st = getComputedStyle(pd.pge);
             if (st.borderColor === mcc) {
                 if (pd !== _cpd) {
-                    dcs.log('~~~~');
+                    hfdc.fn_log('~~~~');
                     _cpd = pd;
                     fn_savePageIndex();
                     fn_updatePinRect();
@@ -298,7 +344,7 @@ const fn_initPageCont = () => {
     });*/
 
     _pageCont.addEventListener('mousedown', (me) => {
-        // dcs.log('mousedown', me);
+        // hfdc.fn_log('mousedown', me);
         me.stopPropagation();
         // me.stopImmediatePropagation();
 
@@ -310,7 +356,7 @@ const fn_initPageCont = () => {
     });
 
     _pageCont.addEventListener('mousewheel', (me) => {
-        // dcs.log('mousewheel', me);
+        // hfdc.fn_log('mousewheel', me);
         me.stopPropagation();
         // me.stopImmediatePropagation();
 
@@ -318,9 +364,12 @@ const fn_initPageCont = () => {
     });
 };
 
+/**
+ *
+ */
 const fn_initPins = () => {
     let bc = true;
-    let fn_clh = (_) => {
+    let fn_clh = (/** @type {PointerEvent} */ _) => {
         if (bc) {
             let stl = _leftMenuCont.style;
             stl.width = '32px';
@@ -334,6 +383,9 @@ const fn_initPins = () => {
     _pinFold.addEventListener(hfEventTypes.CLICK, fn_clh);
 };
 
+/**
+ *
+ */
 const fn_initOnce = async () => {
     await fn_importPages();
     fn_initPages();
@@ -347,7 +399,7 @@ const fn_initOnce = async () => {
         fn_ggwave(false);
     }
 
-    dcs.log('[#App(Initialized)]');
+    hfdc.fn_log('[#App(Initialized)]');
 };
 
 

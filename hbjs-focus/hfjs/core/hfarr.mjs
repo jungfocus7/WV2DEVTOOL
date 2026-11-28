@@ -1,4 +1,4 @@
-import { hfnum } from "./_hfnum.mjs";
+import { hfnum } from "./hfnum.mjs";
 
 
 /**
@@ -36,16 +36,16 @@ const fn_notEmpty = (arr) => {
 const fn_contains = (arr, te) => {
     if (fn_isEmpty(arr)) return false;
 
-    let tb = false;
-    const l = arr.length
+    let rb = false;
+    let l = arr.length
     for (let i = 0; i < l; i++) {
         if (arr[i] === te) {
-            tb = true;
+            rb = true;
             break;
         }
     }
 
-    return tb;
+    return rb;
 };
 
 /**
@@ -56,7 +56,7 @@ const fn_contains = (arr, te) => {
 const fn_shuffle = (arr) => {
     if (fn_isEmpty(arr)) return null;
 
-    const l = arr.length;
+    let l = arr.length;
     for (let i = 0; i < l; i++) {
         let te = arr[i];
         let ti = hfnum.fn_randRange(0, l - 1);

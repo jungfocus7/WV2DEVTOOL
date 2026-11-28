@@ -1,4 +1,4 @@
-import { fn_err } from "./_hfcom.mjs";
+import { fn_err } from "../core/hfcom.mjs";
 
 
 /**

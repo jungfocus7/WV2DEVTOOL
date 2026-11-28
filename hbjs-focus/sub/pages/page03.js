@@ -1,8 +1,12 @@
-import { dcs } from "../../hbjs/hfCommon.js";
-import { hfNumberRanger } from "../../hbjs/hfNumberRanger.js";
+import { hfdc } from "../../hfjs/core/hfdc.mjs";
+import { hfNumberRanger } from "../../hfjs/mods/hfNumberRanger.mjs";
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * ??
+ * @param {string} t1
+ */
 const fn_beforePrint = (t1) => {
     let msg = `
 _nbrg = new hfNumberRanger(13, 10);
@@ -50,10 +54,10 @@ const fn_keydown = (ke) => {
 
     const kcd = ke.code;
     if (kcd === 'ArrowLeft') {
-        _nbrg.add(-1);
+        _nbrg.fn_add(-1);
         fn_beforePrint('-1');
     } else if (kcd === 'ArrowRight') {
-        _nbrg.add(1);
+        _nbrg.fn_add(1);
         fn_beforePrint('1');
     } else if (kcd === 'Delete') {
         fn_print();
@@ -65,11 +69,11 @@ const fn_keydown = (ke) => {
  * @param {PointerEvent} pe
  */
 const fn_btn_clh = (pe) => {
-    dcs.log('fn_btn_clh');
+    hfdc.fn_log('fn_btn_clh');
 
     /** @type {HTMLDivElement} */
-    let te = pe.currentTarget;
-    let nm = te.textContent.trim();
+    let he = /** @type {HTMLDivElement} */ (pe.currentTarget);
+    let nm = he.textContent.trim();
     // dcs.log(nm);
 
     switch (nm) {
@@ -83,37 +87,41 @@ const fn_btn_clh = (pe) => {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const fn_clear = () => {
-    // dcs.log('fn_clear');
+    hfdc.fn_log('fn_clear');
 };
 
 const fn_stop = () => {
-    // dcs.log('fn_stop');
+    hfdc.fn_log('fn_stop');
 };
 
+/**
+ * @param {IPageData} pd
+ */
 const fn_init = (pd) => {
-    // dcs.log('fn_init');
+    hfdc.fn_log('fn_init');
 
     _pageData = pd;
-    // dcs.log(_pageData.mbtn, _pageData.pge);
+    hfdc.fn_log(_pageData.mbtn, _pageData.pge);
 
     _pageData.pge.addEventListener('keydown', fn_keydown);
     _pec = _pageData.pge.querySelector('div.c_pec');
-    // dcs.log(_pec);
+    hfdc.fn_log(_pec);
     _pec.style.visibility = 'visible';
 
     _tam = _pec.querySelector('textarea.c_tam');
-    // dcs.log(_tam);
+    hfdc.fn_log(_tam);
 
     _footer = _pec.querySelector('div.c_footer');
-    // dcs.log(_footer);
+    hfdc.fn_log(_footer);
 
     _pec.querySelector('div.c_tip').textContent = `
 [##KeyDown]
  ArrowLeft: add(-1), ArrowRight: add(1), Delete: clear
     `.trim();
 
-    _btnArr = Array.from(_footer.children);
-    // dcs.log(_btnArr);
+    _btnArr = /** @type {HTMLDivElement[]} */ (Array.from(_footer.children));
+    hfdc.fn_log(_btnArr);
+
     for (let te of _btnArr) {
         te.addEventListener('click', fn_btn_clh);
     }
